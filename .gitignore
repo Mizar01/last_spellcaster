@@ -1,0 +1,7 @@
+others/
+logs/
+*.log
+*.p8l
+demos/
+shrinko8/
+jump_tuner*

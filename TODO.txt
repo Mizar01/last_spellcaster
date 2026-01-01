@@ -1,0 +1,17 @@
+I will survive
+- (MAYBE NOT A PROBLEM) player speed goes to zero slowly but the player does not move if the arrow keys are not pressed
+OK review again !!! the cost of items in the shop, lower more the cost
+OK when shrinking the player hitbox, the collision to left wall seems to push the player to the right too much
+OK fix the player jumping
+OK make the heart disappear after some time
+OK fix dialogues
+OK add ending
+OK add sound effects
+OK color the background based on theme
+- almost all gems should be reachable, but to be sure, better to respawn the gems periodically
+OK review all maps
+OK dead's logs won't open
+OK adjust (debuff) speed bonuses (it's too fast now)
+OK re-test the shop costs during gameplay
+OK re-test gameplay
+OK add heart icon near health bar
