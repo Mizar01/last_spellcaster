@@ -6,8 +6,16 @@ c_enemy = {
         l.etype = etype
         l.hitbox = {x = 2, y = 2, x2 = 5, y2 = 5}
         l.speed = speed or 1
+        l.life = 100
         setmetatable(l, c_enemy)
         return l
+    end,
+    take_damage = function(self, dmg)
+        self.life -= dmg
+        if (self.life <= 0) then
+            self:del()
+            -- c_explosion.new(self.x + 4, self.y + 4, 6, game.mgr.misc_mgr)
+        end
     end,
 }
 c_enemy.__index = c_enemy

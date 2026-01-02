@@ -53,24 +53,8 @@ sample_map = {
         "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1",
     }
 
-neighbor_conf_codes = {
-    none = 0,
-    up = 1,
-    down = 2,
-    left = 4,
-    right = 8,
-    up_down = 3,
-    left_right = 12,
-    up_left = 5,
-    up_right = 9,
-    down_left = 6,
-    down_right = 10,
-    up_down_left = 7,
-    up_down_right = 11,
-    up_left_right = 13,
-    down_left_right = 14,
-    all = 15,
-}
+-- neighbor config nodes
+ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = 0,1,2,4,8,3,5,9,6,10,12,7,11,13,14,15
 
 themes = {
     metal = {
@@ -83,7 +67,7 @@ themes = {
     },
     grass = {
         tile_maps = {33, 34, 35, 36, 37},
-        bg_col = -11,
+        bg_col = 1,
     },
     ice = {
         tile_maps = {49, 50, 51, 52, 53},

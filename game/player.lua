@@ -80,6 +80,7 @@ c_player = {
 			right = btn(1,0),
 			jump = btn(4,0),
 			jump_start = btnp(4,0),
+			action = btnp(5,0),
 			-- d = btnp(3,1), -- d key (for debug)
 		}
 
@@ -115,8 +116,11 @@ c_player = {
 			end
 		end
 
-		p.life = max(0, p.life - p.life_dec_speed * (1/fps))
+		if (btn.action) then
+			self:attack(p)
+		end
 
+		p.life = max(0, p.life - p.life_dec_speed * (1/fps))
 
 	end,
 	draw = function(self)
@@ -222,25 +226,16 @@ c_player = {
 		return solid_left or solid_right
 	end,
 	apply_end_stage_upgrades = function(self)
-		local p = self
+		-- local p = self
 		-- for _, upgrade in pairs(p.permanent_upgrades.after_stage) do
 		-- 	upgrade(p)
 		-- end
 	end,
-	start_teleport = function(self)
-		local p = self
-		p.invulnerable = true
-		p.blocked = true
-		p.invisible = true
+	attack = function(self)
+		-- default attack does nothing
+		c_fireball.new(self.x + 8, self.y, self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
+		flog("attack")
 	end,
-	end_teleport = function(self, portal_dest)
-		local p = self
-		p.x = portal_dest.x
-		p.y = portal_dest.y
-		p.invulnerable = false
-		p.invisible = false
-		p.blocked = false
-	end,
+
 }
-c_player.__index = c_player
-setmetatable(c_player, c_obj)
+class_inherit(c_player, c_obj)

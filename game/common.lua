@@ -156,6 +156,13 @@ function lerp(a,b,t)
     return result
 end
 
+function timer_lerp(origin, max_length, timer, reversed)
+    local t = timer.t / timer.maxtime
+    if (reversed) t = 1 - t
+    return lerp(origin, origin + max_length, t)
+end
+
+
 -- Prints multiple lines of text, centered or not centered
 -- the lines are splitted using "*" char
 function mlprint(msg, x, y, color, centered)

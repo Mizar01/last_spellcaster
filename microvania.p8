@@ -4,6 +4,7 @@ __lua__
 #include game/common.lua
 #include game/shop.lua
 #include game/compressed_maps.lua
+#include game/base.lua
 #include game/utils.lua
 #include game/config.lua
 #include game/player.lua
