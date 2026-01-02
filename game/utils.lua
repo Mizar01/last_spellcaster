@@ -110,12 +110,6 @@ c_obj = {
 		s.last_frame = next_sprite
 
 	end,
-	adv_frame = function(self)
-		local frame_inc_speed = fps / 30
-		local sprites = self.spr[self.phase]
-		self.spr.frame = (self.spr.frame + frame_inc_speed) % #sprites
-		return self.spr.frame
-	end,
 	-- tolerance is used to make collision less strict
 	collide = function(self, other, tolx, toly)
 		local h1 = self:hitbox_pos(0, 0)
@@ -425,16 +419,24 @@ cam = {
     y = 0,
     ox = 64 - 8,
     oy = 94 - 8,
-    csfx = 0.07,
-	csfy = 0.02,
+    csfx = 0.05,
+	csfy = 0.07,
     update = function(self)
         self.x += (player.x - self.x) * self.csfx
         self.y += (player.y - self.y) * self.csfy
+		local cx, cy = self:calc_center()
+		camera(cx, cy)
     end,
-    draw = function(self)
-		local cx, cy = self.x - self.ox, self.y - self.oy
-        camera(cx, cy)
-		-- draw black rectangle in the bottom part (hiding sprites for the second part of the map)
-		rectfill(-64, 32 * 8, 128 * 8 + 64, 128 * 8 + 64, 0) -- bottom
-    end,
+    -- draw = function(self)
+	-- 	-- draw black rectangle in the bottom part (hiding sprites for the memory shared part of the map with sprites)
+	-- 	-- rectfill(-64, 32 * 8, 128 * 8 + 64, 128 * 8 + 64, 0) -- bottom
+	-- 	test_point(10, 10)
+    -- end,
+	place = function(self, x, y)
+		self.x = x
+		self.y = y
+	end,
+	calc_center = function(self)
+		return flr(self.x) - self.ox, flr(self.y) - self.oy
+	end,
 }

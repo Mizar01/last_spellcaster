@@ -5,7 +5,7 @@ c_player = {
 		p.spr = {
 			idle = { sprites = { 64, 65 }, fps = 2 },
 			walk = { sprites = { 80, 81, 82 }, fps = 6 },
-			jump = { sprites = { 97, 98, 99, 98, 97, 96 }, fps = 4 },
+			jump = { sprites = { 97, 98, 99, 100, 101, 102 }, fps = 8 },
 			dead = { sprites = { 68, 69, 70, 71, 72 }, fps = 4, loop = false },
 			flip_x = false,
 			flip_y = false,
@@ -202,6 +202,7 @@ c_player = {
 		if (self:on_ground()) then
 			self:reset_jump_vars()
 			self.phase = "jump"
+			self.spr.time_start = nil
 			self.jstack = self.max_jstack
 			if (sfx_on) sfx(sfx_jump)
 		end

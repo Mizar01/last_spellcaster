@@ -1,6 +1,22 @@
+c_hud_element = {
+    new = function(x, y)
+        local h = c_obj.new(x, y)
+        h.fixedx, h.fixedy = x, y
+        setmetatable(h, c_hud_element)
+        return h
+    end,
+    update = function(self)
+        -- follow camera offset
+        local cx, cy = cam:calc_center()
+        self.x = self.fixedx + cx
+        self.y = self.fixedy + cy
+    end,
+}
+class_inherit(c_hud_element, c_obj)
+
 c_popup = {
     new = function(x, y, msg)
-        local l = c_obj.new(x, y)
+        local l = c_hud_element.new(x, y)
         l.spr = {}
         l.ttl = c_timer.new(10, false)
         l.fade_seq = {8,8,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,9,9,9,9,9,9}
@@ -14,6 +30,7 @@ c_popup = {
         return l
     end,
     update = function(self)
+        c_hud_element.update(self)
         if (btnp(5,0) and self.frames_before_int <= 0) then
             self.parent_mgr:del(self)
             game.paused = false
@@ -30,12 +47,11 @@ c_popup = {
         cprint("press (❎) to continue", self.x, (self.y + self.max_height / 2) - 10, c)
     end,
 }
-c_popup.__index = c_popup
-setmetatable(c_popup, c_obj)
+class_inherit(c_popup, c_hud_element)
 
 c_val_printer = {
     new = function(x, y, bg_length, draw_fn)
-        local l = c_obj.new(x, y) 
+        local l = c_hud_element.new(x, y) 
         l.draw_fn = draw_fn
         l.bgl = bg_length
         l.spr.idle = { ss = 137 },
@@ -47,12 +63,11 @@ c_val_printer = {
         self.draw_fn(self)
     end,
 }
-c_val_printer.__index = c_val_printer
-setmetatable(c_val_printer, c_obj)
+class_inherit(c_val_printer, c_hud_element)
 
 c_player_life_bar = {
     new = function(x, y)
-        local l = c_obj.new(x, y)
+        local l = c_hud_element.new(x, y)
         l.spr.idle = { ss = 170 }
         l.life_ref = player.init_max_life
         setmetatable(l, c_player_life_bar)
@@ -66,8 +81,7 @@ c_player_life_bar = {
         progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 0, 8)
     end,
 }
-c_player_life_bar.__index = c_player_life_bar
-setmetatable(c_player_life_bar, c_obj)
+class_inherit(c_player_life_bar, c_hud_element)
 
 
 
@@ -94,7 +108,7 @@ c_hud_mgr = {
                 print("stage "..tostr(stage), self.x + 1, self.y + 1, 8)
             end),
             c_player_life_bar.new(10, 120),
-            c_popup.new(64, 64, "stage "..tostr(stage).."*"..stage_config_get().name)
+            -- c_popup.new(64, 64, "stage "..tostr(stage).."*"..stage_config_get().name)
         }
         flog("HUD mgr restarted")
     end,
@@ -103,5 +117,4 @@ c_hud_mgr = {
         self:add(p)
     end,
 }
-c_hud_mgr.__index = c_hud_mgr
-setmetatable(c_hud_mgr, c_mgr)
+class_inherit(c_hud_mgr, c_mgr)

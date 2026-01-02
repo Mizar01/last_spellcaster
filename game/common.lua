@@ -46,7 +46,7 @@ end
 
 function test_point(x, y)
     -- draw a rectangle centered at (x, y)
-    rect(x-1, y-1, x+1, y+1, 8)
+    rect(x-1, y-1, x+1, y+1, rnd(15))
 end
 
 -- Get the tile at pixel coordinates (x, y) given the size of a single tile (tw, th)
@@ -183,4 +183,8 @@ end
 function class_inherit(derived, base)
     derived.__index = derived
     setmetatable(derived,base)
+end
+
+function round(num)
+    return flr(num + 0.5)
 end

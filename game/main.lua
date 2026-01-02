@@ -36,6 +36,7 @@ c_game = {
             "sorry, you are not qualified!",
         }
         g.game_over_msg = ""
+        menuitem(1, "restart game", function() game:start_menu() end)
         setmetatable(g, c_game)
         return g
     end,
@@ -44,29 +45,20 @@ c_game = {
         self.menu = false
         self.play = true
         if (self.require_player_rebuild) then
-            self.player = c_player.new(0, 0)
+            player = c_player.new(0, 0)
             self.require_player_rebuild = false
         end
         self.game_over = false
-        player = self.player  -- set global player reference
-        self.player:reset_stage_props()
+        player:reset_stage_props()
         for _, v in pairs(self.mgr) do
             if (v.restart) v:restart()
         end
         setup_stage_from_string()
-        -- I must create the random starting gem from outside the misc mgr, because 
-        --  if i call it in the :restart method, it will not check some conditions on
-        --  map objects.
-        self.mgr.misc_mgr.needs_new_gem = true
+        cam:place(player.x, player.y)
 
         if (music_on) music(stage_config_get().music)  -- play stage music
     end,
     setup_final_event = function(self)
-        local misc_mgr = self.mgr.misc_mgr
-        mset(15, 4, 0)  -- remove blocking wall
-        mset(16, 5, 1)  -- add walkable tile outside the screen
-        c_gem.new(16 * 8 + 1, 4 * 8 + 1, misc_mgr) -- create the final gem (outside the screen)
-        misc_mgr.needs_new_gem = false
     end,
     setup_win_lose_stage = function(self)
         -- the time has run out. if all the gems have been collected, win the stage, else game over
@@ -74,7 +66,7 @@ c_game = {
             self.win_stage = true
             self.win_game = (stage == #stage_config)
             if (self.win_game) music(11)
-            self.player:apply_end_stage_upgrades()
+            player:apply_end_stage_upgrades()
         else
             self.game_over_msg = "you didn't collect all gems!"
             self:set_game_over()
@@ -140,7 +132,7 @@ c_game = {
         end
 
         -- Update play
-        self.player:update()
+        player:update()
         cam:update()
         for _, v in pairs(self.mgr) do
             if (v.update) v:update()
@@ -148,6 +140,7 @@ c_game = {
             
     end,
     draw = function(self)
+
         if self.menu then
             cls(8)
             rectfill(0, 40, 127, 80, 0)
@@ -162,7 +155,7 @@ c_game = {
             )
             line(0, 40, 127, 40, 7)
             line(0, 80, 127, 80, 7)
-            cprint("* i will survive! *", 64, 50, 7)
+            cprint("* new title here! *", 64, 50, 7)
             cprint("press (❎) to start", 64, 70, adv_timed_arr(1, {7,0}))
             return
         end
@@ -175,17 +168,16 @@ c_game = {
 
         -- Draw play
         cls(stage_config_get().theme.bg_col)
-        map()
+        map(0, 0, 0, 0, 128, 32, false)
 
         self.mgr.misc_mgr:draw()
         self.mgr.enemy_mgr:draw()
-        self.player:draw()
+        player:draw()
         self.mgr.hud_mgr:draw()  -- Always on top
-        cam:draw()
 
-        -- print("p jstart: "..tostr(self.player.jstart), 0, 0, 7)
-        -- print("p jforce: "..tostr(self.player.jforce), 0, 6, 7)
-        -- print("p speedy: "..tostr(self.player.speedy), 0, 12, 7)
+        -- print("p jstart: "..tostr(player.jstart), 0, 0, 7)
+        -- print("p jforce: "..tostr(player.jforce), 0, 6, 7)
+        -- print("p speedy: "..tostr(player.speedy), 0, 12, 7)
         
         if (self.win_game) then
             crectfill(64, 64, 120, 55, 1)
