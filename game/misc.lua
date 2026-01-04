@@ -24,43 +24,35 @@ c_explosion = {
 class_inherit(c_explosion, c_obj)
 
 c_element = {
-    new = function(x, y, el, dir)
-        local l = c_obj.new(x, y, game.mgr.misc_mgr)
-        l.solid = false
+    new = function(el, dir)
+        local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
+        local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
         l.damage = 10
         l.ttl = c_timer.new(0.3, false)
-        l.radius = 1
-        l.max_radius = 2
-        l.origx, l.origy = x, y
+        l.origx, l.origy = origx, origy
         l.max_dist = 20
         l.dir = dir
         l.el = el
+        l.destroy_req_prev_frame = false
         setmetatable(l, c_element)
         return l
     end,
     update = function(self)
-        self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
-        self.radius = timer_lerp(1, self.max_radius, self.ttl, true)
-        if (self.ttl:adv()) then
+        if (self.destroy_req_prev_frame) then
             self:del()
             return
         end
+        if (self.ttl:adv()) then
+            self.destroy_req_prev_frame = true -- mark for deletion next frame, because i need also to use the time at 0.
+        end
+        self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
         for e in all(game.mgr.enemy_mgr.objs) do
             if (self:collide(e)) then
                 e:take_damage(self.damage)
                 self:del()
-                c_explosion.new(self.x + 2, self.y + 4, 4, game.mgr.misc_mgr)
+                c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
                 break
             end
-        end
-    end,
-    draw = function(self)
-        local cols = {1, 2, 9, el_colors[self.el + 1]}
-        local dm = self:dirmult()
-        for i = 0, 3 do
-            local radf = (i / 3) * self.radius
-            local offset_x =  dm * i * 2
-            circfill(self.x + offset_x, self.y + 4, 1.5 * radf, cols[i+1])
         end
     end,
     dirmult = function(self)
@@ -68,6 +60,86 @@ c_element = {
     end,
 }
 class_inherit(c_element, c_obj)
+
+c_fire = {
+    new = function(dir, parent_mgr)
+        local l = c_element.new(el_fire, dir)
+        l.radius = 1
+        l.max_radius = 2
+        setmetatable(l, c_fire)
+        return l
+    end,
+    update = function(self)
+        c_element.update(self)
+        if (self.ttl.t > 0) self.radius = timer_lerp(1, self.max_radius, self.ttl, true)
+    end,
+    draw = function(self)
+        local cols = {1, 2, 9, 8}
+        local dm = self:dirmult()
+        for i = 0, 3 do
+            local radf = (i / 3) * self.radius
+            local offset_x =  dm * i * 2
+            circfill(self.x + offset_x, self.y, 1.5 * radf, cols[i+1])
+        end
+    end,
+}
+class_inherit(c_fire, c_element)
+
+c_ice = {
+    new = function(dir, parent_mgr)
+        local l = c_element.new(el_ice, dir)
+        l.radius = 1
+        l.max_radius = 1.5
+        setmetatable(l, c_ice)
+        return l
+    end,
+    update = function(self)
+        c_element.update(self)
+        if (self.ttl.t > 0) self.radius = timer_lerp(1, self.max_radius, self.ttl, true)
+    end,
+    draw = function(self)
+        local cols = {12, 6}
+        local dm = self:dirmult()
+        rectfill(self.x + dm * 0 - self.radius, self.y - self.radius, self.x + dm * 0 + self.radius, self.y + self.radius, rnd(cols))
+    end,
+}
+class_inherit(c_ice, c_element)
+
+c_thunder = {
+    new = function(dir, parent_mgr)
+        local l = c_element.new(el_thunder, dir)
+        l.spr.idle = { ss = 59 }
+        l.ttl = c_timer.new(0.2, false)
+        l.max_dist = 25 -- takes three sprites space + a tolerance
+        setmetatable(l, c_thunder)
+        return l
+    end,
+    update = function(self)
+        c_element.update(self)
+        -- add trail point
+    end,
+    draw = function(self)
+        -- local sx, sy = spr_to_px(self.spr.idle.ss)
+        -- sspr(sx, sy, self.x - self.origx, 8, self.origx, self.origy)
+        local step = 4
+        local x = self.origx
+        local y = self.origy
+        local dm = self:dirmult()
+        local cnt = true
+        while (true) do
+            local next_x = x + step * dm
+            local next_y = y + (rnd(4) - 2)
+            flog("next_x:"..next_x)
+            line(x, y, next_x, next_y, 7)
+            x = next_x
+            y = next_y
+            if (dm == 1 and x > self.x + 1) break
+            if (dm == -1 and x < self.x - 1) break
+        end
+    end,
+}
+class_inherit(c_thunder, c_element)
+
 
 c_interactive = {
     new = function(x, y, parent_mgr)
@@ -82,6 +154,7 @@ c_interactive = {
     update = function(self)
         if (self:collide(player)) then
             self.show_int_button = true
+            player.interaction_fn = self.interact
             local ttl_disable_int = self.ttl_disable_int
             if (btnp(5,0) and not self.int_done) then
                 self:interact()

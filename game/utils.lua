@@ -250,11 +250,7 @@ cam = {
 		local cx, cy = self:calc_center()
 		camera(cx, cy)
     end,
-    -- draw = function(self)
-	-- 	-- draw black rectangle in the bottom part (hiding sprites for the memory shared part of the map with sprites)
-	-- 	-- rectfill(-64, 32 * 8, 128 * 8 + 64, 128 * 8 + 64, 0) -- bottom
-	-- 	test_point(10, 10)
-    -- end,
+    -- sudden placing of the camera to the given position
 	place = function(self, x, y)
 		self.x = x
 		self.y = y

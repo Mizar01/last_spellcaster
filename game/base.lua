@@ -39,7 +39,6 @@ c_obj = {
  	end,
     del = function(self)
         self.destroyed = true
-        flog("destroyed obj:"..self.name)
         if (self.parent_mgr) then
             self.parent_mgr:del(self)
         end

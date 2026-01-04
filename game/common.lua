@@ -208,3 +208,14 @@ end
 --     end
 --     btnc = bor(btnc, shl(btn(b), b))
 -- end    
+
+-- the sin from any angle in degrees
+function sinangle(angle_deg)
+    return sin((angle_deg % 360) / 360)
+end
+
+function spr_to_px(spr_idx)
+    local sx = (spr_idx % 16) * 8
+    local sy = flr(spr_idx / 16) * 8
+    return sx, sy
+end

@@ -15,6 +15,7 @@ gravity = 0.25
 dir_left, dir_right, dir_up, dir_down = 0, 1, 2, 3
 el_fire, el_thunder, el_ice, el_wind = 0, 1, 2, 3
 el_colors = {8, 10, 12, 13}
+el_cls = {c_fire, c_thunder, c_ice, nil} -- element class for each element type
 fsolid_idx = 0 --sprint flag index used for solid
 game = nil
 player = nil

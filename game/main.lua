@@ -132,11 +132,11 @@ c_game = {
         end
 
         -- Update play
-        player:update()
-        cam:update()
         for _, v in pairs(self.mgr) do
             if (v.update) v:update()
         end
+        player:update()
+        cam:update()
             
     end,
     draw = function(self)

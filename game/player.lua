@@ -46,10 +46,12 @@ c_player = {
 
 		-- element props
 		p.current_element = el_fire
-		p.avail_elements = {el_fire, nil, el_ice, nil}
+		p.avail_elements = {el_fire, el_thunder, el_ice, nil}
 		p.el_cooldown = c_timer.new(1, false)
 
 		p.shine_star = 0 -- frames to show the shining star above the player head
+
+		p.interaction_fn = nil -- current function given by an interactive object
 
 		setmetatable(p, c_player)
 		return p
@@ -121,13 +123,20 @@ c_player = {
 		end
 
 		if (btn.action) then
-			self:attack(p)
+			if (self.interaction_fn != nil) then
+				 self.interaction_fn = nil
+			else self:attack()
+			end
 		end
 
 		if (self.el_cooldown:adv()) then
 			-- show a little shining start above the player head for some frames.
 			self.shine_star = 10
 		end
+
+		-- reset interaction function at every frame. NOTE: it's mandatory that the function must be assigned before updating the player
+		--  in order to be execute	d.
+		self.interaction_fn = nil
 		
 
 	end,
@@ -247,7 +256,7 @@ c_player = {
 	attack = function(self)
 		if (self.el_cooldown.t <= 0) then
 			-- default attack does nothing
-			c_element.new(self.x + 8, self.y, self.current_element, self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
+			el_cls[self.current_element + 1].new(self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
 			self.el_cooldown:restart()
 		end
 	end,
