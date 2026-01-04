@@ -17,11 +17,9 @@ end
 -- legend:
 -- 0 = empty
 -- 1 = solid terrain block
--- 6 = teleport pair 1  (you must place two 6 in the grid)
--- 7 = teleport pair 2  (you must place two 7 in the grid)
--- 8 = dead
--- 10(a) = horizontal drone
--- 11(b) = vertical drone
+-- 6 = switchlith
+-- 10(a) = horizontal bat
+-- 11(b) = vertical bat
 -- 12(c) = laser cannon h,v directions
 -- 13(d) = laser cannon diag directions
 -- 14(e) = dog enemy

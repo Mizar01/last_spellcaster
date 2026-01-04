@@ -131,7 +131,6 @@ function setup_stage_from_string()
     local map_string = stage_compressed_maps[stage]
     local stage_cfg = stage_config_get()
     local theme = stage_cfg.theme
-	local main_tile_type = 1
 
 	local map_w, map_h
 	if (use_sample_map) then
@@ -145,14 +144,14 @@ function setup_stage_from_string()
 	
 
     -- FIRST PASS: set tile types
-    local converted_type_map = matrix_map(map_h, map_w, 0)
+    local converted_type_map = matrix_map(map_h, map_w, "")
     if (use_sample_map) then
         for ty=0,map_h - 1 do
             for tx=0,map_w - 1 do
                 local pos = (tx + 1) * 2 - 1
                 local c = sub(sample_map[ty + 1], pos, pos)
                 if (c == " ") c = "0"
-                converted_type_map[ty][tx] = tonum("0x" .. c)
+                converted_type_map[ty][tx] = c
             end
         end
     else
@@ -165,11 +164,10 @@ function setup_stage_from_string()
             local tt_string = sub(map_string, 1, 1)
             if (tt_string == " ") tt_string = "0"
             local cnt_str = sub(map_string, 2, 2)
-            local tile_type = tonum("0x" .. tt_string)
             local count = tonum("0x" .. cnt_str) + 1
 
             for _ = 1, count do
-                converted_type_map[y][x] = tile_type
+                converted_type_map[y][x] = tt_string
                 x += 1
                 if (x >= map_w) then
                     x = 0
@@ -194,21 +192,23 @@ function setup_stage_from_string()
             mset(tx, ty, 0) -- reset tile
 			local px = tx * 8
 			local py = ty * 8
-            if (t == main_tile_type) then -- solid tile
+            if (t == "1") then -- solid tile
                 -- check neighbors to set variations
                 local tile_variant = neighbor_conf(converted_type_map, tx, ty)
-                local tile_to_set = map_tiles_by_theme(tile_variant, theme) or main_tile_type
+                local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
                 mset(tx, ty, tile_to_set)
-            elseif (t == 15) then -- player start position
+            elseif (t == "f") then -- player start position
                 player.x = tx * 8
                 player.y = ty * 8
-            elseif (t >= 10 and t <= 11) then -- drones
-            elseif (t == 6) then -- teleport pair 1
-            elseif (t == 7) then -- teleport pair 2
-			elseif (t == 8) then -- dead
-            elseif (t == 14) then -- dog
+            elseif (t >= "a" and t <= "b") then -- bats
+                c_bat.new(px, py, t == "a", emgr)
+            elseif (t == "6") then -- switchlith
+                c_switchlith.new(px, py, game.mgr.misc_mgr)
+            elseif (t == "7") then -- teleport pair 2
+			elseif (t == "8") then -- dead
+            elseif (t == "e") then -- dog
 				c_dog.new(px, py, emgr)
-            elseif (t >= 12 and t <= 13) then -- laser cannons
+            elseif (t >= "c" and t <= "d") then -- laser cannons
             end
         end
     end 
@@ -221,15 +221,14 @@ end
 --  4: left
 --  8: right
 -- combinations are sums of the above
-function neighbor_conf(converted_type_map, tx, ty)
+function neighbor_conf(ctm, tx, ty)
     -- outside map edges are considered solid
-	local max_y = #converted_type_map - 1
-	local max_x = #converted_type_map[0] - 1
-    local ctm = converted_type_map
-    local up = (ty > 0) and (ctm[ty - 1][tx] == 1) or ty == 0
-    local down = (ty < max_y) and (ctm[ty + 1][tx] == 1) or ty == max_y
-    local left = (tx > 0) and (ctm[ty][tx - 1] == 1) or tx == 0
-    local right = (tx < max_x) and (ctm[ty][tx + 1] == 1) or tx == max_x
+	local max_y = #ctm - 1
+	local max_x = #ctm[0] - 1
+    local up = (ty > 0) and (ctm[ty - 1][tx] == "1") or ty == 0
+    local down = (ty < max_y) and (ctm[ty + 1][tx] == "1") or ty == max_y
+    local left = (tx > 0) and (ctm[ty][tx - 1] == "1") or tx == 0
+    local right = (tx < max_x) and (ctm[ty][tx + 1] == "1") or tx == max_x
     local conf = 0
     if up then conf += 1 end
     if down then conf += 2 end

@@ -156,10 +156,10 @@ function lerp(a,b,t)
     return result
 end
 
-function timer_lerp(origin, max_length, timer, reversed)
+function timer_lerp(origin, max_length, timer, reversed, dir)
     local t = timer.t / timer.maxtime
     if (reversed) t = 1 - t
-    return lerp(origin, origin + max_length, t)
+    return lerp(origin, origin + (dir == dir_left and -1 or 1) * max_length, t)
 end
 
 
@@ -195,3 +195,16 @@ end
 function round(num)
     return flr(num + 0.5)
 end
+
+-- returns true or false alternating every given seconds
+function altern_time(seconds)
+    return flr(time() / seconds) % 2 == 0
+end
+
+-- function btnc(b)
+--     local bc = band(btnc, shl(1, b))
+--     if (bc == 1) then
+--         return false
+--     end
+--     btnc = bor(btnc, shl(btn(b), b))
+-- end    

@@ -4,11 +4,17 @@ debug = false
 log_enabled = true -- Disable in production!!!
 fps = 60
 
+-- memory of button consuming
+-- btnc = 0b000000
+-- btnpc = 0b000000
+
 sfx_on = true
 music_on = true
 
 gravity = 0.25
-dir_up, dir_down, dir_left, dir_right = 0, 1, 2, 3
+dir_left, dir_right, dir_up, dir_down = 0, 1, 2, 3
+el_fire, el_thunder, el_ice, el_wind = 0, 1, 2, 3
+el_colors = {8, 10, 12, 13}
 fsolid_idx = 0 --sprint flag index used for solid
 game = nil
 player = nil
@@ -42,13 +48,13 @@ sample_map = {
         "1                                                                               1 1                                                                                                                                                                           1",
         "1                                                                                                                                                                                                                                                             1",
         "1                                                                         1 1                                                                                                                                                                                 1",
-        "1                                                                                                                                                                                                                                                             1",
+        "1                     b                                                                                                                                                                                                                                       1",
         "1                                                                               1 1                                                                                                                                                                           1",
         "1                                                                                                                                                                                                                                                             1",
         "1                                                                         1 1                                                                                                                                                                                 1",
-        "1                                                                                                                                                                                                                                                             1",
+        "1                             6                                                                                                                                                                                                                               1",
         "1             1 1 1 1 1 1   1 1 1 1 1                                           1 1                                                                                                                                                                           1",
-        "1         1 1 1 1                   1 1 1                                 1 1                                                                                                                                                                                 1",
+        "1         1 1 1 1     a             1 1 1                                 1 1                                                                                                                                                                                 1",
         "1     f 1 1 1 1 1                   1 1 1 1 1               e               1                                                                                                                                                                                 1",
         "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1",
     }
@@ -67,7 +73,7 @@ themes = {
     },
     grass = {
         tile_maps = {33, 34, 35, 36, 37},
-        bg_col = 1,
+        bg_col = 0,
     },
     ice = {
         tile_maps = {49, 50, 51, 52, 53},

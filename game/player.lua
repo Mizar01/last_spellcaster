@@ -28,7 +28,7 @@ c_player = {
 		p.phase = "idle" -- idle, walk, jump
 		p.hitbox = {x = 2, y = 3, x2 = 5, y2 = 7}
 
-		-- speed properties
+		-- horizontal speed properties
 		p.max_speed = 1
 		p.speed = 0 -- speed is 0 when not moving left or right
 		p.init_speed = 0.1  -- initial speed when starting to move
@@ -38,15 +38,19 @@ c_player = {
 		p.life = 20
 		p.max_life = 20
 		p.init_max_life = 20 -- used for starting reference to show a larger life bar, doesnt need changes.
-		p.life_dec_speed = 0.1 -- life decrease per second
 		p.coins = 0
-		p.coin_inc = 0 -- no coins is added to the gem coin value.
-		p.gems = 0
-		p.hearts = 0
 		p.stinky_socks = false -- makes dogs chase the player slower
 		-- p.permanent_upgrades = {
 		-- 	after_stage = {},
 		-- }
+
+		-- element props
+		p.current_element = el_fire
+		p.avail_elements = {el_fire, nil, el_ice, nil}
+		p.el_cooldown = c_timer.new(1, false)
+
+		p.shine_star = 0 -- frames to show the shining star above the player head
+
 		setmetatable(p, c_player)
 		return p
 	end,
@@ -120,13 +124,22 @@ c_player = {
 			self:attack(p)
 		end
 
-		p.life = max(0, p.life - p.life_dec_speed * (1/fps))
+		if (self.el_cooldown:adv()) then
+			-- show a little shining start above the player head for some frames.
+			self.shine_star = 10
+		end
+		
 
 	end,
 	draw = function(self)
 		local p = self
 		if (p.invisible) return
 		p:draw_sprite()
+		if (self.shine_star > 0) then
+			line(self.x + 3, self.y - 1, self.x + 5, self.y - 1, 10)
+			line(self.x + 4, self.y - 2, self.x + 4, self.y, 10)
+			self.shine_star -= 1
+		end
 	end,
 	take_damage = function(self, dmg)
 		local p = self
@@ -232,9 +245,19 @@ c_player = {
 		-- end
 	end,
 	attack = function(self)
-		-- default attack does nothing
-		c_fireball.new(self.x + 8, self.y, self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
-		flog("attack")
+		if (self.el_cooldown.t <= 0) then
+			-- default attack does nothing
+			c_element.new(self.x + 8, self.y, self.current_element, self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
+			self.el_cooldown:restart()
+		end
+	end,
+	switch_element = function(self)
+		while true do
+			self.current_element = (self.current_element + 1) % 4
+			if (self.avail_elements[self.current_element + 1] != nil) then
+				break
+			end
+		end
 	end,
 
 }

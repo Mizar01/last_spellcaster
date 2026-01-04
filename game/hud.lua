@@ -59,7 +59,7 @@ c_val_printer = {
         return l
     end,
     draw = function(self)
-        rectfill(self.x, self.y, self.x + self.bgl, self.y + 5, 0)
+        rectfill(self.x, self.y, self.x + self.bgl, self.y + 5, 1)
         self.draw_fn(self)
     end,
 }
@@ -76,9 +76,9 @@ c_player_life_bar = {
     draw = function(self)
         -- print("life:", self.x, self.y, 8)
         local w = 30 * player.max_life / self.life_ref
-        rectfill(self.x, self.y + 1, self.x + w + 10, self.y + 6, 0)
+        rectfill(self.x, self.y + 1, self.x + w + 10, self.y + 6, 1)
         self:draw_sprite()
-        progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 0, 8)
+        progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 1, 8)
     end,
 }
 class_inherit(c_player_life_bar, c_hud_element)
