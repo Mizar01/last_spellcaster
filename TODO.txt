@@ -5,3 +5,4 @@ Microvania
 - create a sliding text effect to show some messages on screen
 - find a way to consume a button press after executing a function (to avoid multiple activations at the same frame)
 OK the fireball comes out wrong when shooting to the left
+- the hud position is messed up, again (check the history of the file and also the cam object)

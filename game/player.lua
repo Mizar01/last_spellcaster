@@ -262,8 +262,10 @@ c_player = {
 	end,
 	switch_element = function(self)
 		while true do
-			self.current_element = (self.current_element + 1) % 4
-			if (self.avail_elements[self.current_element + 1] != nil) then
+			local s1 = self.current_element + 1
+			self.current_element = s1 % 4
+			if (self.avail_elements[s1] != nil) then
+				c_slide_text.new(30, el_cls[s1].name, game.mgr.hud_mgr)
 				break
 			end
 		end

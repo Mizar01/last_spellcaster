@@ -62,6 +62,7 @@ c_element = {
 class_inherit(c_element, c_obj)
 
 c_fire = {
+    name = "fire",
     new = function(dir, parent_mgr)
         local l = c_element.new(el_fire, dir)
         l.radius = 1
@@ -86,6 +87,7 @@ c_fire = {
 class_inherit(c_fire, c_element)
 
 c_ice = {
+    name = "ice",
     new = function(dir, parent_mgr)
         local l = c_element.new(el_ice, dir)
         l.radius = 1
@@ -106,6 +108,7 @@ c_ice = {
 class_inherit(c_ice, c_element)
 
 c_thunder = {
+    name = "thunder",
     new = function(dir, parent_mgr)
         local l = c_element.new(el_thunder, dir)
         l.spr.idle = { ss = 59 }
@@ -129,7 +132,6 @@ c_thunder = {
         while (true) do
             local next_x = x + step * dm
             local next_y = y + (rnd(4) - 2)
-            flog("next_x:"..next_x)
             line(x, y, next_x, next_y, 7)
             x = next_x
             y = next_y
