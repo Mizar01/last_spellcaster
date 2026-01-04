@@ -38,8 +38,7 @@ c_shop = {
             selected = false,
             used = false 
         })
-        setmetatable(s, c_shop)
-        return s
+        return sm(s, c_shop)
     end,
     update = function(self)
         local btn_up = btnp(2,0)

@@ -10,8 +10,7 @@ c_enemy = {
         l.respawn_after_death = false
         l.time_last_death = 0
         l.respawn_timer = c_timer.new(10, false)
-        setmetatable(l, c_enemy)
-        return l
+        return sm(l, c_enemy)
     end,
     take_damage = function(self, dmg)
         self.life -= dmg
@@ -21,8 +20,7 @@ c_enemy = {
         end
     end,
 }
-c_enemy.__index = c_enemy
-setmetatable(c_enemy, c_obj)
+class_inherit(c_enemy, c_obj)
 
 --------------------------------
 -- DRONE (extends c_enemy)
@@ -39,8 +37,7 @@ c_bat = {
         l.horizontal = horizontal
         l.hitbox = {x = 2, y = 2, x2 = 5, y2 = 5}
         l.dir = l.horizontal and dir_right or dir_down
-        setmetatable(l, c_bat)
-        return l
+        return sm(l, c_bat)
     end,
     update = function(self)
         if (self:collide(player)) then
@@ -69,8 +66,7 @@ c_dog = {
         l.hitbox = {x = 0, y = 3, x2 = 7, y2 = 7}
         l.basex = x
         l.basey = y
-        setmetatable(l, c_dog)
-        return l
+        return sm(l, c_dog)
     end,
     update = function(self)
         self.phase = "idle"
@@ -104,5 +100,4 @@ c_dog = {
         end
     end,
 }
-c_dog.__index = c_dog
-setmetatable(c_dog, c_enemy)
+class_inherit(c_dog, c_enemy)

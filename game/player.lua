@@ -53,8 +53,7 @@ c_player = {
 
 		p.interaction_fn = nil -- current function given by an interactive object
 
-		setmetatable(p, c_player)
-		return p
+		return sm(p, c_player)
 	end,
 	reset_stage_props = function(self)
 		-- reset properties that must be reset at stage start

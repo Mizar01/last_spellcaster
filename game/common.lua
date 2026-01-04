@@ -5,8 +5,7 @@ c_timer = {
             t = flr(fps * secs),
             loop = loop or false,
         }
-        setmetatable(l, c_timer)
-        return l
+        return sm(l, c_timer)
     end,
     adv = function(self)
         if (self.t < 0) return false  -- the timer no longer counts
@@ -189,7 +188,7 @@ end
 
 function class_inherit(derived, base)
     derived.__index = derived
-    setmetatable(derived,base)
+    return sm(derived,base)
 end
 
 function round(num)
@@ -218,4 +217,8 @@ function spr_to_px(spr_idx)
     local sx = (spr_idx % 16) * 8
     local sy = flr(spr_idx / 16) * 8
     return sx, sy
+end
+
+function sm(t1, t2)
+    return setmetatable(t1, t2)
 end

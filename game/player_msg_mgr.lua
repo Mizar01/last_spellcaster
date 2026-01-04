@@ -5,8 +5,7 @@ c_player_msg_mgr = {
         m.msg = {
             { function() return player.coins > 0 end, "collect this coins*to buy something*at the shop later." },
         }
-        setmetatable(m, c_player_msg_mgr)
-        return m
+        return sm(m, c_player_msg_mgr)
     end,
     update = function(self)
         for v in all(self.msg) do
@@ -19,5 +18,4 @@ c_player_msg_mgr = {
         end
     end,
 }
-c_player_msg_mgr.__index = c_player_msg_mgr
-setmetatable(c_player_msg_mgr, c_mgr)
+class_inherit(c_player_msg_mgr, c_mgr)

@@ -6,8 +6,7 @@ c_explosion = {
         l.max_radius = max_radius or 4
         l.ttl = c_timer.new(0.2, false)
         l.solid = false
-        setmetatable(l, c_explosion)
-        return l
+        return sm(l, c_explosion)
     end,
     update = function(self)
         if self.ttl:adv() then
@@ -34,8 +33,7 @@ c_element = {
         l.dir = dir
         l.el = el
         l.destroy_req_prev_frame = false
-        setmetatable(l, c_element)
-        return l
+        return sm(l, c_element)
     end,
     update = function(self)
         if (self.destroy_req_prev_frame) then
@@ -67,8 +65,7 @@ c_fire = {
         local l = c_element.new(el_fire, dir)
         l.radius = 1
         l.max_radius = 2
-        setmetatable(l, c_fire)
-        return l
+        return sm(l, c_fire)
     end,
     update = function(self)
         c_element.update(self)
@@ -92,8 +89,7 @@ c_ice = {
         local l = c_element.new(el_ice, dir)
         l.radius = 1
         l.max_radius = 1.5
-        setmetatable(l, c_ice)
-        return l
+        return sm(l, c_ice)
     end,
     update = function(self)
         c_element.update(self)
@@ -114,8 +110,7 @@ c_thunder = {
         l.spr.idle = { ss = 59 }
         l.ttl = c_timer.new(0.2, false)
         l.max_dist = 25 -- takes three sprites space + a tolerance
-        setmetatable(l, c_thunder)
-        return l
+        return sm(l, c_thunder)
     end,
     update = function(self)
         c_element.update(self)
@@ -150,8 +145,7 @@ c_interactive = {
         l.ttl_disable_int = nil
         l.int_done = false
         l.solid = true
-        setmetatable(l, c_interactive)
-        return l
+        return sm(l, c_interactive)
     end,
     update = function(self)
         if (self:collide(player)) then
@@ -189,8 +183,7 @@ c_switchlith = {
     new = function(x, y, parent_mgr)
         local l = c_interactive.new(x, y, parent_mgr)
         l.spr.idle = { ss = 11 }
-        setmetatable(l, c_switchlith)
-        return l
+        return sm(l, c_switchlith)
     end,
     interact = function(self)
         player:switch_element()
@@ -208,8 +201,7 @@ class_inherit(c_switchlith, c_interactive)
 c_misc_mgr = {
     new = function()
         local m = c_mgr.new()
-        setmetatable(m, c_misc_mgr)
-        return m
+        return sm(m, c_misc_mgr)
     end,
 }
 class_inherit(c_misc_mgr, c_mgr)

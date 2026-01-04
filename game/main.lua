@@ -37,8 +37,7 @@ c_game = {
         }
         g.game_over_msg = ""
         menuitem(1, "restart game", function() game:start_menu() end)
-        setmetatable(g, c_game)
-        return g
+        return sm(g, c_game)
     end,
     start_play = function(self)
         self.win_stage = false

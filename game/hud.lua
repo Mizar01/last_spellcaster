@@ -2,8 +2,7 @@ c_hud_element = {
     new = function(x, y , parent_mgr)
         local h = c_obj.new(x, y, parent_mgr)
         h.fixedx, h.fixedy = x, y -- fixed position relative to camera
-        setmetatable(h, c_hud_element)
-        return h
+        return sm(h, c_hud_element)
     end,
     update = function(self)
         -- follow camera offset
@@ -19,9 +18,8 @@ c_val_printer = {
         local l = c_hud_element.new(x, y) 
         l.draw_fn = draw_fn
         l.bgl = bg_length
-        l.spr.idle = { ss = 137 },
-        setmetatable(l, c_val_printer)
-        return l
+        l.spr.idle = { ss = 137 }
+        return sm(l, c_val_printer)
     end,
     draw = function(self)
         rectfill(self.x, self.y, self.x + self.bgl, self.y + 5, 1)
@@ -35,8 +33,7 @@ c_player_life_bar = {
         local l = c_hud_element.new(x, y)
         l.spr.idle = { ss = 170 }
         l.life_ref = player.init_max_life
-        setmetatable(l, c_player_life_bar)
-        return l
+        return sm(l, c_player_life_bar)
     end,
     draw = function(self)
         -- print("life:", self.x, self.y, 8)
@@ -57,8 +54,7 @@ c_slide_text = {
         l.ttl_slide = c_timer.new(0.5, false)
         l.ttl_live = c_timer.new(2, false)
         l.offset = 0
-        setmetatable(l, c_slide_text)
-        return l
+        return sm(l, c_slide_text)
     end,
     update = function(self)
         if (self.ttl_live:adv()) then
@@ -82,8 +78,7 @@ c_hud_mgr = {
     new = function()
         local l = c_mgr.new()
         l.update_in_pause = true
-        setmetatable(l, c_hud_mgr)
-        return l
+        return sm(l, c_hud_mgr)
     end,
     restart = function(self)
         self.objs = {

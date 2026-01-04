@@ -29,8 +29,7 @@ c_obj = {
 		if (o.parent_mgr) then
 			o.parent_mgr:add(o)
 		end
-		setmetatable(o, c_obj)
-		return o
+		return sm(o, c_obj)
 	end,
 	update = function(self)
 	end,
@@ -153,8 +152,7 @@ c_mgr = {
 		local m = {}
 		m.objs = {}
 		m.update_in_pause = false
-		setmetatable(m, c_mgr)
-		return m
+		return sm(m, c_mgr)
 	end,
 	restart = function(self)
 		self.objs = {}
