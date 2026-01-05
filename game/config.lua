@@ -22,6 +22,9 @@ player = nil
 log_filename = "microvania/logs/log"
 sfx_jump, sfx_coin, sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = 0,1,2,3,4,5
 
+-- 
+obj_solids = {} -- objects that temporarily become solid (like frozen enemies)
+
 stage = 1
 
 use_sample_map = false

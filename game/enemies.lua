@@ -10,14 +10,14 @@ c_enemy = {
         l.life = 100
         l.time_last_death = 0
         l.respawn_timer = c_timer.new(10, false)
-        l.dmg_time = 0
+        l.dmg_time = c_timer.new(1, false)
         l.frozen_t = c_timer.new(10, false)
         l.frozen_t.t = 0
         return sm(l, c_enemy)
     end,
     dmg = function(self, dmg)
         self.life -= dmg
-        self.dmg_time = 30
+        self.dmg_time:restart()
         self.spr.effect = "blink_white"
         if (self.life <= 0) then
             self:del()
@@ -26,27 +26,36 @@ c_enemy = {
     end,
     freeze = function(self)
         self.frozen_t:restart()
+        add(obj_solids, self)
         self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
     end,
     unfreeze = function(self)
         self.frozen_t.t = 0
+        self.spr.effect = "none"
         self.hitbox = self.hitbox_orig
     end,
     update = function(self)
         c_obj.update(self)
-        if (self.dmg_time <= 0) then
+        if (self.dmg_time:adv()) then
             self.spr.effect = "none"
-        else 
-            self.dmg_time -= 1
         end
-        if (self.frozen_t:adv()) self:unfreeze()
+        if (self.frozen_t:adv()) then 
+            self:unfreeze()
+        else
+            if (self.frozen_t:t_left_btw(0.1, 2)) self.spr.effect = "blink_white"
+        end
     end,
     draw = function(self)
         if (self.frozen_t.t > 0) then
             spr(139, self.x, self.y)
         end
         c_obj.draw(self)
-    end
+    end,
+    del = function(self)
+        self.time_last_death = time()
+        del(obj_solids, self)
+        c_obj.del(self)
+    end,
 }
 clsinh(c_enemy, c_obj)
 

@@ -15,7 +15,7 @@ c_player = {
 		p.invisible = false
 		p.blocked = false
 		p.invulnerable = false
-		p.no_damage_timer = nil
+		p.nodmg_t = nil
 
 		-- jump properties
 		p.jforce = 1.7
@@ -115,9 +115,8 @@ c_player = {
 			p.phase = "idle"
 		end
 
-		if (p.no_damage_timer ~= nil) then
-			local trig = p.no_damage_timer:adv()
-			if trig then
+		if (p.nodmg_t ~= nil) then
+			if (p.nodmg_t:adv()) then
 				p.spr.effect = "none"
 				p.invulnerable = false
 			end
@@ -160,7 +159,7 @@ c_player = {
 				game.game_over_msg = rnd(game.game_over_msgs)
 				game:set_game_over()
 			else
-				p.no_damage_timer = c_timer.new(1) -- invincibility frames
+				p.nodmg_t = c_timer.new(1) -- invincibility frames
 				p.spr.effect = "blink_white"
 				sfx(sfx_player_hit)
 				p.invulnerable = true
@@ -235,8 +234,8 @@ c_player = {
 	on_ground = function(self)
 		local p = self
 		local hbp = p:hitbox_pos(0, 1)
-		local solid_left = mget2_by_px_solid(hbp.x, hbp.y2)
-		local solid_right = mget2_by_px_solid(hbp.x2, hbp.y2)
+		local solid_left = map_or_obj_solid_at_px(hbp.x, hbp.y2)
+		local solid_right = map_or_obj_solid_at_px(hbp.x2, hbp.y2)
 		return solid_left or solid_right
 	end,
 	on_ceiling = function(self)

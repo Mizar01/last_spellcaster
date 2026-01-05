@@ -24,7 +24,11 @@ c_timer = {
     restart = function(self)
         self.t = self.maxtime
     end,
-    seconds_left = function(self) return flr(self.t / fps) end,
+    t_left = function(self) return flr(self.t / fps) end,
+    t_left_btw = function(self, mn, mx)
+        local tl = self:t_left()
+        return tl >= mn and tl <= mx
+    end,
         
 }
 c_timer.__index = c_timer

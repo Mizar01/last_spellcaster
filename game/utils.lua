@@ -10,7 +10,11 @@ function obj_move(obj, d, ovd_speed)
 		local side_x = d == dir_left and hbp.x or hbp.x2
 		local ttop = mget2_by_px(side_x, hbp.y)
 		local tbottom = mget2_by_px(side_x, hbp.y2)
-		if (not is_solid(ttop.tile) and not is_solid(tbottom.tile)) then
+        local solid_tile_collision = is_solid(ttop.tile) or is_solid(tbottom.tile)
+        local ostop = osget_by_px(side_x, hbp.y)
+        local osbottom = osget_by_px(side_x, hbp.y2)
+        local solid_obj_collision = ostop != nil or osbottom != nil
+		if (not solid_tile_collision and not solid_obj_collision) then
 			obj.x = obj.x + speed_x
 			return 1
 		else
@@ -22,7 +26,11 @@ function obj_move(obj, d, ovd_speed)
 		local side_y = d == dir_up and hbp.y or hbp.y2
 		local tleft = mget2_by_px(hbp.x, side_y)
 		local tright = mget2_by_px(hbp.x2, side_y)
-		if (not is_solid(tleft.tile) and not is_solid(tright.tile)) then
+        local solid_tile_collision = is_solid(tleft.tile) or is_solid(tright.tile)
+        local osleft = osget_by_px(hbp.x, side_y)
+        local osright = osget_by_px(hbp.x2, side_y)
+        local solid_obj_collision = osleft != nil or osright != nil
+		if (not solid_tile_collision and not solid_obj_collision) then
 			obj.y = obj.y + speed_y
 			return 1
 		else
@@ -41,6 +49,21 @@ end
 function mget2_by_px_solid(x, y, tw, th)
 	local mtile = mget2_by_px(x, y, tw, th)
 	return is_solid(mtile.tile)
+end
+
+-- Get the object at pixel coordinates (x, y) among the temporarily solid objects
+function osget_by_px(x, y)
+    for o in all(obj_solids) do
+        local hbp = o:hitbox_pos(0,0)
+        if (x >= hbp.x and x < hbp.x2 and y >= hbp.y and y < hbp.y2) then
+            return o
+        end
+    end
+    return nil
+end
+
+function map_or_obj_solid_at_px(x, y, tw, th)
+    return mget2_by_px_solid(x, y, tw, th) or (osget_by_px(x, y) != nil)
 end
 
 function is_solid(tile)
