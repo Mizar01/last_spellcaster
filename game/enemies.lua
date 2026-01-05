@@ -32,6 +32,7 @@ c_enemy = {
     unfreeze = function(self)
         self.frozen_t.t = 0
         self.spr.effect = "none"
+        del(obj_solids, self)
         self.hitbox = self.hitbox_orig
     end,
     update = function(self)

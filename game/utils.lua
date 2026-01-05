@@ -8,29 +8,21 @@ function obj_move(obj, d, ovd_speed)
 	local hbp = obj:hitbox_pos(speed_x, speed_y)
 	if (d == dir_right or d == dir_left) then
 		local side_x = d == dir_left and hbp.x or hbp.x2
-		local ttop = mget2_by_px(side_x, hbp.y)
-		local tbottom = mget2_by_px(side_x, hbp.y2)
-        local solid_tile_collision = is_solid(ttop.tile) or is_solid(tbottom.tile)
-        local ostop = osget_by_px(side_x, hbp.y)
-        local osbottom = osget_by_px(side_x, hbp.y2)
-        local solid_obj_collision = ostop != nil or osbottom != nil
-		if (not solid_tile_collision and not solid_obj_collision) then
+		local ttop = map_or_obj_solid_at_px(side_x, hbp.y)
+		local tbottom = map_or_obj_solid_at_px(side_x, hbp.y2)
+		if (not ttop and not tbottom) then
 			obj.x = obj.x + speed_x
 			return 1
 		else
 			-- move at the leftmost/rightmost possible position before the tile
-			obj.x = d == dir_left and (ttop.ox + 8 + obj.hitbox.x - 4) or (ttop.ox - 8 + obj.hitbox.x)
+			-- obj.x = d == dir_left and (ttop.ox + 8 + obj.hitbox.x - 4) or (ttop.ox - 8 + obj.hitbox.x)
 			return 0
 		end
 	elseif (d == dir_up or d == dir_down) then
 		local side_y = d == dir_up and hbp.y or hbp.y2
-		local tleft = mget2_by_px(hbp.x, side_y)
-		local tright = mget2_by_px(hbp.x2, side_y)
-        local solid_tile_collision = is_solid(tleft.tile) or is_solid(tright.tile)
-        local osleft = osget_by_px(hbp.x, side_y)
-        local osright = osget_by_px(hbp.x2, side_y)
-        local solid_obj_collision = osleft != nil or osright != nil
-		if (not solid_tile_collision and not solid_obj_collision) then
+		local tleft = map_or_obj_solid_at_px(hbp.x, side_y)
+		local tright = map_or_obj_solid_at_px(hbp.x2, side_y)
+		if (not tleft and not tright) then
 			obj.y = obj.y + speed_y
 			return 1
 		else
