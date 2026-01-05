@@ -45,7 +45,7 @@ c_element = {
         self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
         for e in all(game.mgr.enemy_mgr.objs) do
             if self:collide(e) then
-                e:dmg(self.damage)
+                self:effect(e)
                 self:del()
                 c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
                 break
@@ -54,6 +54,9 @@ c_element = {
     end,
     dirmult = function(self)
         return (self.dir == dir_left) and -1 or 1
+    end,
+    effect = function(self, trg)
+        trg:dmg(self.damage)
     end
 }
 clsinh(c_element, c_obj)
@@ -98,6 +101,9 @@ c_ice = {
         local cols = { 12, 6 }
         local dm = self:dirmult()
         rectfill(self.x + dm * 0 - self.radius, self.y - self.radius, self.x + dm * 0 + self.radius, self.y + self.radius, rnd(cols))
+    end,
+    effect = function(self, trg)
+        trg:freeze()
     end
 }
 clsinh(c_ice, c_element)
@@ -138,8 +144,9 @@ c_wind = {
     new = function(dir, parent_mgr)
         local l = c_element.new(el_wind, dir)
         l.spr.idle = { ss = 60 }
-        l.ttl = c_timer.new(1, false)
+        l.ttl = c_timer.new(0.7 , false)
         l.max_dist = 25
+        l.power = 20
         return sm(l, c_wind)
     end,
     draw = function(self)
@@ -157,6 +164,10 @@ c_wind = {
             end
             last_vx, last_vy = vx, vy
         end
+    end,
+    effect = function(self, trg)
+        -- make the enemy move in the direction of the spell
+        trg.x += self.dir == dir_right and self.power or -self.power
     end
 }
 clsinh(c_wind, c_element)

@@ -5,20 +5,48 @@ c_enemy = {
         -- override default properties and add new ones
         l.etype = etype
         l.hitbox = {x = 2, y = 2, x2 = 5, y2 = 5}
+        l.hitbox_orig = l.hitbox
         l.speed = speed or 1
         l.life = 100
-        l.respawn_after_death = false
         l.time_last_death = 0
         l.respawn_timer = c_timer.new(10, false)
+        l.dmg_time = 0
+        l.frozen_t = c_timer.new(10, false)
+        l.frozen_t.t = 0
         return sm(l, c_enemy)
     end,
     dmg = function(self, dmg)
         self.life -= dmg
+        self.dmg_time = 30
+        self.spr.effect = "blink_white"
         if (self.life <= 0) then
             self:del()
             -- c_explosion.new(self.x + 4, self.y + 4, 6, game.mgr.misc_mgr)
         end
     end,
+    freeze = function(self)
+        self.frozen_t:restart()
+        self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
+    end,
+    unfreeze = function(self)
+        self.frozen_t.t = 0
+        self.hitbox = self.hitbox_orig
+    end,
+    update = function(self)
+        c_obj.update(self)
+        if (self.dmg_time <= 0) then
+            self.spr.effect = "none"
+        else 
+            self.dmg_time -= 1
+        end
+        if (self.frozen_t:adv()) self:unfreeze()
+    end,
+    draw = function(self)
+        if (self.frozen_t.t > 0) then
+            spr(139, self.x, self.y)
+        end
+        c_obj.draw(self)
+    end
 }
 clsinh(c_enemy, c_obj)
 
@@ -37,8 +65,12 @@ c_bat = {
         return sm(l, c_bat)
     end,
     update = function(self)
+        c_enemy.update(self)
         if (self:collide(player)) then
             player:dmg(1)
+        end
+        if (self.frozen_t.t > 0) then
+            return
         end
         local m = obj_move(self, self.dir)
         if (m == 0) then
@@ -65,7 +97,11 @@ c_dog = {
         return sm(l, c_dog)
     end,
     update = function(self)
+        c_enemy.update(self)
         self.phase = "idle"
+        if (self.frozen_t.t > 0) then
+            return
+        end
         -- collide with player with a tolerance of 2 pixels
         if (self:collide(player, 2)) then
             player:dmg(2)
