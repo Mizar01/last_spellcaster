@@ -81,6 +81,10 @@ c_fire = {
             local offset_x = dm * i * 2
             circfill(self.x + offset_x, self.y, 1.5 * radf, cols[i + 1])
         end
+    end,
+        effect = function(self, trg)
+        trg:dmg(self.damage)
+        trg:unfreeze()
     end
 }
 clsinh(c_fire, c_element)
@@ -221,10 +225,9 @@ c_switchlith = {
     end,
     interact = function(self)
         player:switch_element()
-        -- no need to call parent method
     end,
     draw = function(self)
-        pal(7, altern_time(0.5) and el_colors[player.cur_elp] or 7)
+        pal(7, altern_time(0.5) and el_colors[player.cur_el] or 7)
         c_interactive.draw(self)
         pal()
     end

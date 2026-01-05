@@ -30,7 +30,7 @@ c_enemy = {
         self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
     end,
     unfreeze = function(self)
-        self.frozen_t.t = 0
+        self.frozen_t.t = -1
         self.spr.effect = "none"
         del(obj_solids, self)
         self.hitbox = self.hitbox_orig
