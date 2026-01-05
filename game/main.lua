@@ -131,11 +131,11 @@ c_game = {
         end
 
         -- Update play
+        cam:update()  -- always first, or the hud elements will have to follow the camera in the next frame with old center.
         for _, v in pairs(self.mgr) do
             if (v.update) v:update()
         end
         player:update()
-        cam:update()
             
     end,
     draw = function(self)

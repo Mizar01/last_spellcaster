@@ -11,7 +11,7 @@ c_hud_element = {
         self.y = self.fixedy + cy
     end,
 }
-class_inherit(c_hud_element, c_obj)
+clsinh(c_hud_element, c_obj)
 
 c_val_printer = {
     new = function(x, y, bg_length, draw_fn)
@@ -26,7 +26,7 @@ c_val_printer = {
         self.draw_fn(self)
     end,
 }
-class_inherit(c_val_printer, c_hud_element)
+clsinh(c_val_printer, c_hud_element)
 
 c_player_life_bar = {
     new = function(x, y)
@@ -43,7 +43,7 @@ c_player_life_bar = {
         progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 1, 8)
     end,
 }
-class_inherit(c_player_life_bar, c_hud_element)
+clsinh(c_player_life_bar, c_hud_element)
 
 c_slide_text = {
     new = function(y, msg, parent_mgr)
@@ -72,7 +72,7 @@ c_slide_text = {
 
     end,
 }
-class_inherit(c_slide_text, c_hud_element)
+clsinh(c_slide_text, c_hud_element)
 
 c_hud_mgr = {
     new = function()
@@ -105,4 +105,4 @@ c_hud_mgr = {
     --     -- self:add(p)
     -- end,
 }
-class_inherit(c_hud_mgr, c_mgr)
+clsinh(c_hud_mgr, c_mgr)

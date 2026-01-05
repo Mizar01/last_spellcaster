@@ -13,7 +13,7 @@ music_on = true
 
 gravity = 0.25
 dir_left, dir_right, dir_up, dir_down = 0, 1, 2, 3
-el_fire, el_thunder, el_ice, el_wind = 0, 1, 2, 3
+el_fire, el_thunder, el_ice, el_wind = 1, 2, 3, 4
 el_colors = {8, 10, 12, 13}
 el_cls = {c_fire, c_thunder, c_ice, nil} -- element class for each element type
 fsolid_idx = 0 --sprint flag index used for solid
@@ -24,41 +24,8 @@ sfx_jump, sfx_coin, sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit 
 
 stage = 1
 
-use_sample_map = true
-sample_map = {
-        "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                     1 1 1 1 1 1 1 1 1 1 1 1                                                                                                                                                                                 1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                               1 1 1 1                         1 1                                                                                                                                                                           1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                         1 1                                                                                                                                                                                 1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                         1 1     1 1                                           1 1                                                                                                                                                                           1",
-        "1                     1 1             1 1                                                                                                                                                                                                                     1",
-        "1                     1 1     1 1     1 1                                 1 1                                                                                                                                                                                 1",
-        "1                     1 1             1 1                                                                                                                                                                                                                     1",
-        "1                         1 1     1 1                                           1 1                                                                                                                                                                           1",
-        "1                             1 1                                                                                                                                                                                                                             1",
-        "1                                                                         1 1                                                                                                                                                                                 1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                               1 1                                                                                                                                                                           1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                         1 1                                                                                                                                                                                 1",
-        "1                     b                                                                                                                                                                                                                                       1",
-        "1                                                                               1 1                                                                                                                                                                           1",
-        "1                                                                                                                                                                                                                                                             1",
-        "1                                                                         1 1                                                                                                                                                                                 1",
-        "1                             6                                                                                                                                                                                                                               1",
-        "1             1 1 1 1 1 1   1 1 1 1 1                                           1 1                                                                                                                                                                           1",
-        "1         1 1 1 1     a             1 1 1                                 1 1                                                                                                                                                                                 1",
-        "1     f 1 1 1 1 1                   1 1 1 1 1               e               1                                                                                                                                                                                 1",
-        "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1",
-    }
+use_sample_map = false
+sample_map = {}
 
 -- neighbor config nodes
 ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = 0,1,2,4,8,3,5,9,6,10,12,7,11,13,14,15

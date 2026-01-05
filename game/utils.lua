@@ -117,6 +117,27 @@ function map_tiles_by_theme(tile_variant, theme)
     return m[tile_variant]
 end
 
+function load_rle_map(str, map_width, converted_type_map)
+    local x = 0
+    local y = 0
+    
+    for i=1, #str, 2 do
+        local tile_char = sub(str, i, i)
+        
+        local count_char = sub(str, i+1, i+1)
+        local count = ord(count_char) - 32
+        for k=1, count do
+            converted_type_map[y][x] = tile_char
+            x = x + 1
+            if x >= map_width then
+                x = 0
+                y = y + 1
+            end
+        end
+    end
+    return converted_type_map
+end
+
 -- The format is compressed like that:
 --  - 1 line only (its implicit that the map is given by the rows and cols of the string array)
 --  - every digit from 0 to f represents a tile type or an object in the stage
@@ -140,8 +161,6 @@ function setup_stage_from_string()
 		map_w = 128
 		map_h = 32
 	end
-	flog("WH: " .. map_w .. "x" .. map_h)
-	
 
     -- FIRST PASS: set tile types
     local converted_type_map = matrix_map(map_h, map_w, "")
@@ -155,33 +174,7 @@ function setup_stage_from_string()
             end
         end
     else
-
-        local x = 0
-	    local y = 0
-
-	    while #map_string > 0 do
-
-            local tt_string = sub(map_string, 1, 1)
-            if (tt_string == " ") tt_string = "0"
-            local cnt_str = sub(map_string, 2, 2)
-            local count = tonum("0x" .. cnt_str) + 1
-
-            for _ = 1, count do
-                converted_type_map[y][x] = tt_string
-                x += 1
-                if (x >= map_w) then
-                    x = 0
-                    y += 1
-                end
-            end
-
-            if (#map_string > 2) then
-                map_string = sub(map_string, 3)	
-            else
-                break
-            end
-
-        end
+        load_rle_map(map_string, map_w, converted_type_map)
     end
 
      -- SECOND PASS: set tile variations according to theme

@@ -186,7 +186,7 @@ function contains(tbl, val)
     return false
 end
 
-function class_inherit(derived, base)
+function clsinh(derived, base)
     derived.__index = derived
     return sm(derived,base)
 end

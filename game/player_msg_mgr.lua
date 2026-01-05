@@ -18,4 +18,4 @@ c_player_msg_mgr = {
         end
     end,
 }
-class_inherit(c_player_msg_mgr, c_mgr)
+clsinh(c_player_msg_mgr, c_mgr)

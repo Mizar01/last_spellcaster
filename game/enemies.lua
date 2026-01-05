@@ -12,7 +12,7 @@ c_enemy = {
         l.respawn_timer = c_timer.new(10, false)
         return sm(l, c_enemy)
     end,
-    take_damage = function(self, dmg)
+    dmg = function(self, dmg)
         self.life -= dmg
         if (self.life <= 0) then
             self:del()
@@ -20,11 +20,8 @@ c_enemy = {
         end
     end,
 }
-class_inherit(c_enemy, c_obj)
+clsinh(c_enemy, c_obj)
 
---------------------------------
--- DRONE (extends c_enemy)
---------------------------------
 c_bat = {
     new = function(x, y, horizontal, parent_mgr)
         local l = c_enemy.new("bat", x, y, 0.3, parent_mgr)
@@ -41,7 +38,7 @@ c_bat = {
     end,
     update = function(self)
         if (self:collide(player)) then
-            player:take_damage(1)
+            player:dmg(1)
         end
         local m = obj_move(self, self.dir)
         if (m == 0) then
@@ -49,8 +46,7 @@ c_bat = {
         end
     end,
 }
-class_inherit(c_bat, c_enemy)
-
+clsinh(c_bat, c_enemy)
 
 c_dog = {
     new = function(x, y, parent_mgr)
@@ -72,7 +68,7 @@ c_dog = {
         self.phase = "idle"
         -- collide with player with a tolerance of 2 pixels
         if (self:collide(player, 2)) then
-            player:take_damage(2)
+            player:dmg(2)
             game.mgr.player_msg_mgr.dog_bites += 1
         else
             -- move towards player
@@ -100,4 +96,4 @@ c_dog = {
         end
     end,
 }
-class_inherit(c_dog, c_enemy)
+clsinh(c_dog, c_enemy)
