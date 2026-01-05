@@ -50,8 +50,8 @@ c_player = {
 		p.coins = 0
 		p.stinky_socks = false
 		-- element props
-		p.cur_el = el_fire
-		p.avail_elements = { el_fire, el_thunder, el_ice, nil }
+		p.cur_el = el_wind
+		p.avail_elements = { true, true, true, true }
 		p.el_cooldown = c_timer.new(1, false)
 
 		p.shine_star = 0
@@ -79,7 +79,9 @@ c_player = {
 		local p = self
 
 		if (p.phase == "dead") then
-			if (p.prev_btn.left) obj_move(p, dir_left) if (p.prev_btn.right) obj_move(p, dir_right) p.speed = p.speed * 0.9
+			if (p.prev_btn.left) obj_move(p, dir_left) 
+			if (p.prev_btn.right) obj_move(p, dir_right) 
+			p.speed = p.speed * 0.9
 			p:apply_forces()
 			return
 		end
@@ -258,13 +260,15 @@ c_player = {
 		end
 	end,
 	switch_element = function(self)
+		local s1 = (self.cur_el) % 4 + 1
 		while true do
-			local s1 = (self.cur_el + 1) % 4 + 1
-			if (self.avail_elements[s1] != nil) then
+			flog("s1: "..s1)
+			if (self.avail_elements[s1]) then
 				self.cur_el = s1
 				c_slide_text.new(30, el_cls[s1].name, game.mgr.hud_mgr)
 				break
 			end
+			s1 = s1 % 4 + 1
 		end
 	end
 }

@@ -112,10 +112,6 @@ c_thunder = {
         -- takes three sprites space + a tolerance
         return sm(l, c_thunder)
     end,
-    update = function(self)
-        c_element.update(self)
-        -- add trail point
-    end,
     draw = function(self)
         -- local sx, sy = spr_to_px(self.spr.idle.ss)
         -- sspr(sx, sy, self.x - self.origx, 8, self.origx, self.origy)
@@ -130,11 +126,40 @@ c_thunder = {
             line(x, y, next_x, next_y, 7)
             x = next_x
             y = next_y
-            if (dm == 1 and x > self.x + 1) break if (dm == -1 and x < self.x - 1) break
+            if (dm == 1 and x > self.x + 1) break 
+            if (dm == -1 and x < self.x - 1) break
         end
     end
 }
 clsinh(c_thunder, c_element)
+
+c_wind = {
+    name = "wind",
+    new = function(dir, parent_mgr)
+        local l = c_element.new(el_wind, dir)
+        l.spr.idle = { ss = 60 }
+        l.ttl = c_timer.new(1, false)
+        l.max_dist = 25
+        return sm(l, c_wind)
+    end,
+    draw = function(self)
+        local dm = self:dirmult()
+        local last_vx, last_vy = nil, nil
+        for i = 0, 12 do
+            local xi = 0.5 + self.x + (i * 0.8) * dm
+            local angle = xi * 0.25
+            local rad = 1 + i * 0.25
+            local vx = xi + cos(angle) * rad
+            local vy = self.y + sin(angle) * rad
+            if last_vx != nil then
+                local col = (i % 2 == 0) and 12 or 6
+                line(last_vx, last_vy, vx, vy, col)
+            end
+            last_vx, last_vy = vx, vy
+        end
+    end
+}
+clsinh(c_wind, c_element)
 
 c_interactive = {
     new = function(x, y, parent_mgr)
@@ -153,7 +178,7 @@ c_interactive = {
             if (btnp(5, 0) and not self.int_done) then
                 self:interact()
             elseif (self.int_done and ttl_disable_int == nil) then
-                self.ttl_disable_int = c_timer.new(0.5, true)
+                self.ttl_disable_int = c_timer.new(0.5, false)
             elseif (ttl_disable_int and ttl_disable_int:adv()) then
                 -- reenable interaction after some time
                 self.int_done = false
@@ -188,7 +213,7 @@ c_switchlith = {
         -- no need to call parent method
     end,
     draw = function(self)
-        pal(7, altern_time(0.5) and el_colors[player.cur_el] or 7)
+        pal(7, altern_time(0.5) and el_colors[player.cur_elp] or 7)
         c_interactive.draw(self)
         pal()
     end

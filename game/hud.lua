@@ -51,7 +51,7 @@ c_slide_text = {
         local l = c_hud_element.new(calc_x, y, parent_mgr)
         l.msg = msg
         l.final_pos = calc_x
-        l.ttl_slide = c_timer.new(0.5, false)
+        l.fixedx = l.final_pos + 250
         l.ttl_live = c_timer.new(2, false)
         l.offset = 0
         return sm(l, c_slide_text)
@@ -61,13 +61,13 @@ c_slide_text = {
             self:del()
             return
         end
-        self.fixedx = timer_lerp(self.final_pos, 250, self.ttl_slide, false, -1)
-        self.ttl_slide:adv()
+        local d = abs(self.fixedx - self.final_pos)
+        self.fixedx = (d < 2) and self.final_pos or (self.fixedx - d * 0.1)
         c_hud_element.update(self)
     end,
     draw = function(self)
         rectfill(self.x - 2, self.y - 2, self.x + 126, self.y + 7, 1)
-        rect( self.x - 2, self.y - 2, self.x + 126, self.y + 7, 8)
+        rect( self.x - 2, self.y - 2, self.x + 126, self.y + 7, 14)
         print(self.msg, self.x, self.y, 8) -- x,y are already right for the camera position
 
     end,
