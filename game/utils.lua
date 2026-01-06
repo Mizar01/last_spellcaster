@@ -14,8 +14,6 @@ function obj_move(obj, d, ovd_speed)
 			obj.x = obj.x + speed_x
 			return 1
 		else
-			-- move at the leftmost/rightmost possible position before the tile
-			-- obj.x = d == dir_left and (ttop.ox + 8 + obj.hitbox.x - 4) or (ttop.ox - 8 + obj.hitbox.x)
 			return 0
 		end
 	elseif (d == dir_up or d == dir_down) then
@@ -26,8 +24,6 @@ function obj_move(obj, d, ovd_speed)
 			obj.y = obj.y + speed_y
 			return 1
 		else
-			-- move at the topmost/bottommost possible position before the tile
-			-- obj.y = d == dir_up and (tleft.oy + 8 - hbp.y) or (tleft.oy - 8 + hbp.y2 - 1)
 			return 0
 		end
 	end

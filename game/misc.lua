@@ -14,9 +14,8 @@ c_explosion = {
     end,
     draw = function(self)
         if (self.ttl.t <= 0) return
-        local s = self
-        local r = lerp(0, s.max_radius, 1 - (s.ttl.t / s.ttl.maxtime))
-        circfill(s.x, s.y, r, 10)
+        local r = lerp(0, self.max_radius, 1 - (self.ttl.t / self.ttl.maxtime))
+        circfill(self.x, self.y, r, 10)
     end
 }
 clsinh(c_explosion, c_obj)
@@ -83,8 +82,8 @@ c_fire = {
         end
     end,
         effect = function(self, trg)
-        trg:dmg(self.damage)
         trg:unfreeze()
+        trg:dmg(self.damage)
     end
 }
 clsinh(c_fire, c_element)
@@ -170,8 +169,7 @@ c_wind = {
         end
     end,
     effect = function(self, trg)
-        -- make the enemy move in the direction of the spell
-        trg.x += self.dir == dir_right and self.power or -self.power
+        trg:blow(self.dir)
     end
 }
 clsinh(c_wind, c_element)

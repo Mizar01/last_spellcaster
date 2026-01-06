@@ -13,6 +13,11 @@ c_enemy = {
         l.dmg_time = c_timer.new(1, false)
         l.frozen_t = c_timer.new(10, false)
         l.frozen_t.t = 0
+        l.dir = nil
+        l.wspeed = 0
+        -- l.wind_t = c_timer.new(0.2, true)
+        -- l.wind_t.t = 0
+        l.dir_before_blow = nil
         return sm(l, c_enemy)
     end,
     dmg = function(self, dmg)
@@ -21,7 +26,6 @@ c_enemy = {
         self.spr.effect = "blink_white"
         if (self.life <= 0) then
             self:del()
-            -- c_explosion.new(self.x + 4, self.y + 4, 6, game.mgr.misc_mgr)
         end
     end,
     freeze = function(self)
@@ -35,20 +39,36 @@ c_enemy = {
         del(obj_solids, self)
         self.hitbox = self.hitbox_orig
     end,
+    blow = function(self, dir)
+        if (self.wspeed <= 0) self.dir_before_blow = self.dir
+        self.wspeed = 2
+        self.dir = dir
+        -- self.wind_t:restart()
+    end,
+    unblow = function(self)
+        self.wspeed = -1
+        self.dir = self.dir_before_blow
+        -- self.wind_t.t = -1
+    end,
     update = function(self)
         c_obj.update(self)
-        if (self.dmg_time:adv()) then
-            self.spr.effect = "none"
-        end
+        if (self.dmg_time:adv()) self.spr.effect = "none"
         if (self.frozen_t:adv()) then 
             self:unfreeze()
         else
             if (self.frozen_t:t_left_btw(0.1, 2)) self.spr.effect = "blink_white"
         end
+        -- if (self.wind_t:adv()) self:unblow()
+        if (self.wspeed > 0) then
+            local m = obj_move(self, self.dir, self.wspeed)
+            self.wspeed = m == 0 and 0 or max(0, self.wspeed - 0.05)
+        else
+            if (self.wspeed != -1) self:unblow()
+        end
     end,
     draw = function(self)
-        if (self.frozen_t.t > 0) then
-            spr(139, self.x, self.y)
+        if (self.frozen_t.t > 0) then 
+            spr(139, self.x, self.y) 
         end
         c_obj.draw(self)
     end,
@@ -72,20 +92,15 @@ c_bat = {
         l.horizontal = horizontal
         l.hitbox = {x = 2, y = 2, x2 = 5, y2 = 5}
         l.dir = l.horizontal and dir_right or dir_down
+        l.dir_before_blow = l.dir
         return sm(l, c_bat)
     end,
     update = function(self)
         c_enemy.update(self)
-        if (self:collide(player)) then
-            player:dmg(1)
-        end
-        if (self.frozen_t.t > 0) then
-            return
-        end
+        if (self:collide(player)) player:dmg(1)
+        if (self.frozen_t.t > 0) return
         local m = obj_move(self, self.dir)
-        if (m == 0) then
-            self.dir = (self.horizontal and 0 or 2) + ((self.dir + 1) % 2)
-        end
+        if (m == 0) self.dir = (self.horizontal and 0 or 2) + ((self.dir + 1) % 2)
     end,
 }
 clsinh(c_bat, c_enemy)
