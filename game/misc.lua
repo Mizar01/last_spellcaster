@@ -232,6 +232,27 @@ c_switchlith = {
 }
 clsinh(c_switchlith, c_interactive)
 
+c_scroll = {
+    new = function(x, y, el, parent_mgr)
+        local l = c_interactive.new(x, y, parent_mgr)
+        l.spr.idle = { ss = 12 }
+        l.el = el
+        l.oy = y
+        return sm(l, c_scroll)
+    end,
+    update = function(self)
+        c_interactive.update(self)
+        self.y = self.oy + sin(time()) * 2
+    end,
+    interact = function(self)
+        player.cur_el = self.el
+        player.avail_elements[self.el] = true
+        c_slide_text.new(30, el_cls[self.el].name.." acquired", game.mgr.hud_mgr)
+        self:del()
+    end,
+}
+clsinh(c_scroll, c_interactive)
+
 c_misc_mgr = {
     new = function()
         local m = c_mgr.new()

@@ -50,8 +50,8 @@ c_player = {
 		p.coins = 0
 		p.stinky_socks = false
 		-- element props
-		p.cur_el = el_fire
-		p.avail_elements = { true, true, true, true }
+		p.cur_el = nil
+		p.avail_elements = { false, false, false, false }
 		p.el_cooldown = c_timer.new(1, false)
 
 		p.shine_star = 0
@@ -236,13 +236,6 @@ c_player = {
 		local hbp = p:hitbox_pos(0, 1)
 		local solid_left = map_or_obj_solid_at_px(hbp.x, hbp.y2)
 		local solid_right = map_or_obj_solid_at_px(hbp.x2, hbp.y2)
-		return solid_left or solid_right
-	end,
-	on_ceiling = function(self)
-		local p = self
-		local hbp = p:hitbox_pos(0, -1)
-		local solid_left = mget2_by_px_solid(hbp.x, hbp.y)
-		local solid_right = mget2_by_px_solid(hbp.x2, hbp.y)
 		return solid_left or solid_right
 	end,
 	apply_end_stage_upgrades = function(self)

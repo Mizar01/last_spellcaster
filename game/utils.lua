@@ -204,7 +204,7 @@ function setup_stage_from_string()
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
                 player.x, player.y = px, py
-            elseif (t >= "a" and t <= "b") then -- bats
+            elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
             elseif (t == "6") then -- switchlith
                 c_switchlith.new(px, py, mmgr)
@@ -215,7 +215,9 @@ function setup_stage_from_string()
             elseif (t == "s") then -- spider
                 c_spider.new(px, py, emgr)
             elseif (t == "v") then
-                c_vine.new(px, py, emgr)    
+                c_vine.new(px, py, emgr)
+            elseif (t == "A" or t == "B" or t == "C" or t == "D") then -- element scrolls
+                c_scroll.new(px, py, ord(t) - ord("A") + 1, mmgr)
             end
         end
     end 

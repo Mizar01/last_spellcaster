@@ -26,6 +26,10 @@ end
 -- f = player start position
 -- s = spider enemy
 -- v = vines
+-- A = fire scroll
+-- B = thunder scroll
+-- C = ice scroll
+-- D = wind scroll
 
 -- empty_map_sammple
 empty_map_sample = [[
@@ -91,10 +95,10 @@ extended_maps_config = {
 1                                                                         1 1                                                                                                                                                                                 1
 1                                                                                                                                                                                                                                                             1
 1                                                                               1 1                                                                                                                                                                           1
-1                                                                                                                                                                                                                                                             1
+1     A   B     C     D                                                                                                                                                                                                                                           1
 1 1 1 1 1 1 1 1 1 1 1 1 1                                                 1 1                                                                                                                                                                                 1
-1                       1     6                                                                                                                                                                                                                               1
-1             1 1 1 1   1 1 1 1 1 1 1                                                                                                                                                                                                                         1
+1     a                 1     6                                                                                                                                                                                                                               1
+1             1 1 1 1   1 1   1 1 1 1                                                                                                                                                                                                                         1
 1         1 1 1 1                   1 1 1                                 1 1                                                                                                                                                                                 1
 1     f 1 1 1 1 1 6                 v v v   1               s               1             e                                                                                                                                                                   1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
