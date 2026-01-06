@@ -245,6 +245,7 @@ c_player = {
 		-- end
 	end,
 	attack = function(self)
+		if (self.cur_el == nil) return
 		if (self.el_cooldown.t <= 0) then
 			-- default attack does nothing
 			el_cls[self.cur_el].new(self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
@@ -252,12 +253,13 @@ c_player = {
 		end
 	end,
 	switch_element = function(self)
+		if (self.cur_el == nil) return
 		local s1 = (self.cur_el) % 4 + 1
 		while true do
 			flog("s1: "..s1)
 			if (self.avail_elements[s1]) then
 				self.cur_el = s1
-				c_slide_text.new(30, el_cls[s1].name, game.mgr.hud_mgr)
+				c_slide_text.new(30, "switched to "..el_cls[s1].name, game.mgr.hud_mgr)
 				break
 			end
 			s1 = s1 % 4 + 1

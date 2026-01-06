@@ -204,7 +204,6 @@ c_interactive = {
     draw = function(self)
         self:draw_sprite()
         if self.show_int_button then
-            -- draw interaction button above the object
             print("❎", self.x + 2, self.y - 6, 12)
         end
     end,
@@ -250,6 +249,11 @@ c_scroll = {
         c_slide_text.new(30, el_cls[self.el].name.." acquired", game.mgr.hud_mgr)
         self:del()
     end,
+    draw = function(self)
+        pal(7, el_colors[self.el])
+        c_interactive.draw(self)
+        pal()
+    end
 }
 clsinh(c_scroll, c_interactive)
 

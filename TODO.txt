@@ -7,4 +7,4 @@ OK create a sliding text effect to show some messages on screen
 OK the fireball comes out wrong when shooting to the left
 OK the hud position is messed up, again --> the problem is the order of updates, cam must be always first.
 OK begin to shorten all the variable names. I hit the chars limit!
-- Bug: some obj_solids are not removed when unfreeze (or maybe they are constantly re-added by some code?)
+- Bug: sometimes obj_solids are not removed when unfreeze (or maybe they are constantly re-added by some code?)
