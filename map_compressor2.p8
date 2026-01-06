@@ -15,15 +15,17 @@ function odd_chars(s)
 end
 
 -- legend:
--- 0 = empty
+-- space = empty
 -- 1 = solid terrain block
 -- 6 = switchlith
--- 10(a) = horizontal bat
--- 11(b) = vertical bat
--- 12(c) = laser cannon h,v directions
--- 13(d) = laser cannon diag directions
--- 14(e) = dog enemy
--- 15(f) = player start position
+-- a = horizontal bat
+-- b = vertical bat
+-- c = laser cannon h,v directions
+-- d = laser cannon diag directions
+-- e = dog enemy
+-- f = player start position
+-- s = spider enemy
+-- v = vines
 
 -- empty_map_sammple
 empty_map_sample = [[
@@ -87,14 +89,14 @@ extended_maps_config = {
 1                                                                               1 1                                                                                                                                                                           1
 1                                                                                                                                                                                                                                                             1
 1                                                                         1 1                                                                                                                                                                                 1
-1                     b                                                                                                                                                                                                                                       1
+1                                                                                                                                                                                                                                                             1
 1                                                                               1 1                                                                                                                                                                           1
 1                                                                                                                                                                                                                                                             1
-1                                                                         1 1                                                                                                                                                                                 1
-1                             6                                                                                                                                                                                                                               1
-1             1 1 1 1 1 1   1 1 1 1 1                                           1 1                                                                                                                                                                           1
-1         1 1 1 1     a             1 1 1                                 1 1                                                                                                                                                                                 1
-1     f 1 1 1 1 1                   1 1 1 1 1               e               1                                                                                                                                                                                 1
+1 1 1 1 1 1 1 1 1 1 1 1 1                                                 1 1                                                                                                                                                                                 1
+1                       1     6                                                                                                                                                                                                                               1
+1             1 1 1 1   1 1 1 1 1 1 1                                                                                                                                                                                                                         1
+1         1 1 1 1                   1 1 1                                 1 1                                                                                                                                                                                 1
+1     f 1 1 1 1 1 6                 v v v   1               s               1             e                                                                                                                                                                   1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]],
 }

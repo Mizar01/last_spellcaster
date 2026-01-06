@@ -81,7 +81,7 @@ c_fire = {
             circfill(self.x + offset_x, self.y, 1.5 * radf, cols[i + 1])
         end
     end,
-        effect = function(self, trg)
+    effect = function(self, trg)
         trg:unfreeze()
         trg:dmg(self.damage)
     end

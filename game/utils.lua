@@ -190,6 +190,7 @@ function setup_stage_from_string()
 
      -- SECOND PASS: set tile variations according to theme
 	local emgr = game.mgr.enemy_mgr
+    local mmgr = game.mgr.misc_mgr
     for ty=0,map_h - 1 do
         for tx=0,map_w - 1 do
             local t = converted_type_map[ty][tx]
@@ -202,17 +203,19 @@ function setup_stage_from_string()
                 local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
-                player.x = tx * 8
-                player.y = ty * 8
+                player.x, player.y = px, py
             elseif (t >= "a" and t <= "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
             elseif (t == "6") then -- switchlith
-                c_switchlith.new(px, py, game.mgr.misc_mgr)
+                c_switchlith.new(px, py, mmgr)
             elseif (t == "7") then -- teleport pair 2
 			elseif (t == "8") then -- dead
             elseif (t == "e") then -- dog
 				c_dog.new(px, py, emgr)
-            elseif (t >= "c" and t <= "d") then -- laser cannons
+            elseif (t == "s") then -- spider
+                c_spider.new(px, py, emgr)
+            elseif (t == "v") then
+                c_vine.new(px, py, emgr)    
             end
         end
     end 

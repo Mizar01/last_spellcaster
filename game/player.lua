@@ -50,7 +50,7 @@ c_player = {
 		p.coins = 0
 		p.stinky_socks = false
 		-- element props
-		p.cur_el = el_wind
+		p.cur_el = el_fire
 		p.avail_elements = { true, true, true, true }
 		p.el_cooldown = c_timer.new(1, false)
 

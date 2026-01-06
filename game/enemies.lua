@@ -18,9 +18,11 @@ c_enemy = {
         -- l.wind_t = c_timer.new(0.2, true)
         -- l.wind_t.t = 0
         l.dir_before_blow = nil
+        l.fixed = false -- if true, enemy does not move
         return sm(l, c_enemy)
     end,
     dmg = function(self, dmg)
+        if (self:is_inv()) return
         self.life -= dmg
         self.dmg_time:restart()
         self.spr.effect = "blink_white"
@@ -40,6 +42,7 @@ c_enemy = {
         self.hitbox = self.hitbox_orig
     end,
     blow = function(self, dir)
+        if (self.fixed) return
         if (self.wspeed <= 0) self.dir_before_blow = self.dir
         self.wspeed = 2
         self.dir = dir
@@ -77,6 +80,7 @@ c_enemy = {
         del(obj_solids, self)
         c_obj.del(self)
     end,
+    is_inv = function(self) return false end,
 }
 clsinh(c_enemy, c_obj)
 
@@ -105,21 +109,22 @@ c_bat = {
 }
 clsinh(c_bat, c_enemy)
 
-c_dog = {
-    new = function(x, y, parent_mgr)
+c_walk_en = {
+    new = function(x, y, spidle, sprun, parent_mgr)
         local l = c_enemy.new("dog", x, y, 1.5, parent_mgr)
         l.spr = {
-            idle = { sprites = { 144, 145 }, fps = 2,  loop = true },
-            run = { sprites = { 146, 147 }, fps = 4, loop = true },
+            idle = { sprites = spidle, fps = 2,  loop = true },
+            run = { sprites = sprun, fps = 4, loop = true },
             flip_x = false,
             flip_y = false,
             frame = 0,
         }
         l.speed = player.stinky_socks and 0.2 or 0.4
         l.hitbox = {x = 0, y = 3, x2 = 7, y2 = 7}
+        l.hitbox_orig = l.hitbox
         l.basex = x
         l.basey = y
-        return sm(l, c_dog)
+        return sm(l, c_walk_en)
     end,
     update = function(self)
         c_enemy.update(self)
@@ -157,4 +162,33 @@ c_dog = {
         end
     end,
 }
-clsinh(c_dog, c_enemy)
+clsinh(c_walk_en, c_enemy)
+
+c_dog = {
+    new = function(x, y, parent_mgr)
+        local l = c_walk_en.new(x, y, {144,145}, {146,147}, parent_mgr)
+        return sm(l, c_dog)
+    end,
+}
+clsinh(c_dog, c_walk_en)
+
+c_spider = {
+    new = function(x, y, parent_mgr)
+        local l = c_walk_en.new(x, y, {160,161}, {162,163}, parent_mgr)
+        return sm(l, c_spider)
+    end,
+}
+clsinh(c_spider, c_walk_en)
+
+c_vine = {
+    new = function(x, y, parent_mgr)
+        local l = c_enemy.new("vine", x, y, 0, parent_mgr)
+        l.spr.idle = {ss =  6}
+        l.fixed = true
+        l.life = 10
+        add(obj_solids, l)
+        return sm(l, c_vine)
+    end,
+    is_inv = function(self) return not (player.cur_el == el_fire)end,
+}
+clsinh(c_vine, c_enemy)
