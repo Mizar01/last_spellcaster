@@ -2,23 +2,23 @@
 c_enemy = {
     new = function(etype, x, y, speed, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
-        -- override default properties and add new ones
-        l.etype = etype
-        l.hitbox = {x = 2, y = 2, x2 = 5, y2 = 5}
-        l.hitbox_orig = l.hitbox
-        l.speed = speed or 1
-        l.life = 100
-        l.time_last_death = 0
-        l.respawn_timer = c_timer.new(10, false)
-        l.dmg_time = c_timer.new(1, false)
-        l.frozen_t = c_timer.new(20, false)
+        dstar(l.hitbox, "x = 2; y = 2; x2 = 5; y2 = 5")
+        dstar(l, [[
+            respawn_timer = _t1_10
+            dmg_time = _t1_1
+            frozen_t = _t1_20
+            time_last_death = 0
+            life = 100
+            dir = nil
+            wspeed = 0
+            dir_before_blow = nil
+            fixed = false
+            hitbox_orig = {}
+            speed = *1
+            etype = *2
+        ]], {speed or 1, etype})
+        dstar(l.hitbox_orig, "x = 2; y = 2; x2 = 5; y2 = 5")  -- is an immutable copy
         l.frozen_t.t = 0
-        l.dir = nil
-        l.wspeed = 0
-        -- l.wind_t = c_timer.new(0.2, true)
-        -- l.wind_t.t = 0
-        l.dir_before_blow = nil
-        l.fixed = false -- if true, enemy does not move
         return sm(l, c_enemy)
     end,
     dmg = function(self, dmg)
@@ -93,10 +93,12 @@ c_bat = {
 			flip_y = false,
 			frame = 0,
 		}
-        l.horizontal = horizontal
-        l.hitbox = {x = 2, y = 2, x2 = 5, y2 = 5}
-        l.dir = l.horizontal and dir_right or dir_down
-        l.dir_before_blow = l.dir
+        dstar(l.hitbox, "x = 2; y = 2; x2 = 5; y2 = 5")
+        dstar(l, [[
+            horizontal = *1
+            dir = *2
+            dir_before_blow = _k_dir
+        ]], {horizontal, horizontal and dir_right or dir_down})
         return sm(l, c_bat)
     end,
     update = function(self)
@@ -120,8 +122,8 @@ c_walk_en = {
             frame = 0,
         }
         l.speed = player.stinky_socks and 0.2 or 0.4
-        l.hitbox = {x = 0, y = 3, x2 = 7, y2 = 7}
-        l.hitbox_orig = l.hitbox
+        dstar(l.hitbox, "x = 0; y = 3; x2 = 7; y2 = 7")
+        dstar(l.hitbox_orig, "x = 0; y = 3; x2 = 7; y2 = 7") -- immutable
         l.basex = x
         l.basey = y
         return sm(l, c_walk_en)
@@ -184,8 +186,10 @@ c_vine = {
     new = function(x, y, parent_mgr)
         local l = c_enemy.new("vine", x, y, 0, parent_mgr)
         l.spr.idle = {ss =  6}
-        l.fixed = true
-        l.life = 10
+        dstar(l,[[
+            fixed = true
+            life = 10
+        ]])
         add(obj_solids, l)
         return sm(l, c_vine)
     end,

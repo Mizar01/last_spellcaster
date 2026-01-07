@@ -226,3 +226,60 @@ end
 function sm(t1, t2)
     return setmetatable(t1, t2)
 end
+
+-- Used to add properties to an existing key-value table from a string in the format "key=value; or separate by new lines"
+-- supports only primitive types and booleans, no nested tables, no hybrid tables (with keys or indexes)
+-- other special supports:
+--   c_timer objects are serialized as _t1_<maxtime> for non-looping timers
+--   c_timer objects are serialized as _t2_<maxtime> for looping timers
+--   references to other keys in the same table are serialized as _k_<keyname>
+--   empty tables are serialized as {}
+--   *n where n is a number from 1 to 9 are replaced with the corresponding value from an indexed array_vals
+--     (this is useful to pass dynamic values for some keys)
+-- t (the array to fill or override), s (the string to parse, in the format "key=value\nkey2=value2\n...")
+function dstar(t, s, arr_vals)
+    if (arr_vals ~= nil) then
+        s = arr_eval(s, arr_vals)
+    end
+    s = repl_char(s,"\n",";")
+    s = repl_char(s,"\r",";")
+    s = repl_char(s," ","")
+    s = repl_char(s,"\t","")
+    for token in all(split(s,";")) do
+        if (token != "") then
+            local k, v = split(token, "=")[1], split(token, "=")[2]
+            if (v == "nil") then t[k] = nil
+            elseif (v == "true") then t[k] = true
+            elseif (v == "false") then t[k] = false
+            elseif (tonum(v) ~= nil) then t[k] = tonum(v)
+            elseif (sub(v,1,4) == "_t1_") then t[k] = c_timer.new(tonum(sub(v,5), false))
+            elseif (sub(v,1,4) == "_t2_") then t[k] = c_timer.new(tonum(sub(v,5), true))
+            elseif (sub(v,1,3) == "_k_") then t[k] = t[sub(v,4)]
+            elseif (sub(v,1,2) == "{}") then t[k] = {}
+            else t[k] = v end 
+            flog("dstar: "..k.."->"..tostr(t[k]))
+        end
+    end
+end
+
+function repl_char(s,c1,c2)
+	local s2 = ""
+	for i=1,#s do
+		local v = sub(s,i,i)
+		if (v == c1) v = c2
+		s2 = s2..v
+	end
+	return s2
+end
+
+-- finds special char '*' and replaces it with the array values in order
+-- supports from 1 to 9 elements
+-- only basic types supported in array (numbers, strings, booleans)
+function arr_eval(s, arr)
+    for i=1,#s do
+        if (char_at(s, i) == "*") then
+            s = sub(s, 1, i-1)..tostr(arr[tonum(char_at(s, i+1))])..sub(s, i+2)
+        end
+    end
+    return s
+end

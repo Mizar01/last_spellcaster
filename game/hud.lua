@@ -52,8 +52,10 @@ c_slide_text = {
         l.msg = msg
         l.final_pos = calc_x
         l.fixedx = l.final_pos + 250
-        l.ttl_live = c_timer.new(2, false)
-        l.offset = 0
+        dstar(l, [[
+            ttl_live = _t1_2
+            offset = 0
+        ]])
         return sm(l, c_slide_text)
     end,
     update = function(self)
@@ -92,13 +94,12 @@ c_hud_mgr = {
                 spr(138, self.x, self.y - 1)
                 print(tostr(player.coins), self.x + 10, self.y + 1, 8)
             end),
-            c_val_printer.new(49, 1, 35, function(self)
-                print("stage "..tostr(stage), self.x + 1, self.y + 1, 8)
-            end),
+            -- c_val_printer.new(49, 1, 35, function(self)
+            --     print("stage "..tostr(stage), self.x + 1, self.y + 1, 8)
+            -- end),
             c_player_life_bar.new(10, 120),
             -- c_popup.new(64, 64, "stage "..tostr(stage).."*"..stage_config_get().name)
         }
-        flog("HUD mgr restarted")
     end,
     -- add_popup = function(self, msg)
     --     -- local p = c_popup.new(64, 64, msg)

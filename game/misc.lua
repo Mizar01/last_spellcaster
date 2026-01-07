@@ -3,8 +3,10 @@ c_explosion = {
         local l = c_obj.new(x, y, parent_mgr)
         l.spr.idle = { sprites = { 185, 186, 187 }, fps = 4 }
         l.max_radius = max_radius or 4
-        l.ttl = c_timer.new(0.2, false)
-        l.solid = false
+        dstar(l,[[
+            ttl = _t1_0.2
+            solid = false
+        ]])
         return sm(l, c_explosion)
     end,
     update = function(self)
@@ -24,13 +26,16 @@ c_element = {
     new = function(el, dir)
         local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
         local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
-        l.damage = 10
-        l.ttl = c_timer.new(0.3, false)
         l.origx, l.origy = origx, origy
-        l.max_dist = 20
         l.dir = dir
         l.el = el
-        l.destroy_req_prev_frame = false
+        dstar(l, [[
+            damage = 10
+            ttl = _t1_0.3
+            max_dist = 20
+            destroy_req_prev_frame = false
+        ]])
+
         return sm(l, c_element)
     end,
     update = function(self)
@@ -116,8 +121,10 @@ c_thunder = {
     new = function(dir, parent_mgr)
         local l = c_element.new(el_thunder, dir)
         l.spr.idle = { ss = 59 }
-        l.ttl = c_timer.new(0.2, false)
-        l.max_dist = 25
+        dstar(l, [[
+            ttl = _t1_0.2
+            max_dist = 25
+        ]])
         -- takes three sprites space + a tolerance
         return sm(l, c_thunder)
     end,
@@ -147,9 +154,12 @@ c_wind = {
     new = function(dir, parent_mgr)
         local l = c_element.new(el_wind, dir)
         l.spr.idle = { ss = 60 }
-        l.ttl = c_timer.new(0.7 , false)
-        l.max_dist = 25
-        l.power = 20
+        dstar(l, [[
+            damage = 0
+            ttl = _t1_0.7
+            max_dist = 25
+            power = 20
+        ]])
         return sm(l, c_wind)
     end,
     draw = function(self)
@@ -177,10 +187,12 @@ clsinh(c_wind, c_element)
 c_interactive = {
     new = function(x, y, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
-        l.show_int_button = false
-        l.ttl_disable_int = nil
-        l.int_done = false
-        l.solid = true
+        dstar(l, [[
+            show_int_button = false
+            ttl_disable_int = nil
+            int_done = false
+            solid = true
+        ]])
         return sm(l, c_interactive)
     end,
     update = function(self)

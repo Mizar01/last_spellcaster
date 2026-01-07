@@ -1,5 +1,5 @@
 function _init()
-    -- flog("\n\n\n\n----------- Game started "..datetime_str().." -----------")
+    flog("\n\n\n\n----------- Game started "..datetime_str().." -----------")
     game = c_game.new()
     --game:restart()
 end

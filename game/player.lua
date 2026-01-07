@@ -1,7 +1,6 @@
 c_player = {
 	new = function(x, y)
 		local p = c_obj.new(x, y)
-		p.name = "player"
 		p.spr = {
 			idle = { sprites = { 64, 65 }, fps = 2 },
 			walk = { sprites = { 80, 81, 82 }, fps = 6 },
@@ -12,54 +11,39 @@ c_player = {
 			time_start = 0,
 			effect = "none"
 		}
-		p.invisible = false
-		p.blocked = false
-		p.invulnerable = false
-		p.nodmg_t = nil
+		
+		dstar(p.hitbox, "x = 2; y = 3; x2 = 5; y2 = 7")
 
-		-- jump properties
-		p.jforce = 1.7
-		p.jstack = 0
-		-- buffer for jump stack
-		p.max_jstack = 15
-		-- max jump stacks
-		p.speed_y_decay = 0.95
-		p.speedy = 0
-		p.max_speedy = 2
-		-- terminal velocity (< 8 to avoid overlapping walls)
-
-		p.phase = "idle"
-		-- idle, walk, jump
-		p.hitbox = { x = 2, y = 3, x2 = 5, y2 = 7 }
-
-		-- horizontal speed properties
-		p.max_speed = 1
-		p.speed = 0
-		-- speed is 0 when not moving left or right
-		p.init_speed = 0.1
-		-- initial speed when starting to move
-		p.inc_speed_factor = 0.2
-		-- speed increase factor
-
-		p.prev_btn = {}
-		-- prev frame button state
-		p.life = 20
-		p.max_life = 20
-		p.init_max_life = 20
-		-- used for starting reference to show a larger life bar, doesnt need changes.
-		p.coins = 0
-		p.stinky_socks = false
-		-- element props
-		p.cur_el = nil
 		p.avail_elements = { false, false, false, false }
-		p.el_cooldown = c_timer.new(1, false)
-
-		p.shine_star = 0
-		-- frames to show the shining star above the player head
-
-		p.interaction_fn = nil
-		-- current function given by an interactive object
-
+		
+		dstar(p, [[
+			name=player
+			p.prev_btn = {}
+			invisible=false
+			blocked=false
+			invulnerable=false
+			nodmg_t=nil
+			jforce=1.7
+			jstack=0
+			max_jstack=15
+			speed_y_decay=0.95
+			speedy=0
+			max_speedy=2
+			phase="idle"
+			max_speed=1
+			speed=0
+			init_speed=0.1
+			inc_speed_factor=0.2
+			life=20
+			max_life=20
+			init_max_life=20
+			coins=0
+			stinky_socks=false
+			cur_el=nil
+			el_cooldown = _t1_1
+			shine_star=0
+			interaction_fn=nil
+		]])	
 		return sm(p, c_player)
 	end,
 	reset_stage_props = function(self)
