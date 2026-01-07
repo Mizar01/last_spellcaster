@@ -11,7 +11,6 @@ c_player = {
 			time_start = 0,
 			effect = "none"
 		}
-		
 		dstar(p.hitbox, "x = 2; y = 3; x2 = 5; y2 = 7")
 
 		p.avail_elements = { false, false, false, false }
@@ -29,7 +28,7 @@ c_player = {
 			speed_y_decay=0.95
 			speedy=0
 			max_speedy=2
-			phase="idle"
+			phase=idle
 			max_speed=1
 			speed=0
 			init_speed=0.1

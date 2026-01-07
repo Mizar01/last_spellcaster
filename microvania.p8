@@ -1,6 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
+#include game/config.lua
 #include game/common.lua
 #include game/shop.lua
 #include game/compressed_maps.lua
@@ -11,7 +12,6 @@ __lua__
 #include game/misc.lua
 #include game/hud.lua
 #include game/player_msg_mgr.lua
-#include game/config.lua
 #include game/main.lua
 
 __gfx__

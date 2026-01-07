@@ -87,12 +87,12 @@ clsinh(c_enemy, c_obj)
 c_bat = {
     new = function(x, y, horizontal, parent_mgr)
         local l = c_enemy.new("bat", x, y, 0.3, parent_mgr)
-        l.spr = {
-			idle = {sprites = { 128, 129 }, fps = 4, loop = true },
-			flip_x = false,
-			flip_y = false,
-			frame = 0,
-		}
+        l.spr.idle = {sprites = { 128, 129 }, fps = 4, loop = true }
+        dstar(l.spr, [[
+			flip_x = false
+			flip_y = false
+			frame = 0
+		]])
         dstar(l.hitbox, "x = 2; y = 2; x2 = 5; y2 = 5")
         dstar(l, [[
             horizontal = *1
@@ -111,17 +111,26 @@ c_bat = {
 }
 clsinh(c_bat, c_enemy)
 
+flog("just before c_walk_en")
 c_walk_en = {
-    new = function(x, y, spidle, sprun, parent_mgr)
-        local l = c_enemy.new("dog", x, y, 1.5, parent_mgr)
-        l.spr = {
-            idle = { sprites = spidle, fps = 2,  loop = true },
-            run = { sprites = sprun, fps = 4, loop = true },
-            flip_x = false,
-            flip_y = false,
-            frame = 0,
-        }
-        l.speed = player.stinky_socks and 0.2 or 0.4
+    idlespmap = dstarc([[
+        dog = _tab_144;145
+        spider = _tab_160;161
+    ]]),
+    runspmap = dstarc([[
+        dog = _tab_146;147
+        spider = _tab_162;163
+    ]]),
+    new = function(x, y, name)
+        local l = c_enemy.new(name, x, y, 1.5, game.mgr.enemy_mgr)
+        l.spr.idle = { sprites = c_walk_en.idlespmap[name], fps = 2,  loop = true }
+        l.spr.run = { sprites = c_walk_en.runspmap[name], fps = 4, loop = true }
+        dstar(l.spr, [[
+            flip_x = false
+            flip_y = false
+            frame = 0
+            speed = 0.4
+        ]])
         dstar(l.hitbox, "x = 0; y = 3; x2 = 7; y2 = 7")
         dstar(l.hitbox_orig, "x = 0; y = 3; x2 = 7; y2 = 7") -- immutable
         l.basex = x
@@ -165,22 +174,7 @@ c_walk_en = {
     end,
 }
 clsinh(c_walk_en, c_enemy)
-
-c_dog = {
-    new = function(x, y, parent_mgr)
-        local l = c_walk_en.new(x, y, {144,145}, {146,147}, parent_mgr)
-        return sm(l, c_dog)
-    end,
-}
-clsinh(c_dog, c_walk_en)
-
-c_spider = {
-    new = function(x, y, parent_mgr)
-        local l = c_walk_en.new(x, y, {160,161}, {162,163}, parent_mgr)
-        return sm(l, c_spider)
-    end,
-}
-clsinh(c_spider, c_walk_en)
+flog("just after c_walk_en")
 
 c_vine = {
     new = function(x, y, parent_mgr)

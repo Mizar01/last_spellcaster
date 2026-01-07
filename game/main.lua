@@ -1,7 +1,17 @@
+-- other dinamic game config before start
+stage_config = {
+    build_stage_config_item("hello pris... ehm subject n.6", 13, "grass", 0),
+}
+
+shop_items = {
+    -- build_shop_item(name, desc1, desc2, price, enable_after_stage, reusable, fn)
+    build_shop_item("tasty chicken", "+5 health", "", 10, 1, true, function() player:increase_life(5) end),
+}
+
+
 function _init()
     flog("\n\n\n\n----------- Game started "..datetime_str().." -----------")
     game = c_game.new()
-    --game:restart()
 end
 
 function _update60()

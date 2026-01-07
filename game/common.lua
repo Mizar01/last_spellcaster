@@ -228,16 +228,19 @@ function sm(t1, t2)
 end
 
 -- Used to add properties to an existing key-value table from a string in the format "key=value; or separate by new lines"
--- supports only primitive types and booleans, no nested tables, no hybrid tables (with keys or indexes)
--- other special supports:
+-- supports only primitive types and booleans and nested similar tables, no hybrid tables (with keys or indexes)
+-- PARAMS: t (the array to fill or override), s (the string to parse, in the format "key=value\nkey2=value2\n...")
+-- special supports:
 --   c_timer objects are serialized as _t1_<maxtime> for non-looping timers
 --   c_timer objects are serialized as _t2_<maxtime> for looping timers
 --   references to other keys in the same table are serialized as _k_<keyname>
 --   empty tables are serialized as {}
+--   a sub table are serialized as _tbl_{another dstar string} (NOTE: for now only one line reading is supported)
 --   *n where n is a number from 1 to 9 are replaced with the corresponding value from an indexed array_vals
 --     (this is useful to pass dynamic values for some keys)
--- t (the array to fill or override), s (the string to parse, in the format "key=value\nkey2=value2\n...")
 function dstar(t, s, arr_vals)
+    flog("--------------------------------DSTAR START--------------------------------")
+    -- if (#t == 0) then flog("**************************") end
     if (arr_vals ~= nil) then
         s = arr_eval(s, arr_vals)
     end
@@ -245,9 +248,17 @@ function dstar(t, s, arr_vals)
     s = repl_char(s,"\r",";")
     s = repl_char(s," ","")
     s = repl_char(s,"\t","")
+    local index = 1 -- used if we are creating indexed arrays
     for token in all(split(s,";")) do
         if (token != "") then
             local k, v = split(token, "=")[1], split(token, "=")[2]
+            -- flog("dstar - before: "..k.."->"..tostr(v))
+            if (v == nil) then
+                -- indexed array
+                v = k
+                k = index
+                index += 1
+            end
             if (v == "nil") then t[k] = nil
             elseif (v == "true") then t[k] = true
             elseif (v == "false") then t[k] = false
@@ -256,11 +267,17 @@ function dstar(t, s, arr_vals)
             elseif (sub(v,1,4) == "_t2_") then t[k] = c_timer.new(tonum(sub(v,5), true))
             elseif (sub(v,1,3) == "_k_") then t[k] = t[sub(v,4)]
             elseif (sub(v,1,2) == "{}") then t[k] = {}
+            elseif (sub(v,1,5) == "_tbl_") then
+                t[k] = {}
+                dstar(t[k], sub(v,6))
             else t[k] = v end 
-            flog("dstar: "..k.."->"..tostr(t[k]))
+            flog("dstar after: "..k.."->"..tostr(t[k]))
         end
     end
+    return t
 end
+
+function dstarc(s) return dstar({}, s) end
 
 function repl_char(s,c1,c2)
 	local s2 = ""

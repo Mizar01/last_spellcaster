@@ -52,37 +52,6 @@ themes = {
     },
 }
 
-
-stage_config = {
-    build_stage_config_item("hello pris... ehm subject n.6", 13, "grass", 0),
-    build_stage_config_item("we do this for you", 6, "metal", 15),
-    build_stage_config_item("time to breath fresh air", 0, "grass", 15),
-    build_stage_config_item("portals are funny, isn't it?", 6, "grass", 20),
-    build_stage_config_item("do not fear cutie dogs", 0, "sand", 20),
-}
-
-local fn_inc_healt = function() player.max_life = flr(player.max_life * 1.10 + 0.5) end
-shop_items = {
-    -- build_shop_item(name, desc1, desc2, price, enable_after_stage, reusable, fn)
-    build_shop_item("tasty chicken", "+5 health", "", 10, 1, true, function() player:increase_life(5) end),
-    build_shop_item("pizza with salami", "+7 health", "", 20, 1, true, function() player:increase_life(7) end),
-    build_shop_item("dna mod #1", "+10% max health", "", 55, 1, false, fn_inc_healt),
-    build_shop_item("dna mod #2", "+10% max health", "", 75, 5, false, fn_inc_healt),
-    build_shop_item("dna mod #3", "+10% max health", "", 95, 8, false, fn_inc_healt),
-    build_shop_item("dna mod #3", "+10% max health", "", 115, 10, false, fn_inc_healt),
-    build_shop_item("haste", "+25% speed", "", 60, 3, false, function() player.max_speed *= 1.25 end),
-    build_shop_item("super haste", "+25% speed", "", 120, 7, false, function() player.max_speed *= 1.25 end),
-    build_shop_item("greed chip #1", "+1 coin*every gem taken", "i can understand*your needs", 100, 3, false, function() player.coin_inc += 1 end),
-    build_shop_item("greed chip #2", "+2 coin*every gem taken", "maybe you can buy*a house someday", 150, 7, false, function() player.coin_inc += 1 end),
-    build_shop_item("stinky socks", "dogs are reluctant*to hunt you", "slows down dogs*hunting you", 110, 5, false, function() player.stinky_socks = true end),
-    -- build_shop_item("interests", "+20% coins after*every stage end", "", 50, 1, false, function()
-    --     add(player.permanent_upgrades.after_stage, function()
-    --         local inc = flr(player.coins * 0.02)
-    --         player.coins += inc
-    --     end)
-    -- end),
-}
-
 -- 1 max dead per stage
 dead_messages = {}
 

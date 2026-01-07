@@ -211,9 +211,9 @@ function setup_stage_from_string()
             elseif (t == "7") then -- teleport pair 2
 			elseif (t == "8") then -- dead
             elseif (t == "e") then -- dog
-				c_dog.new(px, py, emgr)
+				c_walk_en.new(px, py, "dog")
             elseif (t == "s") then -- spider
-                c_spider.new(px, py, emgr)
+                c_walk_en.new(px, py, "spider")
             elseif (t == "v") then
                 c_vine.new(px, py, emgr)
             elseif (t == "A" or t == "B" or t == "C" or t == "D") then -- element scrolls
