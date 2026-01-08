@@ -53,7 +53,7 @@ c_slide_text = {
         l.final_pos = calc_x
         l.fixedx = l.final_pos + 250
         dstar(l, [[
-            ttl_live = _t1_2
+            ttl_live = _fn_t1_2
             offset = 0
         ]])
         return sm(l, c_slide_text)

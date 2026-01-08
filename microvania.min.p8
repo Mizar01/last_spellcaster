@@ -1,126 +1,236 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
-r={new=function(n,e)local n={maxtime=flr(C*n),t=flr(C*n),loop=e or false}return f(n,r)end,adv=function(n)if(n.t<0)return false
+poke(24412,-1)nu=false ns=true nh="microvania/logs/log"F=60nt={}function c(l,t,i)l,i=l or{},i or{}local function d(l)local n=1while n<=#l and(sub(l,n,n)==" "or sub(l,n,n)=="\n"or sub(l,n,n)=="	")do n+=1end local e=#l while e>=n and(sub(l,e,e)==" "or sub(l,e,e)=="\n"or sub(l,e,e)=="	")do e-=1end if(n>e)return""
+return sub(l,n,e)end local e,n=1,#t while e<=n do while e<=n do local n=sub(t,e,e)if(n~=" "and n~="\n"and n~=";"and n~="	")break
+e+=1end if(e>n)break
+local r,f,o=e,0,nil while e<=n do local n=sub(t,e,e)if(n=="{")f+=1
+if(n=="}")f-=1
+if f==0do if(n=="="and not o)o=e
+if(n==";"or n=="\n")break
+end e+=1end local f,n if(o)f,n=d(sub(t,r,o-1)),d(sub(t,o+1,e-1))else n=d(sub(t,r,e-1))
+local e local t=sub(n,1,1)if t=="{"and sub(n,-1)=="}"do e=c({},sub(n,2,#n-1),i)elseif t=="*"do local n=tonum(sub(n,2))e=i[n]elseif sub(n,1,3)=="_k_"do local n=sub(n,4)e=l[n]elseif sub(n,1,4)=="_fn_"do local n=split(sub(n,5),"_")e=nt[n[1]](#n>=2and n[2]or nil)elseif n=="true"do e=true elseif n=="false"do e=false elseif n=="nil"do e=nil else e=tonum(n)if(e==nil)e=n
+end if f and f~=""do l[f]=e elseif n~=""do add(l,e)end end return l end function no(n,e)nt[n]=e end function o(e,l)local n={}c(n,e,l)return n end function j(n,e)return unpack(o(n,e))end l={new=function(n,e)local n={maxtime=flr(F*n),t=flr(F*n),loop=e or false}return i(n,l)end,adv=function(n)if(n.t<0)return false
 n.t-=1local e=false if(n.t==0)e=true if(n.loop)n.t=n.maxtime else n.t=-1
-return e end,restart=function(n)n.t=n.maxtime end,t_left=function(n)return flr(n.t/C)end,t_left_btw=function(n,e,o)local n=n:t_left()return n>=e and n<=o end}r.__index=r function nO()na={"⬅️","➡️","⬆️","⬇️","🅾️","❎"}for n=0,8do?""..n..":",0,n*7,1
-for e=0,6do if(btn(e,n))?na[e+1],e*8+10,n*7,n+1
-end end end function nP(n,e)rect(n-1,e-1,n+1,e+1,rnd(15))end function H(o,l,n,e)n,e=n or 8,e or 8local o,l=flr(o/n),flr(l/e)return{tile=mget(o,l),tx=o,ty=l,ox=o*n,oy=l*e}end function nQ(n,e,o,l,t)local n=H(n,e,l,t)return fget(n.tile,o)end function nR(n,e,o,l,t,f,d)if(n==nil)return
-local i,n=n.t,n.maxtime nl(e,o,l,t,i,n,f,d)end function nl(n,e,o,l,t,f,d,i)rectfill(n-1,e-1,n+o+1,e+l+1,d)local o=mid(0,flr(t/f*o),o)rectfill(n,e,n+o,e+l,i)end function nS()local n,e=stat(90).."-"..stat(91).."-"..stat(92),stat(93)..":"..stat(94)..":"..stat(95)return n.." "..e end function nt(n)local e=n1 or false if(not e)return
-printh(n,nc or"mainlog")end function c(n,e,o,l)?n,e-#n*2,o,l
-end function _(n,e,o,l,t)rectfill(n-o/2,e-l/2,n+o/2,e+l/2,t)end function U(e,n)return n[flr(time()/e)%#n+1]end function nu(n,e)local o=#n local e=e==1and o or e-1return e,n[e]end function ns(n,e)local o=#n local e=e%o+1return e,n[e]end function nT(e,o)local n=""for o in all(o)do n..=e..o end return n or""end function nV(e,n)return sub(e,n,n)end function nh(o,e,l)local n={}for e=0,e-1do n[e]={}for o=0,o-1do n[e][o]=l end end return n end function nf(n,e,o)local n=n+o*(e-n)return n end function E(e,o,n,l,t)local n=n.t/n.maxtime if(l)n=1-n
-return nf(e,e+(t==s and-1or 1)*o,n)end function nd(n,e,o,l,f)local t=split(n,"*")for n=1,#t do local t=t[n]if(f)c(t,e,o/2+(n-1)*8+5,l)else?t,e,o+(n-1)*8,l
-end end function nW(n,e)for n in all(n)do if(n==e)return true
-end return false end function n(n,e)n.__index=n return f(n,e)end function nX(n)return flr(n+.5)end function n2(n)return flr(time()/n)%2==0end function nY(n)return sin(n%360/360)end function nZ(n)local e,n=n%16*8,flr(n/16)*8return e,n end function f(n,e)return setmetatable(n,e)end v={new=function(n,e)local e={x=n,y=e,w=100,h=110,item=1,cc=y.new(17,3,25,function(n)spr(138,n.x,n.y-1)?tostr(a.coins),n.x+10,n.y+1,8
+return e end,restart=function(n)n.t=n.maxtime end,t_left=function(n)return flr(n.t/F)end,t_left_btw=function(n,e,l)local n=n:t_left()return n>=e and n<=l end}l.__index=l function nU()n2={"⬅️","➡️","⬆️","⬇️","🅾️","❎"}for n=0,8do?""..n..":",0,n*7,1
+for e=0,6do if(btn(e,n))?n2[e+1],e*8+10,n*7,n+1
+end end end function nV(n,e)rect(n-1,e-1,n+1,e+1,rnd(15))end function H(l,t,n,e)n,e=n or 8,e or 8local l,t=flr(l/n),flr(t/e)return{tile=mget(l,t),tx=l,ty=t,ox=l*n,oy=t*e}end function nW(n,e,l,t,o)local n=H(n,e,t,o)return fget(n.tile,l)end function nX(n,e,l,t,o,i,f)if(n==nil)return
+local d,n=n.t,n.maxtime ni(e,l,t,o,d,n,i,f)end function ni(n,e,l,t,o,i,f,d)rectfill(n-1,e-1,n+l+1,e+t+1,f)local l=mid(0,flr(o/i*l),l)rectfill(n,e,n+l,e+t,d)end function n_()local n,e=stat(90).."-"..stat(91).."-"..stat(92),stat(93)..":"..stat(94)..":"..stat(95)return n.." "..e end function z(n)local e=ns or false if(not e)return
+printh(n,nh or"mainlog")end function r(n,e,l,t)?n,e-#n*2,l,t
+end function D(n,e,l,t,o)rectfill(n-l/2,e-t/2,n+l/2,e+t/2,o)end function I(e,n)return n[flr(time()/e)%#n+1]end function n5(n,e)local l=#n local e=e==1and l or e-1return e,n[e]end function n4(n,e)local l=#n local e=e%l+1return e,n[e]end function nY(e,l)local n=""for l in all(l)do n..=e..l end return n or""end function nf(e,n)return sub(e,n,n)end function n6(l,e,t)local n={}for e=0,e-1do n[e]={}for l=0,l-1do n[e][l]=t end end return n end function nd(n,e,l)local n=n+l*(e-n)return n end function J(e,l,n,t,o)local n=n.t/n.maxtime if(t)n=1-n
+return nd(e,e+(o==s and-1or 1)*l,n)end function nr(n,e,l,t,i)local o=split(n,"*")for n=1,#o do local o=o[n]if(i)r(o,e,l/2+(n-1)*8+5,t)else?o,e,l+(n-1)*8,t
+end end function nZ(n,e)for n in all(n)do if(n==e)return true
+end return false end function n(n,e)n.__index=n return i(n,e)end function en(n)return flr(n+.5)end function n3(n)return flr(time()/n)%2==0end function ee(n)return sin(n%360/360)end function el(n)local e,n=n%16*8,flr(n/16)*8return e,n end function i(n,e)return setmetatable(n,e)end function o(n)return c({},n)end function et(e,t,o)local n=""for l=1,#e do local e=sub(e,l,l)if(e==t)e=o
+n=n..e end return n end function eo(n,l)for e=1,#n do if(nf(n,e)=="*")n=sub(n,1,e-1)..tostr(l[tonum(nf(n,e+1))])..sub(n,e+2)
+end return n end G={new=function(n,e)local e={x=n,y=e,w=100,h=110,item=1,cc=y.new(17,3,25,function(n)spr(138,n.x,n.y-1)?tostr(a.coins),n.x+10,n.y+1,8
 end),lc=y.new(75,3,35,function(n)spr(170,n.x,n.y-1)?tostr(flr(a.life)).."/"..tostr(flr(a.max_life)),n.x+10,n.y+1,8
-end)}e.items={}local o=true for n in all(n5)do if(n.reusable or l==2)n.used=false
-if not n.used and l>n.enable_after_stage do if(o)n.selected=true
-o=false add(e.items,n)end end add(e.items,{name="__exit__",desc1="exit shop",price=0,selected=false,used=false})return f(e,v)end,update=function(n)local e,o=btnp(2,0),btnp(3,0)if(e)n.items[n.item].selected=false n.item,F=nu(n.items,n.item)F.selected=true
-if(o)n.items[n.item].selected=false n.item,F=ns(n.items,n.item)F.selected=true
-if btnp(4,0)do local n=n.items[n.item]if(n.name=="__exit__")i:shop_to_play()return
+end)}e.items={}local l=true for n in all(n8)do if(n.reusable or _==2)n.used=false
+if not n.used and _>n.enable_after_stage do if(l)n.selected=true
+l=false add(e.items,n)end end add(e.items,{name="__exit__",desc1="exit shop",price=0,selected=false,used=false})return i(e,G)end,update=function(n)local e,l=btnp(2,0),btnp(3,0)if(e)n.items[n.item].selected=false n.item,K=n5(n.items,n.item)K.selected=true
+if(l)n.items[n.item].selected=false n.item,K=n4(n.items,n.item)K.selected=true
+if btnp(4,0)do local n=n.items[n.item]if(n.name=="__exit__")d:shop_to_play()return
 if not n.used do local e=a.coins if(e>=n.price)a.coins-=n.price n.used=true if(n.fn)n.fn()
-end end n.cc:update()end,draw=function(n)_(n.x,n.y,n.w,n.h,1)local e=n.y-n.h/2+5c("shop",n.x,e-1,7)if(n.item>=3)e-=(n.item-2)*10
-local l=n.x-n.w/2for t,o in pairs(n.items)do e+=10local n=e<n.y-n.h/2+15if not n do local t=o.selected and">"or" "if o.name=="__exit__"do?t.." exit",l,e,7
-break else local n=7if(o.used)n=3
-if(not o.used and a.coins<o.price)n=8
-?t.." "..o.name,l,e,n
-end end end local o,e=n.items[n.item],69_(64,90,90,50,0)nd(o.desc1 or"",l+10,e,7,false)e+=20nd(o.desc2 or"",l+10,e,11)e+=20?tostr(o.price).." coins",l+10,e,10
-n.cc:draw()n.lc:draw()end}v.__index=v n4={[[1z1G0z0D1"0z0D1"0z0D1"0:1,0x1"0z0D1"0z0D1"071$0,1"0u1"0z0D1"0D1"0x1"0z0D1"0z0D1"0,1"0"1"051"0u1"0*1"0&1"0z001"0*1"0"1"0"1"001"0x1"0*1"0&1"0z001"0,1"0"1"051"0u1"0.1"0z041"0D1"0x1"0z0D1"0G1"0u1"0z0D1"0D1"0x1"0z0D1"0G1"0u1"0"A!0!B!0"C!0"D!0z0;1.081"0x1"0"a!0(1!0"6!0z051"0&1$0!1"0!1$0z021"0$1$0)1#001"0x1"0"f!1%6!0(v#0!1!0's!0'1!0&e!0q1z1G]]}d={new=function(n,e,o)local n={name="obj",x=n or 0,y=e or 0,parent_mgr=o or nil,hitbox={x=0,y=0,x2=7,y2=7},speed=.4,destroyed=false,spr={idle={sprites={64,65},fps=2,loop=true},flip_x=false,flip_y=false,time_start=0,effect="none",last_frame=0,rot_speed=1},phase="idle"}if(n.parent_mgr)n.parent_mgr:add(n)
-return f(n,d)end,update=function(n)end,draw=function(n)n:draw_sprite()end,del=function(n)n.destroyed=true if(n.parent_mgr)n.parent_mgr:del(n)
-end,draw_sprite=function(o)if(n6)local n=o:hitbox_pos(0,0)rect(n.x,n.y,n.x2,n.y2,8)
-local n=o.spr if(n.effect=="blink_white")local n=time()%.2<.1if(n)for n=0,15do pal(n,7)end
-local e,l=n[o.phase],nil if e.ss~=nil do l=e.ss else if e.loop~=nil and e.loop==false and e.sprites[#e.sprites]==n.last_frame do l=n.last_frame else if(n.time_start==nil or n.time_start==0)n.time_start=time()
-l=e.sprites[1+flr((time()-n.time_start)/(1/e.fps))%#e.sprites]end end if n.effect=="rotx"or n.effect=="roty"do local e,f,d=8,8,n.rot_speed or 1if(n.effect=="roty")e=cos(t()*d)*8else f=cos(t()*d)*8
-sspr(l%16*8,flr(l/16)*8,8,8,o.x+4-e/2,o.y,e,f,false,false)else spr(l,o.x,o.y,1,1,n.flip_x or false,n.flip_y or false,7)end pal()n.last_frame=l end,collide=function(n,e,o,l)local n,e=n:hitbox_pos(0,0),e:hitbox_pos(0,0)if(o~=nil)n.x+=o n.x2-=o e.x+=o e.x2-=o
-return not(n.x2<e.x or n.x>e.x2 or n.y2<e.y or n.y>e.y2)end,hitbox_pos=function(n,e,o)e,o=e or 0,o or 0return{x=n.x+e+n.hitbox.x,y=n.y+o+n.hitbox.y,x2=n.x+e+n.hitbox.x2,y2=n.y+o+n.hitbox.y2}end}d.__index=d o={new=function()local n={}n.objs={}n.update_in_pause=false return f(n,o)end,restart=function(n)n.objs={}end,add=function(n,e)add(n.objs,e)end,del=function(n,e)del(n.objs,e)end,update=function(n)if(i.paused and not n.update_in_pause)return
-for n in all(n.objs)do n:update()end end,draw=function(n)for n in all(n.objs)do n:draw()end end}o.__index=o function m(o,n,e)local l,e=e or o.speed,e or o.speed local l,t=n==s and-l or(n==g and l or 0),n==j and-e or(n==G and e or 0)local e=o:hitbox_pos(l,t)if n==g or n==s do local n=n==s and e.x or e.x2 local t,n=x(n,e.y),x(n,e.y2)if(not t and not n)o.x=o.x+l return 1else return 0
-elseif n==j or n==G do local n=n==j and e.y or e.y2 local l,n=x(e.x,n),x(e.x2,n)if(not l and not n)o.y=o.y+t return 1else return 0
-end end function I(n,e,o,l)local n=H(n,e,o,l)return ni(n.tile)end function n3(e,o)for l in all(k)do local n=l:hitbox_pos(0,0)if(e>=n.x and e<n.x2 and o>=n.y and o<n.y2)return l
-end return nil end function x(n,e,o,l)return I(n,e,o,l)or n3(n,e)~=nil end function ni(n)return fget(n,n8)end function en(n,e)local n=mget(n,e)return ni(n)end function ee(n,e,o,l)return{x=flr(rnd(n or 15))+(o or 0),y=flr(rnd(e or 15))+(l or 0)}end function b()return A[l]end function eo()local n=b().gems return l==#A and a.gems==n-1end function el(e,o)local n=H(a.x,a.y)return n.tx==e and n.ty==o end function e(n,e,o,l,t,f,d)return{name=n,desc1=e,desc2=o,price=l,used=false,reusable=f,enable_after_stage=t or 1,fn=d or nil}end function w(n,e,o,l)return{name=n,music=e,theme=n7[o],gems=l}end function n9(e,n)local n={[nm]=n.tile_maps[2],[ng]=n.tile_maps[1],[np]=n.tile_maps[2],[nz]=n.tile_maps[5],[ny]=n.tile_maps[4],[nx]=n.tile_maps[1],[nb]=n.tile_maps[3],[nD]=n.tile_maps[1],[n_]=n.tile_maps[1],[nk]=n.tile_maps[5],[nw]=n.tile_maps[4],[nv]=n.tile_maps[1],[nj]=n.tile_maps[1],[nG]=n.tile_maps[1],[nA]=n.tile_maps[3],[nq]=n.tile_maps[1]}return n[e]end function nB(o,f,t)local n,l=0,0for e=1,#o,2do local d,e=sub(o,e,e),sub(o,e+1,e+1)local e=ord(e)-32for e=1,e do t[l][n]=d n=n+1if(n>=f)n,l=0,l+1
-end end return t end function nC()local o,n=n4[l],b()local r,n,e=n.theme if(n0)n,e=(#J[1]+1)/2,#J else n,e=128,32
-local f=nh(e,n,"")if n0 do for e=0,e-1do for o=0,n-1do local n=(o+1)*2-1local n=sub(J[e+1],n,n)if(n==" ")n="0"
-f[e][o]=n end end else nB(o,n,f)end local d,i=i.mgr.enemy_mgr,i.mgr.misc_mgr for l=0,e-1do for t=0,n-1do local n=f[l][t]mset(t,l,0)local e,o=t*8,l*8if n=="1"do local n=nH(f,t,l)local n=n9(n,r)or 1mset(t,l,n)elseif n=="f"do a.x,a.y=e,o elseif n=="a"or n=="b"do K.new(e,o,n=="a",d)elseif n=="6"do L.new(e,o,i)elseif n=="7"do elseif n=="8"do elseif n=="e"do M.new(e,o,d)elseif n=="s"do N.new(e,o,d)elseif n=="v"do O.new(e,o,d)elseif n=="A"or n=="B"or n=="C"or n=="D"do P.new(e,o,ord(n)-ord"A"+1,i)end end end end function nH(o,n,e)local l,t,f=#o-1,#o[0]-1,e>0and o[e-1][n]=="1"or e==0local l,d,e,n=e<l and o[e+1][n]=="1"or e==l,n>0and o[e][n-1]=="1"or n==0,n<t and o[e][n+1]=="1"or n==t,0if(f)n+=1
-if(l)n+=2
-if(d)n+=4
+end end n.cc:update()end,draw=function(n)D(n.x,n.y,n.w,n.h,1)local e=n.y-n.h/2+5r("shop",n.x,e-1,7)if(n.item>=3)e-=(n.item-2)*10
+local t=n.x-n.w/2for o,l in pairs(n.items)do e+=10local n=e<n.y-n.h/2+15if not n do local o=l.selected and">"or" "if l.name=="__exit__"do?o.." exit",t,e,7
+break else local n=7if(l.used)n=3
+if(not l.used and a.coins<l.price)n=8
+?o.." "..l.name,t,e,n
+end end end local l,e=n.items[n.item],69D(64,90,90,50,0)nr(l.desc1 or"",t+10,e,7,false)e+=20nr(l.desc2 or"",t+10,e,11)e+=20?tostr(l.price).." coins",t+10,e,10
+n.cc:draw()n.lc:draw()end}G.__index=G n7={[[1z1G0z0D1"0z0D1"0z0D1"0:1,0x1"0z0D1"0z0D1"071$0,1"0u1"0z0D1"0D1"0x1"0z0D1"0z0D1"0,1"0"1"051"0u1"0*1"0&1"0z001"0*1"0"1"0"1"001"0x1"0*1"0&1"0z001"0,1"0"1"051"0u1"0.1"0z041"0D1"0x1"0z0D1"0G1"0u1"0z0D1"0D1"0x1"0z0D1"0$b!0B1"0u1"0"A!0!B!0"C!0"D!0z091.081"0x1"0"a!0(1!0"6!0z051"0&1$0!1"0!1$0z021"0$1$0)1#001"0x1"0"f!1%6!0(v#0!1!0's!0'1!0&e!0q1z1G]]}f={new=function(n,e,l)local n={name="obj",x=n or 0,y=e or 0,parent_mgr=l or nil,hitbox={x=0,y=0,x2=7,y2=7},speed=.4,destroyed=false,spr={idle={sprites={64,65},fps=2,loop=true},flip_x=false,flip_y=false,time_start=0,effect="none",last_frame=0,rot_speed=1},phase="idle"}if(n.parent_mgr)n.parent_mgr:add(n)
+return i(n,f)end,update=function(n)end,draw=function(n)n:draw_sprite()end,del=function(n)n.destroyed=true if(n.parent_mgr)n.parent_mgr:del(n)
+end,draw_sprite=function(l)if(nu)local n=l:hitbox_pos(0,0)rect(n.x,n.y,n.x2,n.y2,8)
+local n=l.spr if(n.effect=="blink_white")local n=time()%.2<.1if(n)for n=0,15do pal(n,7)end
+local e,o=n[l.phase],nil if e.ss~=nil do o=e.ss else if e.loop~=nil and e.loop==false and e.sprites[#e.sprites]==n.last_frame do o=n.last_frame else if(n.time_start==nil or n.time_start==0)n.time_start=time()
+o=e.sprites[1+flr((time()-n.time_start)/(1/e.fps))%#e.sprites]end end if n.effect=="rotx"or n.effect=="roty"do local e,i,f=8,8,n.rot_speed or 1if(n.effect=="roty")e=cos(t()*f)*8else i=cos(t()*f)*8
+sspr(o%16*8,flr(o/16)*8,8,8,l.x+4-e/2,l.y,e,i,false,false)else spr(o,l.x,l.y,1,1,n.flip_x or false,n.flip_y or false,7)end pal()n.last_frame=o end,collide=function(n,e,l,t)local n,e=n:hitbox_pos(0,0),e:hitbox_pos(0,0)if(l~=nil)n.x+=l n.x2-=l e.x+=l e.x2-=l
+return not(n.x2<e.x or n.x>e.x2 or n.y2<e.y or n.y>e.y2)end,hitbox_pos=function(n,e,l)e,l=e or 0,l or 0return{x=n.x+e+n.hitbox.x,y=n.y+l+n.hitbox.y,x2=n.x+e+n.hitbox.x2,y2=n.y+l+n.hitbox.y2}end}f.__index=f e={new=function()local n={}n.objs={}n.update_in_pause=false return i(n,e)end,restart=function(n)n.objs={}end,add=function(n,e)add(n.objs,e)end,del=function(n,e)del(n.objs,e)end,update=function(n)if(d.paused and not n.update_in_pause)return
+for n in all(n.objs)do n:update()end end,draw=function(n)for n in all(n.objs)do n:draw()end end}e.__index=e function p(l,n,e)local t,e=e or l.speed,e or l.speed local t,o=n==s and-t or(n==x and t or 0),n==B and-e or(n==A and e or 0)local e=l:hitbox_pos(t,o)if n==x or n==s do local n=n==s and e.x or e.x2 local o,n=g(n,e.y),g(n,e.y2)if(not o and not n)l.x=l.x+t return 1else return 0
+elseif n==B or n==A do local n=n==B and e.y or e.y2 local t,n=g(e.x,n),g(e.x2,n)if(not t and not n)l.y=l.y+o return 1else return 0
+end end function L(n,e,l,t)local n=H(n,e,l,t)return na(n.tile)end function np(e,l)for t in all(v)do local n=t:hitbox_pos(0,0)if(e>=n.x and e<n.x2 and l>=n.y and l<n.y2)return t
+end return nil end function g(n,e,l,t)return L(n,e,l,t)or np(n,e)~=nil end function na(n)return fget(n,nx)end function ei(n,e)local n=mget(n,e)return na(n)end function ef(n,e,l,t)return{x=flr(rnd(n or 15))+(l or 0),y=flr(rnd(e or 15))+(t or 0)}end function w()return q[_]end function ed()local n=w().gems return _==#q and a.gems==n-1end function er(e,l)local n=H(a.x,a.y)return n.tx==e and n.ty==l end function nb(n,e,l,t,o,i,f)return{name=n,desc1=e,desc2=l,price=t,used=false,reusable=i,enable_after_stage=o or 1,fn=f or nil}end function nm(n,e,l,t)return{name=n,music=e,theme=n9[l],gems=t}end function ny(e,n)local n={[ng]=n.tile_maps[2],[nw]=n.tile_maps[1],[nk]=n.tile_maps[2],[nz]=n.tile_maps[5],[nD]=n.tile_maps[4],[nv]=n.tile_maps[1],[nj]=n.tile_maps[3],[nG]=n.tile_maps[1],[nB]=n.tile_maps[1],[nA]=n.tile_maps[5],[nq]=n.tile_maps[4],[nC]=n.tile_maps[1],[nE]=n.tile_maps[1],[nF]=n.tile_maps[1],[nH]=n.tile_maps[3],[nI]=n.tile_maps[1]}return n[e]end function nJ(l,i,o)local n,t=0,0for e=1,#l,2do local f,e=sub(l,e,e),sub(l,e+1,e+1)local e=ord(e)-32for e=1,e do o[t][n]=f n=n+1if(n>=i)n,t=0,t+1
+end end return o end function nK()local l,n=n7[_],w()local r,n,e=n.theme if(n1)n,e=(#M[1]+1)/2,#M else n,e=128,32
+local i=n6(e,n,"")if n1 do for e=0,e-1do for l=0,n-1do local n=(l+1)*2-1local n=sub(M[e+1],n,n)if(n==" ")n="0"
+i[e][l]=n end end else nJ(l,n,i)end local f,d=d.mgr.enemy_mgr,d.mgr.misc_mgr for t=0,e-1do for o=0,n-1do local n=i[t][o]mset(o,t,0)local e,l=o*8,t*8if n=="1"do local n=nL(i,o,t)local n=ny(n,r)or 1mset(o,t,n)elseif n=="f"do a.x,a.y=e,l elseif n=="a"or n=="b"do N.new(e,l,n=="a",f)elseif n=="6"do O.new(e,l,d)elseif n=="7"do elseif n=="8"do elseif n=="e"do k.new(e,l,"dog")elseif n=="s"do k.new(e,l,"spider")elseif n=="v"do P.new(e,l,f)elseif n=="A"or n=="B"or n=="C"or n=="D"do Q.new(e,l,ord(n)-ord"A"+1,d)end end end end function nL(l,n,e)local t,o,i=#l-1,#l[0]-1,e>0and l[e-1][n]=="1"or e==0local t,f,e,n=e<t and l[e+1][n]=="1"or e==t,n>0and l[e][n-1]=="1"or n==0,n<o and l[e][n+1]=="1"or n==o,0if(i)n+=1
+if(t)n+=2
+if(f)n+=4
 if(e)n+=8
-return n end Q={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,update=function(n)n.x+=(a.x-n.x)*n.csfx n.y+=(a.y-n.y)*n.csfy local n,e=n:calc_center()camera(n,e)end,place=function(n,e,o)n.x=e n.y=o end,calc_center=function(n)return flr(n.x)-n.ox,flr(n.y)-n.oy end}R={new=function(n,e)local n=d.new(n,e)n.name="player"n.spr={idle={sprites={64,65},fps=2},walk={sprites={80,81,82},fps=6},jump={sprites={97,98,99,100,101,102},fps=8},dead={sprites={68,69,70,71,72},fps=4,loop=false},flip_x=false,flip_y=false,time_start=0,effect="none"}n.invisible=false n.blocked=false n.invulnerable=false n.nodmg_t=nil n.jforce=1.7n.jstack=0n.max_jstack=15n.speed_y_decay=.95n.speedy=0n.max_speedy=2n.phase="idle"n.hitbox={x=2,y=3,x2=5,y2=7}n.max_speed=1n.speed=0n.init_speed=.1n.inc_speed_factor=.2n.prev_btn={}n.life=20n.max_life=20n.init_max_life=20n.coins=0n.stinky_socks=false n.cur_el=nil n.avail_elements={false,false,false,false}n.el_cooldown=r.new(1,false)n.shine_star=0n.interaction_fn=nil return f(n,R)end,reset_stage_props=function(e)local n=e n.speed=0n.phase="idle"n.invisible=false n.blocked=false n.invulnerable=false e:reset_jump_vars()n.gems=0end,update=function(o)if(i.paused)return
-local n=o if n.phase=="dead"do if(n.prev_btn.left)m(n,s)
-if(n.prev_btn.right)m(n,g)
+return n end R={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,update=function(n)n.x+=(a.x-n.x)*n.csfx n.y+=(a.y-n.y)*n.csfy local n,e=n:calc_center()camera(n,e)end,place=function(n,e,l)n.x=e n.y=l end,calc_center=function(n)return flr(n.x)-n.ox,flr(n.y)-n.oy end}S={new=function(n,e)local n=f.new(n,e)c(n.spr,[[			idle = { sprites = { 64; 65 }; fps = 2 }
+			walk = { sprites = { 80; 81; 82 }; fps = 6 }
+			jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
+			dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
+		]])c(n,[[			name=player
+			p.prev_btn = {}
+			invisible=false
+			blocked=false
+			invulnerable=false
+			nodmg_t=nil
+			jforce=1.7
+			jstack=0
+			max_jstack=15
+			speed_y_decay=0.95
+			speedy=0
+			max_speedy=2
+			phase=idle
+			max_speed=1
+			speed=0
+			init_speed=0.1
+			inc_speed_factor=0.2
+			life=20
+			max_life=20
+			init_max_life=20
+			coins=0
+			stinky_socks=false
+			cur_el=nil
+			avail_elements = { true, false, false, false }
+			el_cooldown = _fn_t1_1
+			shine_star=0
+			interaction_fn=nil
+			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
+		]])return i(n,S)end,reset_stage_props=function(e)local n=e n.speed=0n.phase="idle"n.invisible=false n.blocked=false n.invulnerable=false e:reset_jump_vars()n.gems=0end,update=function(l)if(d.paused)return
+local n=l if n.phase=="dead"do if(n.prev_btn.left)p(n,s)
+if(n.prev_btn.right)p(n,x)
 n.speed=n.speed*.9n:apply_forces()return end local e={left=btn(0,0),right=btn(1,0),jump=btn(4,0),jump_start=btnp(4,0),action=btnp(5,0)}if not n.blocked do if(e.left)n:move_left()
 if(e.right)n:move_right()
 if(not e.left and not e.right)n.speed=n.speed*.7if(n.speed<.1)n.speed=0
 n:apply_forces(e)end n.prev_btn=e if(e.left==false and e.right==false and n:on_ground())n.phase="idle"
 if(n.nodmg_t~=nil)if(n.nodmg_t:adv())n.spr.effect="none"n.invulnerable=false
-if(e.action)if(o.interaction_fn~=nil)o.interaction_fn=nil else o:attack()
-if(o.el_cooldown:adv())o.shine_star=10
-o.interaction_fn=nil end,draw=function(n)local e=n if(e.invisible)return
+if(e.action)if(l.interaction_fn~=nil)l.interaction_fn=nil else l:attack()
+if(l.el_cooldown:adv())l.shine_star=10
+l.interaction_fn=nil end,draw=function(n)local e=n if(e.invisible)return
 e:draw_sprite()if(n.shine_star>0)line(n.x+3,n.y-1,n.x+5,n.y-1,10)line(n.x+4,n.y-2,n.x+4,n.y,10)n.shine_star-=1
-end,dmg=function(n,e)local n=n if(not n.invulnerable)n.life-=e if(n.life<=0)n.phase="dead"n.invulnerable=true i.game_over_msg=rnd(i.game_over_msgs)i:set_game_over()else n.nodmg_t=r.new(1)n.spr.effect="blink_white"sfx(nU)n.invulnerable=true
+end,dmg=function(n,e)local n=n if(not n.invulnerable)n.life-=e if(n.life<=0)n.phase="dead"n.invulnerable=true d.game_over_msg=rnd(d.game_over_msgs)d:set_game_over()else n.nodmg_t=l.new(1)n.spr.effect="blink_white"sfx(nM)n.invulnerable=true
 end,increase_life=function(n,e)local n=n n.life=min(n.life+e,n.max_life)end,inc_speed=function(n,e)local n=n if(e)n.speed=n.init_speed else n.speed=min(n.speed+n.inc_speed_factor,n.max_speed)
-end,move_left=function(e)local n=e e:inc_speed(not(n.prev_btn.left or false))m(n,s)if(n.phase=="idle")n.phase="walk"
-n.spr.flip_x=true end,move_right=function(e)local n=e e:inc_speed(not(n.prev_btn.right or false))m(n,g)if(n.phase=="idle")n.phase="walk"
+end,move_left=function(e)local n=e e:inc_speed(not(n.prev_btn.left or false))p(n,s)if(n.phase=="idle")n.phase="walk"
+n.spr.flip_x=true end,move_right=function(e)local n=e e:inc_speed(not(n.prev_btn.right or false))p(n,x)if(n.phase=="idle")n.phase="walk"
 n.spr.flip_x=false end,apply_forces=function(n,e)if(not n.blocked and e.jump_start)n:set_start_jump()
 if(not e.jump and n.jstack>0)n.jstack=0
 if(n.jstack>0)n.speedy=-n.jforce n.jstack-=1
 if(n.speedy<0and not e.jump)n.speedy*=n.speed_y_decay
-n.speedy+=nE n.speedy=min(n.speedy,n.max_speedy)local e=m(n,n.speedy<0and j or G,abs(n.speedy))if(e==0)n:reset_jump_vars()if(n.phase=="jump")n.phase="idle"
-end,reset_jump_vars=function(n)n.speedy=0n.jstack=0end,set_start_jump=function(n)if(n:on_ground())n:reset_jump_vars()n.phase="jump"n.spr.time_start=nil n.jstack=n.max_jstack if(nF)sfx(nI)
-end,on_ground=function(n)local n=n local n=n:hitbox_pos(0,1)local e,n=x(n.x,n.y2),x(n.x2,n.y2)return e or n end,apply_end_stage_upgrades=function(n)end,attack=function(n)if(n.el_cooldown.t<=0)S[n.cur_el].new(n.spr.flip_x and s or g,i.mgr.misc_mgr)n.el_cooldown:restart()
-end,switch_element=function(e)local n=e.cur_el%4+1while true do nt("s1: "..n)if(e.avail_elements[n])e.cur_el=n q.new(30,S[n].name,i.mgr.hud_mgr)break
-n=n%4+1end end}n(R,d)h={new=function(e,n,o,l,t)local n=d.new(n,o,t)n.etype=e n.hitbox={x=2,y=2,x2=5,y2=5}n.hitbox_orig=n.hitbox n.speed=l or 1n.life=100n.time_last_death=0n.respawn_timer=r.new(10,false)n.dmg_time=r.new(1,false)n.frozen_t=r.new(20,false)n.frozen_t.t=0n.dir=nil n.wspeed=0n.dir_before_blow=nil n.fixed=false return f(n,h)end,dmg=function(n,e)if(n:is_inv())return
+n.speedy+=nN n.speedy=min(n.speedy,n.max_speedy)local e=p(n,n.speedy<0and B or A,abs(n.speedy))if(e==0)n:reset_jump_vars()if(n.phase=="jump")n.phase="idle"
+end,reset_jump_vars=function(n)n.speedy=0n.jstack=0end,set_start_jump=function(n)if(n:on_ground())n:reset_jump_vars()n.phase="jump"n.spr.time_start=nil n.jstack=n.max_jstack if(nO)sfx(nP)
+end,on_ground=function(n)local n=n local n=n:hitbox_pos(0,1)local e,n=g(n.x,n.y2),g(n.x2,n.y2)return e or n end,apply_end_stage_upgrades=function(n)end,attack=function(n)if(n.cur_el==nil)return
+if(n.el_cooldown.t<=0)T[n.cur_el].new(n.spr.flip_x and s or x,d.mgr.misc_mgr)n.el_cooldown:restart()
+end,switch_element=function(e)if(e.cur_el==nil)return
+local n=e.cur_el%4+1while true do z("s1: "..n)if(e.avail_elements[n])e.cur_el=n C.new(30,"switched to "..T[n].name,d.mgr.hud_mgr)break
+n=n%4+1end end}n(S,f)h={new=function(e,n,l,t,o)local n=f.new(n,l,o)c(n,[[            respawn_timer = _fn_t1_10
+            dmg_time = _fn_t1_1
+            frozen_t = _fn_t1_20
+            time_last_death = 0
+            life = 100
+            dir = nil
+            wspeed = 0
+            dir_before_blow = nil
+            fixed = false
+            hitbox = { x = 2; y = 2; x2 = 5; y2 = 5 }
+            hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
+            speed = *1
+            etype = *2
+        ]],{t or 1,e})n.frozen_t.t=0return i(n,h)end,dmg=function(n,e)if(n:is_inv())return
 n.life-=e n.dmg_time:restart()n.spr.effect="blink_white"if(n.life<=0)n:del()
-end,freeze=function(n)n.frozen_t:restart()add(k,n)n.hitbox={x=0,y=0,x2=7,y2=7}end,unfreeze=function(n)n.frozen_t.t=-1n.spr.effect="none"del(k,n)n.hitbox=n.hitbox_orig end,blow=function(n,e)if(n.fixed)return
+end,freeze=function(n)n.frozen_t:restart()add(v,n)n.hitbox={x=0,y=0,x2=7,y2=7}end,unfreeze=function(n)n.frozen_t.t=-1n.spr.effect="none"del(v,n)n.hitbox=n.hitbox_orig end,blow=function(n,e)if(n.fixed)return
 if(n.wspeed<=0)n.dir_before_blow=n.dir
-n.wspeed=2n.dir=e end,unblow=function(n)n.wspeed=-1n.dir=n.dir_before_blow end,update=function(n)d.update(n)if(n.dmg_time:adv())n.spr.effect="none"
+n.wspeed=2n.dir=e end,unblow=function(n)n.wspeed=-1n.dir=n.dir_before_blow end,update=function(n)f.update(n)if(n.dmg_time:adv())n.spr.effect="none"
 if(n.frozen_t:adv())n:unfreeze()else if(n.frozen_t:t_left_btw(.1,2))n.spr.effect="blink_white"
-if(n.wspeed>0)local e=m(n,n.dir,n.wspeed)n.wspeed=e==0and 0or max(0,n.wspeed-.05)else if(n.wspeed~=-1)n:unblow()
+if(n.wspeed>0)local e=p(n,n.dir,n.wspeed)n.wspeed=e==0and 0or max(0,n.wspeed-.05)else if(n.wspeed~=-1)n:unblow()
 end,draw=function(n)if(n.frozen_t.t>0)spr(139,n.x,n.y)
-d.draw(n)end,del=function(n)n.time_last_death=time()del(k,n)d.del(n)end,is_inv=function(n)return false end}n(h,d)K={new=function(n,e,o,l)local n=h.new("bat",n,e,.3,l)n.spr={idle={sprites={128,129},fps=4,loop=true},flip_x=false,flip_y=false,frame=0}n.horizontal=o n.hitbox={x=2,y=2,x2=5,y2=5}n.dir=n.horizontal and g or G n.dir_before_blow=n.dir return f(n,K)end,update=function(n)h.update(n)if(n:collide(a))a:dmg(1)
+f.draw(n)end,del=function(n)n.time_last_death=time()del(v,n)f.del(n)end,is_inv=function(n)return false end}n(h,f)N={new=function(n,l,e,t)local n=h.new("bat",n,l,.3,t)c(n.spr,[[            idle = { sprites = {128;129}; fps = 4; loop = true }
+		]])c(n,[[            hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
+            horizontal = *1
+            dir = *2
+            dir_before_blow = _k_dir
+        ]],{e,e and x or A})return i(n,N)end,update=function(n)h.update(n)if(n:collide(a))a:dmg(1)
 if(n.frozen_t.t>0)return
-local e=m(n,n.dir)if(e==0)n.dir=(n.horizontal and 0or 2)+(n.dir+1)%2
-end}n(K,h)D={new=function(e,o,l,t,n)local n=h.new("dog",e,o,1.5,n)n.spr={idle={sprites=l,fps=2,loop=true},run={sprites=t,fps=4,loop=true},flip_x=false,flip_y=false,frame=0}n.speed=a.stinky_socks and.2or.4n.hitbox={x=0,y=3,x2=7,y2=7}n.hitbox_orig=n.hitbox n.basex=e n.basey=o return f(n,D)end,update=function(n)h.update(n)n.phase="idle"if(n.frozen_t.t>0)return
-if n:collide(a,2)do a:dmg(2)i.mgr.player_msg_mgr.dog_bites+=1else if abs(a.x-n.x)<50and abs(a.y-n.y)<4do n.spr.flip_x=a.x-n.x>0local e=a.x-n.x>0and g or s local o,l=e==g and n.x+n.speed+7or n.x-n.speed,n.y+8if(I(o,l))if(not I(o,n.y))m(n,e)n.phase="run"
-else if(abs(n.basex-n.x)>3)n.spr.flip_x=n.basex-n.x>0m(n,n.basex-n.x>0and g or s)n.phase="run"
-end end end}n(D,h)M={new=function(n,e,o)local n=D.new(n,e,{144,145},{146,147},o)return f(n,M)end}n(M,D)N={new=function(n,e,o)local n=D.new(n,e,{160,161},{162,163},o)return f(n,N)end}n(N,D)O={new=function(n,e,o)local n=h.new("vine",n,e,0,o)n.spr.idle={ss=6}n.fixed=true n.life=10add(k,n)return f(n,O)end,is_inv=function(n)return not(a.cur_el==nr)end}n(O,h)T={new=function(n,e,o,l)local n=d.new(n,e,l)n.spr.idle={sprites={185,186,187},fps=4}n.max_radius=o or 4n.ttl=r.new(.2,false)n.solid=false return f(n,T)end,update=function(n)if(n.ttl:adv())n.parent_mgr:del(n)
+local e=p(n,n.dir)if(e==0)n.dir=(n.horizontal and 0or 2)+(n.dir+1)%2
+end}n(N,h)z"just before c_walk_en"k={spmap=o[[        dog = {idle = {144;145}; run = {146;147}}
+        spider = {idle = {160;161}; run = {162;163}}
+    ]],new=function(l,t,e)local n=h.new(e,l,t,1.5,d.mgr.enemy_mgr)n.spr.idle={sprites=k.spmap[e].idle,fps=2,loop=true}n.spr.run={sprites=k.spmap[e].run,fps=4,loop=true}c(n,[[            speed = 0.2
+            hitbox = { x = 0; y = 3; x2 = 7; y2 = 7 }
+            hitbox_orig = { x = 0; y = 3; x2 = 7; y2 = 7 }
+            basex = *1
+            basey = *2
+        ]],{l,t})return i(n,k)end,update=function(n)h.update(n)n.phase="idle"if(n.frozen_t.t>0)return
+if n:collide(a,2)do a:dmg(2)d.mgr.player_msg_mgr.dog_bites+=1else if abs(a.x-n.x)<50and abs(a.y-n.y)<4do n.spr.flip_x=a.x-n.x>0local e=a.x-n.x>0and x or s local l,t=e==x and n.x+n.speed+7or n.x-n.speed,n.y+8if(L(l,t))if(not L(l,n.y))p(n,e)n.phase="run"
+else if(abs(n.basex-n.x)>3)n.spr.flip_x=n.basex-n.x>0p(n,n.basex-n.x>0and x or s)n.phase="run"
+end end end}n(k,h)z"just after c_walk_en"P={new=function(n,e,l)local n=h.new("vine",n,e,0,l)n.spr.idle=o"ss = 6"c(n,[[            fixed = true
+            life = 10
+        ]])add(v,n)return i(n,P)end,is_inv=function(n)return not(a.cur_el==nc)end}n(P,h)U={new=function(n,e,l,t)local n=f.new(n,e,t)c(n,[[            ttl = _fn_t1_0.2
+            solid = false
+            max_radius = *1
+        ]],{l or 4})n.spr.idle=o"sprites = { 185; 186; 187 }, fps = 4"return i(n,U)end,update=function(n)if(n.ttl:adv())n.parent_mgr:del(n)
 end,draw=function(n)if(n.ttl.t<=0)return
-local e=nf(0,n.max_radius,1-n.ttl.t/n.ttl.maxtime)circfill(n.x,n.y,e,10)end}n(T,d)u={new=function(t,e)local o,l=a.x+(e==s and-2or 10),a.y+4local n=d.new(o,l,i.mgr.misc_mgr)n.damage=10n.ttl=r.new(.3,false)n.origx,n.origy=o,l n.max_dist=20n.dir=e n.el=t n.destroy_req_prev_frame=false return f(n,u)end,update=function(n)if(n.destroy_req_prev_frame)n:del()return
+local e=nd(0,n.max_radius,1-n.ttl.t/n.ttl.maxtime)circfill(n.x,n.y,e,10)end}n(U,f)u={new=function(o,n)local e,l=a.x+(n==s and-2or 10),a.y+4local t=f.new(e,l,d.mgr.misc_mgr)c(t,[[            damage = 10
+            ttl = _fn_t1_0.3
+            max_dist = 20
+            destroy_req_prev_frame = false
+            origx = *1
+            origy = *2
+            dir = *3
+            el = *4
+        ]],{e,l,n,o})return i(t,u)end,update=function(n)if(n.destroy_req_prev_frame)n:del()return
 if(n.ttl:adv())n.destroy_req_prev_frame=true
-n.x=E(n.origx,n.max_dist,n.ttl,true,n.dir)for e in all(i.mgr.enemy_mgr.objs)do if(n:collide(e))n:effect(e)n:del()T.new(n.x,n.y,4,i.mgr.misc_mgr)break
-end end,dirmult=function(n)return n.dir==s and-1or 1end,effect=function(n,e)e:dmg(n.damage)end}n(u,d)V={name="fire",new=function(n,e)local n=u.new(nr,n)n.radius=1n.max_radius=2return f(n,V)end,update=function(n)u.update(n)if(n.ttl.t>0)n.radius=E(1,n.max_radius,n.ttl,true)
-end,draw=function(n)local o,l={1,2,9,8},n:dirmult()for e=0,3do local t,l=e/3*n.radius,l*e*2circfill(n.x+l,n.y,1.5*t,o[e+1])end end,effect=function(e,n)n:unfreeze()n:dmg(e.damage)end}n(V,u)W={name="ice",new=function(n,e)local n=u.new(nJ,n)n.radius=1n.max_radius=1.5return f(n,W)end,update=function(n)u.update(n)if(n.ttl.t>0)n.radius=E(1,n.max_radius,n.ttl,true)
-end,draw=function(n)local o,e={12,6},n:dirmult()rectfill(n.x+e*0-n.radius,n.y-n.radius,n.x+e*0+n.radius,n.y+n.radius,rnd(o))end,effect=function(e,n)n:freeze()end}n(W,u)X={name="thunder",new=function(n,e)local n=u.new(nK,n)n.spr.idle={ss=59}n.ttl=r.new(.2,false)n.max_dist=25return f(n,X)end,draw=function(n)local e,o,l=n.origx,n.origy,n:dirmult()while true do local t,f=e+4*l,o+(rnd(4)-2)line(e,o,t,f,7)e,o=t,f if(l==1and e>n.x+1)break
-if(l==-1and e<n.x-1)break
-end end}n(X,u)Y={name="wind",new=function(n,e)local n=u.new(nL,n)n.spr.idle={ss=60}n.ttl=r.new(.7,false)n.max_dist=25n.power=20return f(n,Y)end,draw=function(n)local t,e,l=n:dirmult(),nil,nil for o=0,12do local t=.5+n.x+o*.8*t local f,d=t*.25,1+o*.25local t,n=t+cos(f)*d,n.y+sin(f)*d if(e~=nil)local o=o%2==0and 12or 6line(e,l,t,n,o)
-e,l=t,n end end,effect=function(n,e)e:blow(n.dir)end}n(Y,u)z={new=function(n,e,o)local n=d.new(n,e,o)n.show_int_button=false n.ttl_disable_int=nil n.int_done=false n.solid=true return f(n,z)end,update=function(n)if(n:collide(a))n.show_int_button=true a.interaction_fn=n.interact local e=n.ttl_disable_int if btnp(5,0)and not n.int_done do n:interact()elseif n.int_done and e==nil do n.ttl_disable_int=r.new(.5,false)elseif e and e:adv()do n.int_done=false n.ttl_disable_int=nil end else n.show_int_button=false
+n.x=J(n.origx,n.max_dist,n.ttl,true,n.dir)for e in all(d.mgr.enemy_mgr.objs)do if(n:collide(e))n:effect(e)n:del()U.new(n.x,n.y,4,d.mgr.misc_mgr)break
+end end,dirmult=function(n)return n.dir==s and-1or 1end,effect=function(n,e)e:dmg(n.damage)end}n(u,f)V={name="fire",new=function(n,e)local n=u.new(nc,n)n.radius=1n.max_radius=2return i(n,V)end,update=function(n)u.update(n)if(n.ttl.t>0)n.radius=J(1,n.max_radius,n.ttl,true)
+end,draw=function(n)local l,t={1,2,9,8},n:dirmult()for e=0,3do local o,t=e/3*n.radius,t*e*2circfill(n.x+t,n.y,1.5*o,l[e+1])end end,effect=function(e,n)n:unfreeze()n:dmg(e.damage)end}n(V,u)W={name="ice",new=function(n,e)local n=u.new(nQ,n)n.radius=1n.max_radius=1.5return i(n,W)end,update=function(n)u.update(n)if(n.ttl.t>0)n.radius=J(1,n.max_radius,n.ttl,true)
+end,draw=function(n)local l,e={12,6},n:dirmult()rectfill(n.x+e*0-n.radius,n.y-n.radius,n.x+e*0+n.radius,n.y+n.radius,rnd(l))end,effect=function(e,n)n:freeze()end}n(W,u)X={name="thunder",new=function(n,e)local n=u.new(nR,n)n.spr.idle=o"ss = 59"c(n,[[            ttl = _fn_t1_0.2
+            max_dist = 25
+        ]])return i(n,X)end,draw=function(n)local e,l,t=n.origx,n.origy,n:dirmult()while true do local o,i=e+4*t,l+(rnd(4)-2)line(e,l,o,i,7)e,l=o,i if(t==1and e>n.x+1)break
+if(t==-1and e<n.x-1)break
+end end}n(X,u)Y={name="wind",new=function(n,e)local n=u.new(nS,n)n.spr.idle=o"ss = 60"c(n,[[            damage = 0
+            ttl = _fn_t1_0.7
+            max_dist = 25
+            power = 20
+        ]])return i(n,Y)end,draw=function(n)local o,e,t=n:dirmult(),nil,nil for l=0,12do local o=.5+n.x+l*.8*o local i,f=o*.25,1+l*.25local o,n=o+cos(i)*f,n.y+sin(i)*f if(e~=nil)local l=l%2==0and 12or 6line(e,t,o,n,l)
+e,t=o,n end end,effect=function(n,e)e:blow(n.dir)end}n(Y,u)b={new=function(n,e,l)local n=f.new(n,e,l)c(n,[[            show_int_button = false
+            ttl_disable_int = nil
+            int_done = false
+            solid = true
+        ]])return i(n,b)end,update=function(n)if(n:collide(a))n.show_int_button=true a.interaction_fn=n.interact local e=n.ttl_disable_int if btnp(5,0)and not n.int_done do n:interact()elseif n.int_done and e==nil do n.ttl_disable_int=l.new(.5,false)elseif e and e:adv()do n.int_done=false n.ttl_disable_int=nil end else n.show_int_button=false
 end,draw=function(n)n:draw_sprite()if(n.show_int_button)?"❎",n.x+2,n.y-6,12
-end,interact=function(n)n.int_done=true end}n(z,d)L={new=function(n,e,o)local n=z.new(n,e,o)n.spr.idle={ss=11}return f(n,L)end,interact=function(n)a:switch_element()end,draw=function(n)pal(7,n2(.5)and nM[a.cur_el]or 7)z.draw(n)pal()end}n(L,z)P={new=function(n,e,o,l)local n=z.new(n,e,l)n.spr.idle={ss=12}n.el=o n.oy=e return f(n,P)end,update=function(n)z.update(n)n.y=n.oy+sin(time())*2end,interact=function(n)a.cur_el=n.el a.avail_elements[n.el]=true q.new(30,S[n.el].name.." acquired",i.mgr.hud_mgr)n:del()end}n(P,z)Z={new=function()local n=o.new()return f(n,Z)end}n(Z,o)p={new=function(e,o,n)local n=d.new(e,o,n)n.fixedx,n.fixedy=e,o return f(n,p)end,update=function(n)local e,o=Q:calc_center()n.x=n.fixedx+e n.y=n.fixedy+o end}n(p,d)y={new=function(n,e,o,l)local n=p.new(n,e)n.draw_fn=l n.bgl=o n.spr.idle={ss=137}return f(n,y)end,draw=function(n)rectfill(n.x,n.y,n.x+n.bgl,n.y+5,1)n.draw_fn(n)end}n(y,p)nn={new=function(n,e)local n=p.new(n,e)n.spr.idle={ss=169}n.life_ref=a.init_max_life return f(n,nn)end,draw=function(n)local e=30*a.max_life/n.life_ref rectfill(n.x,n.y+1,n.x+e+10,n.y+6,1)n:draw_sprite()nl(n.x+10,n.y+2,e,3,a.life,a.max_life,1,8)end}n(nn,p)q={new=function(n,e,l)local o=122-#e*5local n=p.new(o,n,l)n.msg=e n.final_pos=o n.fixedx=n.final_pos+250n.ttl_live=r.new(2,false)n.offset=0return f(n,q)end,update=function(n)if(n.ttl_live:adv())n:del()return
-local e=abs(n.fixedx-n.final_pos)n.fixedx=e<2and n.final_pos or n.fixedx-e*.1p.update(n)end,draw=function(n)rectfill(n.x-2,n.y-2,n.x+126,n.y+7,1)rect(n.x-2,n.y-2,n.x+126,n.y+7,14)?n.msg,n.x,n.y,8
-end}n(q,p)ne={new=function()local n=o.new()n.update_in_pause=true return f(n,ne)end,restart=function(n)n.objs={y.new(8,1,30,function(n)spr(150,n.x,n.y-1)?tostr(a.gems).."/"..tostr(b().gems),n.x+10,n.y+1,8
+end,interact=function(n)n.int_done=true end}n(b,f)O={new=function(n,e,l)local n=b.new(n,e,l)n.spr.idle={ss=11}return i(n,O)end,interact=function(n)a:switch_element()end,draw=function(n)pal(7,n3(.5)and n0[a.cur_el]or 7)b.draw(n)pal()end}n(O,b)Q={new=function(n,e,l,t)local n=b.new(n,e,t)n.spr.idle={ss=12}n.el=l n.oy=e return i(n,Q)end,update=function(n)b.update(n)n.y=n.oy+sin(time())*2end,interact=function(n)z("self.el="..n.el)a.cur_el=n.el a.avail_elements[n.el]=true C.new(30,T[n.el].name.." acquired",d.mgr.hud_mgr)n:del()end,draw=function(n)pal(7,n0[n.el])b.draw(n)pal()end}n(Q,b)Z={new=function()local n=e.new()return i(n,Z)end}n(Z,e)m={new=function(e,l,n)local n=f.new(e,l,n)n.fixedx,n.fixedy=e,l return i(n,m)end,update=function(n)local e,l=R:calc_center()n.x=n.fixedx+e n.y=n.fixedy+l end}n(m,f)y={new=function(n,e,l,t)local n=m.new(n,e)n.draw_fn=t n.bgl=l n.spr.idle={ss=137}return i(n,y)end,draw=function(n)rectfill(n.x,n.y,n.x+n.bgl,n.y+5,1)n.draw_fn(n)end}n(y,m)nn={new=function(n,e)local n=m.new(n,e)n.spr.idle={ss=169}n.life_ref=a.init_max_life return i(n,nn)end,draw=function(n)local e=30*a.max_life/n.life_ref rectfill(n.x,n.y+1,n.x+e+10,n.y+6,1)n:draw_sprite()ni(n.x+10,n.y+2,e,3,a.life,a.max_life,1,8)end}n(nn,m)C={new=function(n,e,t)local l=122-#e*5local n=m.new(l,n,t)n.msg=e n.final_pos=l n.fixedx=n.final_pos+250c(n,[[            ttl_live = _fn_t1_2
+            offset = 0
+        ]])return i(n,C)end,update=function(n)if(n.ttl_live:adv())n:del()return
+local e=abs(n.fixedx-n.final_pos)n.fixedx=e<2and n.final_pos or n.fixedx-e*.1m.update(n)end,draw=function(n)rectfill(n.x-2,n.y-2,n.x+126,n.y+7,1)rect(n.x-2,n.y-2,n.x+126,n.y+7,14)?n.msg,n.x,n.y,8
+end}n(C,m)ne={new=function()local n=e.new()n.update_in_pause=true return i(n,ne)end,restart=function(n)n.objs={y.new(8,1,30,function(n)spr(150,n.x,n.y-1)?tostr(a.gems).."/"..tostr(w().gems),n.x+10,n.y+1,8
 end),y.new(94,1,25,function(n)spr(138,n.x,n.y-1)?tostr(a.coins),n.x+10,n.y+1,8
-end),y.new(49,1,35,function(n)?"stage "..tostr(l),n.x+1,n.y+1,8
-end),nn.new(10,120)}nt"HUD mgr restarted"end}n(ne,o)no={new=function()local n=o.new()n.dog_bites=0n.msg={{function()return a.coins>0end,"collect this coins*to buy something*at the shop later."}}return f(n,no)end,update=function(e)for n in all(e.msg)do local o,l=n[1],n[2]if(o())i.mgr.hud_mgr:add_popup(l)del(e.msg,n)
-end end}n(no,o)poke(24412,-1)n6=false n1=true C=60nF=true nN=true nE=.25s,g,j,G=0,1,2,3nr,nK,nJ,nL=1,2,3,4nM={8,10,12,13}S={V,X,W,Y}n8=0i=nil a=nil nc="microvania/logs/log"nI,et,ef,ed,ei,nU=0,1,2,3,4,5k={}l=1n0=false J={}nm,ng,np,nz,ny,nx,nD,n_,nk,nw,nb,nv,nj,nG,nA,nq=0,1,2,4,8,3,5,9,6,10,12,7,11,13,14,15n7={metal={tile_maps={1,2,3,4,5},bg_col=-15},sand={tile_maps={17,18,19,20,21},bg_col=12},grass={tile_maps={33,34,35,36,37},bg_col=0},ice={tile_maps={49,50,51,52,53},bg_col=-15}}A={w("hello pris... ehm subject n.6",13,"grass",0),w("we do this for you",6,"metal",15),w("time to breath fresh air",0,"grass",15),w("portals are funny, isn't it?",6,"grass",20),w("do not fear cutie dogs",0,"sand",20)}local n=function()a.max_life=flr(a.max_life*1.1+.5)end n5={e("tasty chicken","+5 health","",10,1,true,function()a:increase_life(5)end),e("pizza with salami","+7 health","",20,1,true,function()a:increase_life(7)end),e("dna mod #1","+10% max health","",55,1,false,n),e("dna mod #2","+10% max health","",75,5,false,n),e("dna mod #3","+10% max health","",95,8,false,n),e("dna mod #3","+10% max health","",115,10,false,n),e("haste","+25% speed","",60,3,false,function()a.max_speed*=1.25end),e("super haste","+25% speed","",120,7,false,function()a.max_speed*=1.25end),e("greed chip #1","+1 coin*every gem taken","i can understand*your needs",100,3,false,function()a.coin_inc+=1end),e("greed chip #2","+2 coin*every gem taken","maybe you can buy*a house someday",150,7,false,function()a.coin_inc+=1end),e("stinky socks","dogs are reluctant*to hunt you","slows down dogs*hunting you",110,5,false,function()a.stinky_socks=true end)}e0={}function _init()i=B.new()end function _update60()i:update()end function _draw()i:draw()end B={new=function()local n={paused=false,win_stage=false,win_game=false,menu=true,play=false,stage_title_phase=false,require_player_rebuild=true,mgr={enemy_mgr=o.new(),misc_mgr=Z.new(),hud_mgr=ne.new(),player_msg_mgr=no.new()},shop=nil}n.game_over_msgs={"the experiment failed!","another subject please!","sorry, you are not qualified!"}n.game_over_msg=""menuitem(1,"restart game",function()i:start_menu()end)return f(n,B)end,start_play=function(n)n.win_stage=false n.menu=false n.play=true if(n.require_player_rebuild)a=R.new(0,0)n.require_player_rebuild=false
+end),nn.new(10,120)}end}n(ne,e)nl={new=function()local n=e.new()n.dog_bites=0n.msg={{function()return a.coins>0end,"collect this coins*to buy something*at the shop later."}}return i(n,nl)end,update=function(e)for n in all(e.msg)do local l,t=n[1],n[2]if(l())d.mgr.hud_mgr:add_popup(t)del(e.msg,n)
+end end}n(nl,e)nO=true nT=true nN=.25s,x,B,A=j"0;1;2;3"nc,nR,nQ,nS=j"1;2;3;4"n0=o"8;10;12;13"T={V,X,W,Y}nx=0d=nil a=nil nP,ea,e1,ec,e0,nM=j"0;1;2;3;4;5"v={}_=1n1=false M={}ng,nw,nk,nz,nD,nv,nG,nB,nA,nq,nj,nC,nE,nF,nH,nI=j"0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15"n9=o[[    metal = {
+        tile_maps = {1; 2; 3; 4; 5 }
+        bg_col = -15
+    };
+    sand = {
+        tile_maps = {17; 18; 19; 20; 21}
+        bg_col = 12
+    };
+    grass = {
+        tile_maps = {33; 34; 35; 36; 37}
+        bg_col = 0
+    };
+    ice = {
+        tile_maps = {49; 50; 51; 52; 53}
+        bg_col = -15
+    };
+]]eu={}q={nm("hello pris... ehm subject n.6",13,"grass",0)}n8={nb("tasty chicken","+5 health","",10,1,true,function()a:increase_life(5)end)}no("t1",function(n)return l.new(n,false)end)no("t2",function(n)return l.new(n,true)end)function _init()z("\n\n\n\n----------- Game started "..n_().." -----------")d=E.new()end function _update60()d:update()end function _draw()d:draw()end E={new=function()local n={paused=false,win_stage=false,win_game=false,menu=true,play=false,stage_title_phase=false,require_player_rebuild=true,mgr={enemy_mgr=e.new(),misc_mgr=Z.new(),hud_mgr=ne.new(),player_msg_mgr=nl.new()},shop=nil}n.game_over_msgs={}n.game_over_msg=""menuitem(1,"restart game",function()d:start_menu()end)return i(n,E)end,start_play=function(n)n.win_stage=false n.menu=false n.play=true if(n.require_player_rebuild)a=S.new(0,0)n.require_player_rebuild=false
 n.game_over=false a:reset_stage_props()for e,n in pairs(n.mgr)do if(n.restart)n:restart()
-end nC()Q:place(a.x,a.y)if(nN)music(b().music)
-end,setup_final_event=function(n)end,setup_win_lose_stage=function(n)if a.gems==b().gems do n.win_stage=true n.win_game=l==#A if(n.win_game)music(11)
-a:apply_end_stage_upgrades()else n.game_over_msg="you didn't collect all gems!"n:set_game_over()end end,start_menu=function(n)n.menu=true n.play=false n.game_over=false n.win_stage=false n.win_game=false l=1end,start_shop=function(n)n.menu=false n.play=false n.shop=v.new(64,64)end,shop_to_play=function(n)n.shop=nil n:start_play()end,set_game_over=function(n)n.play=false n.win_stage=false n.game_over=true end,update=function(n)if n.menu do if(btnp(5,0))n.require_player_rebuild=true n:start_play()
+end nK()R:place(a.x,a.y)if(nT)music(w().music)
+end,setup_final_event=function(n)end,setup_win_lose_stage=function(n)if a.gems==w().gems do n.win_stage=true n.win_game=_==#q if(n.win_game)music(11)
+a:apply_end_stage_upgrades()else n.game_over_msg="you didn't collect all gems!"n:set_game_over()end end,start_menu=function(n)n.menu=true n.play=false n.game_over=false n.win_stage=false n.win_game=false _=1end,start_shop=function(n)n.menu=false n.play=false n.shop=G.new(64,64)end,shop_to_play=function(n)n.shop=nil n:start_play()end,set_game_over=function(n)n.play=false n.win_stage=false n.game_over=true end,update=function(n)if n.menu do if(btnp(5,0))n.require_player_rebuild=true n:start_play()
 return end if(n.shop)n.shop:update()return
 if n.win_game or n.game_over do if(btnp(5,0))n:start_menu()
-return end if n.win_stage do if(not a.prev_btn.up and btnp(5,0))l=l%#A+1n:start_shop()
-return end if(i.stage_title_phase)n.mgr.hud_mgr:update()return
-Q:update()for e,n in pairs(n.mgr)do if(n.update)n:update()
-end a:update()end,draw=function(n)if(n.menu)cls(8)rectfill(0,40,127,80,0)local n=t()line(134-flr(n/.05%130),62,140-flr(n/.05%130),62,9)line(140-flr(n/.03%130),60,145-flr(n/.03%130),60,9)line(130-flr(n/.02%130),64,135-flr(n/.02%130),64,9)spr(80+flr(n/.1%3),60,58)line(0,40,127,40,7)line(0,80,127,80,7)c("* new title here! *",64,50,7)c("press (❎) to start",64,70,U(1,{7,0}))return
+return end if n.win_stage do if(not a.prev_btn.up and btnp(5,0))_=_%#q+1n:start_shop()
+return end if(d.stage_title_phase)n.mgr.hud_mgr:update()return
+R:update()for e,n in pairs(n.mgr)do if(n.update)n:update()
+end a:update()end,draw=function(n)if(n.menu)cls(8)rectfill(0,40,127,80,0)local n=t()line(134-flr(n/.05%130),62,140-flr(n/.05%130),62,9)line(140-flr(n/.03%130),60,145-flr(n/.03%130),60,9)line(130-flr(n/.02%130),64,135-flr(n/.02%130),64,9)spr(80+flr(n/.1%3),60,58)line(0,40,127,40,7)line(0,80,127,80,7)r("* new title here! *",64,50,7)r("press (❎) to start",64,70,I(1,{7,0}))return
 if(n.shop)cls(8)n.shop:draw()return
-cls(b().theme.bg_col)map(0,0,0,0,128,32,false)n.mgr.misc_mgr:draw()n.mgr.enemy_mgr:draw()a:draw()n.mgr.hud_mgr:draw()if n.win_game do _(64,64,120,55,1)c("congratulations!",64,55,10)c("you survived!",64,65,10)c("press (❎) to restart",64,75,U(1,{10,0}))elseif n.win_stage and not n.game_over do _(64,64,107,25,1)c("stage cleared!",64,55,10)c("press (❎) for the shop",64,65,10)elseif n.game_over do _(64,64,120,55,1)c("game over",64,55,8)c(n.game_over_msg,64,65,8)c("press (❎) to restart",64,75,U(1,{8,0}))end end}B.__index=B
+cls(w().theme.bg_col)map(0,0,0,0,128,32,false)n.mgr.misc_mgr:draw()n.mgr.enemy_mgr:draw()a:draw()n.mgr.hud_mgr:draw()if n.win_game do D(64,64,120,55,1)r("congratulations!",64,55,10)r("you survived!",64,65,10)r("press (❎) to restart",64,75,I(1,{10,0}))elseif n.win_stage and not n.game_over do D(64,64,107,25,1)r("stage cleared!",64,55,10)r("press (❎) for the shop",64,65,10)elseif n.game_over do D(64,64,120,55,1)r("game over",64,55,8)r(n.game_over_msg,64,65,8)r("press (❎) to restart",64,75,I(1,{8,0}))end end}E.__index=E
 __gfx__
-00000000dddddddd6ffffff6ffffffffffffffffffffffff30030003000000000000000000000000000000000006d00009999990000000000000000000000000
-00000000d7ddd66df5dddd5fddddddddfddddddddddddddf06003033000000000000000000000000000000000006660099777790000000000000000000000000
-00700700dddddd6ddddddddddddddddddddddddddddddddd03006030000000000000000000000000000000000066d60099999990000000000000000000000000
-00077000dddddddddddddddddddddddddddddddddddddddd03303063000000000000000000000000000000000d67766097777790000000000000000000000000
-00077000dddddddddddddddddddddddddddddddddddddddd0b333b03000000000000000000000000000000000677776009666699000000000000000000000000
-00700700d7ddddddd7ddddddddddddddddddddddddddddddb63b3bb3000000000000000000000000000000000677776d09777779000000000000000000000000
-00000000d77ddd6dd77ddd6dd77ddd6dd77ddd6dd77ddd6d33bbb3b60000000000000000000000000000000066677d6609999999000000000000000000000000
-00000000dddddddddddddddddddddddddddddddddddddddd33333333000000000000000000000000000000006d66666d09666690000000000000000000000000
+00000000dddddddd6ffffff6ffffffffffffffffffffffff30030003000000000000000000000000000000000006d00007777770000000000000000000000000
+00000000d7ddd66df5dddd5fddddddddfddddddddddddddf06003033000000000000000000000000000000000006660077666670000000000000000000000000
+00700700dddddd6ddddddddddddddddddddddddddddddddd03006030000000000000000000000000000000000066d60079999970000000000000000000000000
+00077000dddddddddddddddddddddddddddddddddddddddd03303063000000000000000000000000000000000d67766076666670000000000000000000000000
+00077000dddddddddddddddddddddddddddddddddddddddd0b333b03000000000000000000000000000000000677776007999977000000000000000000000000
+00700700d7ddddddd7ddddddddddddddddddddddddddddddb63b3bb3000000000000000000000000000000000677776d07666667000000000000000000000000
+00000000d77ddd6dd77ddd6dd77ddd6dd77ddd6dd77ddd6d33bbb3b60000000000000000000000000000000066677d6607999977000000000000000000000000
+00000000dddddddddddddddddddddddddddddddddddddddd33333333000000000000000000000000000000006d66666d07777770000000000000000000000000
 00000000999999990ffffff0f00ff00f0ff000ffff000ff000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0000000099999999ffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000
 000000009999a999f999a99f9ff99ff9f99fff9999fff99f00000000000000000000000000000000000000000000000000000000000000000000000000000000

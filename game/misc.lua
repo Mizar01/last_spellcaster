@@ -1,12 +1,12 @@
 c_explosion = {
     new = function(x, y, max_radius, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
-        l.spr.idle = { sprites = { 185, 186, 187 }, fps = 4 }
-        l.max_radius = max_radius or 4
-        dstar(l,[[
-            ttl = _t1_0.2
+        dstar(l, [[
+            ttl = _fn_t1_0.2
             solid = false
-        ]])
+            max_radius = *1
+        ]], {max_radius or 4})
+        l.spr.idle = dstarc("sprites = { 185; 186; 187 }, fps = 4")
         return sm(l, c_explosion)
     end,
     update = function(self)
@@ -26,15 +26,16 @@ c_element = {
     new = function(el, dir)
         local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
         local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
-        l.origx, l.origy = origx, origy
-        l.dir = dir
-        l.el = el
         dstar(l, [[
             damage = 10
-            ttl = _t1_0.3
+            ttl = _fn_t1_0.3
             max_dist = 20
             destroy_req_prev_frame = false
-        ]])
+            origx = *1
+            origy = *2
+            dir = *3
+            el = *4
+        ]], {origx, origy, dir, el})
 
         return sm(l, c_element)
     end,
@@ -120,9 +121,9 @@ c_thunder = {
     name = "thunder",
     new = function(dir, parent_mgr)
         local l = c_element.new(el_thunder, dir)
-        l.spr.idle = { ss = 59 }
+        l.spr.idle = dstarc("ss = 59")
         dstar(l, [[
-            ttl = _t1_0.2
+            ttl = _fn_t1_0.2
             max_dist = 25
         ]])
         -- takes three sprites space + a tolerance
@@ -153,10 +154,10 @@ c_wind = {
     name = "wind",
     new = function(dir, parent_mgr)
         local l = c_element.new(el_wind, dir)
-        l.spr.idle = { ss = 60 }
+        l.spr.idle = dstarc("ss = 60")
         dstar(l, [[
             damage = 0
-            ttl = _t1_0.7
+            ttl = _fn_t1_0.7
             max_dist = 25
             power = 20
         ]])

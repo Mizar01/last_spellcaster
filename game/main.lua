@@ -8,6 +8,9 @@ shop_items = {
     build_shop_item("tasty chicken", "+5 health", "", 10, 1, true, function() player:increase_life(5) end),
 }
 
+-- adding to dstar other functions
+dstar_add("t1", function(t) return c_timer.new(t,false) end)
+dstar_add("t2", function(t) return c_timer.new(t,true) end)
 
 function _init()
     flog("\n\n\n\n----------- Game started "..datetime_str().." -----------")
@@ -40,11 +43,7 @@ c_game = {
             },
             shop = nil,
         }
-        g.game_over_msgs = {
-            "the experiment failed!",
-            "another subject please!",
-            "sorry, you are not qualified!",
-        }
+        g.game_over_msgs = {}
         g.game_over_msg = ""
         menuitem(1, "restart game", function() game:start_menu() end)
         return sm(g, c_game)

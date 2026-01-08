@@ -1,20 +1,12 @@
 c_player = {
 	new = function(x, y)
 		local p = c_obj.new(x, y)
-		p.spr = {
-			idle = { sprites = { 64, 65 }, fps = 2 },
-			walk = { sprites = { 80, 81, 82 }, fps = 6 },
-			jump = { sprites = { 97, 98, 99, 100, 101, 102 }, fps = 8 },
-			dead = { sprites = { 68, 69, 70, 71, 72 }, fps = 4, loop = false },
-			flip_x = false,
-			flip_y = false,
-			time_start = 0,
-			effect = "none"
-		}
-		dstar(p.hitbox, "x = 2; y = 3; x2 = 5; y2 = 7")
-
-		p.avail_elements = { false, false, false, false }
-		
+		dstar(p.spr, [[
+			idle = { sprites = { 64; 65 }; fps = 2 }
+			walk = { sprites = { 80; 81; 82 }; fps = 6 }
+			jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
+			dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
+		]])
 		dstar(p, [[
 			name=player
 			p.prev_btn = {}
@@ -39,9 +31,11 @@ c_player = {
 			coins=0
 			stinky_socks=false
 			cur_el=nil
-			el_cooldown = _t1_1
+			avail_elements = { true, false, false, false }
+			el_cooldown = _fn_t1_1
 			shine_star=0
 			interaction_fn=nil
+			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
 		]])	
 		return sm(p, c_player)
 	end,
@@ -239,7 +233,6 @@ c_player = {
 		if (self.cur_el == nil) return
 		local s1 = (self.cur_el) % 4 + 1
 		while true do
-			flog("s1: "..s1)
 			if (self.avail_elements[s1]) then
 				self.cur_el = s1
 				c_slide_text.new(30, "switched to "..el_cls[s1].name, game.mgr.hud_mgr)

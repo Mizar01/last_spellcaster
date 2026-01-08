@@ -2,22 +2,21 @@
 c_enemy = {
     new = function(etype, x, y, speed, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
-        dstar(l.hitbox, "x = 2; y = 2; x2 = 5; y2 = 5")
         dstar(l, [[
-            respawn_timer = _t1_10
-            dmg_time = _t1_1
-            frozen_t = _t1_20
-            time_last_death = 0
-            life = 100
-            dir = nil
-            wspeed = 0
-            dir_before_blow = nil
-            fixed = false
-            hitbox_orig = {}
-            speed = *1
-            etype = *2
+respawn_timer = _fn_t1_10
+dmg_time = _fn_t1_1
+frozen_t = _fn_t1_20
+time_last_death = 0
+life = 100
+dir = nil
+wspeed = 0
+dir_before_blow = nil
+fixed = false
+hitbox = { x=2;y=2;x2=5;y2=5} 
+hitbox_orig = {x=2;y=2;x2=5;y2=5}
+speed = *1
+etype = *2
         ]], {speed or 1, etype})
-        dstar(l.hitbox_orig, "x = 2; y = 2; x2 = 5; y2 = 5")  -- is an immutable copy
         l.frozen_t.t = 0
         return sm(l, c_enemy)
     end,
@@ -87,17 +86,12 @@ clsinh(c_enemy, c_obj)
 c_bat = {
     new = function(x, y, horizontal, parent_mgr)
         local l = c_enemy.new("bat", x, y, 0.3, parent_mgr)
-        l.spr.idle = {sprites = { 128, 129 }, fps = 4, loop = true }
-        dstar(l.spr, [[
-			flip_x = false
-			flip_y = false
-			frame = 0
-		]])
-        dstar(l.hitbox, "x = 2; y = 2; x2 = 5; y2 = 5")
+        dstar(l.spr, "idle = { sprites = {128;129}; fps = 4; loop = true }")
         dstar(l, [[
-            horizontal = *1
-            dir = *2
-            dir_before_blow = _k_dir
+hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
+horizontal = *1
+dir = *2
+dir_before_blow = _k_dir
         ]], {horizontal, horizontal and dir_right or dir_down})
         return sm(l, c_bat)
     end,
@@ -111,30 +105,22 @@ c_bat = {
 }
 clsinh(c_bat, c_enemy)
 
-flog("just before c_walk_en")
 c_walk_en = {
-    idlespmap = dstarc([[
-        dog = _tab_144;145
-        spider = _tab_160;161
-    ]]),
-    runspmap = dstarc([[
-        dog = _tab_146;147
-        spider = _tab_162;163
+    spmap = dstarc([[
+dog = {idle = {144;145}; run = {146;147}}
+spider = {idle = {160;161}; run = {162;163}}
     ]]),
     new = function(x, y, name)
         local l = c_enemy.new(name, x, y, 1.5, game.mgr.enemy_mgr)
-        l.spr.idle = { sprites = c_walk_en.idlespmap[name], fps = 2,  loop = true }
-        l.spr.run = { sprites = c_walk_en.runspmap[name], fps = 4, loop = true }
-        dstar(l.spr, [[
-            flip_x = false
-            flip_y = false
-            frame = 0
-            speed = 0.4
-        ]])
-        dstar(l.hitbox, "x = 0; y = 3; x2 = 7; y2 = 7")
-        dstar(l.hitbox_orig, "x = 0; y = 3; x2 = 7; y2 = 7") -- immutable
-        l.basex = x
-        l.basey = y
+        l.spr.idle = { sprites = c_walk_en.spmap[name].idle, fps = 2,  loop = true }
+        l.spr.run = { sprites = c_walk_en.spmap[name].run, fps = 4, loop = true }
+        dstar(l, [[
+speed = 0.2
+hitbox = {x=0;y=3;x2=7;y2=7}
+hitbox_orig = {x=0;y=3;x2=7;y2=7}
+basex = *1
+basey = *2
+        ]], {x, y})
         return sm(l, c_walk_en)
     end,
     update = function(self)
@@ -174,15 +160,14 @@ c_walk_en = {
     end,
 }
 clsinh(c_walk_en, c_enemy)
-flog("just after c_walk_en")
 
 c_vine = {
     new = function(x, y, parent_mgr)
         local l = c_enemy.new("vine", x, y, 0, parent_mgr)
-        l.spr.idle = {ss =  6}
+        l.spr.idle = dstarc("ss = 6")
         dstar(l,[[
-            fixed = true
-            life = 10
+fixed = true
+life = 10
         ]])
         add(obj_solids, l)
         return sm(l, c_vine)
