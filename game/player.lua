@@ -235,7 +235,7 @@ c_player = {
 		while true do
 			if (self.avail_elements[s1]) then
 				self.cur_el = s1
-				c_slide_text.new(30, "switched to "..el_cls[s1].name, game.mgr.hud_mgr)
+				c_slide_text.new(30, "switched to "..el_cls[s1].name)
 				break
 			end
 			s1 = s1 % 4 + 1

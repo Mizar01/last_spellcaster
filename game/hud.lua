@@ -46,9 +46,9 @@ c_player_life_bar = {
 clsinh(c_player_life_bar, c_hud_element)
 
 c_slide_text = {
-    new = function(y, msg, parent_mgr)
+    new = function(y, msg)
         local calc_x = 122 - #msg * 5
-        local l = c_hud_element.new(calc_x, y, parent_mgr)
+        local l = c_hud_element.new(calc_x, y, game.mgr.hud_mgr)
         l.msg = msg
         l.final_pos = calc_x
         l.fixedx = l.final_pos + 250

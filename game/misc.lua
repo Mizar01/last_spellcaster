@@ -227,17 +227,40 @@ c_interactive = {
 }
 clsinh(c_interactive, c_obj)
 
-c_switchlith = {
+c_focuslith = {
     new = function(x, y, parent_mgr)
         local l = c_interactive.new(x, y, parent_mgr)
         l.spr.idle = { ss = 11 }
-        return sm(l, c_switchlith)
+        return sm(l, c_focuslith)
     end,
     interact = function(self)
         player:switch_element()
     end,
     draw = function(self)
         pal(7, altern_time(0.5) and el_colors[player.cur_el] or 7)
+        c_interactive.draw(self)
+        pal()
+    end
+}
+clsinh(c_focuslith, c_interactive)
+
+c_switchlith = {
+    new = function(x, y, parent_mgr)
+        local l = c_interactive.new(x, y, parent_mgr)
+        l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true")
+        l.on = false
+        return sm(l, c_switchlith)
+    end,
+    interact = function(self)
+        if (player.cur_el != el_thunder) then
+            c_slide_text.new(30, "You need thunder")
+            return
+        end
+        -- TODO: activate / deactivate
+        self.on = not self.on
+    end,
+    draw = function(self)
+        pal(7, self.on and 11 or 8) pal(10, self.on and 3 or 9)
         c_interactive.draw(self)
         pal()
     end
@@ -259,7 +282,7 @@ c_scroll = {
     interact = function(self)
         player.cur_el = self.el
         player.avail_elements[self.el] = true
-        c_slide_text.new(30, el_cls[self.el].name.." acquired", game.mgr.hud_mgr)
+        c_slide_text.new(30, el_cls[self.el].name.." acquired")
         self:del()
     end,
     draw = function(self)

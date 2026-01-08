@@ -206,9 +206,10 @@ function setup_stage_from_string()
                 player.x, player.y = px, py
             elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
-            elseif (t == "6") then -- switchlith
+            elseif (t == "6") then -- focuslith
+                c_focuslith.new(px, py, mmgr)
+            elseif (t == "7") then -- switchlith 1 (activates other indexes (TODO))
                 c_switchlith.new(px, py, mmgr)
-            elseif (t == "7") then -- teleport pair 2
 			elseif (t == "8") then -- dead
             elseif (t == "e") then -- dog
 				c_walk_en.new(px, py, "dog")

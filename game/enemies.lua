@@ -168,6 +168,7 @@ c_vine = {
         dstar(l,[[
 fixed = true
 life = 10
+hitbox = { x=0;y=0;x2=7;y2=7}
         ]])
         add(obj_solids, l)
         return sm(l, c_vine)
