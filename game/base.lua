@@ -1,35 +1,31 @@
 -- SCREEN OBJ UTILS -------------------------------
 -- ALL OBJECTS MUST have .x, .y, .hitbox, .speed, .spr table (see player for example)
-c_obj = {
- 	new = function(x, y, parent_mgr)
-		local o = {
-			name = "obj",
-			x = x or 0,
-			y = y or 0,
-			parent_mgr = parent_mgr or nil,
-			hitbox = {x=0,y=0,x2=7,y2=7}, -- default full tile hitbox
-			speed = 0.4,
-            destroyed = false,
-			-- Sprite configuration
-			spr = { 
-				-- sprite config for idle phase. You can add more phases as needed
-				--  arguments: sprites = array of sprite indexes, fps = frames per second, loop = bool (default true)
-				--             ss = single sprite index (for non-animated phases)
-				idle = { sprites = { 64, 65 }, fps = 2,  loop = true },
-				-- other_phase = { ss = 12 }, -- example of another phase that uses a single sprite
-				flip_x = false,
-				flip_y = false,
-				time_start = 0, 	-- time when the animation started. It is useful to calculate next frame based on fps
-				effect = "none", 	-- special effect for drawing (like blink_white, rotx, roty, rotz, etc)
-				last_frame = 0,
-				rot_speed = 1, -- for rotation effects (1 -> 1 full turn per second)
-			},
-			phase = "idle",
-		}
+c_obj = cstar("c_obj", nil, {
+ 	__new = function(n, x, y, parent_mgr)
+		local o = dstarc([[
+parent_mgr=*3
+hitbox={x=0;y=0;x2=7;y2=7}
+speed=0.4
+destroyed=false
+phase=idle
+x=*1
+y=*2
+]], {x or 0, y or 0, parent_mgr or nil})
+
+		o.spr = dstarc([[
+idle = { sprites = { 64; 65 }; fps = 2;  loop = true }
+flip_x = false
+flip_y = false
+time_start = 0	
+effect = none
+last_frame = 0
+rot_speed = 1
+]])
+
 		if (o.parent_mgr) then
 			o.parent_mgr:add(o)
 		end
-		return sm(o, c_obj)
+		return o
 	end,
 	update = function(self)
 	end,
@@ -140,8 +136,7 @@ c_obj = {
 			y2 = self.y + oy + self.hitbox.y2,
 		}
 	end,
-}
-c_obj.__index = c_obj
+})
 --------------------------------------------------
 
 ----------------------------------------------

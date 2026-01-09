@@ -105,7 +105,6 @@ function dstar(t, s, params)
             val = dstar({}, sub(val_str, 2, #val_str - 1), params)
             
         elseif first == "*" then
-            -- param lookup (*1, *2)
             local idx = tonum(sub(val_str, 2))
             val = params[idx]
             

@@ -227,8 +227,6 @@ function sm(t1, t2)
     return setmetatable(t1, t2)
 end
 
-function dstarc(s) return dstar({}, s) end
-
 function repl_char(s,c1,c2)
 	local s2 = ""
 	for i=1,#s do
