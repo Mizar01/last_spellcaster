@@ -3,8 +3,9 @@ function supercls(name)
     return cstarcls[name].super 
 end
 
-function cstar(name, par, fnlist)
+function cstar(name, fnlist)
     local cls = fnlist or {}
+    local name, par = unpack(split(name, ":"))
     cstarcls[name] = cls
     cls.__index = cls
     setmetatable(cls, cstarcls[par])

@@ -9,3 +9,4 @@ OK the hud position is messed up, again --> the problem is the order of updates,
 OK begin to shorten all the variable names. I hit the chars limit!
 - Bug: sometimes obj_solids are not removed when unfreeze (or maybe they are constantly re-added by some code?)
 OK logging: log does not work before the config.lua call. find a way to load config first of everything
+- maybe think about dropping the keys and doors system, is too heavy

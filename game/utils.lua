@@ -84,19 +84,6 @@ function player_tile_check(tx, ty)
 	return m.tx == tx and m.ty == ty
 end
 
-function build_shop_item(name, desc1, desc2, price, enable_after_stage, reusable, fn)
-    return {
-        name = name,
-        desc1 = desc1,
-        desc2 = desc2,
-        price = price,
-        used = false,
-        reusable = reusable,
-        enable_after_stage = enable_after_stage or 1,
-        fn = fn or nil,
-    }
-end
-
 function build_stage_config_item(name, music, theme, gems)
 	return {
 		name = name,
@@ -191,6 +178,8 @@ function setup_stage_from_string()
      -- SECOND PASS: set tile variations according to theme
 	local emgr = game.mgr.enemy_mgr
     local mmgr = game.mgr.misc_mgr
+    local swarr = {}
+    local dswarr = dstarc("M={};N={};O={};P={}")
     for ty=0,map_h - 1 do
         for tx=0,map_w - 1 do
             local t = converted_type_map[ty][tx]
@@ -208,8 +197,6 @@ function setup_stage_from_string()
                 c_bat.new(px, py, t == "a", emgr)
             elseif (t == "6") then -- focuslith
                 c_focuslith.new(px, py, mmgr)
-            elseif (t == "7") then -- switchlith 1 (activates other indexes (TODO))
-                c_switchlith.new(px, py, mmgr)
 			elseif (t == "8") then -- dead
             elseif (t == "e") then -- dog
 				c_walk_en.new(px, py, "dog")
@@ -217,11 +204,23 @@ function setup_stage_from_string()
                 c_walk_en.new(px, py, "spider")
             elseif (t == "v") then
                 c_vine.new(px, py, emgr)
-            elseif (t == "A" or t == "B" or t == "C" or t == "D") then -- element scrolls
+            elseif (instr("ABCD", t)) then -- element scrolls
                 c_scroll.new(px, py, ord(t) - ord("A") + 1, mmgr)
+            elseif (instr("MNOP", t)) then -- element launchers
+                add(dswarr[t], c_door.new(px, py, mmgr))
+            elseif (instr("QRST", t)) then -- switches
+                swarr[t] = c_switchlith.new(px, py, mmgr)
             end
         end
-    end 
+    end
+    flog(dswarr["M"])
+    for k,v in pairs(swarr) do
+        local kt = sub("MNOP",ord(k) - ord("Q"),1)
+        for dsw in all(dswarr[kt]) do
+            v:link_switch(dsw)
+        end
+    end
+
 end
 
 -- Configs:

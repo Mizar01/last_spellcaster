@@ -1,6 +1,6 @@
 -- SCREEN OBJ UTILS -------------------------------
 -- ALL OBJECTS MUST have .x, .y, .hitbox, .speed, .spr table (see player for example)
-c_obj = cstar("c_obj", nil, {
+c_obj = cstar("c_obj", {
  	__new = function(n, x, y, parent_mgr)
 		local o = dstarc([[
 parent_mgr=*3
@@ -142,12 +142,12 @@ rot_speed = 1
 ----------------------------------------------
 -- MANAGER BASE CLASS
 ----------------------------------------------
-c_mgr = {
-	new = function()
+c_mgr = cstar("c_mgr", {
+	__new = function(n)
 		local m = {}
 		m.objs = {}
 		m.update_in_pause = false
-		return sm(m, c_mgr)
+		return m
 	end,
 	restart = function(self)
 		self.objs = {}
@@ -171,5 +171,4 @@ c_mgr = {
             o:draw()
         end
 	end,
-}
-c_mgr.__index = c_mgr
+})

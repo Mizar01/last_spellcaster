@@ -1,5 +1,5 @@
-c_explosion = {
-    new = function(x, y, max_radius, parent_mgr)
+c_explosion = cstar("c_explosion:c_obj", {
+    __new = function(n, x, y, max_radius, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
             ttl = _fn_t1_0.2
@@ -7,7 +7,7 @@ c_explosion = {
             max_radius = *1
         ]], {max_radius or 4})
         l.spr.idle = dstarc("sprites = { 185; 186; 187 }, fps = 4")
-        return sm(l, c_explosion)
+        return l
     end,
     update = function(self)
         if self.ttl:adv() then
@@ -19,11 +19,10 @@ c_explosion = {
         local r = lerp(0, self.max_radius, 1 - (self.ttl.t / self.ttl.maxtime))
         circfill(self.x, self.y, r, 10)
     end
-}
-clsinh(c_explosion, c_obj)
+})
 
-c_element = {
-    new = function(el, dir)
+c_element = cstar("c_element:c_obj", {
+    __new = function(n, el, dir)
         local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
         local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
         dstar(l, [[
@@ -37,7 +36,7 @@ c_element = {
             el = *4
         ]], {origx, origy, dir, el})
 
-        return sm(l, c_element)
+        return l
     end,
     update = function(self)
         if self.destroy_req_prev_frame then
@@ -63,16 +62,15 @@ c_element = {
     effect = function(self, trg)
         trg:dmg(self.damage)
     end
-}
-clsinh(c_element, c_obj)
+})
 
-c_fire = {
+c_fire = cstar("c_fire:c_element", {
     name = "fire",
-    new = function(dir, parent_mgr)
+    __new = function(n, dir, parent_mgr)
         local l = c_element.new(el_fire, dir)
         l.radius = 1
         l.max_radius = 2
-        return sm(l, c_fire)
+        return l
     end,
     update = function(self)
         c_element.update(self)
@@ -91,16 +89,15 @@ c_fire = {
         trg:unfreeze()
         trg:dmg(self.damage)
     end
-}
-clsinh(c_fire, c_element)
+})
 
-c_ice = {
+c_ice = cstar("c_ice:c_element", {
     name = "ice",
-    new = function(dir, parent_mgr)
+    __new = function(n, dir, parent_mgr)
         local l = c_element.new(el_ice, dir)
         l.radius = 1
         l.max_radius = 1.5
-        return sm(l, c_ice)
+        return l
     end,
     update = function(self)
         c_element.update(self)
@@ -114,12 +111,11 @@ c_ice = {
     effect = function(self, trg)
         trg:freeze()
     end
-}
-clsinh(c_ice, c_element)
+})
 
-c_thunder = {
+c_thunder = cstar("c_thunder:c_element", {
     name = "thunder",
-    new = function(dir, parent_mgr)
+    __new = function(n, dir, parent_mgr)
         local l = c_element.new(el_thunder, dir)
         l.spr.idle = dstarc("ss = 59")
         dstar(l, [[
@@ -127,11 +123,9 @@ c_thunder = {
             max_dist = 25
         ]])
         -- takes three sprites space + a tolerance
-        return sm(l, c_thunder)
+        return l
     end,
     draw = function(self)
-        -- local sx, sy = spr_to_px(self.spr.idle.ss)
-        -- sspr(sx, sy, self.x - self.origx, 8, self.origx, self.origy)
         local step = 4
         local x = self.origx
         local y = self.origy
@@ -147,12 +141,11 @@ c_thunder = {
             if (dm == -1 and x < self.x - 1) break
         end
     end
-}
-clsinh(c_thunder, c_element)
+})
 
-c_wind = {
+c_wind = cstar("c_wind:c_element", {
     name = "wind",
-    new = function(dir, parent_mgr)
+    __new = function(n, dir, parent_mgr)
         local l = c_element.new(el_wind, dir)
         l.spr.idle = dstarc("ss = 60")
         dstar(l, [[
@@ -161,7 +154,7 @@ c_wind = {
             max_dist = 25
             power = 20
         ]])
-        return sm(l, c_wind)
+        return l
     end,
     draw = function(self)
         local dm = self:dirmult()
@@ -182,11 +175,10 @@ c_wind = {
     effect = function(self, trg)
         trg:blow(self.dir)
     end
-}
-clsinh(c_wind, c_element)
+})
 
-c_interactive = {
-    new = function(x, y, parent_mgr)
+c_interactive = cstar("c_interactive:c_obj", {
+    __new = function(n, x, y, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
             show_int_button = false
@@ -194,7 +186,7 @@ c_interactive = {
             int_done = false
             solid = true
         ]])
-        return sm(l, c_interactive)
+        return l
     end,
     update = function(self)
         if self:collide(player) then
@@ -224,14 +216,13 @@ c_interactive = {
         -- to be overridden
         self.int_done = true
     end
-}
-clsinh(c_interactive, c_obj)
+})
 
-c_focuslith = {
-    new = function(x, y, parent_mgr)
+c_focuslith = cstar("c_focuslith:c_interactive", {
+    __new = function(n, x, y, parent_mgr)
         local l = c_interactive.new(x, y, parent_mgr)
         l.spr.idle = { ss = 11 }
-        return sm(l, c_focuslith)
+        return l
     end,
     interact = function(self)
         player:switch_element()
@@ -241,39 +232,68 @@ c_focuslith = {
         c_interactive.draw(self)
         pal()
     end
-}
-clsinh(c_focuslith, c_interactive)
+})
 
-c_switchlith = {
-    new = function(x, y, parent_mgr)
+c_switchlith = cstar("c_switchlith:c_interactive", {
+    __new = function(n, x, y, parent_mgr)
         local l = c_interactive.new(x, y, parent_mgr)
         l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true")
         l.on = false
-        return sm(l, c_switchlith)
+        l.doors = {}
+        return l
     end,
     interact = function(self)
         if (player.cur_el != el_thunder) then
             c_slide_text.new(30, "You need thunder")
             return
         end
-        -- TODO: activate / deactivate
+        for door in all(self.doors) do
+            if self.on then door:close() else door:open() end
+        end
         self.on = not self.on
+    end,
+    link_switch = function(self, door)
+        flog("adding door to switch")
+        add(self.doors, door)
     end,
     draw = function(self)
         pal(7, self.on and 11 or 8) pal(10, self.on and 3 or 9)
         c_interactive.draw(self)
         pal()
     end
-}
-clsinh(c_switchlith, c_interactive)
+})
 
-c_scroll = {
-    new = function(x, y, el, parent_mgr)
+c_door = cstar("c_door:c_interactive", {
+    __new = function(n, x, y)
+        local l = c_interactive.new(x, y, game.mgr.misc_mgr)
+        l.spr.open = dstarc("sprites={43,44;45;46}; fps=5; loop=false")
+        l.spr.close = dstarc("sprites={46;45;44;43}; fps=5; loop=false")
+        dstar(l, [[
+phase = close
+hitbox = {x=0;y=0;x2=7;y2=7}
+]])
+        add(obj_solids, l)
+        return l
+    end,
+    open = function(self)
+        self.phase = "open"
+        del(obj_solids, self)
+    end,
+    close = function(self)
+        self.phase = "close"
+        add(obj_solids, self)
+    end,
+})
+
+
+
+c_scroll = cstar("c_scroll:c_interactive", {
+    __new = function(n, x, y, el, parent_mgr)
         local l = c_interactive.new(x, y, parent_mgr)
         l.spr.idle = { ss = 12 }
         l.el = el
         l.oy = y
-        return sm(l, c_scroll)
+        return l
     end,
     update = function(self)
         c_interactive.update(self)
@@ -290,13 +310,11 @@ c_scroll = {
         c_interactive.draw(self)
         pal()
     end
-}
-clsinh(c_scroll, c_interactive)
+})
 
-c_misc_mgr = {
-    new = function()
+c_misc_mgr = cstar("c_misc_mgr:c_mgr", {
+    __new = function(n)
         local m = c_mgr.new()
-        return sm(m, c_misc_mgr)
+        return m
     end
-}
-clsinh(c_misc_mgr, c_mgr)
+})

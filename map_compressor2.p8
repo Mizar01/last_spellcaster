@@ -18,7 +18,6 @@ end
 -- space = empty
 -- 1 = solid terrain block
 -- 6 = focuslith
--- 7 = switchlith 1 (activates other indexes (TODO))
 -- a = horizontal bat
 -- b = vertical bat
 -- c = laser cannon h,v directions
@@ -31,6 +30,8 @@ end
 -- B = thunder scroll
 -- C = ice scroll
 -- D = wind scroll
+-- MNOP = doors activated by switches
+-- QRST = switches for doors MNOP
 
 -- empty_map_sammple
 empty_map_sample = [[
@@ -93,12 +94,12 @@ extended_maps_config = {
 1                                                                                                                                                                                                                                                             1
 1                                                                               1 1                                                                                                                                                                           1
 1                                                                                                                                                                                                                                                             1
-1                                                                         1 1                                                                                                                                                                                 1
-1                                                                                                                                                                                                                                                             1
-1         b                                                                     1 1                                                                                                                                                                           1
-1       7                                                                                                                                                                                                                                                     1
-1 1 1 1 1 1 1 1 1 1 1 1 1                                                 1 1                                                                                                                                                                                 1
-1     a                 1     6                                                                                                                                                                                                                               1
+1         1 1 1                                                           1 1                                                                                                                                                                                 1
+1   1 1 1 1                                                                                                                                                                                                                                                   1
+1   1 1   b                         1                                           1 1                                                                                                                                                                           1
+1   M M 7     Q                     1                                                                                                                                                                                                                         1
+1 1 1 1 1 1 1 1 1 1 1 1 1           1                                     1 1                                                                                                                                                                                 1
+1     a                 1           M                                                                                                                                                                                                                         1
 1             1 1 1 1   1 1   1 1 1 1                                                                                                                                                                                                                         1
 1         1 1 1 1                   1 1 1                                 1 1                                                                                                                                                                                 1
 1     f 1 1 1 1 1 6   A B C D       v v v   1               s               1             e                                                                                                                                                                   1

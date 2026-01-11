@@ -1,5 +1,5 @@
-c_hud_element = {
-    new = function(x, y , parent_mgr)
+c_hud_element = cstar("c_hud_element:c_obj", {
+    __new = function(n, x, y , parent_mgr)
         local h = c_obj.new(x, y, parent_mgr)
         h.fixedx, h.fixedy = x, y -- fixed position relative to camera
         return sm(h, c_hud_element)
@@ -10,11 +10,10 @@ c_hud_element = {
         self.x = self.fixedx + cx
         self.y = self.fixedy + cy
     end,
-}
-clsinh(c_hud_element, c_obj)
+})
 
-c_val_printer = {
-    new = function(x, y, bg_length, draw_fn)
+c_val_printer = cstar("c_val_printer:c_hud_element", {
+    __new = function(n, x, y, bg_length, draw_fn)
         local l = c_hud_element.new(x, y) 
         l.draw_fn = draw_fn
         l.bgl = bg_length
@@ -25,11 +24,10 @@ c_val_printer = {
         rectfill(self.x, self.y, self.x + self.bgl, self.y + 5, 1)
         self.draw_fn(self)
     end,
-}
-clsinh(c_val_printer, c_hud_element)
+})
 
-c_player_life_bar = {
-    new = function(x, y)
+c_player_life_bar = cstar("c_player_life_bar:c_hud_element", {
+    __new = function(n, x, y)
         local l = c_hud_element.new(x, y)
         l.spr.idle = { ss = 169 }
         l.life_ref = player.init_max_life
@@ -42,11 +40,10 @@ c_player_life_bar = {
         self:draw_sprite()
         progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 1, 8)
     end,
-}
-clsinh(c_player_life_bar, c_hud_element)
+})
 
-c_slide_text = {
-    new = function(y, msg)
+c_slide_text = cstar("c_slide_text:c_hud_element", {
+    __new = function(n, y, msg)
         local calc_x = 122 - #msg * 5
         local l = c_hud_element.new(calc_x, y, game.mgr.hud_mgr)
         l.msg = msg
@@ -73,11 +70,10 @@ c_slide_text = {
         print(self.msg, self.x, self.y, 8) -- x,y are already right for the camera position
 
     end,
-}
-clsinh(c_slide_text, c_hud_element)
+})
 
-c_hud_mgr = {
-    new = function()
+c_hud_mgr = cstar("c_hud_mgr:c_mgr", {
+    __new = function(n)
         local l = c_mgr.new()
         l.update_in_pause = true
         return sm(l, c_hud_mgr)
@@ -105,5 +101,4 @@ c_hud_mgr = {
     --     -- local p = c_popup.new(64, 64, msg)
     --     -- self:add(p)
     -- end,
-}
-clsinh(c_hud_mgr, c_mgr)
+})

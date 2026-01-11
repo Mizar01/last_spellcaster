@@ -3,17 +3,12 @@ stage_config = {
     build_stage_config_item("hello pris... ehm subject n.6", 13, "grass", 0),
 }
 
-shop_items = {
-    -- build_shop_item(name, desc1, desc2, price, enable_after_stage, reusable, fn)
-    build_shop_item("tasty chicken", "+5 health", "", 10, 1, true, function() player:increase_life(5) end),
-}
-
 -- adding to dstar other functions
 dstar_add("t1", function(t) return c_timer.new(t,false) end)
 dstar_add("t2", function(t) return c_timer.new(t,true) end)
 
 function _init()
-    flog("\n\n\n\n----------- Game started "..datetime_str().." -----------")
+    flog("\n\n\n\n----------- Game started -----------")
     game = c_game.new()
 end
 
@@ -41,7 +36,6 @@ c_game = {
                 hud_mgr = c_hud_mgr.new(),
                 player_msg_mgr = c_player_msg_mgr.new(),
             },
-            shop = nil,
         }
         g.game_over_msgs = {}
         g.game_over_msg = ""
@@ -88,15 +82,6 @@ c_game = {
         self.win_game = false
         stage = 1
     end,
-    start_shop = function(self)
-        self.menu = false
-        self.play = false
-        self.shop = c_shop.new(64, 64)
-    end,
-    shop_to_play = function(self)
-        self.shop = nil
-        self:start_play()
-    end,
     set_game_over = function(self)
         self.play = false
         self.win_stage = false
@@ -112,11 +97,6 @@ c_game = {
             return
         end
 
-        if self.shop then
-            self.shop:update()
-            return
-        end
-
         if (self.win_game or self.game_over) then
             if (btnp(5,0)) then
                 self:start_menu()
@@ -128,7 +108,6 @@ c_game = {
             -- wait for some time or input to restart
             if (not player.prev_btn.up and btnp(5,0)) then
                 stage = (stage % #stage_config) + 1
-                self:start_shop()
             end
             return
         end
@@ -165,12 +144,6 @@ c_game = {
             line(0, 80, 127, 80, 7)
             cprint("* new title here! *", 64, 50, 7)
             cprint("press (❎) to start", 64, 70, adv_timed_arr(1, {7,0}))
-            return
-        end
-
-        if self.shop then
-            cls(8)
-            self.shop:draw()
             return
         end
 
