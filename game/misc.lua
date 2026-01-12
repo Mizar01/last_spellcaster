@@ -26,7 +26,6 @@ c_element = cstar("c_element:c_obj", {
         local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
         local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
         dstar(l, [[
-            damage = 10
             ttl = _fn_t1_0.3
             max_dist = 20
             destroy_req_prev_frame = false
@@ -35,7 +34,6 @@ c_element = cstar("c_element:c_obj", {
             dir = *3
             el = *4
         ]], {origx, origy, dir, el})
-
         return l
     end,
     update = function(self)
@@ -60,7 +58,7 @@ c_element = cstar("c_element:c_obj", {
         return (self.dir == dir_left) and -1 or 1
     end,
     effect = function(self, trg)
-        trg:dmg(self.damage)
+        trg:dmg(el_dmg[self.el][player.lev_el[self.el]])
     end
 })
 
@@ -87,7 +85,7 @@ c_fire = cstar("c_fire:c_element", {
     end,
     effect = function(self, trg)
         trg:unfreeze()
-        trg:dmg(self.damage)
+        c_element.effect(self, trg)
     end
 })
 
@@ -135,8 +133,7 @@ c_thunder = cstar("c_thunder:c_element", {
             local next_x = x + step * dm
             local next_y = y + (rnd(4) - 2)
             line(x, y, next_x, next_y, 7)
-            x = next_x
-            y = next_y
+            x, y = next_x, next_y
             if (dm == 1 and x > self.x + 1) break 
             if (dm == -1 and x < self.x - 1) break
         end
@@ -149,7 +146,6 @@ c_wind = cstar("c_wind:c_element", {
         local l = c_element.new(el_wind, dir)
         l.spr.idle = dstarc("ss = 60")
         dstar(l, [[
-            damage = 0
             ttl = _fn_t1_0.7
             max_dist = 25
             power = 20
@@ -285,14 +281,16 @@ hitbox = {x=0;y=0;x2=7;y2=7}
     end,
 })
 
-
-
 c_scroll = cstar("c_scroll:c_interactive", {
-    __new = function(n, x, y, el, parent_mgr)
-        local l = c_interactive.new(x, y, parent_mgr)
+    __new = function(n, x, y, el, cost, fn)
+        local l = c_interactive.new(x, y, game.mgr.misc_mgr)
+        l = dstar(l, [[
+            el = *1
+            oy = *2
+            int_fn = *3
+            cost = *4
+        ]], {el, y, fn, cost and cost or el_cost[el]})
         l.spr.idle = { ss = 12 }
-        l.el = el
-        l.oy = y
         return l
     end,
     update = function(self)
@@ -300,8 +298,17 @@ c_scroll = cstar("c_scroll:c_interactive", {
         self.y = self.oy + sin(time()) * 2
     end,
     interact = function(self)
+        if (player.shards < self.cost) then
+            c_slide_text.new(30, "You need "..tostr(self.cost).." shards")
+            return
+        end
+        if (self.int_fn != nil) then
+            self.int_fn(self)
+            return
+        end
+        -- default is to give element to player
         player.cur_el = self.el
-        player.avail_elements[self.el] = true
+        player.avail_el[self.el] = true
         c_slide_text.new(30, el_cls[self.el].name.." acquired")
         self:del()
     end,
@@ -309,6 +316,32 @@ c_scroll = cstar("c_scroll:c_interactive", {
         pal(7, el_colors[self.el])
         c_interactive.draw(self)
         pal()
+    end
+})
+
+c_shard = cstar("c_shard:c_obj", {
+    __new = function(n, x, y)
+        local l = c_obj.new(x, y, game.mgr.misc_mgr)
+        dstar(l, [[
+            speed = 0.2
+            speed_inc = 1.1
+        ]])
+        return l
+    end,
+    update = function(self)
+        local dpx, dpy = player.x + 4 - self.x, player.y + 4 - self.y
+        local dist = sqrt(dpx * dpx + dpy * dpy)
+        if (dist < 4) then 
+            player.shards +=1; 
+            self:del()
+        else
+            self.x += self.speed * (dpx < 0 and -1 or 1)   
+            self.y += self.speed * (dpy < 0 and -1 or 1)
+            self.speed *= self.speed_inc
+        end      
+    end,
+    draw = function(self)
+        circfill(self.x, self.y, 1, 7)
     end
 })
 

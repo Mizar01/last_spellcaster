@@ -205,7 +205,7 @@ function setup_stage_from_string()
             elseif (t == "v") then
                 c_vine.new(px, py, emgr)
             elseif (instr("ABCD", t)) then -- element scrolls
-                c_scroll.new(px, py, ord(t) - ord("A") + 1, mmgr)
+                c_scroll.new(px, py, ord(t) - ord("A") + 1)
             elseif (instr("MNOP", t)) then -- element launchers
                 add(dswarr[t], c_door.new(px, py, mmgr))
             elseif (instr("QRST", t)) then -- switches

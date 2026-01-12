@@ -31,12 +31,14 @@ c_player = {
 			coins=0
 			stinky_socks=false
 			cur_el=nil
-			avail_elements = { true, false, false, false }
+			avail_el = {false;false;false;false}
+			lev_el = {1;1;1;1}
 			el_cooldown = _fn_t1_1
 			shine_star=0
 			interaction_fn=nil
 			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
-		]])	
+			shards = 0
+		]])
 		return sm(p, c_player)
 	end,
 	reset_stage_props = function(self)
@@ -233,9 +235,9 @@ c_player = {
 		if (self.cur_el == nil) return
 		local s1 = (self.cur_el) % 4 + 1
 		while true do
-			if (self.avail_elements[s1]) then
+			if (self.avail_el[s1]) then
 				self.cur_el = s1
-				c_slide_text.new(30, "switched to "..el_cls[s1].name)
+				c_slide_text.new(30, el_cls[s1].name)
 				break
 			end
 			s1 = s1 % 4 + 1

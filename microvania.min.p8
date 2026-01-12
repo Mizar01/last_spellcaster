@@ -81,7 +81,7 @@ return n end R={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,update=function(n)n.x+=(a.
 			coins=0
 			stinky_socks=false
 			cur_el=nil
-			avail_elements = { true, false, false, false }
+			avail_el = { true, false, false, false }
 			el_cooldown = _fn_t1_1
 			shine_star=0
 			interaction_fn=nil
@@ -111,7 +111,7 @@ end,reset_jump_vars=function(n)n.speedy=0n.jstack=0end,set_start_jump=function(n
 end,on_ground=function(n)local n=n local n=n:hitbox_pos(0,1)local e,n=g(n.x,n.y2),g(n.x2,n.y2)return e or n end,apply_end_stage_upgrades=function(n)end,attack=function(n)if(n.cur_el==nil)return
 if(n.el_cooldown.t<=0)T[n.cur_el].new(n.spr.flip_x and s or x,d.mgr.misc_mgr)n.el_cooldown:restart()
 end,switch_element=function(e)if(e.cur_el==nil)return
-local n=e.cur_el%4+1while true do z("s1: "..n)if(e.avail_elements[n])e.cur_el=n C.new(30,"switched to "..T[n].name,d.mgr.hud_mgr)break
+local n=e.cur_el%4+1while true do z("s1: "..n)if(e.avail_el[n])e.cur_el=n C.new(30,"switched to "..T[n].name,d.mgr.hud_mgr)break
 n=n%4+1end end}n(S,f)h={new=function(e,n,l,t,o)local n=f.new(n,l,o)c(n,[[            respawn_timer = _fn_t1_10
             dmg_time = _fn_t1_1
             frozen_t = _fn_t1_20
@@ -186,7 +186,7 @@ e,t=o,n end end,effect=function(n,e)e:blow(n.dir)end}n(Y,u)b={new=function(n,e,l
             solid = true
         ]])return i(n,b)end,update=function(n)if(n:collide(a))n.show_int_button=true a.interaction_fn=n.interact local e=n.ttl_disable_int if btnp(5,0)and not n.int_done do n:interact()elseif n.int_done and e==nil do n.ttl_disable_int=l.new(.5,false)elseif e and e:adv()do n.int_done=false n.ttl_disable_int=nil end else n.show_int_button=false
 end,draw=function(n)n:draw_sprite()if(n.show_int_button)?"❎",n.x+2,n.y-6,12
-end,interact=function(n)n.int_done=true end}n(b,f)O={new=function(n,e,l)local n=b.new(n,e,l)n.spr.idle={ss=11}return i(n,O)end,interact=function(n)a:switch_element()end,draw=function(n)pal(7,n3(.5)and n0[a.cur_el]or 7)b.draw(n)pal()end}n(O,b)Q={new=function(n,e,l,t)local n=b.new(n,e,t)n.spr.idle={ss=12}n.el=l n.oy=e return i(n,Q)end,update=function(n)b.update(n)n.y=n.oy+sin(time())*2end,interact=function(n)z("self.el="..n.el)a.cur_el=n.el a.avail_elements[n.el]=true C.new(30,T[n.el].name.." acquired",d.mgr.hud_mgr)n:del()end,draw=function(n)pal(7,n0[n.el])b.draw(n)pal()end}n(Q,b)Z={new=function()local n=e.new()return i(n,Z)end}n(Z,e)m={new=function(e,l,n)local n=f.new(e,l,n)n.fixedx,n.fixedy=e,l return i(n,m)end,update=function(n)local e,l=R:calc_center()n.x=n.fixedx+e n.y=n.fixedy+l end}n(m,f)y={new=function(n,e,l,t)local n=m.new(n,e)n.draw_fn=t n.bgl=l n.spr.idle={ss=137}return i(n,y)end,draw=function(n)rectfill(n.x,n.y,n.x+n.bgl,n.y+5,1)n.draw_fn(n)end}n(y,m)nn={new=function(n,e)local n=m.new(n,e)n.spr.idle={ss=169}n.life_ref=a.init_max_life return i(n,nn)end,draw=function(n)local e=30*a.max_life/n.life_ref rectfill(n.x,n.y+1,n.x+e+10,n.y+6,1)n:draw_sprite()ni(n.x+10,n.y+2,e,3,a.life,a.max_life,1,8)end}n(nn,m)C={new=function(n,e,t)local l=122-#e*5local n=m.new(l,n,t)n.msg=e n.final_pos=l n.fixedx=n.final_pos+250c(n,[[            ttl_live = _fn_t1_2
+end,interact=function(n)n.int_done=true end}n(b,f)O={new=function(n,e,l)local n=b.new(n,e,l)n.spr.idle={ss=11}return i(n,O)end,interact=function(n)a:switch_element()end,draw=function(n)pal(7,n3(.5)and n0[a.cur_el]or 7)b.draw(n)pal()end}n(O,b)Q={new=function(n,e,l,t)local n=b.new(n,e,t)n.spr.idle={ss=12}n.el=l n.oy=e return i(n,Q)end,update=function(n)b.update(n)n.y=n.oy+sin(time())*2end,interact=function(n)z("self.el="..n.el)a.cur_el=n.el a.avail_el[n.el]=true C.new(30,T[n.el].name.." acquired",d.mgr.hud_mgr)n:del()end,draw=function(n)pal(7,n0[n.el])b.draw(n)pal()end}n(Q,b)Z={new=function()local n=e.new()return i(n,Z)end}n(Z,e)m={new=function(e,l,n)local n=f.new(e,l,n)n.fixedx,n.fixedy=e,l return i(n,m)end,update=function(n)local e,l=R:calc_center()n.x=n.fixedx+e n.y=n.fixedy+l end}n(m,f)y={new=function(n,e,l,t)local n=m.new(n,e)n.draw_fn=t n.bgl=l n.spr.idle={ss=137}return i(n,y)end,draw=function(n)rectfill(n.x,n.y,n.x+n.bgl,n.y+5,1)n.draw_fn(n)end}n(y,m)nn={new=function(n,e)local n=m.new(n,e)n.spr.idle={ss=169}n.life_ref=a.init_max_life return i(n,nn)end,draw=function(n)local e=30*a.max_life/n.life_ref rectfill(n.x,n.y+1,n.x+e+10,n.y+6,1)n:draw_sprite()ni(n.x+10,n.y+2,e,3,a.life,a.max_life,1,8)end}n(nn,m)C={new=function(n,e,t)local l=122-#e*5local n=m.new(l,n,t)n.msg=e n.final_pos=l n.fixedx=n.final_pos+250c(n,[[            ttl_live = _fn_t1_2
             offset = 0
         ]])return i(n,C)end,update=function(n)if(n.ttl_live:adv())n:del()return
 local e=abs(n.fixedx-n.final_pos)n.fixedx=e<2and n.final_pos or n.fixedx-e*.1m.update(n)end,draw=function(n)rectfill(n.x-2,n.y-2,n.x+126,n.y+7,1)rect(n.x-2,n.y-2,n.x+126,n.y+7,14)?n.msg,n.x,n.y,8

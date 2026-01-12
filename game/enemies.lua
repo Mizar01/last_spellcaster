@@ -26,6 +26,11 @@ etype = *2
         self.dmg_time:restart()
         self.spr.effect = "blink_white"
         if (self.life <= 0) then
+            for i=1,3 do
+                local px = self.x + rnd(6)
+                local py = self.y + rnd(6)
+                c_shard.new(px, py)
+            end
             self:del()
         end
     end,

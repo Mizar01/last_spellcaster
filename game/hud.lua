@@ -21,7 +21,7 @@ c_val_printer = cstar("c_val_printer:c_hud_element", {
         return sm(l, c_val_printer)
     end,
     draw = function(self)
-        rectfill(self.x, self.y, self.x + self.bgl, self.y + 5, 1)
+        rectfill(self.x, self.y, self.x + self.bgl, self.y + 6, 1)
         self.draw_fn(self)
     end,
 })
@@ -81,19 +81,20 @@ c_hud_mgr = cstar("c_hud_mgr:c_mgr", {
     restart = function(self)
         self.objs = {
             -- gem counter
-            c_val_printer.new(8, 1, 30, function(self)
-                spr(150, self.x, self.y - 1)
-                print(tostr(player.gems).."/"..tostr(stage_config_get().gems), self.x + 10, self.y + 1, 8)
-            end),
+            -- c_val_printer.new(8, 1, 30, function(self)
+            --     spr(150, self.x, self.y - 1)
+            --     print(tostr(player.gems).."/"..tostr(stage_config_get().gems), self.x + 10, self.y + 1, 8)
+            -- end),
             -- coin counter
             c_val_printer.new(94, 1, 25, function(self)
-                spr(138, self.x, self.y - 1)
-                print(tostr(player.coins), self.x + 10, self.y + 1, 8)
+                -- spr(138, self.x, self.y - 1)
+                circfill(self.x + 4, self.y + 3, 2, 7)
+                print(tostr(player.shards), self.x + 10, self.y + 1, 8)
             end),
             -- c_val_printer.new(49, 1, 35, function(self)
             --     print("stage "..tostr(stage), self.x + 1, self.y + 1, 8)
             -- end),
-            c_player_life_bar.new(10, 120),
+            c_player_life_bar.new(10, 0),
             -- c_popup.new(64, 64, "stage "..tostr(stage).."*"..stage_config_get().name)
         }
     end,
