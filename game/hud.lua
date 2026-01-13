@@ -44,10 +44,9 @@ c_player_life_bar = cstar("c_player_life_bar:c_hud_element", {
 
 c_slide_text = cstar("c_slide_text:c_hud_element", {
     __new = function(n, y, msg)
-        local calc_x = 122 - #msg * 5
-        local l = c_hud_element.new(calc_x, y, game.mgr.hud_mgr)
+        local l = c_hud_element.new(0, y, game.mgr.hud_mgr)
         l.msg = msg
-        l.final_pos = calc_x
+        l.final_pos = 122 - #msg * 4
         l.fixedx = l.final_pos + 250
         dstar(l, [[
             ttl_live = _fn_t1_2

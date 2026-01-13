@@ -282,14 +282,15 @@ hitbox = {x=0;y=0;x2=7;y2=7}
 })
 
 c_scroll = cstar("c_scroll:c_interactive", {
-    __new = function(n, x, y, el, cost, fn)
+    __new = function(n, x, y, el, cost, name, fn)
         local l = c_interactive.new(x, y, game.mgr.misc_mgr)
         l = dstar(l, [[
             el = *1
             oy = *2
             int_fn = *3
             cost = *4
-        ]], {el, y, fn, cost and cost or el_cost[el]})
+            name = *5
+        ]], {el, y, fn, cost and cost or el_cost[el], name})
         l.spr.idle = { ss = 12 }
         return l
     end,
@@ -298,22 +299,23 @@ c_scroll = cstar("c_scroll:c_interactive", {
         self.y = self.oy + sin(time()) * 2
     end,
     interact = function(self)
+        local n = self.name or el_cls[self.el].name
         if (player.shards < self.cost) then
-            c_slide_text.new(30, "You need "..tostr(self.cost).." shards")
+            c_slide_text.new(30, "("..n..") You need "..tostr(self.cost).." shards")
             return
         end
         if (self.int_fn != nil) then
             self.int_fn(self)
-            return
+        else
+            -- default is to give element to player
+            player.cur_el = self.el
+            player.avail_el[self.el] = true
         end
-        -- default is to give element to player
-        player.cur_el = self.el
-        player.avail_el[self.el] = true
-        c_slide_text.new(30, el_cls[self.el].name.." acquired")
+        c_slide_text.new(30, n.." acquired")
         self:del()
     end,
     draw = function(self)
-        pal(7, el_colors[self.el])
+        if (self.el) pal(7, el_colors[self.el])
         c_interactive.draw(self)
         pal()
     end
@@ -323,8 +325,8 @@ c_shard = cstar("c_shard:c_obj", {
     __new = function(n, x, y)
         local l = c_obj.new(x, y, game.mgr.misc_mgr)
         dstar(l, [[
-            speed = 0.2
-            speed_inc = 1.1
+            speed = 0.1
+            speed_inc = 1.05
         ]])
         return l
     end,
@@ -335,8 +337,9 @@ c_shard = cstar("c_shard:c_obj", {
             player.shards +=1; 
             self:del()
         else
-            self.x += self.speed * (dpx < 0 and -1 or 1)   
-            self.y += self.speed * (dpy < 0 and -1 or 1)
+            local r = self.speed/dist
+            self.x = lerp(self.x, player.x + 4, r)
+            self.y = lerp(self.y, player.y + 4, r)
             self.speed *= self.speed_inc
         end      
     end,

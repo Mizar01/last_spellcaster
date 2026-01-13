@@ -136,15 +136,6 @@ function load_rle_map(str, map_width, converted_type_map)
     return converted_type_map
 end
 
--- The format is compressed like that:
---  - 1 line only (its implicit that the map is given by the rows and cols of the string array)
---  - every digit from 0 to f represents a tile type or an object in the stage
---  see iws_map_compressor.lua for the full list of tile types/objects
---  - for rows x0 = "x", x1 = "xx", x2 = "xxx", x3 = "xxxx" etc (for example 14 times '1' is 1d)
--- Example of a 16x16 map with borders and empty inside:
--- "1f100d00100d00100d00100d00100d00100d00100d00100d00100d00100d00100d00100d00100d00100d001f"
--- In few words the odd characters are tile types, the even characters are counts (in hex) of how many times to repeat the previous tile type
--- Note that the minimum to get a meaningful info on map tile is made by 2 chars.
 function setup_stage_from_string()
 
     local map_string = stage_compressed_maps[stage]

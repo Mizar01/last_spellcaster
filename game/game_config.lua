@@ -45,4 +45,12 @@ ice = {
 -- 1 max dead per stage
 dead_messages = {}
 
+stage_config = {
+    build_stage_config_item("hello pris... ehm subject n.6", 13, "grass", 0),
+}
+
+-- adding to dstar other functions
+dstar_add("t1", function(t) return c_timer.new(t,false) end)
+dstar_add("t2", function(t) return c_timer.new(t,true) end)
+
 
