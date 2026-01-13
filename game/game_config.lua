@@ -8,6 +8,10 @@ el_colors = dstarc("8;10;12;13")
 el_cls = {c_fire, c_thunder, c_ice, c_wind} -- element class for each element type
 el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
 el_cost = dstarc("0;25;40;35")
+npc_names = dstarc([[
+    lea=aunt lea
+    lady=lady
+]])
 npc_sprites = dstarc([[
     lea = {192;193}
     lady = {208;209}
@@ -51,8 +55,8 @@ dead_messages = {}
 
 stage_config = {
     build_stage_config_item("The green forest", 13, "grass", dstarc([[
-        p = {name=lea;msg=my dear nephew*please help me find the*four elemental scrolls.}
-        u = {name=lady;msg=welcome to the forest*be careful out there!}
+        p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
+        u = {cname=lady;msg=welcome to the forest*be careful out there!}
     ]])),
 }
 

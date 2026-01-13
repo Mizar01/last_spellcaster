@@ -198,7 +198,7 @@ function setup_stage_from_string()
             elseif (instr("pqrstuvwxyz", t)) then
                 local npcdata = stage_cfg.npcdata[t]
                 -- flog("stage = " .. tostr(t))
-                c_npc.new(px, py, npcdata.name, npcdata.msg)
+                c_npc.new(px, py, npcdata.cname, npcdata.msg)
             elseif (instr("ABCD", t)) then -- element scrolls
                 c_scroll.new(px, py, ord(t) - ord("A") + 1)
             elseif (instr("MNOP", t)) then -- element launchers

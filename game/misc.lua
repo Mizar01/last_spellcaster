@@ -352,15 +352,30 @@ c_shard = cstar("c_shard:c_obj", {
 })
 
 c_npc = cstar("c_npc:c_interactive", {
-    __new = function(n, x, y, name, dialogs)
+    __new = function(n, x, y, codename, dialogs)
         local l = c_interactive.new(x, y, game.mgr.misc_mgr)
-        l.spr.idle.sprites = npc_sprites[name]
-        l.name = name
-        l.dialog = dialogs
+        l.spr.idle.sprites = npc_sprites[codename]
+        l.name = npc_names[codename]
+        l.dialogs = split(dialogs, "/")
+        l.cur_diag = 1
+        l.diagcls = nil
         return l
     end,
+    update = function(self)
+        c_interactive.update(self)
+        if (self.diagcls and ((abs(self.x - player.x) > 40 or abs(self.y - player.y) > 40) or self.diagcls.destroyed)) then
+            self.diagcls:del()
+            self.cur_diag = 1 -- reset dialog
+            self.diagcls = nil
+        end
+    end,
     interact = function(self)
-        c_dialog.new(30, self.name, self.dialog)
+        flog("npc interact"..tostr(self.diagcls))
+        self.diagcls = self.diagcls or c_dialog.new(30, self.name, "")
+        self.diagcls.msg = self.dialogs[self.cur_diag]
+        self.diagcls.cont = self.cur_diag < #self.dialogs
+        self.diagcls.ttl_live:restart()
+        self.cur_diag = min(self.cur_diag + 1, #self.dialogs) -- stay at last dialog during interaction
     end
 })
 
