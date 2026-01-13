@@ -249,7 +249,6 @@ c_switchlith = cstar("c_switchlith:c_interactive", {
         self.on = not self.on
     end,
     link_switch = function(self, door)
-        flog("adding door to switch")
         add(self.doors, door)
     end,
     draw = function(self)
@@ -299,11 +298,13 @@ c_scroll = cstar("c_scroll:c_interactive", {
         self.y = self.oy + sin(time()) * 2
     end,
     interact = function(self)
+
         local n = self.name or el_cls[self.el].name
         if (player.shards < self.cost) then
             c_slide_text.new(30, "("..n..") You need "..tostr(self.cost).." shards")
             return
         end
+
         if (self.int_fn != nil) then
             self.int_fn(self)
         else
@@ -311,8 +312,10 @@ c_scroll = cstar("c_scroll:c_interactive", {
             player.cur_el = self.el
             player.avail_el[self.el] = true
         end
+
         c_slide_text.new(30, n.." acquired")
         self:del()
+
     end,
     draw = function(self)
         if (self.el) pal(7, el_colors[self.el])
@@ -345,6 +348,19 @@ c_shard = cstar("c_shard:c_obj", {
     end,
     draw = function(self)
         circfill(self.x, self.y, 1, 7)
+    end
+})
+
+c_npc = cstar("c_npc:c_interactive", {
+    __new = function(n, x, y, name, dialogs)
+        local l = c_interactive.new(x, y, game.mgr.misc_mgr)
+        l.spr.idle.sprites = npc_sprites[name]
+        l.name = name
+        l.dialog = dialogs
+        return l
+    end,
+    interact = function(self)
+        c_dialog.new(30, self.name, self.dialog)
     end
 })
 

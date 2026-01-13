@@ -8,6 +8,10 @@ el_colors = dstarc("8;10;12;13")
 el_cls = {c_fire, c_thunder, c_ice, c_wind} -- element class for each element type
 el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
 el_cost = dstarc("0;25;40;35")
+npc_sprites = dstarc([[
+    lea = {192;193}
+    lady = {208;209}
+]])
 fsolid_idx = 0 --sprint flag index used for solid
 game = nil
 player = nil
@@ -46,7 +50,10 @@ ice = {
 dead_messages = {}
 
 stage_config = {
-    build_stage_config_item("hello pris... ehm subject n.6", 13, "grass", 0),
+    build_stage_config_item("The green forest", 13, "grass", dstarc([[
+        p = {name=lea;msg=my dear nephew*please help me find the*four elemental scrolls.}
+        u = {name=lady;msg=welcome to the forest*be careful out there!}
+    ]])),
 }
 
 -- adding to dstar other functions

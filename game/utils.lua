@@ -84,12 +84,12 @@ function player_tile_check(tx, ty)
 	return m.tx == tx and m.ty == ty
 end
 
-function build_stage_config_item(name, music, theme, gems)
+function build_stage_config_item(name, music, theme, npcdata)
 	return {
 		name = name,
 		music = music,
 		theme = themes[theme],
-		gems = gems,
+        npcdata = npcdata,
 	}
 end
 
@@ -183,7 +183,7 @@ function setup_stage_from_string()
                 local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
-                player.x, player.y = px, py
+                player:respawn(px, py)
             elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
             elseif (t == "6") then -- focuslith
@@ -191,10 +191,14 @@ function setup_stage_from_string()
 			elseif (t == "8") then -- dead
             elseif (t == "e") then -- dog
 				c_walk_en.new(px, py, "dog")
-            elseif (t == "s") then -- spider
+            elseif (t == "g") then -- spider
                 c_walk_en.new(px, py, "spider")
-            elseif (t == "v") then
+            elseif (t == "h") then
                 c_vine.new(px, py, emgr)
+            elseif (instr("pqrstuvwxyz", t)) then
+                local npcdata = stage_cfg.npcdata[t]
+                -- flog("stage = " .. tostr(t))
+                c_npc.new(px, py, npcdata.name, npcdata.msg)
             elseif (instr("ABCD", t)) then -- element scrolls
                 c_scroll.new(px, py, ord(t) - ord("A") + 1)
             elseif (instr("MNOP", t)) then -- element launchers

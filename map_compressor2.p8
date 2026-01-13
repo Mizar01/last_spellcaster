@@ -24,14 +24,15 @@ end
 -- d = laser cannon diag directions
 -- e = dog enemy
 -- f = player start position
--- s = spider enemy
--- v = vines
+-- g = spider enemy
+-- h = vines
 -- A = fire scroll
 -- B = thunder scroll
 -- C = ice scroll
 -- D = wind scroll
 -- MNOP = doors activated by switches
 -- QRST = switches for doors MNOP
+-- pqrstuvwxyz = npc dialogs (the mapping is done in game_config.lua)
 
 -- empty_map_sammple
 empty_map_sample = [[
@@ -97,12 +98,12 @@ extended_maps_config = {
 1         1 1 1                                                           1 1                                                                                                                                                                                 1
 1   1 1 1 1                                                                                                                                                                                                                                                   1
 1   1 1   b                         1                                           1 1                                                                                                                                                                           1
-1   M M 7     Q                     1                                                                                                                                                                                                                         1
+1   M M 7     Q     u               1                                                                                                                                                                                                                         1
 1 1 1 1 1 1 1 1 1 1 1 1 1           1                                     1 1                                                                                                                                                                                 1
 1     a                 1           M                                                                                                                                                                                                                         1
 1             1 1 1 1   1 1   1 1 1 1                                                                                                                                                                                                                         1
 1         1 1 1 1                   1 1 1                                 1 1                                                                                                                                                                                 1
-1     f 1 1 1 1 1 6   A B C D       v v v   1               s               1             e                                                                                                                                                                   1
+1 p   f 1 1 1 1 1 6   A B C D       h h h   1               g               1             e                                                                                                                                                                   1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]],
 }

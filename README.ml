@@ -52,8 +52,13 @@ Currency:
   Every scroll and skill upgrade costs specific shards.
 
 Death:
-  - when the player dies, he respawns at the start of the current area, all enemies respawn too.
+  - when the player dies, he respawns at the start of the current area
     NOTE: for now I don't plan to make the player lose shards or regain at some death point.
+
+Enemy respwan rules: 
+  - all enemies respawn when the player dies.
+  - all enemies respawn if they are dead and the player is too far from their spawn point.
+  - some enemies will respawn if they are dead after some time.
 
 
 

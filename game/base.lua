@@ -10,6 +10,8 @@ destroyed=false
 phase=idle
 x=*1
 y=*2
+spawn_x=*1
+spawn_y=*2
 ]], {x or 0, y or 0, parent_mgr or nil})
 
 		o.spr = dstarc([[
@@ -32,6 +34,9 @@ rot_speed = 1
 	draw = function(self)
 		self:draw_sprite()
  	end,
+	respawn = function(self, x, y)
+		self.x, self.y, self.spawn_x, self.spawn_y = x, y, x, y
+	end,
     del = function(self)
         self.destroyed = true
         if (self.parent_mgr) then

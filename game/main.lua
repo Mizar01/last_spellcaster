@@ -150,6 +150,13 @@ c_game = {
         -- print("p jstart: "..tostr(player.jstart), 0, 0, 7)
         -- print("p jforce: "..tostr(player.jforce), 0, 6, 7)
         -- print("p speedy: "..tostr(player.speedy), 0, 12, 7)
+
+        if (player.phase == "dead") then
+            local cx, cy = cam:calc_center()
+            cprint("you died!", 64 + cx, 55 + cy, 8)
+            cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)
+            return
+        end
         
         if (self.win_game) then
             crectfill(64, 64, 120, 55, 1)

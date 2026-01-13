@@ -25,7 +25,7 @@ c_player = {
 			speed=0
 			init_speed=0.1
 			inc_speed_factor=0.2
-			life=20
+			life=1
 			max_life=20
 			init_max_life=20
 			coins=0
@@ -37,6 +37,7 @@ c_player = {
 			shine_star=0
 			interaction_fn=nil
 			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
+			t_respawn=nil
 			shards = 0
 		]])
 		return sm(p, c_player)
@@ -57,22 +58,30 @@ c_player = {
 
 		local p = self
 
+		local btn = {
+			left = btn(0),
+			right = btn(1),
+			jump = btn(4),
+			jump_start = btnp(4),
+			action = btnp(5)
+			-- d = btnp(3,1), -- d key (for debug)
+		}
+
 		if (p.phase == "dead") then
 			if (p.prev_btn.left) obj_move(p, dir_left) 
 			if (p.prev_btn.right) obj_move(p, dir_right) 
 			p.speed = p.speed * 0.9
-			p:apply_forces()
+			p:apply_forces(btn)
+			if (p.t_respawn:adv()) then
+				-- respawn the player
+				p:respawn(p.spawn_x, p.spawn_y)
+				p.life = p.max_life
+				p.phase = "idle"
+				p.invulnerable = false
+			end
 			return
 		end
 
-		local btn = {
-			left = btn(0, 0),
-			right = btn(1, 0),
-			jump = btn(4, 0),
-			jump_start = btnp(4, 0),
-			action = btnp(5, 0)
-			-- d = btnp(3,1), -- d key (for debug)
-		}
 
 		-- if (btn.d) debug = not debug
 
@@ -135,8 +144,7 @@ c_player = {
 			if (p.life <= 0) then
 				p.phase = "dead"
 				p.invulnerable = true
-				game.game_over_msg = rnd(game.game_over_msgs)
-				game:set_game_over()
+				p.t_respawn = c_timer.new(5) -- time before respawn
 			else
 				p.nodmg_t = c_timer.new(1) -- invincibility frames
 				p.spr.effect = "blink_white"
@@ -202,6 +210,7 @@ c_player = {
 		self.jstack = 0
 	end,
 	set_start_jump = function(self)
+		if (self.phase == "dead") return
 		if self:on_ground() then
 			self:reset_jump_vars()
 			self.phase = "jump"

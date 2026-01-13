@@ -50,9 +50,8 @@ c_slide_text = cstar("c_slide_text:c_hud_element", {
         l.fixedx = l.final_pos + 250
         dstar(l, [[
             ttl_live = _fn_t1_2
-            offset = 0
         ]])
-        return sm(l, c_slide_text)
+        return l
     end,
     update = function(self)
         if (self.ttl_live:adv()) then
@@ -68,6 +67,29 @@ c_slide_text = cstar("c_slide_text:c_hud_element", {
         rect( self.x - 2, self.y - 2, self.x + 126, self.y + 7, 14)
         print(self.msg, self.x, self.y, 8) -- x,y are already right for the camera position
 
+    end,
+})
+
+c_dialog = cstar("c_dialog:c_slide_text", {
+    __new = function(n, y, author, msg)
+        local l = c_slide_text.new(y, msg)
+        dstar(l, [[
+            final_pos = 10
+            ttl_live = _fn_t1_6
+            author = *1
+        ]], {author})
+        l.fixedx = l.final_pos + 250 -- it can't be put in dstar unless final_pos is changed first
+        return l
+    end,
+    draw = function(self)
+        local msgs = split(self.msg, "*")
+        local rows = #msgs + 1
+        rectfill(self.x - 2, self.y - 2, self.x + 124, self.y + rows * 7, 1)
+        rect( self.x - 2, self.y - 2, self.x + 124, self.y + rows * 7, 14)
+        print(self.author..":", self.x, self.y, 8)
+        for i = 1, #msgs do
+            print(msgs[i], self.x, self.y + (i) * 7, 8)
+        end
     end,
 })
 
