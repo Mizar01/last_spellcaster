@@ -25,8 +25,41 @@ obj_solids = {} -- objects that temporarily become solid (like frozen enemies)
 
 stage = 1
 
-use_sample_map = false
-sample_map = {}
+use_sample_map = true
+sample_map = [[
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1                                                                                 1 1 1 1                                           1                   1                                                                                                     1
+1                                                                                 1 1 1 1                                           1   1 1 1 1 1 1                                                                                           1 1 1 1         1
+1                                                                                 1 1 1 1                                           1             1                                                               1 1 1 1   1     1 1 1                       1
+1                                                                                 1 1 1 1                                           1 1 1 1 1 1   1                                                                                                           1
+1                                                                                 1 1 1 1                                                         1                                                                                 f                         1
+1                                                                                 1 1 1 1                                           1 1 1 1 1 1 1 1 1 1 1                                         1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1
+1                                                                                 h h h h                                         1                       1                       1 1 1 1 1 1 1 1 1                                                 1         1
+1                                                           1 1 1 1 1 1           1 1 1 1 1 1 1 1 1 1   p                       1                       1                     1 1 1                                                                 1   1 1 1 1
+1                                                                     1 1 1 1 1   1 1 1             1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1                                                                     1         1
+1                                                                               1                                               1                           1                                                                                       1         1
+1                                                                                                                               1 1 1 1 1 1 1 1 1 1 1 1 1 1                                                                                         1   1 1   1
+1                                                                                                                                                                                                                                                   1         1
+1                                                                                                                                                                                                                                                 1           1
+1                                                                                                                                                                                                                                                 1           1
+1                                                                                                                                                                                                                                                   1 1       1
+1                                                                                                                                                                                                                                                   1         1
+1                                                                                                                                                                                                                                                   1       1 1
+1                                                                                                                                                                                                                                                 1           1
+1                                                                                                                                                                                                                                                 1 1 1       1
+1                                                                                                                                                                                                                                                 1           1
+1                                                                                                                                                                                                                                                   1     1 1 1
+1                                                                                                                                                                                                                                                   1         1
+1                                                                                                                                                                                                                                                   1         1
+1                                                                                                                                                                                                                                                     1       1
+1                                                                                                                                                                                                                                                       1 1   1
+1                                                                                                                                                                                                                                                       1     1
+1                                                                                                                                                                                                                                                       1   1 1
+1                                                                                                                                                                                                                                                       1     1
+1                                                                                                                                                                                                                                                             1
+1                                                                                                                                                                                                                                                             1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+]]
 
 -- neighbor config nodes
 ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = dstaru("0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15")

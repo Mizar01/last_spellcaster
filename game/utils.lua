@@ -142,24 +142,17 @@ function setup_stage_from_string()
     local stage_cfg = stage_config_get()
     local theme = stage_cfg.theme
 
-	local map_w, map_h
-	if (use_sample_map) then
-		map_w = (#(sample_map[1]) + 1) / 2
-		map_h = #sample_map
-	else 
-		map_w = 128
-		map_h = 32
-	end
+	local map_w, map_h = 128, 32
 
     -- FIRST PASS: set tile types
-    local converted_type_map = matrix_map(map_h, map_w, "")
+    local converted_type_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile types
     if (use_sample_map) then
-        for ty=0,map_h - 1 do
-            for tx=0,map_w - 1 do
-                local pos = (tx + 1) * 2 - 1
-                local c = sub(sample_map[ty + 1], pos, pos)
+        for ty=1, map_h do
+            for tx=1,map_w do
+                local pos = (ty - 1) * map_w * 2 + (tx - 1) * 2 + 1
+                local c = sub(sample_map, pos, pos)
                 if (c == " ") c = "0"
-                converted_type_map[ty][tx] = c
+                converted_type_map[ty - 1][tx - 1] = c
             end
         end
     else
@@ -251,6 +244,8 @@ cam = {
     update = function(self)
         self.x += (player.x - self.x) * self.csfx
         self.y += (player.y - self.y) * self.csfy
+        self.x = mid(self.ox, self.x, (128 * 8) - self.ox - 16)
+        self.y = mid(self.oy, self.y, (32 * 8) - 40)
 		local cx, cy = self:calc_center()
 		camera(cx, cy)
     end,
