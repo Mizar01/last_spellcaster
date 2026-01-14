@@ -173,7 +173,7 @@ c_wind = cstar("c_wind:c_element", {
     end
 })
 
-c_interactive = cstar("c_interactive:c_obj", {
+c_int = cstar("c_int:c_obj", {
     __new = function(n, x, y, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
@@ -214,9 +214,9 @@ c_interactive = cstar("c_interactive:c_obj", {
     end
 })
 
-c_focuslith = cstar("c_focuslith:c_interactive", {
+c_focuslith = cstar("c_focuslith:c_int", {
     __new = function(n, x, y, parent_mgr)
-        local l = c_interactive.new(x, y, parent_mgr)
+        local l = c_int.new(x, y, parent_mgr)
         l.spr.idle = { ss = 11 }
         return l
     end,
@@ -225,14 +225,14 @@ c_focuslith = cstar("c_focuslith:c_interactive", {
     end,
     draw = function(self)
         pal(7, altern_time(0.5) and el_colors[player.cur_el] or 7)
-        c_interactive.draw(self)
+        c_int.draw(self)
         pal()
     end
 })
 
-c_switchlith = cstar("c_switchlith:c_interactive", {
+c_switchlith = cstar("c_switchlith:c_int", {
     __new = function(n, x, y, parent_mgr)
-        local l = c_interactive.new(x, y, parent_mgr)
+        local l = c_int.new(x, y, parent_mgr)
         l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true")
         l.on = false
         l.doors = {}
@@ -253,14 +253,14 @@ c_switchlith = cstar("c_switchlith:c_interactive", {
     end,
     draw = function(self)
         pal(7, self.on and 11 or 8) pal(10, self.on and 3 or 9)
-        c_interactive.draw(self)
+        c_int.draw(self)
         pal()
     end
 })
 
-c_door = cstar("c_door:c_interactive", {
+c_door = cstar("c_door:c_int", {
     __new = function(n, x, y)
-        local l = c_interactive.new(x, y, game.mgr.misc_mgr)
+        local l = c_int.new(x, y, game.mgr.misc_mgr)
         l.spr.open = dstarc("sprites={43,44;45;46}; fps=5; loop=false")
         l.spr.close = dstarc("sprites={46;45;44;43}; fps=5; loop=false")
         dstar(l, [[
@@ -280,9 +280,9 @@ hitbox = {x=0;y=0;x2=7;y2=7}
     end,
 })
 
-c_scroll = cstar("c_scroll:c_interactive", {
+c_scroll = cstar("c_scroll:c_int", {
     __new = function(n, x, y, el, cost, name, fn)
-        local l = c_interactive.new(x, y, game.mgr.misc_mgr)
+        local l = c_int.new(x, y, game.mgr.misc_mgr)
         l = dstar(l, [[
             el = *1
             oy = *2
@@ -294,7 +294,7 @@ c_scroll = cstar("c_scroll:c_interactive", {
         return l
     end,
     update = function(self)
-        c_interactive.update(self)
+        c_int.update(self)
         self.y = self.oy + sin(time()) * 2
     end,
     interact = function(self)
@@ -319,41 +319,49 @@ c_scroll = cstar("c_scroll:c_interactive", {
     end,
     draw = function(self)
         if (self.el) pal(7, el_colors[self.el])
-        c_interactive.draw(self)
+        c_int.draw(self)
         pal()
     end
 })
 
 c_shard = cstar("c_shard:c_obj", {
-    __new = function(n, x, y)
+    __new = function(n, x, y, cnt, static)
         local l = c_obj.new(x, y, game.mgr.misc_mgr)
         dstar(l, [[
             speed = 0.1
             speed_inc = 1.05
-        ]])
+            cnt = *1
+            static = *2
+            sbase = 1.5
+            sx = _fn_rnd_15
+            sy = _fn_rnd_15
+        ]], {cnt or 1, static or false})
         return l
     end,
     update = function(self)
-        local dpx, dpy = player.x + 4 - self.x, player.y + 4 - self.y
-        local dist = sqrt(dpx * dpx + dpy * dpy)
-        if (dist < 4) then 
-            player.shards +=1; 
+        local dpx, dpy = player.x - self.x, player.y - self.y
+        local dist = sqrt(dpx/100 * dpx/100 + dpy/100 * dpy/100) * 100 -- avoid overflow
+        if (dist < 4) then
+            player.shards += self.cnt
             self:del()
-        else
+        elseif (not self.static) then
             local r = self.speed/dist
-            self.x = lerp(self.x, player.x + 4, r)
-            self.y = lerp(self.y, player.y + 4, r)
+            self.x = lerp(self.x, player.x, r)
+            self.y = lerp(self.y, player.y, r)
             self.speed *= self.speed_inc
-        end      
+        else
+            self.x = self.spawn_x + sin(time()*(self.sbase + self.sx/10))
+            self.y = self.spawn_y + sin(time()*(self.sbase + self.sy/10))
+        end     
     end,
     draw = function(self)
-        circfill(self.x, self.y, 1, 7)
+        circfill(self.x + 4, self.y + 4, max(1, self.cnt/2), 7)
     end
 })
 
-c_npc = cstar("c_npc:c_interactive", {
+c_npc = cstar("c_npc:c_int", {
     __new = function(n, x, y, codename, dialogs)
-        local l = c_interactive.new(x, y, game.mgr.misc_mgr)
+        local l = c_int.new(x, y, game.mgr.misc_mgr)
         l.spr.idle.sprites = npc_sprites[codename]
         l.name = npc_names[codename]
         l.dialogs = split(dialogs, "/")
@@ -362,7 +370,7 @@ c_npc = cstar("c_npc:c_interactive", {
         return l
     end,
     update = function(self)
-        c_interactive.update(self)
+        c_int.update(self)
         if (self.diagcls and ((abs(self.x - player.x) > 40 or abs(self.y - player.y) > 40) or self.diagcls.destroyed)) then
             self.diagcls:del()
             self.cur_diag = 1 -- reset dialog

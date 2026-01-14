@@ -60,6 +60,9 @@ Enemy respwan rules:
   - all enemies respawn if they are dead and the player is too far from their spawn point.
   - some enemies will respawn if they are dead after some time.
 
+Static Shards:
+  - some shards are found alone in fixed positions. They don't respawn when collected, ever.
+
 
 
 

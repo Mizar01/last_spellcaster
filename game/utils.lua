@@ -188,6 +188,8 @@ function setup_stage_from_string()
                 c_walk_en.new(px, py, "spider")
             elseif (t == "h") then
                 c_vine.new(px, py, emgr)
+            elseif (instr("XYZ", t)) then
+                c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
             elseif (instr("pqrstuvwxyz", t)) then
                 local npcdata = stage_cfg.npcdata[t]
                 -- flog("stage = " .. tostr(t))
