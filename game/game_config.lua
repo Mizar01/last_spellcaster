@@ -7,7 +7,8 @@ el_fire, el_thunder, el_ice, el_wind = dstaru("1;2;3;4")
 el_colors = dstarc("8;10;12;13")
 el_cls = {c_fire, c_thunder, c_ice, c_wind} -- element class for each element type
 el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
-el_cost = dstarc("0;25;40;35")
+el_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=thunder+1;G=ice+1;H=wind+1;I=fire+2;J=thunder+2;K=ice+2;L=wind+2;") 
+el_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
 npc_names = dstarc([[
     lea=aunt lea
     lady=lady

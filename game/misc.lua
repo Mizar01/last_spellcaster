@@ -281,25 +281,24 @@ hitbox = {x=0;y=0;x2=7;y2=7}
 })
 
 c_scroll = cstar("c_scroll:c_int", {
-    __new = function(n, x, y, el, cost, name, fn)
+    __new = function(n, x, y, t)
         local l = c_int.new(x, y, game.mgr.misc_mgr)
         l = dstar(l, [[
             el = *1
-            oy = *2
-            int_fn = *3
-            cost = *4
-            name = *5
-        ]], {el, y, fn, cost and cost or el_cost[el], name})
+            int_fn = *2
+            cost = *3
+            name = *4
+        ]], {ord(t) - ord("A") + 1, nil, el_cost[t], el_name[t]})
         l.spr.idle = { ss = 12 }
         return l
     end,
     update = function(self)
         c_int.update(self)
-        self.y = self.oy + sin(time()) * 2
+        self.y = self.spawn_y + sin(time()) * 2
     end,
     interact = function(self)
 
-        local n = self.name or el_cls[self.el].name
+        local n = self.name
         if (player.shards < self.cost) then
             c_slide_text.new(30, "("..n..") You need "..tostr(self.cost).." shards")
             return
@@ -378,7 +377,6 @@ c_npc = cstar("c_npc:c_int", {
         end
     end,
     interact = function(self)
-        flog("npc interact"..tostr(self.diagcls))
         self.diagcls = self.diagcls or c_dialog.new(30, self.name, "")
         self.diagcls.msg = self.dialogs[self.cur_diag]
         self.diagcls.cont = self.cur_diag < #self.dialogs

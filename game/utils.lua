@@ -192,10 +192,9 @@ function setup_stage_from_string()
                 c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
             elseif (instr("pqrstuvwxyz", t)) then
                 local npcdata = stage_cfg.npcdata[t]
-                -- flog("stage = " .. tostr(t))
                 c_npc.new(px, py, npcdata.cname, npcdata.msg)
-            elseif (instr("ABCD", t)) then -- element scrolls
-                c_scroll.new(px, py, ord(t) - ord("A") + 1)
+            elseif (instr("ABCDEFGHIJKL", t)) then -- element scrolls
+                c_scroll.new(px, py, t)
             elseif (instr("MNOP", t)) then -- element launchers
                 add(dswarr[t], c_door.new(px, py, mmgr))
             elseif (instr("QRST", t)) then -- switches
@@ -203,7 +202,6 @@ function setup_stage_from_string()
             end
         end
     end
-    flog(dswarr["M"])
     for k,v in pairs(swarr) do
         local kt = sub("MNOP",ord(k) - ord("Q"),1)
         for dsw in all(dswarr[kt]) do
