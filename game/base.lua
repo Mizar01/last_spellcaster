@@ -22,11 +22,9 @@ time_start = 0
 effect = none
 last_frame = 0
 rot_speed = 1
+offview = false
 ]])
-
-		if (o.parent_mgr) then
-			o.parent_mgr:add(o)
-		end
+		if (o.parent_mgr) o.parent_mgr:add(o)
 		return o
 	end,
 	update = function(self)
@@ -44,6 +42,10 @@ rot_speed = 1
         end
     end,
 	draw_sprite = function(self)
+
+		if (cam:offview(self)) then
+			return
+		end
 
 		if (debug) then
 			-- draw hitbox for debugging
@@ -78,41 +80,16 @@ rot_speed = 1
 				next_sprite = sprph.sprites[1 + flr((time() - s.time_start) / (1 / sprph.fps)) % #sprph.sprites]
 			end
 		end
-
-		if (s.effect == "rotx" or s.effect == "roty") then
-			local w = 8
-			local h = 8
-			local rot_speed = s.rot_speed or 1
-			if (s.effect == "roty") then
-				w = cos(t() * rot_speed) * 8
-			else -- rotx
-				h = cos(t() * rot_speed) * 8
-			end
-			sspr(
-				next_sprite % 16 * 8,
-				flr(next_sprite / 16) * 8, 
-				8, 
-				8, 
-				self.x + 4 - (w / 2), 
-				self.y, 
-				w, 
-				h,
-				false, 
-				false
-			)
-		else 
-			spr(
-				next_sprite, 
-				self.x, 
-				self.y, 
-				1, 
-				1, 
-				s.flip_x or false, 
-				s.flip_y or false,
-				7
-			)
-		end
-	
+		spr(
+			next_sprite, 
+			self.x, 
+			self.y, 
+			1, 
+			1, 
+			s.flip_x or false, 
+			s.flip_y or false,
+			7
+		)
 		pal()  -- reset palette
 		s.last_frame = next_sprite
 
@@ -124,8 +101,8 @@ rot_speed = 1
 		if (tolx != nil) then
 			h1.x += tolx
 			h1.x2 -= tolx
-			h2.x += tolx
-			h2.x2 -= tolx
+			h1.y += toly
+			h1.y2 -= toly
 		end
 		return not (h1.x2 < h2.x or h1.x > h2.x2 or h1.y2 < h2.y or h1.y > h2.y2)
 	end,

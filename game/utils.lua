@@ -27,8 +27,8 @@ function obj_move(obj, d, ovd_speed)
 			return 0
 		end
 	end
-
 end
+
 ----------------------------------------------
 -- MAP UTILS
 ----------------------------------------------
@@ -142,8 +142,6 @@ function setup_stage_from_string()
     local stage_cfg = stage_config_get()
     local theme = stage_cfg.theme
 
-	local map_w, map_h = 128, 32
-
     -- FIRST PASS: set tile types
     local converted_type_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile types
     if (use_sample_map) then
@@ -177,6 +175,9 @@ function setup_stage_from_string()
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
                 player:respawn(px, py)
+                if (ovd_respwn != nil) player:respawn(ovd_respwn[1] * 8, ovd_respwn[2] * 8)
+                if (ovd_avail_els != nil) player.avail_el = ovd_avail_els
+                if (ovd_cur_el != nil) player.cur_el = ovd_cur_el
             elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
             elseif (t == "6") then -- focuslith
@@ -241,11 +242,12 @@ cam = {
     oy = 94 - 8,
     csfx = 0.05,
 	csfy = 0.07,
+    offvtol = 80,
     update = function(self)
         self.x += (player.x - self.x) * self.csfx
         self.y += (player.y - self.y) * self.csfy
-        self.x = mid(self.ox, self.x, (128 * 8) - self.ox - 16)
-        self.y = mid(self.oy, self.y, (32 * 8) - 40)
+        self.x = mid(self.ox, self.x, (map_w * 8) - self.ox - 16)
+        self.y = mid(self.oy, self.y, (map_h * 8) - 40)
 		local cx, cy = self:calc_center()
 		camera(cx, cy)
     end,
@@ -257,4 +259,7 @@ cam = {
 	calc_center = function(self)
 		return flr(self.x) - self.ox, flr(self.y) - self.oy
 	end,
+    offview = function(self, obj)
+        return abs(flr(self.x - obj.x)) > self.offvtol or abs(flr(self.y - obj.y)) > self.offvtol
+    end,
 }

@@ -25,7 +25,7 @@ c_player = {
 			speed=0
 			init_speed=0.1
 			inc_speed_factor=0.2
-			life=1
+			life=20
 			max_life=20
 			init_max_life=20
 			coins=0
@@ -38,7 +38,7 @@ c_player = {
 			interaction_fn=nil
 			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
 			t_respawn=nil
-			shards = 0
+			shards = 100
 		]])
 		return sm(p, c_player)
 	end,

@@ -34,6 +34,7 @@ c_element = cstar("c_element:c_obj", {
             dir = *3
             el = *4
         ]], {origx, origy, dir, el})
+        add(player_bullets, l)
         return l
     end,
     update = function(self)
@@ -45,20 +46,21 @@ c_element = cstar("c_element:c_obj", {
             self.destroy_req_prev_frame = true -- mark for deletion next frame, because i need also to use the time at 0.
         end
         self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
-        for e in all(game.mgr.enemy_mgr.objs) do
-            if self:collide(e) then
-                self:effect(e)
-                self:del()
-                c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
-                break
-            end
-        end
     end,
     dirmult = function(self)
         return (self.dir == dir_left) and -1 or 1
     end,
+    hit = function(self, trg)
+        c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
+        self:effect(trg)
+        self:del()
+    end;
     effect = function(self, trg)
         trg:dmg(el_dmg[self.el][player.lev_el[self.el]])
+    end,
+    del = function(self)
+        del(player_bullets, self)
+        c_obj.del(self)
     end
 })
 
@@ -77,7 +79,7 @@ c_fire = cstar("c_fire:c_element", {
     draw = function(self)
         local cols = { 1, 2, 9, 8 }
         local dm = self:dirmult()
-        for i = 0, 3 do
+        for i = 0, 2 do
             local radf = (i / 3) * self.radius
             local offset_x = dm * i * 2
             circfill(self.x + offset_x, self.y, 1.5 * radf, cols[i + 1])

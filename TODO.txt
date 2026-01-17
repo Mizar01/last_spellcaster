@@ -15,3 +15,8 @@ OK think about dropping the keys and doors system, is too heavy
    - shorten some variable names
    - delete unused code
    - there's so much I don't use in c_obj.draw()
+
+- when clicking on focus light, for a little moment a redline on top appears, investigate a remove it
+- performance issues when many enemies are on screen
+  - collisions with enemies must be done in the enemy update against c_element and player.
+- doors do not have to interact with the player directly, but only through switches (remove interact inheritance)

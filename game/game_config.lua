@@ -10,24 +10,65 @@ el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
 el_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=thunder+1;G=ice+1;H=wind+1;I=fire+2;J=thunder+2;K=ice+2;L=wind+2;") 
 el_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
 npc_names = dstarc([[
-    lea=aunt lea
-    lady=lady
+lea=aunt lea
+lady=lady
 ]])
 npc_sprites = dstarc([[
-    lea = {192;193}
-    lady = {208;209}
+lea = {192;193}
+lady = {208;209}
 ]])
-fsolid_idx = 0 --sprint flag index used for solid
+fsolid_idx = 0 -- flag index used for solid
 game = nil
 player = nil
 sfx_jump, sfx_coin, sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = dstaru("0;1;2;3;4;5")
 
 obj_solids = {} -- objects that temporarily become solid (like frozen enemies)
+player_bullets = {} -- bullets shot by the player
+enemy_bullets = {} -- bullets shot by enemies
+
+map_w, map_h = 48, 32
 
 stage = 1
 
-use_sample_map = false
-sample_map = [[]]
+-- TEST VARS
+use_sample_map = true
+-- ovd_respwn=dstarc("17;23")
+ovd_avail_els = dstarc("true;true;true;true")
+ovd_cur_el = el_fire
+sample_map = [[
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                     1 1 1 1 1 1 1 1 1 1 1 1                 1
+1                                                                                             1
+1                                                                                             1
+1                                               1 1 1 1                         1 1           1
+1                                                                                             1
+1                                                                         1 1                 1
+1                                                                                             1
+1                                                                                             1
+1                         1 1     1 1                                           1 1           1
+1                     1 1             1 1                                                     1
+1                     1 1     1 1     1 1                                 1 1                 1
+1                     1 1             1 1                                                     1
+1                         1 1     1 1                                           1 1           1
+1                             1 1                                                             1
+1                                                                         1 1                 1
+1                                                                                             1
+1                                                                               1 1           1
+1                                                                                             1
+1         1 1 1                                                           1 1                 1
+1   1 1 1 1                                                                                   1
+1   1 1   b                         1                                           1 1           1
+1   M M 7     Q     u               1                                                         1
+1 1 1 1 1 1 1 1 1 1 1 1 1           1                                     1 1                 1
+1     a                 1           M                                                         1
+1             1 1 1 1   1 1   1 1 1 1                                                         1
+1         1 1 1 1                   1 1 1                                 1 1                 1
+1 p   f 1 1 1 1 1 6   A B C D       h h h   1               g               1             e   1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+]]
 
 
 -- neighbor config nodes

@@ -43,7 +43,7 @@ Possible names for objects:
 
 Powers and mechanics notes:
 - Fire: at 2nd level it can burn vines and wooden obstacles.
-- Thunder: at 2nd level it can activate switchliths.
+- Thunder: it can activate switchliths.
 - Ice: the ice can freeze enemies in place, providing new platforms for some time.
 - Wind: wind can push objects and enemies.
 

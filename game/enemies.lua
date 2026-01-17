@@ -55,10 +55,13 @@ etype = *2
     unblow = function(self)
         self.wspeed = -1
         self.dir = self.dir_before_blow
-        -- self.wind_t.t = -1
     end,
     update = function(self)
         c_obj.update(self)
+        for b in all(player_bullets) do
+            if (self:collide(b)) b:hit(self)
+        end
+
         if (self.dmg_time:adv()) self.spr.effect = "none"
         if (self.frozen_t:adv()) then 
             self:unfreeze()
@@ -135,7 +138,7 @@ basey = *2
             return
         end
         -- collide with player with a tolerance of 2 pixels
-        if (self:collide(player, 2)) then
+        if (self:collide(player, 2, 2)) then
             player:dmg(2)
             game.mgr.player_msg_mgr.dog_bites += 1
         else
