@@ -158,7 +158,7 @@ c_game = {
             return
         end
         print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
-        print(""..tostr(abs(416 - cam.x))..","..tostr(abs(64 - cam.y)))
+        -- print(""..tostr(abs(416 - cam.x))..","..tostr(abs(64 - cam.y)))
         
         if (self.win_game) then
             crectfill(64, 64, 120, 55, 1)

@@ -31,34 +31,34 @@ map_w, map_h = 48, 32
 stage = 1
 
 -- TEST VARS
-use_sample_map = true
+use_sample_map = false
 -- ovd_respwn=dstarc("17;23")
 ovd_avail_els = dstarc("true;true;true;true")
 ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 a                                                                                           1
+1 a                                                                                           1
 1                                                                                             1
-1                                                                                             1
-1                                                                                             1
-1                                                     1 1 1 1 1 1 1 1 1 1 1 1                 1
-1                                                                                             1
-1                                                                                             1
-1                                               1 1 1 1                         1 1           1
-1                                                                                             1
-1                                                                         1 1                 1
-1                                                                                             1
-1                                                                                             1
-1                         1 1     1 1                                           1 1           1
-1                     1 1             1 1                                                     1
-1                     1 1     1 1     1 1                                 1 1                 1
-1                     1 1             1 1                                                     1
-1                         1 1     1 1                                           1 1           1
-1                             1 1                                                             1
-1                                                                         1 1                 1
-1                                                                                             1
-1                                                                               1 1           1
-1                                                                                             1
-1         1 1 1                                                           1 1                 1
+1 a                                                   1 1 1 1 1 1 1 1 1 1 1 1                 1
+1 a                                                                                           1
+1 a                                                                                           1
+1 a                                             1 1 1 1                         1 1           1
+1 a                                                                                           1
+1 a                                                                       1 1                 1
+1 a                                                                                           1
+1 a                                                                                           1
+1 a                       1 1     1 1                                           1 1           1
+1 a                   1 1             1 1                                                     1
+1 a                   1 1     1 1     1 1                                 1 1                 1
+1 a                   1 1             1 1 b b b b b b b b b b b b b b b b b b b b b b b b b b 1
+1 a                       1 1     1 1                                           1 1           1
+1 a                           1 1                                                             1
+1 a                                                                       1 1                 1
+1 a                                                                                           1
+1 a                                                                             1 1           1
+1 a                                                                                           1
+1 a       1 1 1                                                           1 1                 1
 1   1 1 1 1                                                                                   1
 1   1 1   b                         1                                           1 1           1
 1   M M 7     Q     u               1                                                         1
