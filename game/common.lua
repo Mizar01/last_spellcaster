@@ -48,11 +48,6 @@ function mget2_by_px(x, y, tw, th)
     }
 end
 
-function fget_by_px(x, y, fidx, tw, th)
-    local mtile = mget2_by_px(x, y, tw, th)
-    return fget(mtile.tile, fidx)
-end
-
 function progress_bar_draw(x, y, w, h, v, max_v, col_bg, col_fg)
     rectfill(x - 1, y - 1, x + w + 1, y + h + 1, col_bg) -- bg
     local filled_w = mid(0, flr((v / max_v) * w), w)
@@ -107,31 +102,6 @@ function timer_lerp(origin, max_length, timer, reversed, dir)
     return lerp(origin, origin + (dir == dir_left and -1 or 1) * max_length, t)
 end
 
-
--- Prints multiple lines of text, centered or not centered
--- the lines are splitted using "*" char
-function mlprint(msg, x, y, color, centered)
-    local s = split(msg, "*")
-    for i=1,#s do
-        local m = s[i]
-        -- local px = x - (4 * #m / 2)
-        if (centered) then
-            cprint(m, x, y / 2 + (i-1) * 8 + 5, color)
-        else
-            print(m, x, y + (i-1) * 8, color)
-        end
-    end
-end
-
-function contains(tbl, val)
-    for v in all(tbl) do
-        if (v == val) then
-            return true
-        end
-    end
-    return false
-end
-
 function instr(s, c)
     if (s == nil or s == "") return false
     for i=1,#s do
@@ -143,10 +113,6 @@ end
 function clsinh(derived, base)
     derived.__index = derived
     return sm(derived,base)
-end
-
-function round(num)
-    return flr(num + 0.5)
 end
 
 -- returns true or false alternating every given seconds

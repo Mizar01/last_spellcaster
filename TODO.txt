@@ -21,4 +21,6 @@ OK performance issues when many enemies are on screen
   OK collisions with enemies must be done in the enemy update against c_element and player.
   OK split maps in smaller parts
 - doors do not have to interact with the player directly, but only through switches (remove interact inheritance)
-- implement the passage from a map to another when reaching the map border
+OK implement the passage from a map to another when reaching the map border
+- refine the passage from a map to another vertically (now it it works only if the player doesnt move horizontally too much)
+  - the trick must be differnt from the horizontal one, because the player can jump and fall down

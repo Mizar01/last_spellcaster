@@ -58,18 +58,6 @@ function is_solid(tile)
 	return fget(tile, fsolid_idx)
 end
 
-function is_solid_at_grid(tx, ty)
-	local tile = mget(tx, ty)
-	return is_solid(tile)
-end
-
-function random_grid_pos(tiles_x, tiles_y, offx, offy)
-	return {
-		x = flr(rnd(tiles_x or 15)) + (offx or 0),
-		y = flr(rnd(tiles_y or 15)) + (offy or 0)
-	}
-end
-
 function stage_config_get()
     return stage_config[stage]
 end
@@ -161,6 +149,9 @@ function setup_stage_from_string()
                 local tile_variant = neighbor_conf(converted_type_map, tx, ty)
                 local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
                 mset(tx, ty, tile_to_set)
+                -- also set a tile on the far edges to prevent player have a falling effect before regenerating the stage
+                -- if tx == 0 then mset(-1, ty, tile_to_set) end
+                -- if tx == map_w - 1 then mset(map_w, ty, tile_to_set) end
             elseif (t == "f") then -- player start position
                 if (ovd_respawn != nil) then
                     player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
@@ -217,12 +208,13 @@ end
 -- combinations are sums of the above
 function neighbor_conf(ctm, tx, ty)
     -- outside map edges are considered solid
-	local max_y = #ctm - 1
-	local max_x = #ctm[0] - 1
     local up = (ty > 0) and (ctm[ty - 1][tx] == "1") or ty == 0
-    local down = (ty < max_y) and (ctm[ty + 1][tx] == "1") or ty == max_y
+    local down = (ty < map_h) and (ctm[ty + 1][tx] == "1") or ty == map_h - 1
     local left = (tx > 0) and (ctm[ty][tx - 1] == "1") or tx == 0
-    local right = (tx < max_x) and (ctm[ty][tx + 1] == "1") or tx == max_x
+    local right = (tx < map_w) and (ctm[ty][tx + 1] == "1") or tx == map_w - 1
+    -- if (tx == 47 and ty == 31) then
+    --     flog("maxy "..max_y.." maxx "..max_x.." up "..tostr(up).." down "..tostr(down).." left "..tostr(left).." right "..tostr(right).."")
+    -- end
     local conf = 0
     if up then conf += 1 end
     if down then conf += 2 end

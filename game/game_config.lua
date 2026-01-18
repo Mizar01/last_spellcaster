@@ -29,7 +29,7 @@ enemy_bullets = {} -- bullets shot by enemies
 map_w, map_h = 48, 32
 
 stage = 1
-ovd_respawn = dstarc("6;28")
+ovd_respawn = dstarc("43;30")
 -- ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
@@ -94,9 +94,6 @@ ice = {
     bg_col = -15
 };
 ]])
-
--- 1 max dead per stage
-dead_messages = {}
 
 stage_config = {
     build_stage_config_item(
