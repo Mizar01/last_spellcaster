@@ -260,7 +260,7 @@ c_switchlith = cstar("c_switchlith:c_int", {
     end
 })
 
-c_door = cstar("c_door:c_int", {
+c_door = cstar("c_door:c_obj", {
     __new = function(n, x, y)
         local l = c_int.new(x, y, game.mgr.misc_mgr)
         l.spr.open = dstarc("sprites={43,44;45;46}; fps=5; loop=false")
