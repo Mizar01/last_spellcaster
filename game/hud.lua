@@ -22,7 +22,7 @@ c_val_printer = cstar("c_val_printer:c_hud_element", {
     end,
     draw = function(self)
         rectfill(self.x, self.y, self.x + self.bgl, self.y + 6, 1)
-        self.draw_fn(self)
+        self:draw_fn()
     end,
 })
 

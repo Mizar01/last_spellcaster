@@ -43,9 +43,7 @@ offview = false
     end,
 	draw_sprite = function(self)
 
-		if (cam:offview(self)) then
-			return
-		end
+		if (cam:offview(self)) then return end
 
 		if (debug) then
 			-- draw hitbox for debugging

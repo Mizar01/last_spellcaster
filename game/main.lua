@@ -78,6 +78,27 @@ c_game = {
         self.win_stage = false
         self.game_over = true
     end,
+    stage_check = function(self)
+        local ptx, pty = flr(player.x / 8), flr(player.y / 8)
+        if (ptx < 0 or ptx >= map_w or pty < 0 or pty >= map_h) then
+            local pwtx, pwty = ptx + stage_config_get().wtx or 0, pty + stage_config_get().wty or 0
+            for i = 1,#stage_config do
+                local cs = stage_config[i]
+                if (pwtx >= cs.wtx and pwtx < cs.wtx + map_w and pwty >= cs.wty and pwty < cs.wty + map_h) then
+                    stage = i
+                    break
+                end
+            end
+            player:reset_stage_props()
+            for _, v in pairs(self.mgr) do
+                if (v.restart) v:restart()
+            end
+            ovd_respawn = dstarc(""..(pwtx - stage_config_get().wtx)..";"..(pwty - stage_config_get().wty).."")
+            flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")
+            setup_stage_from_string()
+            cam:place(player.x, player.y)
+        end
+    end,
     update = function(self)
 
         if self.menu then
@@ -88,26 +109,7 @@ c_game = {
             return
         end
 
-        if (self.win_game or self.game_over) then
-            if (btnp(5,0)) then
-                self:start_menu()
-            end
-            return
-        end
-
-        if (self.win_stage) then
-            -- wait for some time or input to restart
-            if (not player.prev_btn.up and btnp(5,0)) then
-                stage = (stage % #stage_config) + 1
-            end
-            return
-        end
-
-        if (game.stage_title_phase) then
-            -- only update hud
-            self.mgr.hud_mgr:update()
-            return
-        end
+        self:stage_check()
 
         -- Update play
         cam:update()  -- always first, or the hud elements will have to follow the camera in the next frame with old center.
@@ -146,10 +148,6 @@ c_game = {
         self.mgr.enemy_mgr:draw()
         player:draw()
         self.mgr.hud_mgr:draw()  -- Always on top
-
-        -- print("p jstart: "..tostr(player.jstart), 0, 0, 7)
-        -- print("p jforce: "..tostr(player.jforce), 0, 6, 7)
-        -- print("p speedy: "..tostr(player.speedy), 0, 12, 7)
 
         if (player.phase == "dead") then
             local cx, cy = cam:calc_center()

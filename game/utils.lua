@@ -74,23 +74,10 @@ function stage_config_get()
     return stage_config[stage]
 end
 
-function is_last_stage_with_last_gem()
-	local stage_gems = stage_config_get().gems
-	return (stage == #stage_config and player.gems == stage_gems - 1)
-end
-
-function player_tile_check(tx, ty)
-	local m = mget2_by_px(player.x, player.y)
-	return m.tx == tx and m.ty == ty
-end
-
-function build_stage_config_item(name, music, theme, npcdata)
-	return {
-		name = name,
-		music = music,
-		theme = themes[theme],
-        npcdata = npcdata,
-	}
+function build_stage_config_item(main_props, npcdata)
+    main_props.theme = themes[main_props.theme]
+    main_props.npcdata = npcdata
+    return main_props
 end
 
 function map_tiles_by_theme(tile_variant, theme)
@@ -162,6 +149,7 @@ function setup_stage_from_string()
     local mmgr = game.mgr.misc_mgr
     local swarr = {}
     local dswarr = dstarc("M={};N={};O={};P={}")
+    local respw = false
     for ty=0,map_h - 1 do
         for tx=0,map_w - 1 do
             local t = converted_type_map[ty][tx]
@@ -174,10 +162,12 @@ function setup_stage_from_string()
                 local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
-                player:respawn(px, py)
-                if (ovd_respwn != nil) player:respawn(ovd_respwn[1] * 8, ovd_respwn[2] * 8)
+                if (ovd_respawn != nil) then
+                    player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
+                else player:respawn(px, py) end
                 if (ovd_avail_els != nil) player.avail_el = ovd_avail_els
                 if (ovd_cur_el != nil) player.cur_el = ovd_cur_el
+                respw = true
             elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
             elseif (t == "6") then -- focuslith
@@ -203,6 +193,12 @@ function setup_stage_from_string()
             end
         end
     end
+
+    -- for safety if I forget to place the player start on the map
+    if (stage > 1 and not respw) then
+        player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
+    end
+
     for k,v in pairs(swarr) do
         local kt = sub("MNOP",ord(k) - ord("Q"),1)
         for dsw in all(dswarr[kt]) do
@@ -242,7 +238,7 @@ cam = {
     oy = 94 - 8,
     csfx = 0.05,
 	csfy = 0.07,
-    offvtol = 80,
+    offvtol = 90,
     update = function(self)
         self.x += (player.x - self.x) * self.csfx
         self.y += (player.y - self.y) * self.csfy

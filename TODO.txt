@@ -10,13 +10,15 @@ OK begin to shorten all the variable names. I hit the chars limit!
 - Bug: sometimes obj_solids are not removed when unfreeze (or maybe they are constantly re-added by some code?)
 OK logging: log does not work before the config.lua call. find a way to load config first of everything
 OK think about dropping the keys and doors system, is too heavy
-- do another round of token/chars optimization
+- do another round of token/chars optimization, here usual suggestions:
    - put dstar strings in the first column of the file (no indent)
    - shorten some variable names
    - delete unused code
    - there's so much I don't use in c_obj.draw()
 
 - when clicking on focus light, for a little moment a redline on top appears, investigate a remove it
-- performance issues when many enemies are on screen
-  - collisions with enemies must be done in the enemy update against c_element and player.
+OK performance issues when many enemies are on screen
+  OK collisions with enemies must be done in the enemy update against c_element and player.
+  OK split maps in smaller parts
 - doors do not have to interact with the player directly, but only through switches (remove interact inheritance)
+- implement the passage from a map to another when reaching the map border
