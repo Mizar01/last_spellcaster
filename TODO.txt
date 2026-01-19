@@ -24,3 +24,8 @@ OK doors do not have to interact with the player directly, but only through swit
 OK implement the passage from a map to another when reaching the map border
 OK refine the passage from a map to another vertically (now it it works only if the player doesnt move horizontally too much)
   OK the trick must be differnt from the horizontal one, because the player can jump and fall down
+OK Update method is sometimes executed after draw for the first time. This happens because the object creation is done in 
+  another update of another object, and the update of the new object will be called only on the next frame, while the draw is called
+  in the current frame.
+  One way to avoid this is to create a method that also specify in the new how the object must be drawn (a common method used in new and update)
+- implement a memory system that remember open doors/switches and burnt vines

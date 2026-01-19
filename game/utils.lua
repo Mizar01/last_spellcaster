@@ -173,7 +173,7 @@ function setup_stage_from_string()
             elseif (instr("XYZ", t)) then
                 c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
             elseif (instr("pqrstuvwxyz", t)) then
-                local npcdata = stage_cfg.npcdata[t]
+                local npcdata = stage_cfg.npcdata[t] or {cname="c_npc_stage"..stage, msg="undefined msg"}
                 c_npc.new(px, py, npcdata.cname, npcdata.msg)
             elseif (instr("ABCDEFGHIJKL", t)) then -- element scrolls
                 c_scroll.new(px, py, t)

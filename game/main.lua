@@ -79,6 +79,7 @@ c_game = {
     stage_check = function(self)
         local ptx, pty = flr(player.x / 8), flr(player.y / 8)
         if (ptx < 0 or (ptx >= map_w - 1 and player.x > map_w * 8 - 4) or (pty <= 0 and player.y < 3) or pty >= map_h - 1) then
+            -- LOAD A NEW STAGE (MAP PORTION)
             local prev_stage = stage_config_get()
             local pwtx, pwty = ptx + prev_stage.wtx or 0, pty + prev_stage.wty or 0
             if (pty <= 0) then 
@@ -98,6 +99,9 @@ c_game = {
             for _, v in pairs(self.mgr) do
                 if (v.restart) v:restart()
             end
+            obj_solids = {}
+            player_bullets = {}
+            enemy_bullets = {}
             local nptx, npty = pwtx - cs.wtx, pwty - cs.wty
             ovd_respawn = dstarc(""..nptx..";"..npty.."")
             flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")

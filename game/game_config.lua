@@ -29,47 +29,46 @@ enemy_bullets = {} -- bullets shot by enemies
 map_w, map_h = 48, 32
 
 stage = 1
-ovd_respawn = dstarc("43;30")
--- ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
+-- ovd_respawn = dstarc("43;30")
+ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
 use_sample_map = false
-
 ovd_avail_els = dstarc("true;true;true;true")
 ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 a                                                                                           1
-1 a                                                                                           1
-1                                                                                             1
-1 a                                                   1 1 1 1 1 1 1 1 1 1 1 1                 1
-1 a                                                                                           1
-1 a                                                                                           1
-1 a                                             1 1 1 1                         1 1           1
-1 a                                                                                           1
-1 a                                                                       1 1                 1
-1 a                                                                                           1
-1 a                                                                                           1
-1 a                       1 1     1 1                                           1 1           1
-1 a                   1 1             1 1                                                     1
-1 a                   1 1     1 1     1 1                                 1 1                 1
-1 a                   1 1             1 1 b b b b b b b b b b b b b b b b b b b b b b b b b b 1
-1 a                       1 1     1 1                                           1 1           1
-1 a                           1 1                                                             1
-1 a                                                                       1 1                 1
-1 a                                                                                           1
-1 a                                                                             1 1           1
-1 a                                                                                           1
-1 a       1 1 1                                                           1 1                 1
-1   1 1 1 1                                                                                   1
-1   1 1   b                         1                                           1 1           1
-1   M M 7     Q     u               1                                                         1
-1 1 1 1 1 1 1 1 1 1 1 1 1           1                                     1 1                 1
-1     a                 1           M                                                         1
-1             1 1 1 1   1 1   1 1 1 1                                                         1
-1         1 1 1 1                   1 1 1                                 1 1                 1
-1 p   f 1 1 1 1 1 6   A B C D       h h h   1               g               1             e   1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  b                                     1       X X         1                                  
+                                        1   1 1 1 1 1 1                                        
+                                        1             1                                        
+                                        1 1 1 1 1 1   1                                        
+                                                      1                                        
+    1                                   1 1 1 1 1 1 1 1 1 1 1                                  
+                                      1                     X 1                       1 1 1 1 1
+1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1            
+            a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                    
+              e                     1 1 1 1 1 1 1 1 1 1 1 1 1 1                                
+        1 1 1 1 1 1 1                                                                 1 1 1    
+1 1 1 1 1   b                                                                                  
+              b         1 1 1                                                                  
+                b                   1 1 1   1     1 1 1   1     1 1 1                          
+                                                    b                                     1 1 1
+                  b                                                     1 1 1                  
+                                                                                      1 1 1    
+      1 1 1 1 1 1 1 1 1 1                                                                      
+      1                 1                                                       1 1 1          
+1 1 1 1     1   1   1   1 1                                                                    
+                          1         e   e                               1 1 1                  
+      1   1   1       1   1 1 1 1 1 1 1 1 1 1 1 1                                              
+                                                1         e                                    
+    1       a     1 1     1     1               1 1 1 1 1 1 1 1 1 1 1 1 1                      
+                                    1               b   b   b   b       1     g                
+                                                                        1 1 1 1 1 1 1 1 1 1 1  
+1 1         1                                                                               1 1
+1 1 1     1 1 1   g                     g             b   b   b   b                            
+1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
 

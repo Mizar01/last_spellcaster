@@ -43,15 +43,7 @@ c_player = {
 		return sm(p, c_player)
 	end,
 	reset_stage_props = function(self)
-		-- reset properties that must be reset at stage start
-		local p = self
-		p.speed = 0
-		p.phase = "idle"
-		p.invisible = false
-		p.blocked = false
-		p.invulnerable = false
 		self:reset_jump_vars()
-		p.gems = 0
 	end,
 	update = function(self)
 		if game.paused then return end

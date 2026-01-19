@@ -51,6 +51,7 @@ c_slide_text = cstar("c_slide_text:c_hud_element", {
         dstar(l, [[
             ttl_live = _fn_t1_2
         ]])
+        c_hud_element.update(l)  -- initial update to set x,y
         return l
     end,
     update = function(self)
