@@ -1,6 +1,6 @@
 -- Base class for enemies
-c_enemy = {
-    new = function(etype, x, y, speed, parent_mgr)
+c_enemy = cstar("c_enemy:c_obj", {
+    __new = function(n, etype, x, y, speed, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
 respawn_timer = _fn_t1_10
@@ -18,7 +18,7 @@ speed = *1
 etype = *2
         ]], {speed or 1, etype})
         l.frozen_t.t = 0
-        return sm(l, c_enemy)
+        return l
     end,
     dmg = function(self, dmg)
         if (self:is_inv()) return
@@ -88,11 +88,10 @@ etype = *2
         c_obj.del(self)
     end,
     is_inv = function(self) return false end,
-}
-clsinh(c_enemy, c_obj)
+})
 
-c_bat = {
-    new = function(x, y, horizontal, parent_mgr)
+c_bat = cstar("c_bat:c_enemy", {
+    __new = function(n, x, y, horizontal, parent_mgr)
         local l = c_enemy.new("bat", x, y, 0.3, parent_mgr)
         dstar(l.spr, "idle = { sprites = {128;129}; fps = 4; loop = true }")
         dstar(l, [[
@@ -101,7 +100,7 @@ horizontal = *1
 dir = *2
 dir_before_blow = _k_dir
         ]], {horizontal, horizontal and dir_right or dir_down})
-        return sm(l, c_bat)
+        return l
     end,
     update = function(self)
         c_enemy.update(self)
@@ -110,15 +109,14 @@ dir_before_blow = _k_dir
         local m = obj_move(self, self.dir)
         if (m == 0) self.dir = (self.horizontal and 0 or 2) + ((self.dir + 1) % 2)
     end,
-}
-clsinh(c_bat, c_enemy)
+})
 
-c_walk_en = {
+c_walk_en = cstar("c_walk_en:c_enemy", {
     spmap = dstarc([[
 dog = {idle = {144;145}; run = {146;147}}
 spider = {idle = {160;161}; run = {162;163}}
     ]]),
-    new = function(x, y, name)
+    __new = function(n, x, y, name)
         local l = c_enemy.new(name, x, y, 1.5, game.mgr.enemy_mgr)
         l.spr.idle = { sprites = c_walk_en.spmap[name].idle, fps = 2,  loop = true }
         l.spr.run = { sprites = c_walk_en.spmap[name].run, fps = 4, loop = true }
@@ -129,7 +127,7 @@ hitbox_orig = {x=0;y=3;x2=7;y2=7}
 basex = *1
 basey = *2
         ]], {x, y})
-        return sm(l, c_walk_en)
+        return l
     end,
     update = function(self)
         c_enemy.update(self)
@@ -166,11 +164,10 @@ basey = *2
             end
         end
     end,
-}
-clsinh(c_walk_en, c_enemy)
+})
 
-c_vine = {
-    new = function(x, y, parent_mgr)
+c_vine = cstar("c_vine:c_enemy", {
+    __new = function(n, x, y, parent_mgr)
         local l = c_enemy.new("vine", x, y, 0, parent_mgr)
         l.spr.idle = dstarc("ss = 6")
         dstar(l,[[
@@ -179,8 +176,7 @@ life = 10
 hitbox = { x=0;y=0;x2=7;y2=7}
         ]])
         add(obj_solids, l)
-        return sm(l, c_vine)
+        return l
     end,
     is_inv = function(self) return not (player.cur_el == el_fire)end,
-}
-clsinh(c_vine, c_enemy)
+})

@@ -12,7 +12,6 @@ __lua__
 #include game/enemies.lua
 #include game/misc.lua
 #include game/hud.lua
-#include game/player_msg_mgr.lua
 #include game/game_config.lua
 #include game/main.lua
 

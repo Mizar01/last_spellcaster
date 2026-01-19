@@ -25,7 +25,6 @@ c_game = {
                 enemy_mgr = c_mgr.new(),
                 misc_mgr = c_misc_mgr.new(),
                 hud_mgr = c_hud_mgr.new(),
-                player_msg_mgr = c_player_msg_mgr.new(),
             },
         }
         g.game_over_msgs = {}
