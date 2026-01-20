@@ -11,4 +11,11 @@ To do this I must memorize the player tile in abstract full tile coords:
     in stage2 for example p.wtx = 48 but the the p.tx = 0 and when it will be
     at the end of other edge it will be p.wtx = 97
     The wtx can be calculated every frame or only when reaching edges: p.wtx = p.tx + stage.wtx
+
+## stage_changes_map 
+Is the same grid as the stage_mem but is used to remember and apply the status of a tile during loading of the stage
+Symbols: 
+   d: destroyed - the object should not be created
+   1: state 1 of the object (for a door can be "open", for a switch can be "on" etc.)
+   2: state 2 of the object (for a door can be "closed, for a switch can be "off" etc.)
                             

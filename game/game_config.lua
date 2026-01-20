@@ -33,19 +33,19 @@ stage = 1
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("true;true;true;true")
-ovd_cur_el = el_fire
+ovd_cur_el = el_thunder
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
   b                                     1       X X         1                                  
                                         1   1 1 1 1 1 1                                        
-                                        1             1                                        
-                                        1 1 1 1 1 1   1                                        
+                                        1             1                               M M N    
+                                        1 1 1 1 1 1   1                               1 1 1    
                                                       1                                        
-    1                                   1 1 1 1 1 1 1 1 1 1 1                                  
-                                      1                     X 1                       1 1 1 1 1
-1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1
+    1                                   1 1 1 1 1 1 1 1 1 1 1                         Q   R    
+                                      1                     X 1                   f   1 1 1 1 1
+1 1 1 1 1   p                   6   1                       1                     1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1            
             a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                    
@@ -116,6 +116,9 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("")
     ),
 }
+
+stage_mem = {}
+stage_changes_mem = {}
 
 -- adding to dstar other functions
 dstar_add("t1", function(t) return c_timer.new(t,false) end)

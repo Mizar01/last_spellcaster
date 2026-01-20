@@ -63,7 +63,6 @@ offview = false
 		end
 
 		local sprph = s[self.phase]
-
 		local next_sprite = nil
 		if (sprph.ss ~= nil) then
 			-- single sprite phase

@@ -58,6 +58,10 @@ function is_solid(tile)
 	return fget(tile, fsolid_idx)
 end
 
+function obj_mem_ch(obj, state)
+    stage_changes_mem[stage][flr(obj.spawn_y / 8)][flr(obj.spawn_x / 8)] = tostr(state)
+end
+
 function stage_config_get()
     return stage_config[stage]
 end
@@ -118,18 +122,26 @@ function setup_stage_from_string()
     local theme = stage_cfg.theme
 
     -- FIRST PASS: set tile types
-    local converted_type_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile types
-    if (use_sample_map) then
-        for ty=1, map_h do
-            for tx=1,map_w do
-                local pos = (ty - 1) * map_w * 2 + (tx - 1) * 2 + 1
-                local c = sub(sample_map, pos, pos)
-                if (c == " ") c = "0"
-                converted_type_map[ty - 1][tx - 1] = c
+    local converted_type_map = nil
+    local stage_changes_map = nil
+    if (stage_mem[stage] == nil) then
+        converted_type_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile types
+        stage_changes_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile changes
+        if (use_sample_map and stage == 1) then
+            for ty=1, map_h do
+                for tx=1,map_w do
+                    local pos = (ty - 1) * map_w * 2 + (tx - 1) * 2 + 1
+                    local c = sub(sample_map, pos, pos)
+                    if (c == " ") c = "0"
+                    converted_type_map[ty - 1][tx - 1] = c
+                end
             end
+        else
+            load_rle_map(map_string, map_w, converted_type_map)
         end
     else
-        load_rle_map(map_string, map_w, converted_type_map)
+        converted_type_map = stage_mem[stage]
+        stage_changes_map = stage_changes_mem[stage]
     end
 
      -- SECOND PASS: set tile variations according to theme
@@ -141,6 +153,8 @@ function setup_stage_from_string()
     for ty=0,map_h - 1 do
         for tx=0,map_w - 1 do
             local t = converted_type_map[ty][tx]
+            local c = stage_changes_map[ty][tx]
+            if (ty == 6 and tx == 43) flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
             mset(tx, ty, 0) -- reset tile
 			local px = tx * 8
 			local py = ty * 8
@@ -161,26 +175,31 @@ function setup_stage_from_string()
                 respw = true
             elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)
-            elseif (t == "6") then -- focuslith
+            elseif (t == "6") then
                 c_focuslith.new(px, py, mmgr)
-			elseif (t == "8") then -- dead
-            elseif (t == "e") then -- dog
+			elseif (t == "8") then
+            elseif (t == "e") then
 				c_walk_en.new(px, py, "dog")
-            elseif (t == "g") then -- spider
+            elseif (t == "g") then
                 c_walk_en.new(px, py, "spider")
             elseif (t == "h") then
-                c_vine.new(px, py, emgr)
+                if (c == "") c_vine.new(px, py, emgr)
             elseif (instr("XYZ", t)) then
-                c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
+                if (c == "") c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
             elseif (instr("pqrstuvwxyz", t)) then
                 local npcdata = stage_cfg.npcdata[t] or {cname="c_npc_stage"..stage, msg="undefined msg"}
                 c_npc.new(px, py, npcdata.cname, npcdata.msg)
             elseif (instr("ABCDEFGHIJKL", t)) then -- element scrolls
-                c_scroll.new(px, py, t)
+                if (c=="") c_scroll.new(px, py, t)
             elseif (instr("MNOP", t)) then -- element launchers
-                add(dswarr[t], c_door.new(px, py, mmgr))
+                local d = c_door.new(px, py, mmgr)
+                if (c=="1") d:open()
+                add(dswarr[t], d)
             elseif (instr("QRST", t)) then -- switches
-                swarr[t] = c_switchlith.new(px, py, mmgr)
+                local s = c_switchlith.new(px, py, mmgr)
+                if (c=="1") s.on = true
+                flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
+                swarr[t] = s
             end
         end
     end
@@ -191,11 +210,15 @@ function setup_stage_from_string()
     end
 
     for k,v in pairs(swarr) do
-        local kt = sub("MNOP",ord(k) - ord("Q"),1)
+        local kt = sub(sub("MNOP",ord(k) - ord("Q") + 1), 1,1)
+        flog("Linking switch "..k.." to door of type "..kt)
         for dsw in all(dswarr[kt]) do
             v:link_switch(dsw)
         end
     end
+
+    stage_mem[stage] = converted_type_map
+    stage_changes_mem[stage] = stage_changes_map
 
 end
 
@@ -212,9 +235,6 @@ function neighbor_conf(ctm, tx, ty)
     local down = (ty < map_h) and (ctm[ty + 1][tx] == "1") or ty == map_h - 1
     local left = (tx > 0) and (ctm[ty][tx - 1] == "1") or tx == 0
     local right = (tx < map_w) and (ctm[ty][tx + 1] == "1") or tx == map_w - 1
-    -- if (tx == 47 and ty == 31) then
-    --     flog("maxy "..max_y.." maxx "..max_x.." up "..tostr(up).." down "..tostr(down).." left "..tostr(left).." right "..tostr(right).."")
-    -- end
     local conf = 0
     if up then conf += 1 end
     if down then conf += 2 end

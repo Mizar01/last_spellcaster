@@ -28,4 +28,5 @@ OK Update method is sometimes executed after draw for the first time. This happe
   another update of another object, and the update of the new object will be called only on the next frame, while the draw is called
   in the current frame.
   One way to avoid this is to create a method that also specify in the new how the object must be drawn (a common method used in new and update)
-- implement a memory system that remember open doors/switches and burnt vines
+OK implement a memory system that remember open doors/switches and burnt vines
+- check or make that wandering enemies will bounce on the map limits (even if there are no solids)

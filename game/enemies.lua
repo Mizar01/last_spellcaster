@@ -138,7 +138,6 @@ basey = *2
         -- collide with player with a tolerance of 2 pixels
         if (self:collide(player, 2, 2)) then
             player:dmg(2)
-            game.mgr.player_msg_mgr.dog_bites += 1
         else
             -- move towards player
             if (abs(player.x - self.x) < 50 and abs(player.y - self.y) < 4) then

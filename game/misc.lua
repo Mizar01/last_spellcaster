@@ -249,6 +249,7 @@ c_switchlith = cstar("c_switchlith:c_int", {
             if self.on then door:close() else door:open() end
         end
         self.on = not self.on
+        obj_mem_ch(self, self.on and 1 or 2)
     end,
     link_switch = function(self, door)
         add(self.doors, door)
@@ -275,10 +276,12 @@ hitbox = {x=0;y=0;x2=7;y2=7}
     open = function(self)
         self.phase = "open"
         del(obj_solids, self)
+        obj_mem_ch(self, 1)
     end,
     close = function(self)
         self.phase = "close"
         add(obj_solids, self)
+        obj_mem_ch(self, 2)
     end,
 })
 
@@ -363,7 +366,7 @@ c_shard = cstar("c_shard:c_obj", {
 c_npc = cstar("c_npc:c_int", {
     __new = function(n, x, y, codename, dialogs)
         local l = c_int.new(x, y, game.mgr.misc_mgr)
-        l.spr.idle.sprites = npc_sprites[codename]
+        l.spr.idle.sprites = npc_sprites[codename] or { 154 }
         l.name = npc_names[codename]
         l.dialogs = split(dialogs, "/")
         l.cur_diag = 1
