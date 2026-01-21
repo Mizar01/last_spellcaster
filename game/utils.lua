@@ -59,7 +59,7 @@ function is_solid(tile)
 end
 
 function obj_mem_ch(obj, state)
-    stage_changes_mem[stage][flr(obj.spawn_y / 8)][flr(obj.spawn_x / 8)] = tostr(state)
+    stage_changes_mem[stage][flr(obj.spawn_x / 8)][flr(obj.spawn_y / 8)] = tostr(state)
 end
 
 function stage_config_get()
@@ -104,7 +104,7 @@ function load_rle_map(str, map_width, converted_type_map)
         local count_char = sub(str, i+1, i+1)
         local count = ord(count_char) - 32
         for k=1, count do
-            converted_type_map[y][x] = tile_char
+            converted_type_map[x][y] = tile_char
             x = x + 1
             if x >= map_width then
                 x = 0
@@ -127,13 +127,14 @@ function setup_stage_from_string()
     if (stage_mem[stage] == nil) then
         converted_type_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile types
         stage_changes_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile changes
+
         if (use_sample_map and stage == 1) then
             for ty=1, map_h do
                 for tx=1,map_w do
                     local pos = (ty - 1) * map_w * 2 + (tx - 1) * 2 + 1
                     local c = sub(sample_map, pos, pos)
                     if (c == " ") c = "0"
-                    converted_type_map[ty - 1][tx - 1] = c
+                    converted_type_map[tx - 1][ty - 1] = c
                 end
             end
         else
@@ -152,9 +153,9 @@ function setup_stage_from_string()
     local respw = false
     for ty=0,map_h - 1 do
         for tx=0,map_w - 1 do
-            local t = converted_type_map[ty][tx]
-            local c = stage_changes_map[ty][tx]
-            if (ty == 6 and tx == 43) flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
+            local t = converted_type_map[tx][ty]
+            local c = stage_changes_map[tx][ty]
+            -- if (c != "") flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
             mset(tx, ty, 0) -- reset tile
 			local px = tx * 8
 			local py = ty * 8
@@ -163,9 +164,6 @@ function setup_stage_from_string()
                 local tile_variant = neighbor_conf(converted_type_map, tx, ty)
                 local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
                 mset(tx, ty, tile_to_set)
-                -- also set a tile on the far edges to prevent player have a falling effect before regenerating the stage
-                -- if tx == 0 then mset(-1, ty, tile_to_set) end
-                -- if tx == map_w - 1 then mset(map_w, ty, tile_to_set) end
             elseif (t == "f") then -- player start position
                 if (ovd_respawn != nil) then
                     player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
@@ -189,13 +187,13 @@ function setup_stage_from_string()
             elseif (instr("pqrstuvwxyz", t)) then
                 local npcdata = stage_cfg.npcdata[t] or {cname="c_npc_stage"..stage, msg="undefined msg"}
                 c_npc.new(px, py, npcdata.cname, npcdata.msg)
-            elseif (instr("ABCDEFGHIJKL", t)) then -- element scrolls
+            elseif (instr("ABCDEFGHIJKL", t)) then
                 if (c=="") c_scroll.new(px, py, t)
-            elseif (instr("MNOP", t)) then -- element launchers
+            elseif (instr("MNOP", t)) then
                 local d = c_door.new(px, py, mmgr)
                 if (c=="1") d:open()
                 add(dswarr[t], d)
-            elseif (instr("QRST", t)) then -- switches
+            elseif (instr("QRST", t)) then
                 local s = c_switchlith.new(px, py, mmgr)
                 if (c=="1") s.on = true
                 flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
@@ -231,10 +229,10 @@ end
 -- combinations are sums of the above
 function neighbor_conf(ctm, tx, ty)
     -- outside map edges are considered solid
-    local up = (ty > 0) and (ctm[ty - 1][tx] == "1") or ty == 0
-    local down = (ty < map_h) and (ctm[ty + 1][tx] == "1") or ty == map_h - 1
-    local left = (tx > 0) and (ctm[ty][tx - 1] == "1") or tx == 0
-    local right = (tx < map_w) and (ctm[ty][tx + 1] == "1") or tx == map_w - 1
+    local up = (ty > 0) and (ctm[tx][ty - 1] == "1") or ty == 0
+    local down = (ty < map_h) and (ctm[tx][ty + 1] == "1") or ty == map_h - 1
+    local left = (tx > 0) and (ctm[tx - 1][ty] == "1") or tx == 0
+    local right = (tx < map_w - 1) and (ctm[tx + 1][ty] == "1") or tx == map_w - 1
     local conf = 0
     if up then conf += 1 end
     if down then conf += 2 end

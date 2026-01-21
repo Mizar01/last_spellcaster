@@ -103,7 +103,7 @@ c_game = {
             enemy_bullets = {}
             local nptx, npty = pwtx - cs.wtx, pwty - cs.wty
             ovd_respawn = dstarc(""..nptx..";"..npty.."")
-            -- flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")
+            flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")
             setup_stage_from_string()
             cam:place(player.x, player.y)
         end

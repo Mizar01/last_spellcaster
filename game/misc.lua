@@ -347,6 +347,7 @@ c_shard = cstar("c_shard:c_obj", {
         local dist = sqrt(dpx/100 * dpx/100 + dpy/100 * dpy/100) * 100 -- avoid overflow
         if (dist < 4) then
             player.shards += self.cnt
+            if (self.static) then obj_mem_ch(self, "d") end
             self:del()
         elseif (not self.static) then
             local r = self.speed/dist
