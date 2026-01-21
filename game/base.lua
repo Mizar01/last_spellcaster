@@ -12,6 +12,7 @@ x=*1
 y=*2
 spawn_x=*1
 spawn_y=*2
+bounce_map=true
 ]], {x or 0, y or 0, parent_mgr or nil})
 
 		o.spr = dstarc([[
@@ -46,7 +47,6 @@ offview = false
 		if (cam:offview(self)) then return end
 
 		if (debug) then
-			-- draw hitbox for debugging
 			local hb = self:hitbox_pos(0, 0)
 			rect(hb.x, hb.y, hb.x2, hb.y2, 8)
 		end
@@ -54,18 +54,14 @@ offview = false
 		local s  = self.spr
 
 		if (s.effect == "blink_white") then
-
-			local cover = (time() % 0.2 < 0.1) 
-			if (cover) then
+			if (time() % 0.2 < 0.1) then
 				for c = 0, 15 do pal(c, 7) end -- white override for entire palette
 			end
-
 		end
 
 		local sprph = s[self.phase]
 		local next_sprite = nil
 		if (sprph.ss ~= nil) then
-			-- single sprite phase
 			next_sprite = sprph.ss
 		else
 			if (sprph.loop ~= nil and sprph.loop == false and sprph.sprites[#sprph.sprites] == s.last_frame) then
@@ -77,16 +73,7 @@ offview = false
 				next_sprite = sprph.sprites[1 + flr((time() - s.time_start) / (1 / sprph.fps)) % #sprph.sprites]
 			end
 		end
-		spr(
-			next_sprite, 
-			self.x, 
-			self.y, 
-			1, 
-			1, 
-			s.flip_x or false, 
-			s.flip_y or false,
-			7
-		)
+		spr(next_sprite, self.x, self.y, 1, 1, s.flip_x or false, s.flip_y or false, 7)
 		pal()  -- reset palette
 		s.last_frame = next_sprite
 
@@ -115,6 +102,9 @@ offview = false
 			y2 = self.y + oy + self.hitbox.y2,
 		}
 	end,
+	out_of_map = function(self)
+		return self.x < 0 or self.y < 0 or self.x > map_wpx or self.y > map_hpx
+	end,
 })
 --------------------------------------------------
 
@@ -123,9 +113,7 @@ offview = false
 ----------------------------------------------
 c_mgr = cstar("c_mgr", {
 	__new = function(n)
-		local m = {}
-		m.objs = {}
-		m.update_in_pause = false
+		local m = dstarc("objs={}")
 		return m
 	end,
 	restart = function(self)
@@ -138,9 +126,6 @@ c_mgr = cstar("c_mgr", {
         del(self.objs, obj)
     end,
 	update = function(self)
-		if (game.paused and not self.update_in_pause) then
-			return
-		end
         for o in all(self.objs) do
             o:update()
         end

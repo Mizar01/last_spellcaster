@@ -22,11 +22,10 @@ game = nil
 player = nil
 sfx_jump, sfx_coin, sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = dstaru("0;1;2;3;4;5")
 
-obj_solids = {} -- objects that temporarily become solid (like frozen enemies)
-player_bullets = {} -- bullets shot by the player
-enemy_bullets = {} -- bullets shot by enemies
+stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{}")
 
 map_w, map_h = 48, 32
+map_wpx, map_hpx = map_w * 8, map_h * 8
 
 stage = 1
 -- ovd_respawn = dstarc("43;30")
@@ -35,16 +34,16 @@ ovd_respawn=nil -- intial player spawn override in tile coords. It must be used 
 -- TEST VARS
 use_sample_map = true
 ovd_avail_els = dstarc("true;true;true;true")
-ovd_cur_el = el_thunder
+ovd_cur_el = el_wind
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
   b                                     1       X X         1                                  
-                                        1   1 1 1 1 1 1                                        
+                                      a 1   1 1 1 1 1 1                                        
                                         1             1                               M M N    
                                         1 1 1 1 1 1   1                               1 1 1    
                                                       1                                        
     1                                   1 1 1 1 1 1 1 1 1 1 1                         Q   R    
-                                      1                     X 1                       1 1 1 1 1
+                                    A 1                     X 1                       1 1 1 1 1
 1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1            
@@ -116,9 +115,6 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("")
     ),
 }
-
-stage_mem = {}
-stage_changes_mem = {}
 
 -- adding to dstar other functions
 dstar_add("t1", function(t) return c_timer.new(t,false) end)

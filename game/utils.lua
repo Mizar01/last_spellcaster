@@ -6,6 +6,9 @@ function obj_move(obj, d, ovd_speed)
 	local speed_x = d == dir_left and -sx or (d == dir_right and sx or 0)
 	local speed_y = d == dir_up and -sy or (d == dir_down and sy or 0)
 	local hbp = obj:hitbox_pos(speed_x, speed_y)
+    if (obj.bounce_map and (hbp.x < 0 or hbp.y < 0 or hbp.x2 > map_wpx or hbp.y2 > map_hpx)) then
+        return 0
+    end
 	if (d == dir_right or d == dir_left) then
 		local side_x = d == dir_left and hbp.x or hbp.x2
 		local ttop = map_or_obj_solid_at_px(side_x, hbp.y)
@@ -29,6 +32,8 @@ function obj_move(obj, d, ovd_speed)
 	end
 end
 
+function obj_destroyed(obj) return obj == nil or obj.destroyed end
+
 ----------------------------------------------
 -- MAP UTILS
 ----------------------------------------------
@@ -36,7 +41,7 @@ end
 -- Get if a tile is solid by pixel coordinates
 function mget2_by_px_solid(x, y, tw, th)
 	local mtile = mget2_by_px(x, y, tw, th)
-	return is_solid(mtile.tile)
+	return fget(mtile.tile, fsolid_idx)
 end
 
 -- Get the object at pixel coordinates (x, y) among the temporarily solid objects
@@ -52,10 +57,6 @@ end
 
 function map_or_obj_solid_at_px(x, y, tw, th)
     return mget2_by_px_solid(x, y, tw, th) or (osget_by_px(x, y) != nil)
-end
-
-function is_solid(tile)
-	return fget(tile, fsolid_idx)
 end
 
 function obj_mem_ch(obj, state)
@@ -74,22 +75,22 @@ end
 
 function map_tiles_by_theme(tile_variant, theme)
     local m = {
-        [ncn_none] = theme.tile_maps[2],
-        [ncn_up] = theme.tile_maps[1],
-        [ncn_down] = theme.tile_maps[2],
-        [ncn_left] = theme.tile_maps[5],
-        [ncn_right] = theme.tile_maps[4],
-        [ncn_up_down] = theme.tile_maps[1],
-        [ncn_left_right] = theme.tile_maps[3],
-        [ncn_up_left] = theme.tile_maps[1],
-        [ncn_up_right] = theme.tile_maps[1],
-        [ncn_down_left] = theme.tile_maps[5],
-        [ncn_down_right] = theme.tile_maps[4],
-        [ncn_up_down_left] = theme.tile_maps[1],
-        [ncn_up_down_right] = theme.tile_maps[1],
-        [ncn_up_left_right] = theme.tile_maps[1],
-        [ncn_down_left_right] = theme.tile_maps[3],
-        [ncn_all] = theme.tile_maps[1],
+        [ncn_none] = 2,
+        [ncn_up] = 1,
+        [ncn_down] = 2,
+        [ncn_left] = 5,
+        [ncn_right] = 4,
+        [ncn_up_down] = 1,
+        [ncn_left_right] = 3,
+        [ncn_up_left] = 1,
+        [ncn_up_right] = 1,
+        [ncn_down_left] = 5,
+        [ncn_down_right] = 4,
+        [ncn_up_down_left] = 1,
+        [ncn_up_down_right] = 1,
+        [ncn_up_left_right] = 1,
+        [ncn_down_left_right] = 3,
+        [ncn_all] = 1,
     }
     return m[tile_variant]
 end
@@ -162,14 +163,14 @@ function setup_stage_from_string()
             if (t == "1") then -- solid tile
                 -- check neighbors to set variations
                 local tile_variant = neighbor_conf(converted_type_map, tx, ty)
-                local tile_to_set = map_tiles_by_theme(tile_variant, theme) or 1
+                local tile_to_set = theme.tile_maps[map_tiles_by_theme(tile_variant, theme)] or 1
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
                 if (ovd_respawn != nil) then
                     player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
                 else player:respawn(px, py) end
-                if (ovd_avail_els != nil) player.avail_el = ovd_avail_els
-                if (ovd_cur_el != nil) player.cur_el = ovd_cur_el
+                if (ovd_avail_els != nil and stage == 1) player.avail_el = ovd_avail_els
+                if (ovd_cur_el != nil and stage == 1) player.cur_el = ovd_cur_el
                 respw = true
             elseif (t == "a" or t == "b") then -- bats
                 c_bat.new(px, py, t == "a", emgr)

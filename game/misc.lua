@@ -183,12 +183,17 @@ c_int = cstar("c_int:c_obj", {
             ttl_disable_int = nil
             int_done = false
             solid = true
+            hover_info = nil
+            hover_info_obj = nil
         ]])
         return l
     end,
     update = function(self)
         if self:collide(player) then
             self.show_int_button = true
+            if (self.hover_info != nil and obj_destroyed(self.hover_info_obj)) then 
+                self.hover_info_obj = c_slide_text.new(100, self.hover_info)
+            end
             player.interaction_fn = self.interact
             local ttl_disable_int = self.ttl_disable_int
             if (btnp(5, 0) and not self.int_done) then
@@ -213,7 +218,9 @@ c_int = cstar("c_int:c_obj", {
     interact = function(self)
         -- to be overridden
         self.int_done = true
-    end
+    end,
+    draw_hover_info = function(self)
+    end,
 })
 
 c_focuslith = cstar("c_focuslith:c_int", {
@@ -294,6 +301,7 @@ c_scroll = cstar("c_scroll:c_int", {
             cost = *3
             name = *4
         ]], {ord(t) - ord("A") + 1, nil, el_cost[t], el_name[t]})
+        l.hover_info = "("..l.name..") Cost: "..tostr(l.cost).." shards"
         l.spr.idle = { ss = 12 }
         return l
     end,
@@ -325,7 +333,7 @@ c_scroll = cstar("c_scroll:c_int", {
         if (self.el) pal(7, el_colors[self.el])
         c_int.draw(self)
         pal()
-    end
+    end,
 })
 
 c_shard = cstar("c_shard:c_obj", {

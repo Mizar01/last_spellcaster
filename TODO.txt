@@ -29,4 +29,10 @@ OK Update method is sometimes executed after draw for the first time. This happe
   in the current frame.
   One way to avoid this is to create a method that also specify in the new how the object must be drawn (a common method used in new and update)
 OK implement a memory system that remember open doors/switches and burnt vines
-- check or make that wandering enemies will bounce on the map limits (even if there are no solids)
+OK check or make that wandering enemies will bounce on the map limits (even if there are no solids)
+- scroll should show what the cost is and the name of skill in a better way
+
+
+-- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
+- map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
+- dogs/walking creatures will not fall when out of platform.
