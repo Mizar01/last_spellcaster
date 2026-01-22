@@ -49,13 +49,13 @@ c_slide_text = cstar("c_slide_text:c_hud_element", {
         l.final_pos = 122 - #msg * 4
         l.fixedx = l.final_pos + 250
         dstar(l, [[
-            ttl_live = _fn_t1_2
+            ttl = _fn_t1_2
         ]])
         c_hud_element.update(l)  -- initial update to set x,y
         return l
     end,
     update = function(self)
-        if (self.ttl_live:adv()) then
+        if (self.ttl:adv()) then
             self:del()
             return
         end
@@ -77,20 +77,26 @@ c_dialog = cstar("c_dialog:c_slide_text", {
         dstar(l, [[
             final_pos = 10
             fixedx = 260
-            ttl_live = _fn_t1_6
-            author = *1
+            ttl = _fn_t1_6
             cont = false
+            author = *1
+            msgs = nil
         ]], {author})
+        c_dialog.update_msg(l, msg)
+        
         return l
     end,
+    update_msg = function(self, msg)
+        self.msg = msg
+        self.msgs = split((self.author != nil and self.author..":*" or "")..msg, "*")
+    end,
     draw = function(self)
-        local msgs = split(self.msg, "*")
-        local rows = #msgs + 1
+        local rows = #self.msgs
         rectfill(self.x - 10, self.y - 10, self.x + 124, self.y + rows * 7 + 10, 1)
         rect( self.x - 2, self.y - 2, self.x + 124, self.y + rows * 7, 14)
-        print(self.author..":", self.x, self.y, 8)
-        for i = 1, #msgs do
-            print(msgs[i], self.x, self.y + (i) * 7, 8)
+        -- if (self.author != nil) print(self.author..":", self.x, self.y, 8)
+        for i = 1, #self.msgs do
+            print(self.msgs[i], self.x, self.y + (i - 1) * 7, 8)
         end
         if (self.cont) then
             print("❎>>", self.x + 100, self.y + rows * 7 + 2, 8)

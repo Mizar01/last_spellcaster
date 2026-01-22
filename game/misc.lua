@@ -192,7 +192,8 @@ c_int = cstar("c_int:c_obj", {
         if self:collide(player) then
             self.show_int_button = true
             if (self.hover_info != nil and obj_destroyed(self.hover_info_obj)) then 
-                self.hover_info_obj = c_slide_text.new(100, self.hover_info)
+                self.hover_info_obj = c_dialog.new(100, nil, self.hover_info)
+                self.hover_info_obj.ttl.t = fps * 20
             end
             player.interaction_fn = self.interact
             local ttl_disable_int = self.ttl_disable_int
@@ -207,6 +208,7 @@ c_int = cstar("c_int:c_obj", {
             end
         else
             self.show_int_button = false
+            obj_del(self.hover_info_obj)
         end
     end,
     draw = function(self)
@@ -219,8 +221,10 @@ c_int = cstar("c_int:c_obj", {
         -- to be overridden
         self.int_done = true
     end,
-    draw_hover_info = function(self)
-    end,
+    del = function(self)
+        obj_del(self.hover_info_obj)
+        c_obj.del(self)
+    end
 })
 
 c_focuslith = cstar("c_focuslith:c_int", {
@@ -300,8 +304,8 @@ c_scroll = cstar("c_scroll:c_int", {
             int_fn = *2
             cost = *3
             name = *4
-        ]], {ord(t) - ord("A") + 1, nil, el_cost[t], el_name[t]})
-        l.hover_info = "("..l.name..") Cost: "..tostr(l.cost).." shards"
+        ]], {ord(t) - ord("A") + 1, nil, scr_cost[t], scr_name[t]})
+        l.hover_info = "learn "..l.name.." ("..tostr(l.cost).." shards)*"..tostr(scr_desc[t])
         l.spr.idle = { ss = 12 }
         return l
     end,
@@ -323,6 +327,7 @@ c_scroll = cstar("c_scroll:c_int", {
             -- default is to give element to player
             player.cur_el = self.el
             player.avail_el[self.el] = true
+            player.shards -= self.cost
         end
 
         c_slide_text.new(30, n.." acquired")
@@ -392,9 +397,9 @@ c_npc = cstar("c_npc:c_int", {
     end,
     interact = function(self)
         self.diagcls = self.diagcls or c_dialog.new(30, self.name, "")
-        self.diagcls.msg = self.dialogs[self.cur_diag]
+        self.diagcls:update_msg(self.dialogs[self.cur_diag])
         self.diagcls.cont = self.cur_diag < #self.dialogs
-        self.diagcls.ttl_live:restart()
+        self.diagcls.ttl:restart()
         self.cur_diag = min(self.cur_diag + 1, #self.dialogs) -- stay at last dialog during interaction
     end
 })

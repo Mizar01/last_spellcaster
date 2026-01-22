@@ -32,7 +32,10 @@ function obj_move(obj, d, ovd_speed)
 	end
 end
 
+-- utils to check object is null or do things.
 function obj_destroyed(obj) return obj == nil or obj.destroyed end
+function obj_del(obj) if (obj != nil and not obj.destroyed) then obj:del() end end
+    
 
 ----------------------------------------------
 -- MAP UTILS
