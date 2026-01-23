@@ -180,10 +180,8 @@ function setup_stage_from_string()
             elseif (t == "6") then
                 c_focuslith.new(px, py, mmgr)
 			elseif (t == "8") then
-            elseif (t == "e") then
-				c_walk_en.new(px, py, "dog")
-            elseif (t == "g") then
-                c_walk_en.new(px, py, "spider")
+            elseif (instr("egi", t)) then
+				c_walk_en.new(px, py, walk_en[t])
             elseif (t == "h") then
                 if (c == "") c_vine.new(px, py, emgr)
             elseif (instr("XYZ", t)) then

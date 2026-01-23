@@ -36,3 +36,12 @@ OK scroll should show what the cost is and the name of skill in a better way
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
 - dogs/walking creatures will not fall when out of platform.
+
+OK add skeleton walking
+- add flying blobs that explode when in proximity of player
+
+
+- review the scroll descriptions
+- music
+- sound effects
+- level design

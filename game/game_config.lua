@@ -9,7 +9,7 @@ el_cls = {c_fire, c_thunder, c_ice, c_wind} -- element class for each element ty
 el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
 scr_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=XXXXXXXX;G=lifereg;H=lifereg+1;I=thunder+2;J=fire+3;K=lifereg+2;L=fire+4;")
 scr_desc = dstarc([[
-A=burning hearts, forever
+A=burning hearts forever
 B=strike or power switches
 C=icy things are useful!
 D=all they need is a little push
@@ -31,6 +31,7 @@ npc_sprites = dstarc([[
 lea = {192;193}
 lady = {208;209}
 ]])
+walk_en=dstarc("e=dog;g=spider;i=sk")
 fsolid_idx = 0 -- flag index used for solid
 game = nil
 player = nil
@@ -55,7 +56,7 @@ sample_map = [[
                                       a 1   1 1 1 1 1 1                                        
                                         1             1                               M M N    
                                         1 1 1 1 1 1   1                               1 1 1    
-                                                      1                                        
+                                              e   i   1                                        
     1                                   1 1 1 1 1 1 1 1 1 1 1                         Q   R    
                                     A 1                     X 1                       1 1 1 1 1
 1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1

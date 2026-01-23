@@ -115,6 +115,7 @@ c_walk_en = cstar("c_walk_en:c_enemy", {
     spmap = dstarc([[
 dog = {idle = {144;145}; run = {146;147}}
 spider = {idle = {160;161}; run = {162;163}}
+sk={idle={148;149};run={150;151}}
     ]]),
     __new = function(n, x, y, name)
         local l = c_enemy.new(name, x, y, 1.5, game.mgr.enemy_mgr)

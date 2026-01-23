@@ -24,6 +24,7 @@ end
 -- f = player start position
 -- g = spider enemy
 -- h = vines
+-- i = skeleton
 -- ABCD = fire, thunder,ice,wind scrolls
 -- EFGH = fire+1,thunder+1,ice+1,wind+1 scrolls
 -- IJKL = fire+2,thunder+2,ice+2,wind+2 scrolls 
