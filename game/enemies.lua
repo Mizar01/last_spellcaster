@@ -90,16 +90,17 @@ etype = *2
     is_inv = function(self) return false end,
 })
 
-c_bat = cstar("c_bat:c_enemy", {
-    __new = function(n, x, y, horizontal, parent_mgr)
-        local l = c_enemy.new("bat", x, y, 0.3, parent_mgr)
-        dstar(l.spr, "idle = { sprites = {128;129}; fps = 4; loop = true }")
+c_fly_en = cstar("c_fly_en:c_enemy", {
+    __new = function(n, x, y, name)
+        local l = c_enemy.new(name, x, y, 0.3, game.mgr.enemy_mgr)
+        l.spr.idle = {sprites = en_sprites[name].idle, fps = 4, loop = true}
+        l.horizontal = en_mv[name] == "horizontal"
         dstar(l, [[
 hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
 horizontal = *1
 dir = *2
 dir_before_blow = _k_dir
-        ]], {horizontal, horizontal and dir_right or dir_down})
+        ]], {l.horizontal, l.horizontal and dir_right or dir_down})
         return l
     end,
     update = function(self)
@@ -112,15 +113,10 @@ dir_before_blow = _k_dir
 })
 
 c_walk_en = cstar("c_walk_en:c_enemy", {
-    spmap = dstarc([[
-dog = {idle = {144;145}; run = {146;147}}
-spider = {idle = {160;161}; run = {162;163}}
-sk={idle={148;149};run={150;151}}
-    ]]),
     __new = function(n, x, y, name)
         local l = c_enemy.new(name, x, y, 1.5, game.mgr.enemy_mgr)
-        l.spr.idle = { sprites = c_walk_en.spmap[name].idle, fps = 2,  loop = true }
-        l.spr.run = { sprites = c_walk_en.spmap[name].run, fps = 4, loop = true }
+        l.spr.idle = { sprites = en_sprites[name].idle, fps = 2,  loop = true }
+        l.spr.run = { sprites = en_sprites[name].run, fps = 4, loop = true }
         dstar(l, [[
 speed = 0.2
 hitbox = {x=0;y=3;x2=7;y2=7}

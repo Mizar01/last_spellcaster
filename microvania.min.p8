@@ -148,7 +148,7 @@ end if(n.dmg_time:adv())n.spr.effect="none"
 if(n.frozen_t:adv())n:unfreeze()else if(n.frozen_t:t_left_btw(.1,2))n.spr.effect="blink_white"
 if(n.wspeed>0)local e=o(n,n.dir,n.wspeed)n.wspeed=e==0and 0or max(0,n.wspeed-.05)else if(n.wspeed~=-1)n:unblow()
 end,draw=function(n)if(n.frozen_t.t>0)spr(139,n.x,n.y)
-d.draw(n)end,del=function(n)n.time_last_death=time()del(s,n)d.del(n)end,is_inv=function(n)return false end})nM=n("c_bat:c_enemy",{__new=function(o,n,t,e,l)local n=L.new("bat",n,t,.3,l)a(n.spr,"idle = { sprites = {128;129}; fps = 4; loop = true }")a(n,[[hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
+d.draw(n)end,del=function(n)n.time_last_death=time()del(s,n)d.del(n)end,is_inv=function(n)return false end})nM=n("c_fly_en:c_enemy",{__new=function(o,n,t,e,l)local n=L.new("bat",n,t,.3,l)a(n.spr,"idle = { sprites = {128;129}; fps = 4; loop = true }")a(n,[[hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
 horizontal = *1
 dir = *2
 dir_before_blow = _k_dir

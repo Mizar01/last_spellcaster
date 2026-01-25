@@ -31,7 +31,17 @@ npc_sprites = dstarc([[
 lea = {192;193}
 lady = {208;209}
 ]])
-walk_en=dstarc("e=dog;g=spider;i=sk")
+en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;")
+en_sprites=dstarc([[
+dog={idle={144;145};run={146;147}}
+spider={idle={160;161};run={162;163}}
+sk={idle={148;149};run={150;151}}
+bath={idle={128;129}}
+batv=_k_bath
+witchh={idle={130;131}}
+witchv=_k_witchh
+]])
+en_mv=dstarc([[bath=horizontal;batv=vertical;witchh=horizontal;witchv=vertical;]])
 fsolid_idx = 0 -- flag index used for solid
 game = nil
 player = nil
@@ -48,41 +58,41 @@ ovd_respawn=nil -- intial player spawn override in tile coords. It must be used 
 
 -- TEST VARS
 use_sample_map = true
-ovd_avail_els = dstarc("true;true;true;true")
-ovd_cur_el = el_wind
+ovd_avail_els = dstarc("true;true;true;false")
+ovd_cur_el = el_fire
 sample_map = [[
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-  b                                     1       X X         1                                  
-                                      a 1   1 1 1 1 1 1                                        
-                                        1             1                               M M N    
-                                        1 1 1 1 1 1   1                               1 1 1    
-                                              e   i   1                                        
-    1                                   1 1 1 1 1 1 1 1 1 1 1                         Q   R    
-                                    A 1                     X 1                       1 1 1 1 1
-1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1            
-            a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                    
-              e                     1 1 1 1 1 1 1 1 1 1 1 1 1 1                                
-        1 1 1 1 1 1 1                                                                 1 1 1    
-1 1 1 1 1   b                                                                                  
-              b         1 1 1                                                                  
-                b                   1 1 1   1     1 1 1   1     1 1 1                          
-                                                    b                                     1 1 1
-                  b                                                     1 1 1                  
-                                                                                      1 1 1    
-      1 1 1 1 1 1 1 1 1 1                                                                      
-      1                 1                                                       1 1 1          
-1 1 1 1     1   1   1   1 1                                                                    
-                          1         e   e                               1 1 1                  
-      1   1   1       1   1 1 1 1 1 1 1 1 1 1 1 1                                              
-                                                1         e                                    
-    1       a     1 1     1     1               1 1 1 1 1 1 1 1 1 1 1 1 1                      
-                                    1               b   b   b   b       1     g                
-                                                                        1 1 1 1 1 1 1 1 1 1 1  
-1 1         1                                                                               1 1
-1 1 1     1 1 1   g                     g             b   b   b   b                            
-1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1 Y Y     1                                                                       1       Y Y 1
+1 X X     1                                   f                                   1       X X 1
+1 1 1 1   1                               1 1 1 1 1                               1   1 1 1 1 1
+1                                                                                             1
+1       1 1                         1 1               1 1                           1 1       1
+1                                             X X                                             1
+1             c                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                   c           1
+1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1             1 1 1 1 1 1 1 1 1 1 1 1 1           1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1     1 1       1 1 1 1 1 1 1 1 1 1 1 1       1 1     1 1 1 1 1 1 1 1 1 1 1
+1                                                       1 1                                   1
+1     b             1 1 1 1                             1 1         1 1 1 1             b     1
+1       b                                               1 1                               b   1
+1                   6                         1       1 1 1                                   1
+1 1               1 1 1                   1 1 Z 1   1 Z 1 1 1 1         1 1 1               1 1
+1 1 1         1                           1 Z           Z 1                               1 1 1
+1 1 1 1                   1 1 1           1 1 Z   E   Z 1 1     d                       1 1 1 1
+1 1 1 1 1                                   1 1 1 1 1 1 1                             1 1 1 1 1
+1 1 1 1 1 1 1                                 1 1 1 1 1                           1 1 1 1 1 1 1
+1             1                                 1 1 1                                         1
+1                                                                                             1
+1               d                                                             d               1
+1 1 1 1 1     1 1 1       1 1 1       d d                       1 1 1     1 1 1       1 1 1 1 1
+1                                                                                             1
+1       i     i                                                                         g     1
+1 1 1 1 1 1 1 1 1 1         i     g           6       i     i               1 1 1   1 1 1 1 1 1
+1 1           g       1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1       1   1   1
+1       1 1 1 1 1 1 1       6     h h Q 1   M S N   1 R h h         6         1     1   1   1 1
+1 1   1               1   1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1   1   1   1   1
+1           1 X 1   g       1 1 1 1 1       P O h           i   i   T 1           Y 1   1   1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
 
@@ -90,22 +100,11 @@ sample_map = [[
 ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = dstaru("0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15")
 
 themes = dstarc([[
-metal = {
-    tile_maps = {1;2;3;4;5}
-    bg_col = -15
-};
-sand = {
-    tile_maps = {17;18;19;20;21}
-    bg_col = 12
-};
-grass = {
-    tile_maps = {33;34;35;36;37}
-    bg_col = 0
-};
-ice = {
-    tile_maps = {49;50;51;52;53}
-    bg_col = -15
-};
+metal={tile_maps={1;2;3;4;5};bg_col=-15};
+sand={tile_maps={17;18;19;20;21};bg_col=0};
+grass={tile_maps={33;34;35;36;37};bg_col=0};
+water={tile_maps={65;66;67;68;69};bg_col=12};
+ice={tile_maps={49;50;51;52;53};bg_col=-15};
 ]])
 
 stage_config = {
@@ -126,7 +125,7 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The underground;music=13;theme=grass;wtx=-20;wty=32"),
+        dstarc("name=The underground;music=13;theme=sand;wtx=-20;wty=32"),
         dstarc("")
     ),
 }

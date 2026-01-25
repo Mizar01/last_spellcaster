@@ -31,6 +31,7 @@ OK Update method is sometimes executed after draw for the first time. This happe
 OK implement a memory system that remember open doors/switches and burnt vines
 OK check or make that wandering enemies will bounce on the map limits (even if there are no solids)
 OK scroll should show what the cost is and the name of skill in a better way
+- player and enemy bullet should not pass walls.
 
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
@@ -38,7 +39,8 @@ OK scroll should show what the cost is and the name of skill in a better way
 - dogs/walking creatures will not fall when out of platform.
 
 OK add skeleton walking
-- add flying blobs that explode when in proximity of player
+OK add another flying enemy witch)
+- add 1 or 2 bosses
 
 
 - review the scroll descriptions

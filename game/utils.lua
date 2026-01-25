@@ -175,13 +175,13 @@ function setup_stage_from_string()
                 if (ovd_avail_els != nil and stage == 1) player.avail_el = ovd_avail_els
                 if (ovd_cur_el != nil and stage == 1) player.cur_el = ovd_cur_el
                 respw = true
-            elseif (t == "a" or t == "b") then -- bats
-                c_bat.new(px, py, t == "a", emgr)
+            elseif (instr("abcd", t)) then -- bats
+                c_fly_en.new(px, py, en_map[t])
             elseif (t == "6") then
                 c_focuslith.new(px, py, mmgr)
 			elseif (t == "8") then
             elseif (instr("egi", t)) then
-				c_walk_en.new(px, py, walk_en[t])
+				c_walk_en.new(px, py, en_map[t])
             elseif (t == "h") then
                 if (c == "") c_vine.new(px, py, emgr)
             elseif (instr("XYZ", t)) then
