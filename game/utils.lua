@@ -132,7 +132,7 @@ function setup_stage_from_string()
         converted_type_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile types
         stage_changes_map = matrix_map(map_h, map_w, "")  -- 0 based map of tile changes
 
-        if (use_sample_map and stage == 1) then
+        if (use_sample_map and spawn1) then
             for ty=1, map_h do
                 for tx=1,map_w do
                     local pos = (ty - 1) * map_w * 2 + (tx - 1) * 2 + 1
@@ -172,8 +172,8 @@ function setup_stage_from_string()
                 if (ovd_respawn != nil) then
                     player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
                 else player:respawn(px, py) end
-                if (ovd_avail_els != nil and stage == 1) player.avail_el = ovd_avail_els
-                if (ovd_cur_el != nil and stage == 1) player.cur_el = ovd_cur_el
+                if (ovd_avail_els != nil and spawn1) player.avail_el = ovd_avail_els
+                if (ovd_cur_el != nil and spawn1) player.cur_el = ovd_cur_el
                 respw = true
             elseif (instr("abcd", t)) then -- bats
                 c_fly_en.new(px, py, en_map[t])

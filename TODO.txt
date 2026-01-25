@@ -31,7 +31,9 @@ OK Update method is sometimes executed after draw for the first time. This happe
 OK implement a memory system that remember open doors/switches and burnt vines
 OK check or make that wandering enemies will bounce on the map limits (even if there are no solids)
 OK scroll should show what the cost is and the name of skill in a better way
-- player and enemy bullet should not pass walls.
+OK player and enemy bullet should not pass walls.
+- player fire should melt the ice instead of being vanished (and it's vanished because ice is a solid object).
+OK when the player switch maps it must mantain the current element 
 
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.

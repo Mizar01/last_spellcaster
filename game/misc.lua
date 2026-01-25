@@ -46,6 +46,9 @@ c_element = cstar("c_element:c_obj", {
             self.destroy_req_prev_frame = true -- mark for deletion next frame, because i need also to use the time at 0.
         end
         self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
+        if (map_or_obj_solid_at_px(self.x, self.y)) then
+            self:del()
+        end
     end,
     dirmult = function(self)
         return (self.dir == dir_left) and -1 or 1

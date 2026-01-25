@@ -79,6 +79,7 @@ c_game = {
         local ptx, pty = flr(player.x / 8), flr(player.y / 8)
         if (ptx < 0 or (ptx >= map_w - 1 and player.x > map_w * 8 - 4) or (pty <= 0 and player.y < 3) or pty >= map_h - 1) then
             -- LOAD A NEW STAGE (MAP PORTION)
+            spawn1 = false
             local prev_stage = stage_config_get()
             local pwtx, pwty = ptx + prev_stage.wtx or 0, pty + prev_stage.wty or 0
             if (pty <= 0) then 

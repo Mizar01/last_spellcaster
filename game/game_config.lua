@@ -53,11 +53,12 @@ map_w, map_h = 48, 32
 map_wpx, map_hpx = map_w * 8, map_h * 8
 
 stage = 1
+spawn1 = true
 -- ovd_respawn = dstarc("43;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = true
+use_sample_map = false
 ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
@@ -126,6 +127,10 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
     ),
     build_stage_config_item(
         dstarc("name=The underground;music=13;theme=sand;wtx=-20;wty=32"),
+        dstarc("")
+    ),
+    build_stage_config_item(
+        dstarc("name=The core;music=13;theme=metal;wtx=-20;wty=64"),
         dstarc("")
     ),
 }
