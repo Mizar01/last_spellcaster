@@ -167,22 +167,6 @@ c_game = {
         end
         print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
         -- print(""..tostr(abs(416 - cam.x))..","..tostr(abs(64 - cam.y)))
-        
-        if (self.win_game) then
-            crectfill(64, 64, 120, 55, 1)
-            cprint("congratulations!", 64,  55, 10)
-            cprint("you survived!", 64,  65, 10)
-            cprint("press (❎) to restart", 64, 75, adv_timed_arr(1, {10,0}))
-        elseif (self.win_stage and not self.game_over) then
-            crectfill(64, 64, 107, 25, 1)
-            cprint("stage cleared!", 64, 55, 10)
-            cprint("press (❎) for the shop", 64, 65, 10)
-        elseif (self.game_over) then
-            crectfill(64, 64, 120, 55, 1)
-            cprint("game over", 64,  55, 8)
-            cprint(self.game_over_msg, 64,  65, 8)
-            cprint("press (❎) to restart", 64, 75, adv_timed_arr(1, {8,0}))
-        end
     end,
 }
 c_game.__index = c_game
