@@ -188,11 +188,14 @@ c_int = cstar("c_int:c_obj", {
             solid = true
             hover_info = nil
             hover_info_obj = nil
+            int = true
+            cost = 0
         ]])
         return l
     end,
     update = function(self)
-        if self:collide(player) then
+        if not self.int then return end
+        if self:collide(player, -2, -2) then
             self.show_int_button = true
             if (self.hover_info != nil and obj_destroyed(self.hover_info_obj)) then 
                 self.hover_info_obj = c_dialog.new(100, nil, self.hover_info)
@@ -221,8 +224,15 @@ c_int = cstar("c_int:c_obj", {
         end
     end,
     interact = function(self)
-        -- to be overridden
+        if (player.shards < self.cost) then
+            c_slide_text.new(30, "You need "..tostr(self.cost).." shards")
+            return
+        end
+        self:action()
         self.int_done = true
+        player.shards -= self.cost
+    end,
+    action = function(self)
     end,
     del = function(self)
         obj_del(self.hover_info_obj)
@@ -236,7 +246,7 @@ c_focuslith = cstar("c_focuslith:c_int", {
         l.spr.idle = { ss = 11 }
         return l
     end,
-    interact = function(self)
+    action = function(self)
         player:switch_element()
     end,
     draw = function(self)
@@ -254,7 +264,7 @@ c_switchlith = cstar("c_switchlith:c_int", {
         l.doors = {}
         return l
     end,
-    interact = function(self)
+    action = function(self)
         if (player.cur_el != el_thunder) then
             c_slide_text.new(30, "You need thunder")
             return
@@ -275,20 +285,26 @@ c_switchlith = cstar("c_switchlith:c_int", {
     end
 })
 
-c_door = cstar("c_door:c_obj", {
-    __new = function(n, x, y)
+c_door = cstar("c_door:c_int", {
+    __new = function(n, x, y, int, cost, open)
         local l = c_int.new(x, y, game.mgr.misc_mgr)
-        l.spr.open = dstarc("sprites={43,44;45;46}; fps=5; loop=false")
-        l.spr.close = dstarc("sprites={46;45;44;43}; fps=5; loop=false")
+        l.spr.open = int and dstarc("ss=60") or dstarc("sprites={43,44;45;46}; fps=5; loop=false")
+        l.spr.close = int and dstarc("ss=59") or dstarc("sprites={46;45;44;43}; fps=5; loop=false")
         dstar(l, [[
 phase = close
 hitbox = {x=0;y=0;x2=7;y2=7}
-]])
+cost = *2
+int=*1
+]], {int, cost})
+        flog("Spawn_x = "..tostr(l.spawn_x).." Spawn_y = "..tostr(l.spawn_y))
         add(obj_solids, l)
+        if (open) then c_door.open(l) end
+        if (not open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
         return l
     end,
     open = function(self)
         self.phase = "open"
+        self.hover_info = nil
         del(obj_solids, self)
         obj_mem_ch(self, 1)
     end,
@@ -297,6 +313,9 @@ hitbox = {x=0;y=0;x2=7;y2=7}
         add(obj_solids, self)
         obj_mem_ch(self, 2)
     end,
+    action = function(self)
+        self:open()
+    end
 })
 
 c_scroll = cstar("c_scroll:c_int", {
@@ -316,26 +335,18 @@ c_scroll = cstar("c_scroll:c_int", {
         c_int.update(self)
         self.y = self.spawn_y + sin(time()) * 2
     end,
-    interact = function(self)
-
-        local n = self.name
-        if (player.shards < self.cost) then
-            c_slide_text.new(30, "("..n..") You need "..tostr(self.cost).." shards")
-            return
-        end
-
+    action = function(self)
         if (self.int_fn != nil) then
             self.int_fn(self)
         else
             -- default is to give element to player
             player.cur_el = self.el
             player.avail_el[self.el] = true
-            player.shards -= self.cost
         end
 
-        c_slide_text.new(30, n.." acquired")
+        c_slide_text.new(30, self.name.." acquired")
+        obj_mem_ch(self, "d")
         self:del()
-
     end,
     draw = function(self)
         if (self.el) pal(7, el_colors[self.el])
@@ -388,17 +399,22 @@ c_npc = cstar("c_npc:c_int", {
         l.dialogs = split(dialogs, "/")
         l.cur_diag = 1
         l.diagcls = nil
+        l.boss = codename == "lea" and stage != 1
         return l
     end,
     update = function(self)
         c_int.update(self)
         if (self.diagcls and ((abs(self.x - player.x) > 40 or abs(self.y - player.y) > 40) or self.diagcls.destroyed)) then
             self.diagcls:del()
+            if (self.boss) then 
+                c_boss.new(self.x - 8, self.y - 8)
+                self:del()
+            end
             self.cur_diag = 1 -- reset dialog
             self.diagcls = nil
         end
     end,
-    interact = function(self)
+    action = function(self)
         self.diagcls = self.diagcls or c_dialog.new(30, self.name, "")
         self.diagcls:update_msg(self.dialogs[self.cur_diag])
         self.diagcls.cont = self.cur_diag < #self.dialogs

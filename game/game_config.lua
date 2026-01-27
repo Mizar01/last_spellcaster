@@ -23,6 +23,7 @@ K=life regen greatly increased
 L=ultimate fire power
 ]])
 scr_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
+door_cost_map=dstarc("U=100;V=200;W=400;")
 npc_names = dstarc([[
 lea=aunt lea
 lady=lady
@@ -52,48 +53,48 @@ stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru
 map_w, map_h = 48, 32
 map_wpx, map_hpx = map_w * 8, map_h * 8
 
-stage = 1
+stage = 5
 spawn1 = true
 -- ovd_respawn = dstarc("43;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 Y Y     1                                                                       1       Y Y 1
-1 X X     1                                   f                                   1       X X 1
-1 1 1 1   1                               1 1 1 1 1                               1   1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1
-1       1 1                         1 1               1 1                           1 1       1
-1                                             X X                                             1
-1             c                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                   c           1
-1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1 1 1 1             1 1 1 1 1 1 1 1 1 1 1 1 1           1 1 1 1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1 1 1     1 1       1 1 1 1 1 1 1 1 1 1 1 1       1 1     1 1 1 1 1 1 1 1 1 1 1
-1                                                       1 1                                   1
-1     b             1 1 1 1                             1 1         1 1 1 1             b     1
-1       b                                               1 1                               b   1
-1                   6                         1       1 1 1                                   1
-1 1               1 1 1                   1 1 Z 1   1 Z 1 1 1 1         1 1 1               1 1
-1 1 1         1                           1 Z           Z 1                               1 1 1
-1 1 1 1                   1 1 1           1 1 Z   E   Z 1 1     d                       1 1 1 1
-1 1 1 1 1                                   1 1 1 1 1 1 1                             1 1 1 1 1
-1 1 1 1 1 1 1                                 1 1 1 1 1                           1 1 1 1 1 1 1
-1             1                                 1 1 1                                         1
 1                                                                                             1
-1               d                                                             d               1
-1 1 1 1 1     1 1 1       1 1 1       d d                       1 1 1     1 1 1       1 1 1 1 1
 1                                                                                             1
-1       i     i                                                                         g     1
-1 1 1 1 1 1 1 1 1 1         i     g           6       i     i               1 1 1   1 1 1 1 1 1
-1 1           g       1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1       1   1   1
-1       1 1 1 1 1 1 1       6     h h Q 1   M S N   1 R h h         6         1     1   1   1 1
-1 1   1               1   1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1   1   1   1   1
-1           1 X 1   g       1 1 1 1 1       P O h           i   i   T 1           Y 1   1   1 1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                       1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1                                   1 1                                                       1
+1                                 1                                                           1
+1                 1 1 1 1 1 1 1 1                                                             1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1                                                                           1
+1                 1 1 1                                                                       1
+1                 1 1 1                                                                       1
+1                 1 1 1                                                                       1
+1     f                               p                                                       1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
 
@@ -129,9 +130,10 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("name=The underground;music=13;theme=sand;wtx=-20;wty=32"),
         dstarc("")
     ),
+    -- Final stage
     build_stage_config_item(
         dstarc("name=The core;music=13;theme=metal;wtx=-20;wty=64"),
-        dstarc("")
+        dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
     ),
 }
 

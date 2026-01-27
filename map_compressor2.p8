@@ -29,8 +29,9 @@ end
 -- ABCDEFGHIJKL = scroll
 -- MNOP = doors activated by switches
 -- QRST = switches for doors MNOP
+-- UVW = interactive doors with shards cost to open
 -- XYZ = static shards x1,x3,x5
--- pqrstuvwxyz = npc dialogs (the mapping is done in game_config.lua)
+-- pqrs = npc dialogs (the mapping is done in game_config.lua)
 
 -- empty_map_sammple
 empty_map_sample = [[
@@ -137,8 +138,7 @@ extended_maps_config = {[[
 1 1         1                                                                               1 1
 1 1 1     1 1 1   g                     g             b   b   b   b                            
 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-]],
-[[
+]],[[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
                                         X                       Y       1 1 1 1 1 1 1 1 1 1 1 1
                                                             1 1 1 1       1 1 1 1 1 1 1 1 1 1 1
@@ -171,8 +171,7 @@ extended_maps_config = {[[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1             1 1               1 1   1 1 1 1 1 1 1 1 1 1
                                       1 1                   g               1 1 1 1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-]],
-[[
+]],[[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 1                                     b           b                             1 1 1 1 Z Z 1
 1                     g           g           b                                   1 1 1 1 Z   1
@@ -205,8 +204,7 @@ extended_maps_config = {[[
 1 1 1                           b                               1                             1
 1 1 1 1                   X X     g   e       X X           1 1 1                       f   1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-]],
-[[
+]],[[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 Y Y     1                                                                       1       Y Y 1
 1 X X     1                                   f                                   1       X X 1
@@ -239,8 +237,7 @@ extended_maps_config = {[[
 1 1   1               1   1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1   1   1   1   1
 1           1 X 1   g       1 1 1 1 1       P O h           i   i   T 1           Y 1   1   1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-]],
-[[
+]],[[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                 1         1                                                 1
 1                                 1         1                                                 1
@@ -273,7 +270,7 @@ extended_maps_config = {[[
 1                                                                                             1
 1     f                                                                                       1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-]]
+]],
 }
 
 function compress_map(str)

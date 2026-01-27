@@ -15,8 +15,6 @@ c_game = {
     new = function()
         local g = {
             paused = false,
-            win_stage = false,
-            win_game = false,
             menu = true,
             play = false,
             stage_title_phase = false,
@@ -27,9 +25,7 @@ c_game = {
                 hud_mgr = c_hud_mgr.new(),
             },
         }
-        g.game_over_msgs = {}
-        g.game_over_msg = ""
-        menuitem(1, "restart game", function() game:start_menu() end)
+        menuitem(1, "new game", function() game:start_menu() end)
         return sm(g, c_game)
     end,
     start_play = function(self)
@@ -50,18 +46,6 @@ c_game = {
 
         if (music_on) music(stage_config_get().music)  -- play stage music
     end,
-    setup_win_lose_stage = function(self)
-        -- the time has run out. if all the gems have been collected, win the stage, else game over
-        if (player.gems == stage_config_get().gems) then
-            self.win_stage = true
-            self.win_game = (stage == #stage_config)
-            if (self.win_game) music(11)
-            player:apply_end_stage_upgrades()
-        else
-            self.game_over_msg = "you didn't collect all gems!"
-            self:set_game_over()
-        end
-    end,
     start_menu = function(self)
         self.menu = true
         self.play = false
@@ -69,11 +53,6 @@ c_game = {
         self.win_stage = false
         self.win_game = false
         stage = 1
-    end,
-    set_game_over = function(self)
-        self.play = false
-        self.win_stage = false
-        self.game_over = true
     end,
     stage_check = function(self)
         local ptx, pty = flr(player.x / 8), flr(player.y / 8)

@@ -105,8 +105,8 @@ dir_before_blow = _k_dir
     end,
     update = function(self)
         c_enemy.update(self)
-        if (self:collide(player)) player:dmg(1)
         if (self.frozen_t.t > 0) return
+        if (self:collide(player)) player:dmg(1)
         local m = obj_move(self, self.dir)
         if (m == 0) self.dir = (self.horizontal and 0 or 2) + ((self.dir + 1) % 2)
     end,
@@ -129,9 +129,7 @@ basey = *2
     update = function(self)
         c_enemy.update(self)
         self.phase = "idle"
-        if (self.frozen_t.t > 0) then
-            return
-        end
+        if (self.frozen_t.t > 0) return
         -- collide with player with a tolerance of 2 pixels
         if (self:collide(player, 2, 2)) then
             player:dmg(2)
@@ -163,8 +161,8 @@ basey = *2
 })
 
 c_vine = cstar("c_vine:c_enemy", {
-    __new = function(n, x, y, parent_mgr)
-        local l = c_enemy.new("vine", x, y, 0, parent_mgr)
+    __new = function(n, x, y)
+        local l = c_enemy.new("vine", x, y, 0, game.mgr.enemy_mgr)
         l.spr.idle = dstarc("ss = 6")
         dstar(l,[[
 fixed = true
@@ -175,4 +173,19 @@ hitbox = { x=0;y=0;x2=7;y2=7}
         return l
     end,
     is_inv = function(self) return not (player.cur_el == el_fire)end,
+})
+
+c_boss = cstar("c_boss:c_enemy", {
+    __new = function(n, x, y)
+        local l = c_enemy.new("boss", x, y, 0, game.mgr.enemy_mgr)
+        l.spr.idle = dstarc("sprites={199;201};fps=2;loop=true")
+        dstar(l, [[
+life = 5000
+tw = 2
+th = 2
+hitbox={x=0;y=0;x2=15;y2=15}
+hitbox_orig=_k_hitbox
+    ]])
+        return l
+    end,
 })

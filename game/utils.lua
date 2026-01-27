@@ -183,7 +183,7 @@ function setup_stage_from_string()
             elseif (instr("egi", t)) then
 				c_walk_en.new(px, py, en_map[t])
             elseif (t == "h") then
-                if (c == "") c_vine.new(px, py, emgr)
+                if (c == "") c_vine.new(px, py)
             elseif (instr("XYZ", t)) then
                 if (c == "") c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
             elseif (instr("pqrstuvwxyz", t)) then
@@ -192,9 +192,10 @@ function setup_stage_from_string()
             elseif (instr("ABCDEFGHIJKL", t)) then
                 if (c=="") c_scroll.new(px, py, t)
             elseif (instr("MNOP", t)) then
-                local d = c_door.new(px, py, mmgr)
-                if (c=="1") d:open()
+                local d = c_door.new(px, py, false, 0, c == "1")
                 add(dswarr[t], d)
+            elseif (instr("UVW", t)) then
+                c_door.new(px, py, true, door_cost_map[t], c == "1")
             elseif (instr("QRST", t)) then
                 local s = c_switchlith.new(px, py, mmgr)
                 if (c=="1") s.on = true

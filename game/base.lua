@@ -13,6 +13,8 @@ y=*2
 spawn_x=*1
 spawn_y=*2
 bounce_map=true
+tw = 1
+th = 1
 ]], {x or 0, y or 0, parent_mgr or nil})
 
 		o.spr = dstarc([[
@@ -73,12 +75,14 @@ offview = false
 				next_sprite = sprph.sprites[1 + flr((time() - s.time_start) / (1 / sprph.fps)) % #sprph.sprites]
 			end
 		end
-		spr(next_sprite, self.x, self.y, 1, 1, s.flip_x or false, s.flip_y or false, 7)
+		spr(next_sprite, self.x, self.y, self.tw, self.th, s.flip_x or false, s.flip_y or false, 7)
 		pal()  -- reset palette
 		s.last_frame = next_sprite
 
 	end,
 	-- tolerance is used to make collision less strict
+	--  positive values will act as they shrink the hitbox
+	--  negative values will act as they enlarge the hitbox
 	collide = function(self, other, tolx, toly)
 		local h1 = self:hitbox_pos(0, 0)
 		local h2 = other:hitbox_pos(0, 0)

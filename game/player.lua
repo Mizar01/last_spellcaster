@@ -38,7 +38,7 @@ c_player = {
 			interaction_fn=nil
 			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
 			t_respawn=nil
-			shards = 100
+			shards = 3000
 			bounce_map=false
 		]])
 		return sm(p, c_player)
