@@ -1,47 +1,47 @@
-c_player = {
-	new = function(x, y)
+c_player = cstar("c_player:c_obj", {
+	__new = function(n, x, y)
 		local p = c_obj.new(x, y)
 		dstar(p.spr, [[
-			idle = { sprites = { 64; 65 }; fps = 2 }
-			walk = { sprites = { 80; 81; 82 }; fps = 6 }
-			jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
-			dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
+idle = { sprites = { 64; 65 }; fps = 2 }
+walk = { sprites = { 80; 81; 82 }; fps = 6 }
+jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
+dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
 		]])
 		dstar(p, [[
-			name=player
-			p.prev_btn = {}
-			invisible=false
-			blocked=false
-			invulnerable=false
-			nodmg_t=nil
-			jforce=1.7
-			jstack=0
-			max_jstack=15
-			speed_y_decay=0.95
-			speedy=0
-			max_speedy=2
-			phase=idle
-			max_speed=1
-			speed=0
-			init_speed=0.1
-			inc_speed_factor=0.2
-			life=20
-			max_life=20
-			init_max_life=20
-			coins=0
-			stinky_socks=false
-			cur_el=nil
-			avail_el = {false;false;false;false}
-			lev_el = {1;1;1;1}
-			el_cooldown = _fn_t1_1
-			shine_star=0
-			interaction_fn=nil
-			hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
-			t_respawn=nil
-			shards = 3000
-			bounce_map=false
+name=player
+p.prev_btn = {}
+invisible=false
+blocked=false
+invulnerable=false
+nodmg_t=nil
+jforce=1.7
+jstack=0
+max_jstack=15
+speed_y_decay=0.95
+speedy=0
+max_speedy=2
+phase=idle
+max_speed=1
+speed=0
+init_speed=0.1
+inc_speed_factor=0.2
+life=20
+max_life=20
+init_max_life=20
+coins=0
+stinky_socks=false
+cur_el=nil
+avail_el = {false;false;false;false}
+lev_el = {1;1;1;1}
+el_cooldown = _fn_t1_1
+shine_star=0
+interaction_fn=nil
+hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
+t_respawn=nil
+shards = 3000
+bounce_map=false
 		]])
-		return sm(p, c_player)
+		return p
 	end,
 	reset_stage_props = function(self)
 		self:reset_jump_vars()
@@ -245,5 +245,4 @@ c_player = {
 			s1 = s1 % 4 + 1
 		end
 	end
-}
-clsinh(c_player, c_obj)
+})

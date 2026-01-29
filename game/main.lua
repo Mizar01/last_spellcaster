@@ -11,8 +11,8 @@ function _draw()
     game:draw() 
 end
 
-c_game = {
-    new = function()
+c_game = cstar("c_game", {
+    __new = function()
         local g = {
             paused = false,
             menu = true,
@@ -26,7 +26,7 @@ c_game = {
             },
         }
         menuitem(1, "new game", function() game:start_menu() end)
-        return sm(g, c_game)
+        return g
     end,
     start_play = function(self)
         self.win_stage = false
@@ -114,18 +114,18 @@ c_game = {
             cls(8)
             rectfill(0, 40, 127, 80, 0)
             local t = t()
-            line(70 + 64 - flr((t / 0.05) % 130), 62, 70 + 70 - flr((t / 0.05) % 130), 62, 9)
-            line(70 + 70 - flr((t / 0.030) % 130), 60, 70 + 75 - flr((t / 0.030) % 130), 60, 9)
-            line(70 + 60 - flr((t / 0.020) % 130), 64, 70 + 65 - flr((t / 0.020) % 130), 64, 9)
+            -- line(70 + 64 - flr((t / 0.05) % 130), 62, 70 + 70 - flr((t / 0.05) % 130), 62, 9)
+            -- line(70 + 70 - flr((t / 0.030) % 130), 60, 70 + 75 - flr((t / 0.030) % 130), 60, 9)
+            -- line(70 + 60 - flr((t / 0.020) % 130), 64, 70 + 65 - flr((t / 0.020) % 130), 64, 9)
             spr(
                 80 + flr((t / 0.10) % 3),
                 60,
                 58
             )
-            line(0, 40, 127, 40, 7)
-            line(0, 80, 127, 80, 7)
+            -- line(0, 40, 127, 40, 7)
+            -- line(0, 80, 127, 80, 7)
             cprint("* new title here! *", 64, 50, 7)
-            cprint("press (❎) to start", 64, 70, adv_timed_arr(1, {7,0}))
+            cprint("press (❎) to start", 64, 70, 7)
             return
         end
 
@@ -147,5 +147,4 @@ c_game = {
         print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
         -- print(""..tostr(abs(416 - cam.x))..","..tostr(abs(64 - cam.y)))
     end,
-}
-c_game.__index = c_game
+})

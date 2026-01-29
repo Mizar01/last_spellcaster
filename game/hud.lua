@@ -1,8 +1,8 @@
 c_hud_element = cstar("c_hud_element:c_obj", {
     __new = function(n, x, y , parent_mgr)
         local h = c_obj.new(x, y, parent_mgr)
-        h.fixedx, h.fixedy = x, y -- fixed position relative to camera
-        return sm(h, c_hud_element)
+        dstar(h, "fixedx=*1;fixedy=*2", {x, y})
+        return h
     end,
     update = function(self)
         -- follow camera offset
@@ -14,11 +14,10 @@ c_hud_element = cstar("c_hud_element:c_obj", {
 
 c_val_printer = cstar("c_val_printer:c_hud_element", {
     __new = function(n, x, y, bg_length, draw_fn)
-        local l = c_hud_element.new(x, y) 
-        l.draw_fn = draw_fn
-        l.bgl = bg_length
-        l.spr.idle = { ss = 137 }
-        return sm(l, c_val_printer)
+        local l = c_hud_element.new(x, y)
+        dstar(l, "draw_fn=*1;bgl=*2", {draw_fn, bg_length}) 
+        l.spr.idle = dstarc("ss=137")
+        return l
     end,
     draw = function(self)
         rectfill(self.x, self.y, self.x + self.bgl, self.y + 6, 1)
@@ -31,12 +30,12 @@ c_player_life_bar = cstar("c_player_life_bar:c_hud_element", {
         local l = c_hud_element.new(x, y)
         l.spr.idle = { ss = 169 }
         l.life_ref = player.init_max_life
-        return sm(l, c_player_life_bar)
+        return l
     end,
     draw = function(self)
         -- print("life:", self.x, self.y, 8)
         local w = 30 * player.max_life / self.life_ref
-        rectfill(self.x, self.y + 1, self.x + w + 10, self.y + 6, 1)
+        -- rectfill(self.x, self.y + 1, self.x + w + 10, self.y + 6, 1)
         self:draw_sprite()
         progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 1, 8)
     end,
@@ -75,12 +74,12 @@ c_dialog = cstar("c_dialog:c_slide_text", {
     __new = function(n, y, author, msg)
         local l = c_slide_text.new(y, msg)
         dstar(l, [[
-            final_pos = 10
-            fixedx = 260
-            ttl = _fn_t1_6
-            cont = false
-            author = *1
-            msgs = nil
+final_pos = 10
+fixedx = 260
+ttl = _fn_t1_6
+cont = false
+author = *1
+msgs = nil
         ]], {author})
         c_dialog.update_msg(l, msg)
         
@@ -98,9 +97,7 @@ c_dialog = cstar("c_dialog:c_slide_text", {
         for i = 1, #self.msgs do
             print(self.msgs[i], self.x, self.y + (i - 1) * 7, 8)
         end
-        if (self.cont) then
-            print("❎>>", self.x + 100, self.y + rows * 7 + 2, 8)
-        end
+        if (self.cont) print("❎>>", self.x + 100, self.y + rows * 7 + 2, 8)
     end,
 })
 
@@ -108,7 +105,7 @@ c_hud_mgr = cstar("c_hud_mgr:c_mgr", {
     __new = function(n)
         local l = c_mgr.new()
         l.update_in_pause = true
-        return sm(l, c_hud_mgr)
+        return l
     end,
     restart = function(self)
         self.objs = {

@@ -1,11 +1,11 @@
-c_timer = {
-    new = function(secs, loop)
+c_timer = cstar("c_timer", {
+    __new = function(n, secs, loop)
         local l = {
             maxtime = flr(fps * secs),
             t = flr(fps * secs),
             loop = loop or false,
         }
-        return sm(l, c_timer)
+        return l
     end,
     adv = function(self)
         if (self.t < 0) return false  -- the timer no longer counts
@@ -30,8 +30,7 @@ c_timer = {
         return tl >= mn and tl <= mx
     end,
         
-}
-c_timer.__index = c_timer
+})
 
 -- Get the tile at pixel coordinates (x, y) given the size of a single tile (tw, th)
 function mget2_by_px(x, y, tw, th)
@@ -65,19 +64,6 @@ function cprint(msg, x, y, col)
     print(msg, x - #msg * 2, y, col)
 end
 
-function crectfill(x, y, w, h, col)
-    rectfill(x - w / 2, y - h / 2, x + w / 2, y + h / 2, col)
-end
-
--- get the next array element every given time interval (in seconds)
-function adv_timed_arr(interval, arr)
-    return arr[flr(time() / interval) % #arr + 1]
-end
-
-function char_at(s, i)
-    return sub(s, i, i)
-end
-
 -- 0-based matrix map
 function matrix_map(w, h, default_val)
     local mat = {}
@@ -105,20 +91,7 @@ end
 function instr(s, c)
     if (s == nil or s == "") return false
     for i=1,#s do
-        if (char_at(s, i) == c) return true
+        if (sub(s, i, i) == c) return true
     end
     return false
 end
-
-function clsinh(derived, base)
-    derived.__index = derived
-    return sm(derived,base)
-end
-
--- returns true or false alternating every given seconds
-function altern_time(seconds)
-    return flr(time() / seconds) % 2 == 0
-end  
-
-function sm(t1, t2) return setmetatable(t1, t2) end
-

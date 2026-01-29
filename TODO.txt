@@ -38,6 +38,8 @@ OK verify if scrolls do not respawn if already collected
 OK retest interactions (I refactored it a bit)
 OK re-check the scroll cost decrease and shard doors cost decrease when interacted with.
 - Avoid that the c_slider or texts can cover the player or the interacting object.
+- test the shards moving towards the player (after the refactor of dist and moveTo)
+- test the boss movements.
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.

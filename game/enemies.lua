@@ -185,7 +185,34 @@ tw = 2
 th = 2
 hitbox={x=0;y=0;x2=15;y2=15}
 hitbox_orig=_k_hitbox
-    ]])
+tcd = _fn_t2_1
+tfire = _fn_t2_0.1
+fire = false
+tpos = {x=nil;y=nil}
+]])
         return l
+    end,
+    update = function(self)
+
+        c_enemy.update(self)
+        if (self.frozen_t.t > 0) return
+
+        if (self:collide(player)) player:dmg(5)
+
+        -- moving
+        if (self.tpos.x == nil or self:dist(self.tpos) < 3) then
+            self.tpos.x = mid(self.x + rnd(64), self.spawn_x - 32, self.spawn_x + 32)
+            self.tpos.y = mid(self.y + rnd(16), self.spawn_y, self.spawn_y + 16) 
+            flog("target changed to "..self.tpos.x..","..self.tpos.y.."")
+        end
+        self:moveTo(self.tpos, self.speed)
+
+        -- firing
+        if (self.tcd:adv()) self.fire = not self.fire
+        if (self.fire) then
+            if (self.tfire:adv()) then
+                c_bullet.new(self.x + 8, self.y + 8, rnd(dstarc("0;0.1;0.4;0.5")), 1)
+            end
+        end
     end,
 })

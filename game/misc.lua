@@ -2,9 +2,9 @@ c_explosion = cstar("c_explosion:c_obj", {
     __new = function(n, x, y, max_radius, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
-            ttl = _fn_t1_0.2
-            solid = false
-            max_radius = *1
+ttl = _fn_t1_0.2
+solid = false
+max_radius = *1
         ]], {max_radius or 4})
         l.spr.idle = dstarc("sprites = { 185; 186; 187 }, fps = 4")
         return l
@@ -26,13 +26,13 @@ c_element = cstar("c_element:c_obj", {
         local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
         local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
         dstar(l, [[
-            ttl = _fn_t1_0.3
-            max_dist = 20
-            destroy_req_prev_frame = false
-            origx = *1
-            origy = *2
-            dir = *3
-            el = *4
+ttl = _fn_t1_0.3
+max_dist = 20
+destroy_req_prev_frame = false
+origx = *1
+origy = *2
+dir = *3
+el = *4
         ]], {origx, origy, dir, el})
         add(player_bullets, l)
         return l
@@ -122,8 +122,8 @@ c_thunder = cstar("c_thunder:c_element", {
         local l = c_element.new(el_thunder, dir)
         l.spr.idle = dstarc("ss = 59")
         dstar(l, [[
-            ttl = _fn_t1_0.2
-            max_dist = 25
+ttl = _fn_t1_0.2
+max_dist = 25
         ]])
         -- takes three sprites space + a tolerance
         return l
@@ -151,9 +151,9 @@ c_wind = cstar("c_wind:c_element", {
         local l = c_element.new(el_wind, dir)
         l.spr.idle = dstarc("ss = 60")
         dstar(l, [[
-            ttl = _fn_t1_0.7
-            max_dist = 25
-            power = 20
+ttl = _fn_t1_0.7
+max_dist = 25
+power = 20
         ]])
         return l
     end,
@@ -182,14 +182,14 @@ c_int = cstar("c_int:c_obj", {
     __new = function(n, x, y, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
-            show_int_button = false
-            ttl_disable_int = nil
-            int_done = false
-            solid = true
-            hover_info = nil
-            hover_info_obj = nil
-            int = true
-            cost = 0
+show_int_button = false
+ttl_disable_int = nil
+int_done = false
+solid = true
+hover_info = nil
+hover_info_obj = nil
+int = true
+cost = 0
         ]])
         return l
     end,
@@ -250,7 +250,7 @@ c_focuslith = cstar("c_focuslith:c_int", {
         player:switch_element()
     end,
     draw = function(self)
-        pal(7, altern_time(0.5) and el_colors[player.cur_el] or 7)
+        pal(7, (flr(time() / 0.5) % 2 == 0) and el_colors[player.cur_el] or 7)
         c_int.draw(self)
         pal()
     end
@@ -322,10 +322,10 @@ c_scroll = cstar("c_scroll:c_int", {
     __new = function(n, x, y, t)
         local l = c_int.new(x, y, game.mgr.misc_mgr)
         l = dstar(l, [[
-            el = *1
-            int_fn = *2
-            cost = *3
-            name = *4
+el = *1
+int_fn = *2
+cost = *3
+name = *4
         ]], {ord(t) - ord("A") + 1, nil, scr_cost[t], scr_name[t]})
         l.hover_info = "learn "..l.name.." ("..tostr(l.cost).." shards)*"..tostr(scr_desc[t])
         l.spr.idle = { ss = 12 }
@@ -370,16 +370,13 @@ c_shard = cstar("c_shard:c_obj", {
         return l
     end,
     update = function(self)
-        local dpx, dpy = player.x - self.x, player.y - self.y
-        local dist = sqrt(dpx/100 * dpx/100 + dpy/100 * dpy/100) * 100 -- avoid overflow
+        local dist = c_shard:dist(player)
         if (dist < 4) then
             player.shards += self.cnt
             if (self.static) then obj_mem_ch(self, "d") end
             self:del()
         elseif (not self.static) then
-            local r = self.speed/dist
-            self.x = lerp(self.x, player.x, r)
-            self.y = lerp(self.y, player.y, r)
+            self:moveTo(player, self.speed)
             self.speed *= self.speed_inc
         else
             self.x = self.spawn_x + sin(time()*(self.sbase + self.sx/10))
@@ -420,6 +417,34 @@ c_npc = cstar("c_npc:c_int", {
         self.diagcls.cont = self.cur_diag < #self.dialogs
         self.diagcls.ttl:restart()
         self.cur_diag = min(self.cur_diag + 1, #self.dialogs) -- stay at last dialog during interaction
+    end
+})
+
+c_bullet = cstar("c_bullet:c_obj", {
+    __new = function(n, x, y, dir, speed)
+        local l = c_obj.new(x, y, game.mgr.misc_mgr)
+        dstar(l, [[
+dir = *1
+speed = *2
+ttl = _fn_t1_3
+        ]], {dir, speed})
+        l.spr.idle = dstarc("ss = 185")
+        add(enemy_bullets, l)
+        return l
+    end,
+    update = function(self)
+        self.x += cos(self.dir) * self.speed
+        self.y += sin(self.dir) * self.speed
+        if (self:collide(player)) then 
+            player:dmg(1)
+            self:del()
+        else
+            if (map_or_obj_solid_at_px(self.x, self.y) or self.ttl:adv()) self:del()
+        end
+    end,
+    del = function(self)
+        del(enemy_bullets, self)
+        c_obj.del(self)
     end
 })
 

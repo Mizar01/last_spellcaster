@@ -56,9 +56,7 @@ offview = false
 		local s  = self.spr
 
 		if (s.effect == "blink_white") then
-			if (time() % 0.2 < 0.1) then
-				for c = 0, 15 do pal(c, 7) end -- white override for entire palette
-			end
+			if (time() % 0.2 < 0.1) for c = 0, 15 do pal(c, 7) end -- white override for entire palette
 		end
 
 		local sprph = s[self.phase]
@@ -69,9 +67,7 @@ offview = false
 			if (sprph.loop ~= nil and sprph.loop == false and sprph.sprites[#sprph.sprites] == s.last_frame) then
 				next_sprite = s.last_frame
 			else
-				if (s.time_start == nil or s.time_start == 0) then
-					s.time_start = time()
-				end
+				if (s.time_start == nil or s.time_start == 0) s.time_start = time()
 				next_sprite = sprph.sprites[1 + flr((time() - s.time_start) / (1 / sprph.fps)) % #sprph.sprites]
 			end
 		end
@@ -97,8 +93,7 @@ offview = false
 	-- Get the hitbox vertex points of an object in world coordinates, with optional offsets ox, oy
 	 --  if you must calculate a destination point.
 	hitbox_pos = function(self, ox, oy)
-		ox = ox or 0
-		oy = oy or 0
+		ox, oy = ox or 0, oy or 0
 		return {
 			x = self.x + ox + self.hitbox.x,
 			y = self.y + oy + self.hitbox.y,
@@ -108,6 +103,16 @@ offview = false
 	end,
 	out_of_map = function(self)
 		return self.x < 0 or self.y < 0 or self.x > map_wpx or self.y > map_hpx
+	end,
+	dist = function(self, other)
+		local dpx, dpy = other.x - self.x, other.y - self.y
+		return sqrt(dpx/100 * dpx/100 + dpy/100 * dpy/100) * 100 -- avoid overflow
+	end,
+	moveTo = function(self, t, speed)
+		local dist = self:dist(t)
+		local r = self.speed/dist
+        self.x = lerp(self.x, t.x, r)
+        self.y = lerp(self.y, t.y, r)
 	end,
 })
 --------------------------------------------------

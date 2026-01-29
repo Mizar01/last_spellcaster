@@ -5,6 +5,11 @@ __lua__
 #include game/common.lua
 target_file_path = "./microvania/compressed_maps.lua"
 
+
+function char_at(s, i)
+    return sub(s, i, i)
+end
+
 -- Return a string obtained by taking only the odd characters of the input string
 function odd_chars(s)
     local res = ""
