@@ -110,7 +110,7 @@ offview = false
 	end,
 	moveTo = function(self, t, speed)
 		local dist = self:dist(t)
-		local r = self.speed/dist
+		local r = speed/dist
         self.x = lerp(self.x, t.x, r)
         self.y = lerp(self.y, t.y, r)
 	end,

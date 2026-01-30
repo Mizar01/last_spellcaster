@@ -370,7 +370,7 @@ c_shard = cstar("c_shard:c_obj", {
         return l
     end,
     update = function(self)
-        local dist = c_shard:dist(player)
+        local dist = self:dist(player)
         if (dist < 4) then
             player.shards += self.cnt
             if (self.static) then obj_mem_ch(self, "d") end
