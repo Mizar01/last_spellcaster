@@ -194,11 +194,13 @@ tpos = {x=nil;y=nil}
 mvrngx = 104
 mvrngy = 88
 ]])
+        cur_boss = l
         return l
     end,
     update = function(self)
 
         c_enemy.update(self)
+
         if (self.frozen_t.t > 0) return
 
         if (self:collide(player)) player:dmg(5)

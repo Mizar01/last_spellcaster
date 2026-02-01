@@ -53,6 +53,8 @@ stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru
 map_w, map_h = 48, 32
 map_wpx, map_hpx = map_w * 8, map_h * 8
 
+cur_boss = nil
+
 stage = 5
 spawn1 = true
 -- ovd_respawn = dstarc("43;30")

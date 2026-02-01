@@ -51,22 +51,16 @@ bounce_map=false
 
 		local p = self
 
-		local btn = {
-			left = btn(0),
-			right = btn(1),
-			jump = btn(4),
-			jump_start = btnp(4),
-			action = btnp(5)
-			-- d = btnp(3,1), -- d key (for debug)
-		}
+		local btn = dstarc("left=*1;right=*2;jump=*3;jump_start=*4;action=*5", {btn(0),btn(1),btn(4),btnp(4),btnp(5)})
 
 		if (p.phase == "dead") then
 			if (p.prev_btn.left) obj_move(p, dir_left) 
-			if (p.prev_btn.right) obj_move(p, dir_right) 
-			p.speed = p.speed * 0.9
+			if (p.prev_btn.right) obj_move(p, dir_right)
+			p.speed *= 0.9
 			p:apply_forces(btn)
 			if (p.t_respawn:adv()) then
 				-- respawn the player
+				if (cur_boss != nil) cur_boss.life = cur_boss.max_life
 				p:respawn(p.spawn_x, p.spawn_y)
 				p.life = p.max_life
 				p.phase = "idle"
@@ -176,14 +170,14 @@ bounce_map=false
 	end,
 	apply_forces = function(self, btn)
 		-- jump and jump stack
-		if (not self.blocked and btn.jump_start) then
+		if not self.blocked and btn.jump_start then
 			self:set_start_jump()
 		end
-		if (not btn.jump and self.jstack > 0) then
+		if not btn.jump and self.jstack > 0 then
 			self.jstack = 0 -- interrupt stacking
 		end
 
-		if (self.jstack > 0) then
+		if self.jstack > 0 then
 			self.speedy = -self.jforce
 			self.jstack -= 1
 		end
@@ -193,7 +187,7 @@ bounce_map=false
 		self.speedy += gravity
 		self.speedy = min(self.speedy, self.max_speedy)
 		local m = obj_move(self, self.speedy < 0 and dir_up or dir_down, abs(self.speedy))
-		if (m == 0) then
+		if m == 0 then
 			self:reset_jump_vars()
 			if (self.phase == "jump") self.phase = "idle"
 		end
