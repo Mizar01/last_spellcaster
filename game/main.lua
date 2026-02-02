@@ -32,7 +32,7 @@ c_game = cstar("c_game", {
         self.win_stage = false
         self.menu = false
         self.play = true
-        if (self.require_player_rebuild) then
+        if self.require_player_rebuild then
             player = c_player.new(0, 0)
             self.require_player_rebuild = false
         end
@@ -56,20 +56,20 @@ c_game = cstar("c_game", {
     end,
     stage_check = function(self)
         local ptx, pty = flr(player.x / 8), flr(player.y / 8)
-        if (ptx < 0 or (ptx >= map_w - 1 and player.x > map_w * 8 - 4) or (pty <= 0 and player.y < 3) or pty >= map_h - 1) then
+        if ptx < 0 or (ptx >= map_w - 1 and player.x > map_w * 8 - 4) or (pty <= 0 and player.y < 3) or pty >= map_h - 1 then
             -- LOAD A NEW STAGE (MAP PORTION)
             spawn1 = false
             local prev_stage = stage_config_get()
             local pwtx, pwty = ptx + prev_stage.wtx or 0, pty + prev_stage.wty or 0
-            if (pty <= 0) then 
+            if pty <= 0 then 
                 pwty-=2
                 pwtx+=1  -- assume there's always a free tile on the right at the top
-            elseif (pty >= map_h - 1) then pwty+=2 end
+            elseif pty >= map_h - 1 then pwty+=2 end
             if (ptx >= map_w - 1) pwtx+=1
             local cs = nil
             for i = 1,#stage_config do
                 cs = stage_config[i]
-                if (pwtx >= cs.wtx and pwtx < cs.wtx + map_w and pwty >= cs.wty and pwty < cs.wty + map_h) then
+                if pwtx >= cs.wtx and pwtx < cs.wtx + map_w and pwty >= cs.wty and pwty < cs.wty + map_h then
                     stage = i
                     break
                 end
@@ -91,7 +91,7 @@ c_game = cstar("c_game", {
     update = function(self)
 
         if self.menu then
-            if (btnp(5,0)) then
+            if btnp(5,0) then
                 self.require_player_rebuild = true
                 self:start_play()
             end
@@ -138,7 +138,7 @@ c_game = cstar("c_game", {
         player:draw()
         self.mgr.hud_mgr:draw()  -- Always on top
 
-        if (player.phase == "dead") then
+        if player.phase == "dead" then
             local cx, cy = cam:calc_center()
             cprint("you died!", 64 + cx, 55 + cy, 8)
             cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)

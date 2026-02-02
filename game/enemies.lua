@@ -206,7 +206,7 @@ mvrngy = 88
         if (self:collide(player)) player:dmg(5)
 
         -- moving
-        if (self.tpos.x == nil or self:dist(self.tpos) < 3) then
+        if self.tpos.x == nil or self:dist(self.tpos) < 3 then
             self.tpos.x =self.spawn_x + rnd(self.mvrngx * 2) - self.mvrngx
             self.tpos.y = self.spawn_y - rnd(self.mvrngy)
         end
@@ -214,8 +214,8 @@ mvrngy = 88
 
         -- firing
         if (self.tcd:adv()) self.fire = not self.fire
-        if (self.fire) then
-            if (self.tfire:adv()) then
+        if self.fire then
+            if self.tfire:adv() then
                 c_bullet.new(self.x + 8, self.y + 8, rnd(dstarc("0;0.1;0.4;0.5;0.6;0.9")), 1)
             end
         end

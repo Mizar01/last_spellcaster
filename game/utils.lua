@@ -169,7 +169,7 @@ function setup_stage_from_string()
                 local tile_to_set = theme.tile_maps[map_tiles_by_theme(tile_variant, theme)] or 1
                 mset(tx, ty, tile_to_set)
             elseif (t == "f") then -- player start position
-                if (ovd_respawn != nil) then
+                if ovd_respawn != nil then
                     player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
                 else player:respawn(px, py) end
                 if (ovd_avail_els != nil and spawn1) player.avail_el = ovd_avail_els
