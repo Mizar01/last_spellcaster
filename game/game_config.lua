@@ -55,47 +55,47 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 5
+stage = 7
 spawn1 = true
-ovd_respawn = dstarc("6;30")
--- ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
+-- ovd_respawn = dstarc("2;2")
+ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
 use_sample_map = true
 ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 1                               1         1                                     1           1
-1                                 1     f   1             1 1 1 1 1 1 6         Q 1         1 1
-1     1 1 1 1 1 1 1 1 1 1 1 1     1         1     1 1 1 1             1 1 1 1 1 1 1   1       1
-1                           1 1   1         1     1 1 1                                 1     1
-1                         1       1         1   1 1 1     1 1 1 1 1                     1   1 1
-1 1 1 1 1 1 1 1 1 1 1   1         1         1           1           1 1 1 1 1 1 1 1 1 1 1     1
-1                       1       1             1       1     1                             1   1
-1                       1     1                 1     M   1   1                               1
-1   1 1 1 1 1 1 1 1 1 1 1     1                   1 1 1   1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1   1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1   1 1     1       1                                   1
-1                       1           M     M M     1   1 1 1 1                                 1
-1 1 1                   1 1 1 1 1 1 1 1 1 1 1     1           1 1         1     1     1 1     1
-1 1 1 1                                     1       1 1 1 1   1                               1
-1 1 1 1 1 1 1 1 1 1                           1               1       1 1 1 1 1       1       1
-1 1 1 1             1                           1 1 1 1 1 1 1     1 1           1           1 1
-1                     1 1 1 1 1 1                 1             1                 1 1 1       1
-1                               1 1 1 1 1         1         1 1     1 1 1 1 1     1            
-1   1 1 1 1 1 1 1 1                             1 R   1     1     1               1       1    
-1                   1                   1 1 1 1 1 1       1     1                 1            
-1                     1 1 1 1 1 1 1 1     N           6       1             1 1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1             1                 1 1
-1               1     1 1 1                                             1                     1
-1   1       1 1 1   1 1 1                                             1       1 1 1 1         1
-1         1     1     1           1                                   1 1             1     1 1
-1               1 1   1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1       1     1
-1   1           1     1                                                                 1     1
-1             1       1 1                                                               1 1   1
-1           1       1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1       1
-1     1                                     1                     1                         1 1
-1                                                                                             1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1                                     1               1           1     1                     1
+1                     1               1                           1                           1
+1                     1               1               1           1     1                      
+1 1 1   1 1 1 1 1 1 1 1 1 1 1   1 1 1 1               1 1   1 1 1 1     1                 f    
+1       1                   1         1               1           1     1 1 1 1 1   1 1 1 1 1 1
+1     1 1                   1 1                       1 1 1       1         1                 1
+1                           1         1               1                     1                 1
+1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1
+1                 1             1         1 1 1 1 1 1 1         1                 1           1
+1                 1                                             1                 1           1
+1         1 1 1   1             1       1 1 1 1 1 1 1 1 1       1                 1           1
+1                 1             1       1               1                         1 1 1 1   1 1
+1 1           1 1 1 1 1   1 1 1 1 1 1 1 1       1       1 1 1 1 1 1 1 1 1 1 1 1 1 1           1
+1                   1                                               1       1     1           1
+1         1 1 1     1 1 1                   1       1               1       1     1 1 1 1 1   1
+1                   1             1 1 1 1               1 1 1 1 1   1       1                 1
+1             1 1 1 1 1 1 1       1     1               1                                     1
+1                     1         1 1     1 1 1         1 1 1 1 1 1 1 1       1                 1
+1 1       1 1 1       1       1 1 1                                 1       1 1 1 1 1 1 1 1 1 1
+1                     1           1     1 1 1 1 1 1 1 1 1 1 1 1     1       1         1       1
+1             1 1 1 1 1 1 1 1     1                                 1 1 1   1         1       1
+1                       1       1 1                                     1   1                 1
+1 1       1 1 1         1         1                                     1                     1
+1                       1 1 1     1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1
+1             1 1 1 1 1 1 1       1                   1                     1                 1
+1                         1     1 1                   1                     1         1 1 1 1 1
+1         1 1 1 1 1 1 1   1       1                   1 1 1   1 1 1 1 1   1 1       1 1 1 1 1 1
+1 1                       1 1     1                   1           1                            
+1                         1       1                   1     1 1 1 1         1 1 1              
+1     1 1 1                       1                               1         1                  
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
@@ -132,9 +132,17 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("name=The underground;music=13;theme=sand;wtx=-20;wty=32"),
         dstarc("")
     ),
-    -- Final stage
     build_stage_config_item(
-        dstarc("name=The core;music=13;theme=metal;wtx=-20;wty=64"),
+        dstarc("name=The intestines;music=13;theme=sand;wtx=-20;wty=64"),
+        dstarc("")
+    ),
+    -- 6 Final stage
+    build_stage_config_item(
+        dstarc("name=The core;music=13;theme=metal;wtx=28;wty=53"),
+        dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
+    ),
+    build_stage_config_item(
+        dstarc("name=The forgotten;music=13;theme=metal;wtx=-68;wty=53"),
         dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
     ),
 }
