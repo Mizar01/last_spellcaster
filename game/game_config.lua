@@ -55,48 +55,48 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 7
+stage = 5   -- intitial stage is 2
 spawn1 = true
--- ovd_respawn = dstarc("2;2")
-ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
+ovd_respawn = dstarc("46;25")
+-- ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = true
+use_sample_map = false
 ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1                                     1               1           1     1                     1
-1                     1               1                           1                           1
-1                     1               1               1           1     1                      
-1 1 1   1 1 1 1 1 1 1 1 1 1 1   1 1 1 1               1 1   1 1 1 1     1                 f    
-1       1                   1         1               1           1     1 1 1 1 1   1 1 1 1 1 1
-1     1 1                   1 1                       1 1 1       1         1                 1
-1                           1         1               1                     1                 1
-1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1
-1                 1             1         1 1 1 1 1 1 1         1                 1           1
-1                 1                                             1                 1           1
-1         1 1 1   1             1       1 1 1 1 1 1 1 1 1       1                 1           1
-1                 1             1       1               1                         1 1 1 1   1 1
-1 1           1 1 1 1 1   1 1 1 1 1 1 1 1       1       1 1 1 1 1 1 1 1 1 1 1 1 1 1           1
-1                   1                                               1       1     1           1
-1         1 1 1     1 1 1                   1       1               1       1     1 1 1 1 1   1
-1                   1             1 1 1 1               1 1 1 1 1   1       1                 1
-1             1 1 1 1 1 1 1       1     1               1                                     1
-1                     1         1 1     1 1 1         1 1 1 1 1 1 1 1       1                 1
-1 1       1 1 1       1       1 1 1                                 1       1 1 1 1 1 1 1 1 1 1
-1                     1           1     1 1 1 1 1 1 1 1 1 1 1 1     1       1         1       1
-1             1 1 1 1 1 1 1 1     1                                 1 1 1   1         1       1
-1                       1       1 1                                     1   1                 1
-1 1       1 1 1         1         1                                     1                     1
-1                       1 1 1     1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1
-1             1 1 1 1 1 1 1       1                   1                     1                 1
-1                         1     1 1                   1                     1         1 1 1 1 1
-1         1 1 1 1 1 1 1   1       1                   1 1 1   1 1 1 1 1   1 1       1 1 1 1 1 1
-1 1                       1 1     1                   1           1                            
-1                         1       1                   1     1 1 1 1         1 1 1              
-1     1 1 1                       1                               1         1                  
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  b                                     1       X X         1                                  
+                                        1   1 1 1 1 1 1
+                                        1             1
+                                        1 1 1 1 1 1   1
+                                                      1
+    1                                   1 1 1 1 1 1 1 1 1 1 1
+                                      1                     X 1                       1 1 1 1 1
+1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1
+            a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+              e                     1 1 1 1 1 1 1 1 1 1 1 1 1 1
+        1 1 1 1 1 1 1                                                                 1 1 1
+1 1 1 1 1   b
+              b         1 1 1
+                b                   1 1 1   1     1 1 1   1     1 1 1
+                                                    b                                     1 1 1
+                  b                                                     1 1 1
+                                                                                      1 1 1
+      1 1 1 1 1 1 1 1 1 1
+      1                 1                                                       1 1 1
+1 1 1 1     1   1   1   1 1
+                          1         e   e                               1 1 1
+      1   1   1       1   1 1 1 1 1 1 1 1 1 1 1 1
+                                                1         e
+    1       a     1 1     1     1               1 1 1 1 1 1 1 1 1 1 1 1 1
+                                    1               b   b   b   b       1     g
+                                                                        1 1 1 1 1 1 1 1 1 1 1
+1 1         1                                                                               1 1
+1 1 1     1 1 1   g                     g             b   b   b   b
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
 
@@ -113,6 +113,10 @@ ice={tile_maps={49;50;51;52;53};bg_col=-15};
 
 stage_config = {
     build_stage_config_item(
+        dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0"),
+        dstarc("")
+    ),
+    build_stage_config_item(
         dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
@@ -121,28 +125,33 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         )
     ),
     build_stage_config_item(
-        dstarc("name=The green forest 2;music=13;theme=grass;wtx=48;wty=0"),
+        dstarc("name=The green forest 3;music=13;theme=grass;wtx=48;wty=0"),
+        dstarc("")
+    ),
+
+    build_stage_config_item(
+        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The green forest 3;music=13;theme=grass;wtx=-48;wty=0"),
+        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The underground;music=13;theme=sand;wtx=-20;wty=32"),
+        dstarc("name=The intestines;music=13;theme=sand;wtx=48;wty=32"),
+        dstarc("")
+    ),
+
+    build_stage_config_item(
+        dstarc("name=The intestines;music=13;theme=sand;wtx=-48;wty=64"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=sand;wtx=-20;wty=64"),
+        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=64"),
         dstarc("")
     ),
-    -- 6 Final stage
     build_stage_config_item(
-        dstarc("name=The core;music=13;theme=metal;wtx=28;wty=53"),
-        dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
-    ),
-    build_stage_config_item(
-        dstarc("name=The forgotten;music=13;theme=metal;wtx=-68;wty=53"),
+        dstarc("name=The forgotten;music=13;theme=metal;wtx=48;wty=64"),
         dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
     ),
 }
