@@ -1,4 +1,4 @@
-Microvania
+last_spellcaster
 - change the name of the game and the project
 OK create 4 types of elements: thunder, fire, ice, wind
 OK create a switchlith that permits you to change element among those available

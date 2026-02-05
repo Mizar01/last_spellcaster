@@ -1,2 +1,2 @@
 #!/bin/sh
-python ../../programmi/shrinko8/shrinko8.py microvania.p8 --lint
+python ../../programmi/shrinko8/shrinko8.py last_spellcaster.p8 --lint
