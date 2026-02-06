@@ -19,6 +19,7 @@ c_game = cstar("c_game", {
             play = false,
             stage_title_phase = false,
             require_player_rebuild = true,
+            minimap = {},
             mgr = {
                 enemy_mgr = c_mgr.new(),
                 misc_mgr = c_misc_mgr.new(),
@@ -26,7 +27,29 @@ c_game = cstar("c_game", {
             },
         }
         menuitem(1, "new game", function() game:start_menu() end)
+        c_game.prepare_minimap(g)
         return g
+    end,
+    prepare_minimap = function(self)
+        flog("preparing minimap...")
+        local mm = {}
+        local i = 1
+        for st in all(stage_compressed_maps) do
+            local converted_type_map = matrix_map(map_h, map_w, "")
+            load_rle_map(st, map_w, converted_type_map)
+            for ty=0, map_h - 1 do
+                for tx=0, map_w - 1 do
+                    local mt_x = tx + (stage_config[i].wtx + 34)
+                    local mt_y = ty + (stage_config[i].wty + 64)
+                    if converted_type_map[tx][ty]=="1" then
+                        local sx, sy = mt_x / 2, mt_y / 2
+                        add(mm, {sx, sy})
+                    end
+                end
+            end
+            i += 1
+        end
+        self.minimap = mm
     end,
     start_play = function(self)
         self.win_stage = false
@@ -88,6 +111,12 @@ c_game = cstar("c_game", {
             cam:place(player.x, player.y)
         end
     end,
+    draw_minimap = function(self)
+        rectfill(-25 + cam.x, - 32 + cam.y, 64 + cam.x, 22 + cam.y, 1)
+        for p in all(self.minimap) do
+            pset(p[1] -15 + cam.x, p[2] - 64 + cam.y, 7)
+        end
+    end,
     update = function(self)
 
         if self.menu then
@@ -137,6 +166,8 @@ c_game = cstar("c_game", {
         self.mgr.enemy_mgr:draw()
         player:draw()
         self.mgr.hud_mgr:draw()  -- Always on top
+
+        -- self:draw_minimap()
 
         if player.phase == "dead" then
             local cx, cy = cam:calc_center()
