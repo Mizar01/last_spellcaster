@@ -140,19 +140,14 @@ c_game = cstar("c_game", {
     draw = function(self)
 
         if self.menu then
-            cls(8)
-            rectfill(0, 40, 127, 80, 0)
+            cls()
+            -- rectfill(0, 40, 127, 80, 0)
             local t = t()
-            -- line(70 + 64 - flr((t / 0.05) % 130), 62, 70 + 70 - flr((t / 0.05) % 130), 62, 9)
-            -- line(70 + 70 - flr((t / 0.030) % 130), 60, 70 + 75 - flr((t / 0.030) % 130), 60, 9)
-            -- line(70 + 60 - flr((t / 0.020) % 130), 64, 70 + 65 - flr((t / 0.020) % 130), 64, 9)
             spr(
                 80 + flr((t / 0.10) % 3),
                 60,
                 58
             )
-            -- line(0, 40, 127, 40, 7)
-            -- line(0, 80, 127, 80, 7)
             cprint("* new title here! *", 64, 50, 7)
             cprint("press (❎) to start", 64, 70, 7)
             return

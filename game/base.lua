@@ -15,6 +15,7 @@ spawn_y=*2
 bounce_map=true
 tw = 1
 th = 1
+solid = false
 ]], {x or 0, y or 0, parent_mgr or nil})
 
 		o.spr = dstarc([[

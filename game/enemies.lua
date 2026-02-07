@@ -64,7 +64,7 @@ etype = *2
         end
 
         if (self.dmg_time:adv()) self.spr.effect = "none"
-        if (self.frozen_t:adv()) then 
+        if (self.frozen_t:adv()) then
             self:unfreeze()
         else
             if (self.frozen_t:t_left_btw(0.1, 2)) self.spr.effect = "blink_white"

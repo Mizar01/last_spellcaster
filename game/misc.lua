@@ -46,7 +46,7 @@ el = *4
             self.destroy_req_prev_frame = true -- mark for deletion next frame, because i need also to use the time at 0.
         end
         self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
-        if (map_or_obj_solid_at_px(self.x, self.y)) then
+        if (mget2_by_px_solid(self.x, self.y)) then --only tile collisions, obj solids are checked by solids themselves.
             self:del()
         end
     end,
@@ -54,6 +54,7 @@ el = *4
         return (self.dir == dir_left) and -1 or 1
     end,
     hit = function(self, trg)
+        flog("bullet hit "..tostr(trg))
         c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
         self:effect(trg)
         self:del()
@@ -301,6 +302,14 @@ int=*1
         if (open) then c_door.open(l) end
         if (not open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
         return l
+    end,
+    update = function(self)
+        c_int.update(self)
+        if (self.phase == "close") then
+            for b in all(player_bullets) do
+                if (self:collide(b)) b:del()
+            end
+        end
     end,
     open = function(self)
         self.phase = "open"
