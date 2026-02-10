@@ -26,31 +26,33 @@ c_game = cstar("c_game", {
                 hud_mgr = c_hud_mgr.new(),
             },
         }
+        -- create parallax pixels in the background
+        g.bgpos = {0, 0}
         menuitem(1, "new game", function() game:start_menu() end)
-        c_game.prepare_minimap(g)
+        -- c_game.prepare_minimap(g)
         return g
     end,
-    prepare_minimap = function(self)
-        flog("preparing minimap...")
-        local mm = {}
-        local i = 1
-        for st in all(stage_compressed_maps) do
-            local converted_type_map = matrix_map(map_h, map_w, "")
-            load_rle_map(st, map_w, converted_type_map)
-            for ty=0, map_h - 1 do
-                for tx=0, map_w - 1 do
-                    local mt_x = tx + (stage_config[i].wtx + 34)
-                    local mt_y = ty + (stage_config[i].wty + 64)
-                    if converted_type_map[tx][ty]=="1" then
-                        local sx, sy = mt_x / 2, mt_y / 2
-                        add(mm, {sx, sy})
-                    end
-                end
-            end
-            i += 1
-        end
-        self.minimap = mm
-    end,
+    -- prepare_minimap = function(self)
+    --     flog("preparing minimap...")
+    --     local mm = {}
+    --     local i = 1
+    --     for st in all(stage_compressed_maps) do
+    --         local converted_type_map = matrix_map(map_h, map_w, "")
+    --         load_rle_map(st, map_w, converted_type_map)
+    --         for ty=0, map_h - 1 do
+    --             for tx=0, map_w - 1 do
+    --                 local mt_x = tx + (stage_config[i].wtx + 34)
+    --                 local mt_y = ty + (stage_config[i].wty + 64)
+    --                 if converted_type_map[tx][ty]=="1" then
+    --                     local sx, sy = mt_x / 2, mt_y / 2
+    --                     add(mm, {sx, sy})
+    --                 end
+    --             end
+    --         end
+    --         i += 1
+    --     end
+    --     self.minimap = mm
+    -- end,
     start_play = function(self)
         self.win_stage = false
         self.menu = false
@@ -111,12 +113,12 @@ c_game = cstar("c_game", {
             cam:place(player.x, player.y)
         end
     end,
-    draw_minimap = function(self)
-        rectfill(-25 + cam.x, - 32 + cam.y, 64 + cam.x, 22 + cam.y, 1)
-        for p in all(self.minimap) do
-            pset(p[1] -15 + cam.x, p[2] - 64 + cam.y, 7)
-        end
-    end,
+    -- draw_minimap = function(self)
+    --     rectfill(-25 + cam.x, - 32 + cam.y, 64 + cam.x, 22 + cam.y, 1)
+    --     for p in all(self.minimap) do
+    --         pset(p[1] -15 + cam.x, p[2] - 64 + cam.y, 7)
+    --     end
+    -- end,
     update = function(self)
 
         if self.menu then
@@ -135,19 +137,17 @@ c_game = cstar("c_game", {
             if (v.update) v:update()
         end
         player:update()
+
+        self.bgpos[1] = cam.x * 0.1
+        self.bgpos[2] = cam.y * 0.1
             
     end,
     draw = function(self)
 
         if self.menu then
             cls()
-            -- rectfill(0, 40, 127, 80, 0)
             local t = t()
-            spr(
-                80 + flr((t / 0.10) % 3),
-                60,
-                58
-            )
+            spr(80 + flr((t / 0.10) % 3), 60, 58)
             cprint("* new title here! *", 64, 50, 7)
             cprint("press (❎) to start", 64, 70, 7)
             return
@@ -155,7 +155,13 @@ c_game = cstar("c_game", {
 
         -- Draw play
         cls(stage_config_get().theme.bg_col)
-        map(0, 0, 0, 0, 128, 32, false)
+        -- background parallax
+        for x = 0, 23 do
+            for y = 0, 15 do
+                spr(9, x * 16 + self.bgpos[1], y * 16 + self.bgpos[2], 2, 2)
+            end
+        end
+        map(0, 0, 0, 0, tw, th, false)
 
         self.mgr.misc_mgr:draw()
         self.mgr.enemy_mgr:draw()

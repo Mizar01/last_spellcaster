@@ -40,7 +40,7 @@ OK re-check the scroll cost decrease and shard doors cost decrease when interact
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 OK test the shards moving towards the player (after the refactor of dist and moveTo)
 OK test the boss movements.
-- Sometimes vines are not burnt when hit by fireball (see stage 4)
+OK Sometimes vines are not burnt when hit by fireball (see stage 4)
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
@@ -48,8 +48,11 @@ OK test the boss movements.
 
 OK add skeleton walking
 OK add another flying enemy witch
-- add 1 or 2 bosses
+- add 1 or 2 more bosses
 
+- add a background parallax
+
+- improve map design
 
 - review the scroll descriptions
 - music
