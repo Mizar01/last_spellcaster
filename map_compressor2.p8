@@ -26,6 +26,10 @@ end
 -- legend:
 -- space = empty
 -- 1 = solid terrain block
+-- 2 = background themed item
+-- 3 = background themed item
+-- 4 = background themed item (size 1x2)
+-- 5 = background themed item (size 2x2)
 -- 6 = focuslith (change element)
 -- a = horizontal bat
 -- b = vertical bat

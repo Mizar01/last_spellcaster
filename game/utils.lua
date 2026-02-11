@@ -150,7 +150,6 @@ function setup_stage_from_string()
     end
 
      -- SECOND PASS: set tile variations according to theme
-	local emgr = game.mgr.enemy_mgr
     local mmgr = game.mgr.misc_mgr
     local swarr = {}
     local dswarr = dstarc("M={};N={};O={};P={}")
@@ -168,6 +167,13 @@ function setup_stage_from_string()
                 local tile_variant = neighbor_conf(converted_type_map, tx, ty)
                 local tile_to_set = theme.tile_maps[map_tiles_by_theme(tile_variant, theme)] or 1
                 mset(tx, ty, tile_to_set)
+            elseif (instr("2345", t)) then -- background items
+                local off = stage_cfg.bg_item_off[tonum(t) - 1]
+                local io = c_obj.new(px + off[1], py + off[2], mmgr)
+                io.spr.idle.sprites = stage_cfg.bg_item_spr[tonum(t) - 1]
+                io.tw = off[1] == 0 and 1 or 2
+                io.th = off[2] == 0 and 1 or 2
+                add(mmgr, io)
             elseif (t == "f") then -- player start position
                 if ovd_respawn != nil then
                     player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)

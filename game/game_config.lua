@@ -55,47 +55,47 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 5  -- intitial stage is 2
+stage = 2  -- intitial stage is 2
 spawn1 = true
 -- ovd_respawn = dstarc("46;25")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
   b                                     1       X X         1                                  
-                                        1   1 1 1 1 1 1
-                                        1             1
-                                        1 1 1 1 1 1   1
-                                                      1
-    1                                   1 1 1 1 1 1 1 1 1 1 1
+                                        1   1 1 1 1 1 1                                        
+                                        1             1                                        
+                                        1 1 1 1 1 1   1                                        
+                                                      1                                        
+    1                                   1 1 1 1 1 1 1 1 1 1 1                                  
                                       1                     X 1                       1 1 1 1 1
-1 1 1 1 1   p     f             6   1                       1                     1 1 1 1 1 1 1
+1 1 1 1 1   p     f   5   2     6   1                       1                     1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1
-            a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-              e                     1 1 1 1 1 1 1 1 1 1 1 1 1 1
-        1 1 1 1 1 1 1                                                                 1 1 1
-1 1 1 1 1   b
-              b         1 1 1
-                b                   1 1 1   1     1 1 1   1     1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1            
+            a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                    
+              e                     1 1 1 1 1 1 1 1 1 1 1 1 1 1                                
+        1 1 1 1 1 1 1                                                                 1 1 1    
+1 1 1 1 1   b                                                                                  
+              b         1 1 1                                                                  
+                b                   1 1 1   1     1 1 1   1     1 1 1                          
                                                     b                                     1 1 1
-                  b                                                     1 1 1
-                                                                                      1 1 1
-      1 1 1 1 1 1 1 1 1 1
-      1                 1                                                       1 1 1
-1 1 1 1     1   1   1   1 1
-                          1         e   e                               1 1 1
-      1   1   1       1   1 1 1 1 1 1 1 1 1 1 1 1
-                                                1         e
-    1       a     1 1     1     1               1 1 1 1 1 1 1 1 1 1 1 1 1
-                                    1               b   b   b   b       1     g
-                                                                        1 1 1 1 1 1 1 1 1 1 1
+                  b                                                     1 1 1                  
+                                                                                      1 1 1    
+      1 1 1 1 1 1 1 1 1 1                                                                      
+      1                 1                                                       1 1 1          
+1 1 1 1     1   1   1   1 1                                                                    
+                          1         e   e                               1 1 1                  
+      1   1   1       1   1 1 1 1 1 1 1 1 1 1 1 1                                              
+                                                1         e                                    
+    1       a     1 1     1     1               1 1 1 1 1 1 1 1 1 1 1 1 1                      
+                                    1               b   b   b   b       1     g                
+                                                                        1 1 1 1 1 1 1 1 1 1 1  
 1 1         1                                                                               1 1
-1 1 1     1 1 1   g                     g             b   b   b   b
+1 1 1     1 1 1   g                     g             b   b   b   b                            
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
@@ -116,8 +116,9 @@ stage_config = {
         dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0"),
         dstarc("")
     ),
+    -- initial stage (2)
     build_stage_config_item(
-        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0"),
+        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;bg_item_spr={{8};{};{};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 u = {cname=lady;msg=welcome to the forest*be careful out there!}
