@@ -12,7 +12,7 @@ function test_print_matrix(mat)
         end
         str = str .. "\n"
     end
-    flog(str)
+    -- flog(str)
 end
 
 -- returns true or false alternating every given seconds

@@ -205,7 +205,7 @@ function setup_stage_from_string()
             elseif (instr("QRST", t)) then
                 local s = c_switchlith.new(px, py, mmgr)
                 if (c=="1") s.on = true
-                flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
+                -- flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
                 swarr[t] = s
             end
         end
@@ -218,7 +218,7 @@ function setup_stage_from_string()
 
     for k,v in pairs(swarr) do
         local kt = sub(sub("MNOP",ord(k) - ord("Q") + 1), 1,1)
-        flog("Linking switch "..k.." to door of type "..kt)
+        -- flog("Linking switch "..k.." to door of type "..kt)
         for dsw in all(dswarr[kt]) do
             v:link_switch(dsw)
         end

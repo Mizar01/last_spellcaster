@@ -54,7 +54,6 @@ el = *4
         return (self.dir == dir_left) and -1 or 1
     end,
     hit = function(self, trg)
-        flog("bullet hit "..tostr(trg))
         c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
         self:effect(trg)
         self:del()
@@ -297,7 +296,6 @@ hitbox = {x=0;y=0;x2=7;y2=7}
 cost = *2
 int=*1
 ]], {int, cost})
-        flog("Spawn_x = "..tostr(l.spawn_x).." Spawn_y = "..tostr(l.spawn_y))
         add(obj_solids, l)
         if (open) then c_door.open(l) end
         if (not open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"

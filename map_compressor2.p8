@@ -285,8 +285,8 @@ for y=0,2 do
 end
 
 local test_log_stage = 3
-flog("Stage "..test_log_stage.." map before compression:")
-flog(extended_maps_config[test_log_stage])
+-- flog("Stage "..test_log_stage.." map before compression:")
+-- flog(extended_maps_config[test_log_stage])
 
 cls()
 content = "stage_compressed_maps = {\n"

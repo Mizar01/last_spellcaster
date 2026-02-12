@@ -66,14 +66,14 @@ ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-  b                                     1       X X         1                                  
+  b                     4 4             1       X X         1                                  
                                         1   1 1 1 1 1 1                                        
                                         1             1                                        
                                         1 1 1 1 1 1   1                                        
                                                       1                                        
     1                                   1 1 1 1 1 1 1 1 1 1 1                                  
                                       1                     X 1                       1 1 1 1 1
-1 1 1 1 1   p     f   5   2     6   1                       1                     1 1 1 1 1 1 1
+1 1 1 1 1   p     f   5   2 3   6   1                       1                     1 1 1 1 1 1 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                       1       1 1 1 1 1 1 1 1 1 1 1 1 1   1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     g       g             1 1 1 1 1 1 1 1 1 1            
             a                     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                    
@@ -118,7 +118,7 @@ stage_config = {
     ),
     -- initial stage (2)
     build_stage_config_item(
-        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;bg_item_spr={{8};{};{};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}"),
+        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 u = {cname=lady;msg=welcome to the forest*be careful out there!}
