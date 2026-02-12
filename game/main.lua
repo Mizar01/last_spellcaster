@@ -138,8 +138,8 @@ c_game = cstar("c_game", {
         end
         player:update()
 
-        self.bgpos[1] = cam.x * 0.1
-        self.bgpos[2] = cam.y * 0.1
+        self.bgpos[1] = (cam.x - cam.ox) * 0.5
+        self.bgpos[2] = (cam.y - cam.oy) * 0.5
             
     end,
     draw = function(self)
