@@ -44,6 +44,8 @@ OK Sometimes vines are not burnt when hit by fireball (see stage 4)
 - bosses health must restore when player dies.
 - improve design of health bar of bosses
 - differentiate the 3 bosses with different attacks and patterns
+OK investigate and improve boss shooting cpu performance -> the problem was that all those bullets for 3 parallel bosses where created in the same frame,
+  it is enought to make them to have a delay from the first shot to avoid the cpu spike.
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
