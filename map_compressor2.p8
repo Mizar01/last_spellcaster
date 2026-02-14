@@ -39,12 +39,13 @@ end
 -- g = spider enemy
 -- h = vines
 -- i = skeleton
+-- lm = bosses (not the final one) 
 -- ABCDEFGHIJKL = scroll
 -- MNOP = doors activated by switches
 -- QRST = switches for doors MNOP
 -- UVW = interactive doors with shards cost to open
 -- XYZ = static shards x1,x3,x5
--- pqrs = npc (the mapping is done in game_config.lua)
+-- pqrs = npcs (the mapping is done in game_config.lua)
 
 -- empty_map_sammple
 empty_map_sample = [[

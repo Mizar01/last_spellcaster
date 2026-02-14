@@ -188,6 +188,8 @@ function setup_stage_from_string()
 			elseif (t == "8") then
             elseif (instr("egi", t)) then
 				c_walk_en.new(px, py, en_map[t])
+            elseif (instr("lmn", t)) then
+                c_boss.new(px, py, en_map[t])
             elseif (t == "h") then
                 if (c == "") c_vine.new(px, py)
             elseif (instr("XYZ", t)) then
@@ -262,7 +264,7 @@ cam = {
         self.x += (player.x - self.x) * self.csfx
         self.y += (player.y - self.y) * self.csfy
         self.x = mid(self.ox, self.x, (map_w * 8) - self.ox - 16)
-        self.y = mid(self.oy, self.y, (map_h * 8) - 40)
+        self.y = mid(self.oy, self.y, (map_h * 8) - 42)
 		local cx, cy = self:calc_center()
 		camera(cx, cy)
     end,

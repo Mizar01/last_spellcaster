@@ -32,7 +32,7 @@ npc_sprites = dstarc([[
 lea = {192;193}
 lady = {208;209}
 ]])
-en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;")
+en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3")
 en_sprites=dstarc([[
 dog={idle={144;145};run={146;147}}
 spider={idle={160;161};run={162;163}}
@@ -41,6 +41,9 @@ bath={idle={128;129}}
 batv=_k_bath
 witchh={idle={130;131}}
 witchv=_k_witchh
+boss1={idle={203;205}}
+boss2={idle={231;233}}
+boss3={idle={199;201}}
 ]])
 en_mv=dstarc([[bath=horizontal;batv=vertical;witchh=horizontal;witchv=vertical;]])
 fsolid_idx = 0 -- flag index used for solid
@@ -55,7 +58,7 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 5  -- intitial stage is 2
+stage = 1  -- intitial stage is 2
 spawn1 = true
 -- ovd_respawn = dstarc("46;25")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
@@ -65,38 +68,38 @@ use_sample_map = true
 ovd_avail_els = dstarc("true;true;true;false")
 ovd_cur_el = el_fire
 sample_map = [[
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 Y Y     1                                                                       1       Y Y 1
-1 X X     1                                   f                                   1       X X 1
-1 1 1 1   1                               1 1 1 1 1                               1   1 1 1 1 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1
-1         1 1                       2                                             1 1         1
-1       1 1                         1 1               1 1                           1 1       1
-1                                 5   3     4 X X                                             1
-1             c                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                   c           1
-1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1 1 1 1             1 1 1 1 1 1 1 1 1 1 1 1 1           1 1 1 1 1 1 1 1 1 1 1 1
-1 1 1 1 1 1 1 1 1 1 1     1 1       1 1 1 1 1 1 1 1 1 1 1 1       1 1     1 1 1 1 1 1 1 1 1 1 1
-1                                                       1 1                                   1
-1     b             1 1 1 1                             1 1         1 1 1 1             b     1
-1       b                                               1 1                               b   1
-1                   6                         1       1 1 1                                   1
-1 1               1 1 1                   1 1 Z 1   1 Z 1 1 1 1         1 1 1               1 1
-1 1 1         1                           1 Z           Z 1                               1 1 1
-1 1 1 1                   1 1 1           1 1 Z   E   Z 1 1     d                       1 1 1 1
-1 1 1 1 1                                   1 1 1 1 1 1 1                             1 1 1 1 1
-1 1 1 1 1 1 1                                 1 1 1 1 1                           1 1 1 1 1 1 1
-1             1                                 1 1 1                                         1
 1                                                                                             1
-1               d                                                             d               1
-1 1 1 1 1     1 1 1       1 1 1       d d                       1 1 1     1 1 1       1 1 1 1 1
-        i     i                                                                                
-1 1 1 1 1 1 1 1 1 1         i     g           6       i     i               1 1 1   1 1 1 1 1 1
-1 1           g       1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1       1   1   1
-1       1 1 1 1 1 1 1       6     h h Q 1   M S N   1 R h h         6         1     1   1   1 1
-1 1   1               1   1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1   1 1 1   1   1   1   1
-1           1 X 1   g       1 1 1 1 1       P O h           i   i   T 1           Y 1   1   1 1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1     1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1     f                       l               n             m                                 1
+1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
 

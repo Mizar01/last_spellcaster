@@ -411,7 +411,7 @@ c_npc = cstar("c_npc:c_int", {
         if (self.diagcls and ((abs(self.x - player.x) > 40 or abs(self.y - player.y) > 40) or self.diagcls.destroyed)) then
             self.diagcls:del()
             if (self.boss) then 
-                c_boss.new(self.x - 8, self.y - 8)
+                c_boss.new(self.x - 8, self.y - 8, "boss3")
                 self:del()
             end
             self.cur_diag = 1 -- reset dialog

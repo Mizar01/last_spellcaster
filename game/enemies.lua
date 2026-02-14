@@ -177,9 +177,9 @@ hitbox = { x=0;y=0;x2=7;y2=7}
 })
 
 c_boss = cstar("c_boss:c_enemy", {
-    __new = function(n, x, y)
+    __new = function(n, x, y, name)
         local l = c_enemy.new("boss", x, y, 0.3, game.mgr.enemy_mgr)
-        l.spr.idle = dstarc("sprites={199;201};fps=2;loop=true")
+        l.spr.idle.sprites = en_sprites[name].idle
         dstar(l, [[
 life = 5000
 max_life = _k_life
