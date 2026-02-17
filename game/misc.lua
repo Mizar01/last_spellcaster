@@ -403,7 +403,7 @@ c_npc = cstar("c_npc:c_int", {
         l.dialogs = split(dialogs, "/")
         l.cur_diag = 1
         l.diagcls = nil
-        l.boss = codename == "lea" and stage != 2
+        l.boss = codename == "lea" and stage == 9
         return l
     end,
     update = function(self)
