@@ -44,3 +44,6 @@ Bullet design, enemies ai, background, boss movements, fighting style.
 
 ## Known bugs:
 Some bugs noticed during a transition from a map to another.
+
+## Source Code:
+The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
