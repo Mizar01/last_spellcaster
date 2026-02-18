@@ -1,21 +1,44 @@
-# Map connections 
+Ideas for the story:
+Long time ago the kingdom fell into ruin after a misterious army of monsters invaded the land.
+The people in the land were hiding in the forests and caves to survive the fury of the enemy.
+Among all the kingdom army, only the mage guild survived for years in the underground.
+Mages were sent to surface to find the source of the invasion and learn something. No one ever returned, and after some time
+the last mages decided to spread their knowledge to the surface in some way, hoping that someone will be able to fight back one day.
+The land is full of ruins, dangerous monsters and vicious bandits, but also of hidden knowledge and powerful artifacts.
 
-## Idea 1 - Map quadrants and codes 
+Sim was raised by his aunt Lea, afer his parents died of a unknown disease spread by the monsters. 
+Lea was a former royal advisor and she kept a lot of documents about the kingdom history.
+One day, while reading those documents, Sim finds out what was the last resort of the mages, 
+and asked his aunt about the scrolls scattered all over the kingdom.
+Lea was against the desire for Sim to go after the scrolls, but Sim was determined to go anyway.
 
-## Idea 2 - Offset array between maps
-If I define an offset between different maps, I can build a function to calculate what the next map will be.
-   stage1 = wtx=0,wty=0
-   stage2 = wtx=48,wty=0
-When the player is on tx=48, ty=10 I can calculate what is the right stage to fall in that offset and build it.
-To do this I must memorize the player tile in abstract full tile coords: 
-    in stage2 for example p.wtx = 48 but the the p.tx = 0 and when it will be
-    at the end of other edge it will be p.wtx = 97
-    The wtx can be calculated every frame or only when reaching edges: p.wtx = p.tx + stage.wtx
+After some time Sim is able to retrieve all the four scrolls and Lea steal them. It is revealed that 
+Lea was the insider working for the monsters all along, and she wanted to use the scrolls to have full control of the mages power.
 
-## stage_changes_map 
-Is the same grid as the stage_mem but is used to remember and apply the status of a tile during loading of the stage
-Symbols: 
-   d: destroyed - the object should not be created
-   1: state 1 of the object (for a door can be "open", for a switch can be "on" etc.)
-   2: state 2 of the object (for a door can be "closed, for a switch can be "off" etc.)
-                            
+But during this time Sim met some allies that will try to recover the scrolls. During the attempt the scrolls are once 
+again spread across the world and Sim must go again after them, trying to race against her aunt's plans.
+
+All the monsters are gathering to help Lea and after some time Sim will have to face her directly.
+
+Currency:
+- Shards: small crystals scattered around the world and dropped by enemies.
+  Every scroll and skill upgrade costs specific shards.
+
+Death:
+  - when the player dies, he respawns at the start point.
+    NOTE: for now I don't plan to make the player lose shards or regain them at some death point.
+
+Enemy respwan rules: 
+  - all enemies respawn when the player dies.
+  - all enemies respawn if they are dead and the player is too far from their spawn point.
+  - some enemies will respawn if they are dead after some time.
+
+Static Shards:
+  - some shards are found alone in fixed positions. They don't respawn when collected, ever.
+
+
+
+
+
+
+
