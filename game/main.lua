@@ -176,7 +176,7 @@ c_game = cstar("c_game", {
             cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)
             return
         end
-        print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
+        -- print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
         
         -- print(""..tostr(abs(416 - cam.x))..","..tostr(abs(64 - cam.y)))
     end,
