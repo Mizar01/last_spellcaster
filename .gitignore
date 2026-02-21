@@ -1,7 +1,8 @@
 others/
 logs/
 *.log
-*.p8l
+./*.p8l
+logs/
 demos/
 shrinko8/
 jump_tuner*

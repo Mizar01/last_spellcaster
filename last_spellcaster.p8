@@ -5,7 +5,7 @@ __lua__
 #include game/cstar.lua
 #include game/dstar.lua
 #include game/common.lua
-#include game/compressed_maps.lua
+#include game/compressed_maps.lua.p8l
 #include game/base.lua
 #include game/utils.lua
 #include game/player.lua

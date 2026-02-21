@@ -65,8 +65,8 @@ ovd_respawn=nil -- intial player spawn override in tile coords. It must be used 
 
 -- TEST VARS
 use_sample_map = false
-ovd_avail_els = dstarc("true;true;true;false")
-ovd_cur_el = el_fire
+ovd_avail_els = dstarc("false;false;false;false")
+ovd_cur_el = nil
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1

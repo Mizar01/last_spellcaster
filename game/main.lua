@@ -149,7 +149,7 @@ c_game = cstar("c_game", {
             local t = t()
             spr(80 + flr((t / 0.10) % 3), 60, 58)
             cprint("* the last spellcaster *", 64, 50, 7)
-            cprint("press (❎) to start", 64, 70, 7)
+            cprint("press ❎ to start", 64, 70, 7)
             return
         end
 
