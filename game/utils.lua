@@ -168,9 +168,9 @@ function setup_stage_from_string()
                 local tile_to_set = theme.tile_maps[map_tiles_by_theme(tile_variant, theme)] or 1
                 mset(tx, ty, tile_to_set)
             elseif (instr("2345", t)) then -- background items
-                local off = stage_cfg.bg_item_off[tonum(t) - 1]
+                local off = theme.bg_item_off[tonum(t) - 1]
                 local io = c_obj.new(px + off[1], py + off[2], mmgr)
-                io.spr.idle.sprites = stage_cfg.bg_item_spr[tonum(t) - 1]
+                io.spr.idle.sprites = theme.bg_item_spr[tonum(t) - 1]
                 io.tw = off[1] == 0 and 1 or 2
                 io.th = off[2] == 0 and 1 or 2
                 add(mmgr, io)

@@ -23,17 +23,19 @@ max_radius = *1
 
 c_element = cstar("c_element:c_obj", {
     __new = function(n, el, dir)
-        local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y + 4
+        local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y
         local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
+        l.spr.idle = el_idle_setup[el]
         dstar(l, [[
-ttl = _fn_t1_0.3
+ttl = *5
 max_dist = 20
 destroy_req_prev_frame = false
 origx = *1
 origy = *2
 dir = *3
 el = *4
-        ]], {origx, origy, dir, el})
+        ]], {origx, origy, dir, el, c_timer.new(el_ttl[el],false)})
+        if (dir == dir_left) l.spr.flip_x = true
         add(player_bullets, l)
         return l
     end,
@@ -50,9 +52,9 @@ el = *4
             self:del()
         end
     end,
-    dirmult = function(self)
-        return (self.dir == dir_left) and -1 or 1
-    end,
+    -- dirmult = function(self)
+    --     return (self.dir == dir_left) and -1 or 1
+    -- end,
     hit = function(self, trg)
         c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
         self:effect(trg)
@@ -70,23 +72,7 @@ el = *4
 c_fire = cstar("c_fire:c_element", {
     name = "fire",
     __new = function(n, dir, parent_mgr)
-        local l = c_element.new(el_fire, dir)
-        l.radius = 1
-        l.max_radius = 2
-        return l
-    end,
-    update = function(self)
-        c_element.update(self)
-        if (self.ttl.t > 0) self.radius = timer_lerp(1, self.max_radius, self.ttl, true)
-    end,
-    draw = function(self)
-        local cols = { 1, 2, 9, 8 }
-        local dm = self:dirmult()
-        for i = 0, 2 do
-            local radf = (i / 3) * self.radius
-            local offset_x = dm * i * 2
-            circfill(self.x + offset_x, self.y, 1.5 * radf, cols[i + 1])
-        end
+        return c_element.new(el_fire, dir)
     end,
     effect = function(self, trg)
         trg:unfreeze()
@@ -97,19 +83,10 @@ c_fire = cstar("c_fire:c_element", {
 c_ice = cstar("c_ice:c_element", {
     name = "ice",
     __new = function(n, dir, parent_mgr)
-        local l = c_element.new(el_ice, dir)
-        l.radius = 1
-        l.max_radius = 1.5
-        return l
+        return c_element.new(el_ice, dir)
     end,
     update = function(self)
         c_element.update(self)
-        if (self.ttl.t > 0) self.radius = timer_lerp(1, self.max_radius, self.ttl, true)
-    end,
-    draw = function(self)
-        local cols = { 12, 6 }
-        local dm = self:dirmult()
-        rectfill(self.x + dm * 0 - self.radius, self.y - self.radius, self.x + dm * 0 + self.radius, self.y + self.radius, rnd(cols))
     end,
     effect = function(self, trg)
         trg:freeze()
@@ -119,59 +96,14 @@ c_ice = cstar("c_ice:c_element", {
 c_thunder = cstar("c_thunder:c_element", {
     name = "thunder",
     __new = function(n, dir, parent_mgr)
-        local l = c_element.new(el_thunder, dir)
-        l.spr.idle = dstarc("ss = 59")
-        dstar(l, [[
-ttl = _fn_t1_0.2
-max_dist = 25
-        ]])
-        -- takes three sprites space + a tolerance
-        return l
+        return c_element.new(el_thunder, dir)
     end,
-    draw = function(self)
-        local step = 4
-        local x = self.origx
-        local y = self.origy
-        local dm = self:dirmult()
-        local cnt = true
-        while true do
-            local next_x = x + step * dm
-            local next_y = y + (rnd(4) - 2)
-            line(x, y, next_x, next_y, 7)
-            x, y = next_x, next_y
-            if (dm == 1 and x > self.x + 1) break 
-            if (dm == -1 and x < self.x - 1) break
-        end
-    end
 })
 
 c_wind = cstar("c_wind:c_element", {
     name = "wind",
     __new = function(n, dir, parent_mgr)
-        local l = c_element.new(el_wind, dir)
-        l.spr.idle = dstarc("ss = 60")
-        dstar(l, [[
-ttl = _fn_t1_0.7
-max_dist = 25
-power = 20
-        ]])
-        return l
-    end,
-    draw = function(self)
-        local dm = self:dirmult()
-        local last_vx, last_vy = nil, nil
-        for i = 0, 12 do
-            local xi = 0.5 + self.x + (i * 0.8) * dm
-            local angle = xi * 0.25
-            local rad = 1 + i * 0.25
-            local vx = xi + cos(angle) * rad
-            local vy = self.y + sin(angle) * rad
-            if last_vx != nil then
-                local col = (i % 2 == 0) and 12 or 6
-                line(last_vx, last_vy, vx, vy, col)
-            end
-            last_vx, last_vy = vx, vy
-        end
+        return c_element.new(el_wind, dir)
     end,
     effect = function(self, trg)
         trg:blow(self.dir)

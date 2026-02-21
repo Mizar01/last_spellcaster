@@ -88,7 +88,7 @@ c_game = cstar("c_game", {
             local pwtx, pwty = ptx + prev_stage.wtx or 0, pty + prev_stage.wty or 0
             if pty <= 0 then 
                 pwty-=2
-                pwtx+=1  -- assume there's always a free tile on the right at the top
+                pwtx = pwtx + (player.spr.flip_x and -1 or 1)
             elseif pty >= map_h - 1 then pwty+=2 end
             if (ptx >= map_w - 1) pwtx+=1
             local cs = nil
@@ -172,11 +172,11 @@ c_game = cstar("c_game", {
 
         if player.phase == "dead" then
             local cx, cy = cam:calc_center()
-            cprint("you died!", 64 + cx, 55 + cy, 8)
-            cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)
+            -- cprint("you died!", 64 + cx, 55 + cy, 8)
+            -- cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)
             return
         end
-        -- print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
+        print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)
         
         -- print(""..tostr(abs(416 - cam.x))..","..tostr(abs(64 - cam.y)))
     end,

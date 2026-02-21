@@ -5,6 +5,13 @@ gravity = 0.25
 dir_left, dir_right, dir_up, dir_down = dstaru("0;1;2;3")
 el_fire, el_thunder, el_ice, el_wind = dstaru("1;2;3;4")
 el_colors = dstarc("8;10;12;13")
+el_idle_setup = dstarc([[
+{sprites={112;113;114;115};fps=10;loop=false};
+{sprites={116;117;118;119};fps=30;loop=true};
+{sprites={120;121;122;123};fps=10;loop=false};
+{sprites={124};fps=1;loop=false};
+]])
+el_ttl = dstarc("0.3;1;0.4;0.5")
 el_cls = {c_fire, c_thunder, c_ice, c_wind} -- element class for each element type
 el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
 scr_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=thunder+2;J=fire+3;K=lifereg+2;L=fire+4;")
@@ -60,13 +67,15 @@ cur_boss = nil
 
 stage = 2  -- intitial stage is 2
 spawn1 = true
--- ovd_respawn = dstarc("46;25")
+-- ovd_respawn = dstarc("16;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
 use_sample_map = false
-ovd_avail_els = dstarc("false;false;false;false")
-ovd_cur_el = nil
+-- ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
+ovd_avail_els = dstarc("true;true;true;true")
+-- ovd_cur_el = nil
+ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1
@@ -108,8 +117,8 @@ ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_u
 
 themes = dstarc([[
 metal={tile_maps={1;2;3;4;5};bg_col=-15};
-sand={tile_maps={17;18;19;20;21};bg_col=0};
-grass={tile_maps={33;34;35;36;37};bg_col=0};
+sand={tile_maps={17;18;19;20;21};bg_col=0;bg_item_spr={{15};{31};{47};{41}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
+grass={tile_maps={33;34;35;36;37};bg_col=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 water={tile_maps={65;66;67;68;69};bg_col=12};
 ice={tile_maps={49;50;51;52;53};bg_col=-15};
 ]])
@@ -121,7 +130,7 @@ stage_config = {
     ),
     -- initial stage (2)
     build_stage_config_item(
-        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}"),
+        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 u = {cname=lady;msg=welcome to the forest*be careful out there!}
@@ -138,7 +147,7 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32;bg_item_spr={{15};{31};{47};{41}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}"),
+        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32;"),
         dstarc("")
     ),
     build_stage_config_item(
