@@ -208,7 +208,7 @@ mvrngy = 88
         if (self:collide(player)) player:dmg(5)
 
         -- moving
-        if self.tpos.x == nil or self:dist(self.tpos) < 3 then
+        if self.tpos.x == nil or self:distp2(self.tpos) < 9 then
             self.tpos.x =self.spawn_x + rnd(self.mvrngx * 2) - self.mvrngx
             self.tpos.y = self.spawn_y - rnd(self.mvrngy)
         end

@@ -99,17 +99,12 @@ c_game = cstar("c_game", {
                     break
                 end
             end
-            player:reset_stage_props()
-            for _, v in pairs(self.mgr) do
-                if (v.restart) v:restart()
-            end
-            obj_solids = {}
-            player_bullets = {}
-            enemy_bullets = {}
+            clean_stage()
             local nptx, npty = pwtx - cs.wtx, pwty - cs.wty
             ovd_respawn = dstarc(""..nptx..";"..npty.."")
             flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")
             setup_stage_from_string()
+            fix_jump_transition()
             cam:place(player.x, player.y)
         end
     end,

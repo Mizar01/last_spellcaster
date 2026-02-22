@@ -72,10 +72,10 @@ ovd_respawn=nil -- intial player spawn override in tile coords. It must be used 
 
 -- TEST VARS
 use_sample_map = false
--- ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
-ovd_avail_els = dstarc("true;true;true;true")
--- ovd_cur_el = nil
-ovd_cur_el = el_fire
+ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
+ovd_cur_el = nil
+-- ovd_avail_els = dstarc("true;true;true;true")
+-- ovd_cur_el = el_fire
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1
@@ -116,11 +116,10 @@ sample_map = [[
 ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = dstaru("0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15")
 
 themes = dstarc([[
-metal={tile_maps={1;2;3;4;5};bg_col=-15};
+metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 sand={tile_maps={17;18;19;20;21};bg_col=0;bg_item_spr={{15};{31};{47};{41}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 grass={tile_maps={33;34;35;36;37};bg_col=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
-water={tile_maps={65;66;67;68;69};bg_col=12};
-ice={tile_maps={49;50;51;52;53};bg_col=-15};
+ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{170};{142};{158};{143}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 ]])
 
 stage_config = {

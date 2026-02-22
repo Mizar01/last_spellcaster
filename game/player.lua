@@ -25,7 +25,7 @@ max_speed=1
 speed=0
 init_speed=0.1
 inc_speed_factor=0.2
-life=20
+life=2
 max_life=20
 init_max_life=20
 coins=0
@@ -61,7 +61,12 @@ bounce_map=false
 			if (p.t_respawn:adv()) then
 				-- respawn the player
 				if (cur_boss != nil) cur_boss.life = cur_boss.max_life
-				p:respawn(p.spawn_x, p.spawn_y)
+				-- p:respawn(p.spawn_x, p.spawn_y)
+				ovd_respawn = nil
+				clean_stage()
+				stage = 2
+				setup_stage_from_string()
+            	cam:place(player.x, player.y)
 				p.life = p.max_life
 				p.phase = "idle"
 				p.invulnerable = false

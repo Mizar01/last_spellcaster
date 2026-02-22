@@ -252,6 +252,22 @@ function neighbor_conf(ctm, tx, ty)
     return conf
 end
 
+function fix_jump_transition()
+    if mget2_by_px_solid(player.x, player.y) then
+        player.y += 8
+    end
+end
+
+function clean_stage()
+    player:reset_stage_props()
+    for _, v in pairs(game.mgr) do
+        if (v.restart) v:restart()
+    end
+    obj_solids = {}
+    player_bullets = {}
+    enemy_bullets = {}
+end
+
 cam = {
     x = 0,
     y = 0,

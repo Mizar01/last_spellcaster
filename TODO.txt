@@ -47,6 +47,7 @@ OK Sometimes vines are not burnt when hit by fireball (see stage 4)
 - make bosses open some specific doors after being defeated
 - make some enemies shoot at you
 - add some environmental hazards (spikes, traps, etc)
+- vines must not be subject to ice
 OK investigate and improve boss shooting cpu performance -> the problem was that all those bullets for 3 parallel bosses where created in the same frame,
   it is enought to make them to have a delay from the first shot to avoid the cpu spike.
 - the bosses should not return to life when the player returns to the map.
