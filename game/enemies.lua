@@ -173,7 +173,7 @@ hitbox = { x=0;y=0;x2=7;y2=7}
         add(obj_solids, l)
         return l
     end,
-    is_inv = function(self) return not (player.cur_el == el_fire)end,
+    is_inv = function(self) return not (player.cur_el == el_fire and player.lev_el[el_fire] > 1) end,
 })
 
 c_boss = cstar("c_boss:c_enemy", {

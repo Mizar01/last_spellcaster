@@ -265,7 +265,8 @@ el = *1
 int_fn = *2
 cost = *3
 name = *4
-        ]], {ord(t) - ord("A") + 1, nil, scr_cost[t], scr_name[t]})
+col = *5
+        ]], {ord(t) - ord("A") + 1, scr_fn[t], scr_cost[t], scr_name[t], scr_colors[t]})
         l.hover_info = "learn "..l.name.." ("..tostr(l.cost).." shards)*"..tostr(scr_desc[t])
         l.spr.idle = { ss = 12 }
         return l
@@ -277,6 +278,7 @@ name = *4
     action = function(self)
         if (self.int_fn != nil) then
             self.int_fn(self)
+            flog("executed int_fn for scroll "..self.name)
         else
             -- default is to give element to player
             player.cur_el = self.el
@@ -288,7 +290,7 @@ name = *4
         self:del()
     end,
     draw = function(self)
-        if (self.el) pal(7, el_colors[self.el])
+        if (self.el) pal(7, self.col)
         c_int.draw(self)
         pal()
     end,
@@ -344,6 +346,7 @@ c_npc = cstar("c_npc:c_int", {
             self.diagcls:del()
             if (self.boss) then 
                 c_boss.new(self.x - 8, self.y - 8, "boss3")
+                obj_mem_ch(self, "d") -- the npc does not ever reapper after boss generation
                 self:del()
             end
             self.cur_diag = 1 -- reset dialog

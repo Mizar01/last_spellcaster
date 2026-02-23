@@ -167,8 +167,8 @@ c_game = cstar("c_game", {
 
         if player.phase == "dead" then
             local cx, cy = cam:calc_center()
-            -- cprint("you died!", 64 + cx, 55 + cy, 8)
-            -- cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)
+            cprint("you died!", 64 + cx, 55 + cy, 8)
+            cprint("respawning in "..player.t_respawn:t_left(), 64 + cx, 65 + cy, 7)
             return
         end
         print(""..tostr(flr(player.x/8))..","..tostr(flr(player.y/8)), cam.x - 50, cam.y - 60, 7)

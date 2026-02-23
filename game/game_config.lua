@@ -13,8 +13,19 @@ el_idle_setup = dstarc([[
 ]])
 el_ttl = dstarc("0.3;1;0.4;0.5")
 el_cls = {c_fire, c_thunder, c_ice, c_wind} -- element class for each element type
-el_dmg = dstarc([[{110;20;30};{10;15;25};{0;0;0};{0;0;0}]])
-scr_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=thunder+2;J=fire+3;K=lifereg+2;L=fire+4;")
+el_dmg = dstarc([[{10;20;30;40};{10;15;25};{0;0;0};{0;0;0}]])
+scr_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=max life+1;J=fire+3;K=lifereg+2;L=max life+2;")
+scr_fn=dstarc("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;", {
+    function() player.lev_el[el_fire] = 2 end, -- E = fire+1
+    function() player.lev_el[el_fire] = 3 end, -- F = fire+2
+    function() player.lifereg_lev = 1 end, -- G = lifereg
+    function() player.lifereg_lev = 2 end, -- H = lifereg+1
+    function() player.max_life = player.init_max_life * 1.2 player.life = player.max_life end, -- I = max_life+1
+    function() player.lev_el[el_fire] = 4 end, -- J = fire+3
+    function() player.lifereg_lev = 3 end, -- K = lifereg+2
+    function() player.max_life = player.init_max_life * 1.4 player.life = player.max_life end, -- L = max_life+2
+})
+scr_colors = dstarc("A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;")
 scr_desc = dstarc([[
 A=burning hearts
 B=strike/power switches
@@ -24,10 +35,10 @@ E=can burn vines
 F=more fire power
 G=life regenerates
 H=life regen increased
-I=more powerful thunder attacks
+I=tired of losing?
 J=greatly enhanced fire attacks
 K=life regen greatly increased
-L=ultimate fire power
+L=max life to maximum
 ]])
 scr_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
 door_cost_map=dstarc("U=100;V=200;W=400;")
@@ -107,7 +118,7 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1     f                   l               n                 m                                 1
+1     f         h         A     E             H     K           I       L                     1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 

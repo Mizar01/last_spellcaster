@@ -28,6 +28,8 @@ inc_speed_factor=0.2
 life=2
 max_life=20
 init_max_life=20
+lifereg_lev=0
+lifereg_ttl=_fn_t2_4
 coins=0
 stinky_socks=false
 cur_el=nil
@@ -74,6 +76,9 @@ bounce_map=false
 			return
 		end
 
+		if (self.lifereg_ttl:adv()) then
+			self:increase_life(self.lifereg_lev / 5)
+		end
 
 		-- if (btn.d) debug = not debug
 
