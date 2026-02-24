@@ -18,25 +18,25 @@ scr_name = dstarc("A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=l
 scr_fn=dstarc("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;", {
     function() player.lev_el[el_fire] = 2 end, -- E = fire+1
     function() player.lev_el[el_fire] = 3 end, -- F = fire+2
-    function() player.lifereg_lev = 1 end, -- G = lifereg
-    function() player.lifereg_lev = 2 end, -- H = lifereg+1
-    function() player.max_life = player.init_max_life * 1.2 player.life = player.max_life end, -- I = max_life+1
+    function() player.lifereg_lev = max(1, player.lifereg_lev) end, -- G = lifereg
+    function() player.lifereg_lev = max(2, player.lifereg_lev) end, -- H = lifereg+1
+    function() player.max_life += 5 player.life = player.max_life end, -- I = max_life+1
     function() player.lev_el[el_fire] = 4 end, -- J = fire+3
     function() player.lifereg_lev = 3 end, -- K = lifereg+2
-    function() player.max_life = player.init_max_life * 1.4 player.life = player.max_life end, -- L = max_life+2
+    function() player.max_life += 10 player.life = player.max_life end, -- L = max_life+2
 })
 scr_colors = dstarc("A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;")
 scr_desc = dstarc([[
-A=burning hearts
+A=can also burn green vines
 B=strike/power switches
 C=icy things are useful!
 D=all they need is a little push
-E=can burn vines
+E=can also burn red vines
 F=more fire power
 G=life regenerates
 H=life regen increased
 I=tired of losing?
-J=greatly enhanced fire attacks
+J=can also burn blue vines
 K=life regen greatly increased
 L=max life to maximum
 ]])
@@ -82,7 +82,7 @@ spawn1 = true
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
 -- ovd_avail_els = dstarc("true;true;true;true")
@@ -118,7 +118,7 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1     f         h         A     E             H     K           I       L                     1
+1     f                   A     E     J       h h h h     j j j j       k k k k               1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 

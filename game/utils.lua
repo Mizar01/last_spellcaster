@@ -190,8 +190,8 @@ function setup_stage_from_string()
 				c_walk_en.new(px, py, en_map[t])
             elseif (instr("lmn", t)) then
                 c_boss.new(px, py, en_map[t])
-            elseif (t == "h") then
-                if (c == "") c_vine.new(px, py)
+            elseif (instr("hjk", t)) then
+                if (c == "") c_vine.new(t, px, py)
             elseif (instr("XYZ", t)) then
                 if (c == "") c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
             elseif (instr("pqrstuvwxyz", t)) then

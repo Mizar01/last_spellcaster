@@ -162,7 +162,8 @@ basey = *2
 })
 
 c_vine = cstar("c_vine:c_enemy", {
-    __new = function(n, x, y)
+    types = dstarc("h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};"),
+    __new = function(n, t, x, y)
         local l = c_enemy.new("vine", x, y, 0, game.mgr.enemy_mgr)
         l.spr.idle = dstarc("ss = 6")
         dstar(l,[[
@@ -170,10 +171,18 @@ fixed = true
 life = 10
 hitbox = { x=0;y=0;x2=7;y2=7}
         ]])
+        l.pal = c_vine.types[t].pal
+        l.flev = c_vine.types[t].flev
         add(obj_solids, l)
         return l
     end,
-    is_inv = function(self) return not (player.cur_el == el_fire and player.lev_el[el_fire] > 1) end,
+    draw = function(self)
+        pal(7, self.pal)
+        c_enemy.draw(self)
+        pal()
+    end,
+    is_inv = function(self) return not (player.cur_el == el_fire and player.lev_el[el_fire] > self.flev) end,
+
 })
 
 c_boss = cstar("c_boss:c_enemy", {

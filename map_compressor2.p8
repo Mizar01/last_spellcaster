@@ -36,7 +36,7 @@ end
 -- e = dog enemy
 -- f = player start position
 -- g = spider enemy
--- h = vines
+-- hjk = green,red,blue vines
 -- i = skeleton
 -- lm = bosses (not the final one) 
 -- ABCDEFGHIJKL = scroll
