@@ -1,7 +1,7 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
-poke(24412,-1)na=false nc=true nu="last_spellcaster/logs/log"E=60R={}function n(e,n)local e,t=unpack(split(e,":"))R[e]=n n.__index=n setmetatable(n,R[t])n.new=function(...)local t=n.__new(e,...)t.__name=e setmetatable(t,n)return t end n.super=R[t]return n end n0={}function a(t,i,l)t,l=t or{},l or{}local function d(t)local n=1while n<=#t and(sub(t,n,n)==" "or sub(t,n,n)=="\n"or sub(t,n,n)=="	")do n+=1end local e=#t while e>=n and(sub(t,e,e)==" "or sub(t,e,e)=="\n"or sub(t,e,e)=="	")do e-=1end if(n>e)return""
+poke(24412,-1)na=false nc=true nu="last_spellcaster/logs/log"E=60F={}function n(e,n)local e,t=unpack(split(e,":"))F[e]=n n.__index=n setmetatable(n,F[t])n.new=function(...)local t=n.__new(e,...)t.__name=e setmetatable(t,n)return t end n.super=F[t]return n end n0={}function a(t,i,l)t,l=t or{},l or{}local function d(t)local n=1while n<=#t and(sub(t,n,n)==" "or sub(t,n,n)=="\n"or sub(t,n,n)=="	")do n+=1end local e=#t while e>=n and(sub(t,e,e)==" "or sub(t,e,e)=="\n"or sub(t,e,e)=="	")do e-=1end if(n>e)return""
 return sub(t,n,e)end local e,n=1,#i while e<=n do while e<=n do local n=sub(i,e,e)if(n~=" "and n~="\n"and n~=";"and n~="	")break
 e+=1end if(e>n)break
 local r,f,o=e,0,nil while e<=n do local n=sub(i,e,e)if(n=="{")f+=1
@@ -10,12 +10,12 @@ if f==0do if(n=="="and not o)o=e
 if(n==";"or n=="\n")break
 end e+=1end local f,n if(o)f,n=d(sub(i,r,o-1)),d(sub(i,o+1,e-1))else n=d(sub(i,r,e-1))
 local e local i=sub(n,1,1)if i=="{"and sub(n,-1)=="}"do e=a({},sub(n,2,#n-1),l)elseif i=="*"do local n=tonum(sub(n,2))e=l[n]elseif sub(n,1,3)=="_k_"do local n=sub(n,4)e=t[n]elseif sub(n,1,4)=="_fn_"do local n=split(sub(n,5),"_")e=n0[n[1]](#n>=2and n[2]or nil)elseif n=="true"do e=true elseif n=="false"do e=false elseif n=="nil"do e=nil else e=tonum(n)if(e==nil)e=n
-end if f and f~=""do t[f]=e elseif n~=""do add(t,e)end end return t end function F(n,e)n0[n]=e end function f(e,t)local n={}a(n,e,t)return n end function Z(n,e)return unpack(f(n,e))end k=n("c_timer",{__new=function(t,n,e)local n={maxtime=flr(E*n),t=flr(E*n),loop=e or false}return n end,adv=function(n)if(n.t<0)return false
+end if f and f~=""do t[f]=e elseif n~=""do add(t,e)end end return t end function D(n,e)n0[n]=e end function f(e,t)local n={}a(n,e,t)return n end function Z(n,e)return unpack(f(n,e))end k=n("c_timer",{__new=function(t,n,e)local n={maxtime=flr(E*n),t=flr(E*n),loop=e or false}return n end,adv=function(n)if(n.t<0)return false
 n.t-=1local e=false if(n.t==0)e=true if(n.loop)n.t=n.maxtime else n.t=-1
-return e end,restart=function(n)n.t=n.maxtime end,t_left=function(n)return flr(n.t/E)end,t_left_btw=function(n,e,t)local n=n:t_left()return n>=e and n<=t end})function ns(t,i,n,e)n,e=n or 8,e or 8local t,i=flr(t/n),flr(i/e)return{tile=mget(t,i),tx=t,ty=i,ox=t*n,oy=i*e}end function nh(n,e,t,i,o,l,f,d)rectfill(n-1,e-1,n+t+1,e+i+1,f)local t=mid(0,flr(o/l*t),t)rectfill(n,e,n+t,e+i,d)end function D(n)if(not nc)return
-printh(n,nu or"mainlog")end function O(n,e,t,i)?n,e-#n*2,t,i
-end function n1(t,e,i)local n={}for e=0,e-1do n[e]={}for t=0,t-1do n[e][t]=i end end return n end function A(n,e,t)local n=n+t*(e-n)return n end function n2(e,t,n,i,o)local n=n.t/n.maxtime if(i)n=1-n
-return A(e,e+(o==l and-1or 1)*t,n)end function p(n,t)if(n==nil or n=="")return false
+return e end,restart=function(n)n.t=n.maxtime end,t_left=function(n)return flr(n.t/E)end,t_left_btw=function(n,e,t)local n=n:t_left()return n>=e and n<=t end})function ns(t,i,n,e)n,e=n or 8,e or 8local t,i=flr(t/n),flr(i/e)return{tile=mget(t,i),tx=t,ty=i,ox=t*n,oy=i*e}end function nh(n,e,t,i,o,l,f,d)rectfill(n-1,e-1,n+t+1,e+i+1,f)local t=mid(0,flr(o/l*t),t)rectfill(n,e,n+t,e+i,d)end function O(n)if(not nc)return
+printh(n,nu or"mainlog")end function A(n,e,t,i)?n,e-#n*2,t,i
+end function n1(t,e,i)local n={}for e=0,e-1do n[e]={}for t=0,t-1do n[e][t]=i end end return n end function C(n,e,t)local n=n+t*(e-n)return n end function n2(e,t,n,i,o)local n=n.t/n.maxtime if(i)n=1-n
+return C(e,e+(o==l and-1or 1)*t,n)end function p(n,t)if(n==nil or n=="")return false
 for e=1,#n do if(sub(n,e,e)==t)return true
 end return false end n_={[[1R0#4!0$4!0$4!0$b!0%b!0#4#0'4!1$Z"1"0*g!0%g!0%b!011"C!1!Z!0!1"0!1"0!1:0*1!0"1!0#1!0"a!0!1=0'1!0!1"b!0"1!0"1"0!1%0"1)0%4#0#1!0'1!0"1!0#1!0" !0#1#0&4#0.1#0%1"0!1!0#1!0!1"0$1!0:1!0%j$0#1!a!0*5!0'5!0)1&Z!0$1(0"1"0&1%0!1!0!1$0+b!1%C!1(0! !0'1#0$1!0#1#001)0!1"0%1"0&1"0!1!0"1"0)a!0%1"0!a!0$1!0!2!3!0$1"0$Q!0#M!0!1!0#1"0"5!0!2!0!2!0#5!0"Z!j"0&1$0!1$0#d!1(0$110&1!0%1#0-Y!0"1'0$b!0%g!0"1$0#1!0!1#6!0!1"0!1"0"1"0!1"0"1%0%b!0"1(0"1#0!1!0"4!1"0$b!0$b!0$1"0(b!0"1"0)1!0#1"0"4!1"0$b!1"b!0$1#0!1+0*1!0"1!0%4!1#0(1#0$1!0&1!0'1"0#1!0"1!0!5!0%Z!1$0"1$0$1!0!1!0"E!0#1!0,1!0!1.0"1#0'1!0"1"0"1!0,1!0(1(0!1#0$6!0"1"0"1!0"1!0'3!g"0"1"0)1$0$1"0#1#0"1!0"1!0"1!0$6!1(0+1$B!0!1#Z!0$1!R!0!N!0"1!2!0!N!2!0"R!1"0&1#0$c!0$1,0"1/0'1!0'c!0$1'0"h"0"h"0#1#0#b!0*1$0"1$0!1(0#1&0#1!0&b!0)1!0%h!0"b!0%1#05b!0(1'0)1"06b!0'1"0"Z!1"0)b!0/1%0)3!1#0"Z!W"0"6!0!5!0!X"0"g!0!e!0#X"0"5!0"1(0"5!0#f!0!1$0!1M]],[[1P0!b!0+4#0$1!0#X"0$1!0'4!0!4!0!4"081!0!1&0!b!0F1!0&1!0H1&0!1!0O1!0H1+0-2!0!3!0$2!0/1!X!0"4#0$X!1!0+1*0!p!0"f!0"5!0#6!0!1!X!0*1!0'2"0!19X!0*1!0#1-0!14X!0!g!0#g!0&1*0"A!1!0(a!0*150!4"0"1#0)e!0*1.0!4!0!4!0%1!0*1'0'b!0#b!0#b!001#0"1%0!b!0D4"0*b!0$1#0:1"0-b!0)1#0!1!0"1#0!1!0"1#0Gb!0&4!0+1#0)b!0:1#0(4!0$2!0"2!0#2!084"0%1#0%1*0?b!4!0%1!0(1!0C1$0"1!0!1!0!1!0!1"0;b!031!0"2!0!e!0!e!0!3!0-1#0,1!0!1!0!1!0#1!0!1,03b!0;1!0!3!0"e!0"3!0!3!0/1!0#a!0"1"0"1!0"1!0'1-0=1!0%4"b!0!b!0!b!0!b!0#1!0"g!0!3!0!3"0$2!0B1+0!1"0$1!0>4!0!4!0"4!0#1%0"1#0!g!0#5!0#5!0"g!2!0$2!b!0!b!0!b!0!b!0.170!18]],[[1P0"4"0!4!0!4!0,X!0%4!0%Y!0#1,0>1$0"4!1+0*1"0!a!0"1$0!1!a!0!1#0!a!0(4!1*0F1*0/2!0#2!0#2!0$3!0$3!0$1*0"2!0!f!0#1=0!1L0$1*03b!0&Z!1'0!1-0=1%0$1*0&1!0"X#0$X"0,1$0$1*0&1!0!1%0"1$0!1"0%a!0#1#0!1"0!1*0&1!0)4"0.1"0$1*0&1!001"0'1!4!0"1,0&1#0"a!Z!b!021!0%1*0(1"0.b!0!1"0!a!0#1"a!0"1*0)1!004!0&1!0$110"1!031%0#1+0"b!0"b!0#1!0-1"0!1"0"4!0!1!0%1*0)1"0-b!0'1#0!a!0!1*0#b!0&1!0)1"0*1!0%1*0&b!0#1"051!0"1,0+1!0&1"0-1!0$1*0"b!0(1#0#2!0$2!0#e!0!5!0#X!1!2!0#1*0%b!0'1!0"13X"0!1*0#b!0)1"0#4!0!4!0!1#4"1#4!0"1$0!1*0.1"0'1#0!4!1!4!0$1"0"1*0&b!014"0)1!0!1+0"3!0"3!0"2!0"2!0#1&0.1!0"180!1'0$1"0'1"0!1*051"0!3!0%g!0!3!0%1<0"1<]],[[1"0!1O0!j!0!b!0"b!0*d!0!d!0+S!1!S!0+1%0"b!0-b!0!b!0)1&0)1"0&b!0&1)0#6!0$b!0!O!0!O!0%6!0%1"0'130%1"0!1!0"1'0"1/0)1%0$1"0"1!0!1!0"a!0%1*021'0#1!0&a!0#1!051"0(1#0!1!0$1(0?1"0"1$0'1"0)a!0(1"0&a!0$1"0"1!0*1#0?1"0"1!0#1(0/1"0/1#0"1!0"a!0%1"0@1"0$1!0'1"021"0,1"R!0$1!0"1&0@1&0"1!0!c!0#1"051"0)N!0!j$0!6!1!0%1"021"0,1*0$1#0%m!0(1"0.1*0"1%0,1"016!1"0"1%0%1"0>1#0%1#0!c!0#1"0&a!0#1"0+a!0&1"c!0&1#0$1)071"0"1!0$1$0#1/0%e!0(1%0!c!0%1#0$1"0"h!0%180$c!0"1"0%1"0"h!0'd!0"1)0#d!0#1#0"1!0#1"0"1&0"h!0)d!0.d!0#1!0$c!0!1"0#f!M!0"1!0"h!0*g!0$a!0(g!0(1$0!1!0!1(0#1B0!1!6!0"Q!1"0"1!0'1!0'a!0&1#0&1&0!1"0"1#0"1"061!0(1$0"1!0"1!0!1"0#h!0(e!0'e!0(e!0+1!0$1L0!1$]],[[170!19Y!0#1!0C1!0$Y!1"Z!0#1!01f!011!0$X!1%0!1!0/1%0/1!0!1&0N1(0B1"0$1!0"6!0!j"0!1!0*1"0'1"0-1"0#1'0"1!0.X"061"0&c!0(100)c!0%1.0$1.0$190&1-0%170"1"0#1,0#1"0"1,06j"0#1"011"0"b!0&1$0)j"0#1"0$1$0&b!0"1"0#b!0)1!0(j"0#1"0/b!0!1"0)6!0,1"0"1#011#0'1#0#1!0%1"Z!1!0!1!Z!1$0$1#0'1%0$1!0-1!Z!0%Z!1!0/1'0)1$0$1"Z!0!D!0!Z!1"0"d!0+1)011'0.1,0%1!0*1%0-1(0&1!001#041"0,1!0A1"0'd!0>d!0'1&0"1#0#1#0#d"0+1#0"1#0#1%0$i!0"i!0H1*0$i!0"g!0%6!0#i!0"i!0'1#0!1(0%g!0#1*0!100!1!0#1!0!1!0!1"0#1'0#6!0"h"Q!1!0!M!S!N!0!1!R!h"0$6!0$1!0"1!0!1!0!1$0!1!0'1!0!1,0!1*0!1#0!1!0!1!0!1!0!1"0%1!X!1!0!g!0#1%0#P!O!h!0%i!0!i!0!T!1!0%Y!1!0!1!0!150"1;]],[[120"1=0/1"0"1#031'00N!0#N!0"R!0!6!011&0"1"0)1-0(1&0#1$0#1#0'110)1#0#1#0"1%0%1-0.1$0"1#0#1%0#1-0'a!0*1"0"1"0#1&0!1-0'1"0*1#0!1#0"1&0!1,0(a!0+1"0"1"0#1&b!1+051"0"1"0#1&b!1*0,1"0(1"0!1#0"1'0!1)071"0"1"0#1&0!1)0+1"0*1"0"1"0#1&0!1)071#0!1#0"1&0"1(071"0"1"0"1(0#1&0)1"0%n!0&1"0"1"0#1"0#1#0#1&0/1!0&1"0!1#0#1!0%1#0#1&0%1"0.1"0"1"0"1"0%1$0#1&0+1!0#1!0$1"0"1"0#1!0%1%0#1&0"1!0)1!0&1#0!1"0#1!0%1&0#1&021"0"1#0"1!0&1&0#190"1"0#1!0&1'0#180!1#0#1"0&1'0#160#1$0!1&0#1'0'd!0"d!0.1#0"f!0!M!0!Q!0!6!1#0#1&0:1(0!1%0#1&0&d"0&1"0!1"0!1"0#1&0#1&0#1&00d!0#d!0#1%0#1(0#1&0$d"0#1"0,1$0$1)08d!0!d!0$1$0"1,0*d!0"d!001$0!1L]],[[1K0!1%021!0'1!0%1!0"1!0%1!0$1"0*1!0'1!0-1!0(1"0#1"0*1!0'1!0'1!0%1!0"1!0(1&0!1+0!1$0'1"0!1$0"1!0(f!0!1"0#1!0)1!0$1!0'1!0%1!0"1%0!1'0"1"0)1"0+1#0#1!0$1!0(1"0-1!0$1!0'1!0*1!0(1'0!1D0!1%0(1!0&1!0$1'0$1!0(1!0%1"0(1!061!0(1!0%1"0$1#0!1!0&1!0#1)0#1!0(1!0%1"0(1!0&1!0#1!0'1!0,1$0!1$0%1%0!1(0#1!0#1.0%1"0)1!071!0#1!0"1!0%1"0$1#0"1#0)1!0#1!0'1!0#1!0"1$0#1!0)1!0&1$0'1%0!1!0#1!0%1!0#1!0&1'0#1!0"1!0'1!0/1"0"1!0*1!0$1"0"1#0$1(0#1!0)1"0#1#0#1!0#1#001!0#1&0$1!0*1!0%1!0"1,0"1!0#1!0$1!0"1!0!1!0&1(0"1!001#0!1!0$1&0+1!0#1"021!0!1!0(1#0#1#0$1!0$1!021!0*1"0+1#0"1(0!140!1"0&1'0#1!0)1!0*1!0(1"0,1!0"1"0)1!0*1!0$1&0$1'0!1!0#1!0)1#0!1%0!1"0#1(0+1"0"1!0)1!0%1!0.1!0,1!0#1!0)1!0"1$0$1#0'1!0"1#0+1!0/1!0$1!0)1P]],[[130"1=0/1!0$1!021!0%1"001!0"f!0!1!0&1&6!0$Q!1!0$1#0"1,0"1!0$1!0"1$0&1'0!1!0#1"0-1"0!1!0$1!0"1#001!0"1"0,1!0#1!0$1!0!1#0"1%0*1!0!1-0!1!0$1!0$1!0%1!0%1+0"1"0+1!0#1!0&1!0#1!0"1!0.1!0!1"0+1!0"1!0(1!0"M!0!1!0!1!0/1"0!1+0"1!0)1#0!1!0!120!1,0!1%0!1"0"1!0#1!011"0+1!0%M!0"M"0"1!0!1$001$0)1+0"1!0%1"0$1!0"1!0"1"0"1%021!0#1$0!1!001*0-1!0'1!0#1%0#1!0.1!0-1'0"1"0%1!021&0(1!0&1!0(1#041%0$1!0$1"0"1%0"1!0(1(0.1!R!0!1!0"1!0"1!0'1!0#1!0,1!0)1&0#1!0"1!0(1!011(0"N!0%6!0#1!0&1)0!1)0"140&1!0(1#0'1!0"1#061!0*1"0!1!0#1#0!1#061!0#1$0$1"0$1!0"1!0"1!0%1!011"0&1!0"1#0'1"0!1!0"1;0#1!0"1"0!1!0%1!0"1!0@1!0"1"0&1!0#1"0?1"0!1!0&1!0#1,0!1*0!1*0#1!0#1!021!0*1!0,1"0O1Q]],[[1#0!1O0$1#0#1#0"1#0:1%0*1!001(0(1$0$6!1!0*1!0*1!0(1$0$1$0$1#0(1#0(1!0-1"0"1.0!100#1&0$1!0"1)0"1$0!1+0.1!0#1!0#1#Q!0)M!0!1)001!0#1"0"1%0'1(0'1-0#1"0#1$0$6!0"1!0-1"011!0"1$0"1'0,1!031"0"1#051!011"0$190"1/0&1#0$1'0A1"091!041"0M1#021"0$1!0&1"0*1%011$0(130'1!0!1(0#1<0)1!0.1!0$1!0%1!0(1!0"1!0)1!0E1"0&1#0E1$0&1!0+ "0#1"0"1"0/1&0$1!0'1"0<1"0(1!081"0+1"0&1#0$1"0% !0"1"0/1#0#1"0(1!0;1"0'1'0$1#0'1"091#0&1%0"1"0*1"0&1"0#1"0$1$0(1#0@1%0!f!0&W#03p!0+1U]]}_=n("c_obj",{__new=function(i,n,e,t)local n=f([[parent_mgr=*3
 hitbox={x=0;y=0;x2=7;y2=7}
@@ -45,28 +45,28 @@ if(na)local n=t:hitbox_pos(0,0)rect(n.x,n.y,n.x2,n.y2,8)
 local n=t.spr if(n.effect=="blink_white")if(time()%.2<.1)for n=0,15do pal(n,7)end
 local e,i=n[t.phase],nil if e.ss~=nil do i=e.ss else if e.loop~=nil and e.loop==false and e.sprites[#e.sprites]==n.last_frame do i=n.last_frame else if(n.time_start==nil or n.time_start==0)n.time_start=time()
 i=e.sprites[1+flr((time()-n.time_start)/(1/e.fps))%#e.sprites]end end spr(i,t.x,t.y,t.tw,t.th,n.flip_x or false,n.flip_y or false,7)pal()n.last_frame=i end,collide=function(n,e,t,i)local n,e=n:hitbox_pos(0,0),e:hitbox_pos(0,0)if(t~=nil)n.x+=t n.x2-=t n.y+=i n.y2-=i
-return not(n.x2<e.x or n.x>e.x2 or n.y2<e.y or n.y>e.y2)end,hitbox_pos=function(n,e,t)e,t=e or 0,t or 0return{x=n.x+e+n.hitbox.x,y=n.y+t+n.hitbox.y,x2=n.x+e+n.hitbox.x2,y2=n.y+t+n.hitbox.y2}end,out_of_map=function(n)return n.x<0or n.y<0or n.x>nn or n.y>ne end,distp2=function(n,e)local n,e=e.x-n.x,e.y-n.y return(n/10*(n/10)+e/10*(e/10))*50end,moveTo=function(n,e,t)local i=sqrt(n:distp2(e))local t=t/i n.x=A(n.x,e.x,t)n.y=A(n.y,e.y,t)end})G=n("c_mgr",{__new=function(n)local n=f"objs={}"return n end,restart=function(n)n.objs={}end,add=function(n,e)add(n.objs,e)end,del=function(n,e)del(n.objs,e)end,update=function(n)for n in all(n.objs)do n:update()end end,draw=function(n)for n in all(n.objs)do n:draw()end end})function c(t,e,n)local i,n=n or t.speed,n or t.speed local i,o=e==l and-i or(e==u and i or 0),e==C and-n or(e==Q and n or 0)local n=t:hitbox_pos(i,o)if(t.bounce_map and(n.x<0or n.y<0or n.x2>nn or n.y2>ne))return 0
+return not(n.x2<e.x or n.x>e.x2 or n.y2<e.y or n.y>e.y2)end,hitbox_pos=function(n,e,t)e,t=e or 0,t or 0return{x=n.x+e+n.hitbox.x,y=n.y+t+n.hitbox.y,x2=n.x+e+n.hitbox.x2,y2=n.y+t+n.hitbox.y2}end,out_of_map=function(n)return n.x<0or n.y<0or n.x>nn or n.y>ne end,distp2=function(n,e)local n,e=e.x-n.x,e.y-n.y return(n/10*(n/10)+e/10*(e/10))*50end,moveTo=function(n,e,t)local i=sqrt(n:distp2(e))local t=t/i n.x=C(n.x,e.x,t)n.y=C(n.y,e.y,t)end})G=n("c_mgr",{__new=function(n)local n=f"objs={}"return n end,restart=function(n)n.objs={}end,add=function(n,e)add(n.objs,e)end,del=function(n,e)del(n.objs,e)end,update=function(n)for n in all(n.objs)do n:update()end end,draw=function(n)for n in all(n.objs)do n:draw()end end})function c(t,e,n)local i,n=n or t.speed,n or t.speed local i,o=e==l and-i or(e==u and i or 0),e==Q and-n or(e==Y and n or 0)local n=t:hitbox_pos(i,o)if(t.bounce_map and(n.x<0or n.y<0or n.x2>nn or n.y2>ne))return 0
 if e==u or e==l do local e=e==l and n.x or n.x2 local o,n=w(e,n.y),w(e,n.y2)if(not o and not n)t.x=t.x+i return 1else return 0
-elseif e==C or e==Q do local e=e==C and n.y or n.y2 local i,n=w(n.x,e),w(n.x2,e)if(not i and not n)t.y=t.y+o return 1else return 0
+elseif e==Q or e==Y do local e=e==Q and n.y or n.y2 local i,n=w(n.x,e),w(n.x2,e)if(not i and not n)t.y=t.y+o return 1else return 0
 end end function nb(n)return n==nil or n.destroyed end function nt(n)if(n~=nil and not n.destroyed)n:del()
-end function X(n,e,t,i)local n=ns(n,e,t,i)return fget(n.tile,n4)end function nm(e,t)for i in all(s)do local n=i:hitbox_pos(0,0)if(e>=n.x and e<n.x2 and t>=n.y and t<n.y2)return i
-end return nil end function w(n,e,t,i)return X(n,e,t,i)or nm(n,e)~=nil end function i(n,e)P[b][flr(n.spawn_x/8)][flr(n.spawn_y/8)]=tostr(e)end function Y()return K[b]end function e(n,e)n.theme=n3[n.theme]n.npcdata=e return n end function np(n,e)local e={[n5]=2,[n8]=1,[ng]=2,[n6]=5,[nx]=4,[ny]=1,[nw]=3,[n7]=1,[n9]=1,[nk]=5,[nj]=4,[nv]=1,[nZ]=1,[nX]=1,[nM]=3,[nN]=1}return e[n]end function nT(t,l,o)local n,i=0,0for e=1,#t,2do local f,e=sub(t,e,e),sub(t,e+1,e+1)local e=ord(e)-32for e=1,e do o[n][i]=f n=n+1if(n>=l)n,i=0,i+1
-end end return o end function J()local n,a=n_[b],Y()local d,i,e=a.theme,nil,nil if z[b]==nil do i,e=n1(g,m,""),n1(g,m,"")if nE and B do for e=1,g do for t=1,m do local n=(e-1)*m*2+(t-1)*2+1local n=sub(nO,n,n)if(n==" ")n="0"
-i[t-1][e-1]=n end end else nT(n,m,i)end else i,e=z[b],P[b]end local r,c,u,s=r.mgr.misc_mgr,{},f"M={};N={};O={};P={}",false for o=0,g-1do for l=0,m-1do local n,f=i[l][o],e[l][o]mset(l,o,0)local e,t=l*8,o*8if n=="1"do local n=nA(i,l,o)local n=d.tile_maps[np(n,d)]or 1mset(l,o,n)elseif p("2345",n)do local i=d.bg_item_off[tonum(n)-1]local e=_.new(e+i[1],t+i[2],r)e.spr.idle.sprites=d.bg_item_spr[tonum(n)-1]e.tw=i[1]==0and 1or 2e.th=i[2]==0and 1or 2add(r,e)elseif n=="f"do if(x~=nil)h:respawn(x[1]*8,x[2]*8)else h:respawn(e,t)
-if(ni~=nil and B)h.avail_el=ni
-if(no~=nil and B)h.cur_el=no
+end function X(n,e,t,i)local n=ns(n,e,t,i)return fget(n.tile,n4)end function nm(e,t)for i in all(y)do local n=i:hitbox_pos(0,0)if(e>=n.x and e<n.x2 and t>=n.y and t<n.y2)return i
+end return nil end function w(n,e,t,i)return X(n,e,t,i)or nm(n,e)~=nil end function i(n,e)P[b][flr(n.spawn_x/8)][flr(n.spawn_y/8)]=tostr(e)end function B()return K[b]end function e(n,e)n.theme=n3[n.theme]n.npcdata=e return n end function np(n,e)local e={[n5]=2,[n8]=1,[ng]=2,[n6]=5,[nx]=4,[ny]=1,[nw]=3,[n7]=1,[n9]=1,[nk]=5,[nj]=4,[nv]=1,[nZ]=1,[nX]=1,[nM]=3,[nN]=1}return e[n]end function nT(t,l,o)local n,i=0,0for e=1,#t,2do local f,e=sub(t,e,e),sub(t,e+1,e+1)local e=ord(e)-32for e=1,e do o[n][i]=f n=n+1if(n>=l)n,i=0,i+1
+end end return o end function z()local n,a=n_[b],B()local d,i,e=a.theme,nil,nil if J[b]==nil do i,e=n1(g,m,""),n1(g,m,"")if nE and H do for e=1,g do for t=1,m do local n=(e-1)*m*2+(t-1)*2+1local n=sub(nO,n,n)if(n==" ")n="0"
+i[t-1][e-1]=n end end else nT(n,m,i)end else i,e=J[b],P[b]end local r,c,u,s=r.mgr.misc_mgr,{},f"M={};N={};O={};P={}",false for o=0,g-1do for l=0,m-1do local n,f=i[l][o],e[l][o]mset(l,o,0)local e,t=l*8,o*8if n=="1"do local n=nA(i,l,o)local n=d.tile_maps[np(n,d)]or 1mset(l,o,n)elseif p("2345",n)do local i=d.bg_item_off[tonum(n)-1]local e=_.new(e+i[1],t+i[2],r)e.spr.idle.sprites=d.bg_item_spr[tonum(n)-1]e.tw=i[1]==0and 1or 2e.th=i[2]==0and 1or 2add(r,e)elseif n=="f"do if(x~=nil)h:respawn(x[1]*8,x[2]*8)else h:respawn(e,t)
+if(ni~=nil and H)h.avail_el=ni
+if(no~=nil and H)h.cur_el=no
 s=true elseif p("abcd",n)do nC.new(e,t,I[n])elseif n=="6"do nQ.new(e,t,r)elseif n=="8"do elseif p("egi",n)do nY.new(e,t,I[n])elseif p("lmn",n)do W.new(e,t,I[n])elseif p("hjk",n)do if(f=="")S.new(n,e,t)
 elseif p("XYZ",n)do if(f=="")nl.new(e,t,n=="X"and 1or n=="Y"and 3or 5,true)
 elseif p("pqrstuvwxyz",n)do local n=a.npcdata[n]or{cname="c_npc_stage"..b,msg="undefined msg"}nB.new(e,t,n.cname,n.msg)elseif p("ABCDEFGHIJKL",n)do if(f=="")nH.new(e,t,n)
 elseif p("MNOP",n)do local e=U.new(e,t,false,0,f=="1")add(u[n],e)elseif p("UVW",n)do U.new(e,t,true,nL[n],f=="1")elseif p("QRST",n)do local e=nR.new(e,t,r)if(f=="1")e.on=true
 c[n]=e end end end if(b>1and not s)h:respawn(x[1]*8,x[2]*8)
-for n,e in pairs(c)do local n=sub(sub("MNOP",ord(n)-ord"Q"+1),1,1)for n in all(u[n])do e:link_switch(n)end end z[b]=i P[b]=e end function nA(t,n,e)local i,o,l,e,n=e>0and t[n][e-1]=="1"or e==0,e<g and t[n][e+1]=="1"or e==g-1,n>0and t[n-1][e]=="1"or n==0,n<m-1and t[n+1][e]=="1"or n==m-1,0if(i)n+=1
+for n,e in pairs(c)do local n=sub(sub("MNOP",ord(n)-ord"Q"+1),1,1)for n in all(u[n])do e:link_switch(n)end end J[b]=i P[b]=e end function nA(t,n,e)local i,o,l,e,n=e>0and t[n][e-1]=="1"or e==0,e<g and t[n][e+1]=="1"or e==g-1,n>0and t[n-1][e]=="1"or n==0,n<m-1and t[n+1][e]=="1"or n==m-1,0if(i)n+=1
 if(o)n+=2
 if(l)n+=4
 if(e)n+=8
 return n end function nF()if(X(h.x,h.y))h.y+=8
 end function nf()h:reset_stage_props()for e,n in pairs(r.mgr)do if(n.restart)n:restart()
-end s={}M={}q={}end o={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,offvtol=90,update=function(n)n.x+=(h.x-n.x)*n.csfx n.y+=(h.y-n.y)*n.csfy n.x=mid(n.ox,n.x,m*8-n.ox-16)n.y=mid(n.oy,n.y,g*8-42)local n,e=n:calc_center()camera(n,e)end,place=function(n,e,t)n.x=e n.y=t end,calc_center=function(n)return flr(n.x)-n.ox,flr(n.y)-n.oy end,offview=function(n,e)return abs(flr(n.x-e.x))>n.offvtol or abs(flr(n.y-e.y))>n.offvtol end}nD=n("c_player:c_obj",{__new=function(t,n,e)local n=_.new(n,e)a(n.spr,[[idle = { sprites = { 64; 65 }; fps = 2 }
+end y={}M={}q={}end o={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,offvtol=90,update=function(n)n.x+=(h.x-n.x)*n.csfx n.y+=(h.y-n.y)*n.csfy n.x=mid(n.ox,n.x,m*8-n.ox-16)n.y=mid(n.oy,n.y,g*8-42)local n,e=n:calc_center()camera(n,e)end,place=function(n,e,t)n.x=e n.y=t end,calc_center=function(n)return flr(n.x)-n.ox,flr(n.y)-n.oy end,offview=function(n,e)return abs(flr(n.x-e.x))>n.offvtol or abs(flr(n.y-e.y))>n.offvtol end}nD=n("c_player:c_obj",{__new=function(t,n,e)local n=_.new(n,e)a(n.spr,[[idle = { sprites = { 64; 65 }; fps = 2 }
 walk = { sprites = { 80; 81; 82 }; fps = 6 }
 jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
 dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
@@ -107,8 +107,8 @@ bounce_map=false
 		]])return n end,reset_stage_props=function(n)n:reset_jump_vars()end,update=function(e)if(r.paused)return
 local n,t=e,f("left=*1;right=*2;jump=*3;jump_start=*4;action=*5",{btn(0),btn(1),btn(4),btnp(4),btnp(5)})if n.phase=="dead"do if(n.prev_btn.left)c(n,l)
 if(n.prev_btn.right)c(n,u)
-n.speed*=.9n:apply_forces(t)if n.t_respawn:adv()do if(H~=nil)H.life=H.max_life
-x=nil nf()b=2J()o:place(h.x,h.y)n.life=n.max_life n.phase="idle"n.invulnerable=false end return end if(e.lifereg_ttl:adv())e:increase_life(e.lifereg_lev/5)
+n.speed*=.9n:apply_forces(t)if n.t_respawn:adv()do if(L~=nil)L.life=L.max_life
+x=nil nf()b=2z()o:place(h.x,h.y)n.life=n.max_life n.phase="idle"n.invulnerable=false end return end if(e.lifereg_ttl:adv())e:increase_life(e.lifereg_lev/5)
 if not n.blocked do if(t.left)n:move_left()
 if(t.right)n:move_right()
 if(not t.left and not t.right)n.speed=n.speed*.7if(n.speed<.1)n.speed=0
@@ -126,14 +126,14 @@ n.spr.flip_x=false end,apply_forces=function(n,e)if(not n.blocked and e.jump_sta
 if(not e.jump and n.jstack>0)n.jstack=0
 if(n.jstack>0)n.speedy=-n.jforce n.jstack-=1
 if(n.speedy<0and not e.jump)n.speedy*=n.speed_y_decay
-n.speedy+=nP n.speedy=min(n.speedy,n.max_speedy)local e=c(n,n.speedy<0and C or Q,abs(n.speedy))if(e==0)n:reset_jump_vars()if(n.phase=="jump")n.phase="idle"
+n.speedy+=nP n.speedy=min(n.speedy,n.max_speedy)local e=c(n,n.speedy<0and Q or Y,abs(n.speedy))if(e==0)n:reset_jump_vars()if(n.phase=="jump")n.phase="idle"
 end,reset_jump_vars=function(n)n.speedy=0n.jstack=0end,set_start_jump=function(n)if(n.phase=="dead")return
-if(n:on_ground())n:reset_jump_vars()n.phase="jump"n.spr.time_start=nil n.jstack=n.max_jstack if(nK)sfx(nJ)
+if(n:on_ground())n:reset_jump_vars()n.phase="jump"n.spr.time_start=nil n.jstack=n.max_jstack if(nK)sfx(nz)
 end,on_ground=function(n)local n=n local n=n:hitbox_pos(0,1)local e,n=w(n.x,n.y2),w(n.x2,n.y2)return e or n end,apply_end_stage_upgrades=function(n)end,attack=function(n)if(n.cur_el==nil)return
 if(n.el_cooldown.t<=0)nd[n.cur_el].new(n.spr.flip_x and l or u,r.mgr.misc_mgr)n.el_cooldown:restart()
 end,switch_element=function(e)if(e.cur_el==nil)return
 local n=e.cur_el%4+1while true do if(e.avail_el[n])e.cur_el=n N.new(30,nd[n].name)break
-n=n%4+1end end})y=n("c_enemy:c_obj",{__new=function(l,e,n,t,i,o)local n=_.new(n,t,o)a(n,[[respawn_timer = _fn_t1_10
+n=n%4+1end end})s=n("c_enemy:c_obj",{__new=function(l,e,n,t,i,o)local n=_.new(n,t,o)a(n,[[respawn_timer = _fn_t1_10
 dmg_time = _fn_t1_1
 frozen_t = _fn_t1_20
 time_last_death = 0
@@ -149,32 +149,33 @@ speed = *1
 etype = *2
         ]],{i or 1,e})n.frozen_t.t=0return n end,dmg=function(n,e)if(n:is_inv())return
 n.life-=e n.dmg_time:restart()n.spr.effect="blink_white"if(n.life<=0)for e=1,3do local e,n=n.x+rnd(6),n.y+rnd(6)nl.new(e,n)end n:del()
-end,freeze=function(n)n.frozen_t:restart()add(s,n)n.hitbox={x=0,y=0,x2=7,y2=7}end,unfreeze=function(n)n.frozen_t.t=-1n.spr.effect="none"del(s,n)n.hitbox=n.hitbox_orig end,blow=function(n,e)if(n.fixed)return
+end,freeze=function(n)n.frozen_t:restart()add(y,n)n.hitbox={x=0,y=0,x2=7,y2=7}end,unfreeze=function(n)if(n.fixed)return
+n.frozen_t.t=-1n.spr.effect="none"O"unfreeze enemy"n.hitbox=n.hitbox_orig end,blow=function(n,e)if(n.fixed)return
 if(n.wspeed<=0)n.dir_before_blow=n.dir
 n.wspeed=2n.dir=e end,unblow=function(n)n.wspeed=-1n.dir=n.dir_before_blow end,update=function(n)_.update(n)for e in all(M)do if(n:collide(e))e:hit(n)
 end if(n.dmg_time:adv())n.spr.effect="none"
 if(n.frozen_t:adv())n:unfreeze()else if(n.frozen_t:t_left_btw(.1,2))n.spr.effect="blink_white"
 if(n.wspeed>0)local e=c(n,n.dir,n.wspeed)n.wspeed=e==0and 0or max(0,n.wspeed-.05)else if(n.wspeed~=-1)n:unblow()
 end,draw=function(n)if(n.frozen_t.t>0)spr(139,n.x,n.y)
-_.draw(n)end,del=function(n)n.time_last_death=time()del(s,n)_.del(n)end,is_inv=function(n)return false end})nC=n("c_fly_en:c_enemy",{__new=function(i,n,t,e)local n=y.new(e,n,t,.3,r.mgr.enemy_mgr)n.spr.idle={sprites=L[e].idle,fps=4,loop=true}n.horizontal=nz[e]=="horizontal"a(n,[[hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
+_.draw(n)end,del=function(n)n.time_last_death=time()del(y,n)_.del(n)end,is_inv=function(n)return false end})nC=n("c_fly_en:c_enemy",{__new=function(i,n,t,e)local n=s.new(e,n,t,.3,r.mgr.enemy_mgr)n.spr.idle={sprites=R[e].idle,fps=4,loop=true}n.horizontal=nJ[e]=="horizontal"a(n,[[hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
 horizontal = *1
 dir = *2
 dir_before_blow = _k_dir
-        ]],{n.horizontal,n.horizontal and u or Q})return n end,update=function(n)y.update(n)if(n.frozen_t.t>0)return
+        ]],{n.horizontal,n.horizontal and u or Y})return n end,update=function(n)s.update(n)if(n.frozen_t.t>0)return
 if(n:collide(h))h:dmg(1)
 local e=c(n,n.dir)if(e==0)n.dir=(n.horizontal and 0or 2)+(n.dir+1)%2
-end})nY=n("c_walk_en:c_enemy",{__new=function(n,t,i,e)local n=y.new(e,t,i,1.5,r.mgr.enemy_mgr)n.spr.idle={sprites=L[e].idle,fps=2,loop=true}n.spr.run={sprites=L[e].run,fps=4,loop=true}a(n,[[speed = 0.2
+end})nY=n("c_walk_en:c_enemy",{__new=function(n,t,i,e)local n=s.new(e,t,i,1.5,r.mgr.enemy_mgr)n.spr.idle={sprites=R[e].idle,fps=2,loop=true}n.spr.run={sprites=R[e].run,fps=4,loop=true}a(n,[[speed = 0.2
 hitbox = {x=0;y=3;x2=7;y2=7}
 hitbox_orig = {x=0;y=3;x2=7;y2=7}
 basex = *1
 basey = *2
-        ]],{t,i})return n end,update=function(n)y.update(n)n.phase="idle"if(n.frozen_t.t>0)return
+        ]],{t,i})return n end,update=function(n)s.update(n)n.phase="idle"if(n.frozen_t.t>0)return
 if n:collide(h,2,2)do h:dmg(2)else if abs(h.x-n.x)<50and abs(h.y-n.y)<4do n.spr.flip_x=h.x-n.x>0local e=h.x-n.x>0and u or l local t,i=e==u and n.x+n.speed+7or n.x-n.speed,n.y+8if(X(t,i))if(not X(t,n.y))c(n,e)n.phase="run"
 else if(abs(n.basex-n.x)>3)n.spr.flip_x=n.basex-n.x>0c(n,n.basex-n.x>0and u or l)n.phase="run"
-end end end})S=n("c_vine:c_enemy",{types=f"h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};",__new=function(i,e,n,t)local n=y.new("vine",n,t,0,r.mgr.enemy_mgr)n.spr.idle=f"ss = 6"a(n,[[fixed = true
+end end end})S=n("c_vine:c_enemy",{types=f"h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};",__new=function(i,e,n,t)local n=s.new("vine",n,t,0,r.mgr.enemy_mgr)n.spr.idle=f"ss = 6"a(n,[[fixed = true
 life = 10
 hitbox = { x=0;y=0;x2=7;y2=7}
-        ]])n.pal=S.types[e].pal n.flev=S.types[e].flev add(s,n)return n end,draw=function(n)pal(7,n.pal)y.draw(n)pal()end,is_inv=function(n)return not(h.cur_el==j and h.lev_el[j]>n.flev)end})W=n("c_boss:c_enemy",{angles=f"0;0.1;0.4;0.5;0.6;0.9",__new=function(i,n,e,t)local n=y.new("boss",n,e,.3,r.mgr.enemy_mgr)n.spr.idle.sprites=L[t].idle a(n,[[life = 5000
+        ]])n.pal=S.types[e].pal n.flev=S.types[e].flev add(y,n)return n end,draw=function(n)pal(7,n.pal)s.draw(n)pal()end,is_inv=function(n)return not(h.cur_el==j and h.lev_el[j]>n.flev)end})W=n("c_boss:c_enemy",{angles=f"0;0.1;0.4;0.5;0.6;0.9",__new=function(i,n,e,t)local n=s.new("boss",n,e,.3,r.mgr.enemy_mgr)n.spr.idle.sprites=R[t].idle a(n,[[life = 5000
 max_life = _k_life
 tw = 2
 th = 2
@@ -186,18 +187,18 @@ fire = false
 tpos = {x=nil;y=nil}
 mvrngx = 104
 mvrngy = 88
-]])H=n n.tcd.t-=flr(rnd(40))return n end,update=function(n)y.update(n)if(n:distp2(h)>1000)return
+]])L=n n.tcd.t-=flr(rnd(40))return n end,update=function(n)s.update(n)if(n:distp2(h)>1000)return
 if(n.frozen_t.t>0)return
 if(n:collide(h))h:dmg(5)
 if(n.tpos.x==nil or n:distp2(n.tpos)<9)n.tpos.x=n.spawn_x+rnd(n.mvrngx*2)-n.mvrngx n.tpos.y=n.spawn_y-rnd(n.mvrngy)
 n:moveTo(n.tpos,n.speed)if(n.tcd:adv())n.fire=not n.fire
 if(n.fire)if(n.tfire:adv())nI.new(n.x+8,n.y+8,rnd(W.angles),1)
-end,draw=function(n)y.draw(n)rectfill(n.x,n.y-4,n.x+flr(15*(n.life/n.max_life)),n.y-2,8)end})nW=n("c_explosion:c_obj",{__new=function(o,n,e,t,i)local n=_.new(n,e,i)a(n,[[ttl = _fn_t1_0.2
+end,draw=function(n)s.draw(n)rectfill(n.x,n.y-4,n.x+flr(15*(n.life/n.max_life)),n.y-2,8)end})nW=n("c_explosion:c_obj",{__new=function(o,n,e,t,i)local n=_.new(n,e,i)a(n,[[ttl = _fn_t1_0.2
 solid = false
 max_radius = *1
         ]],{t or 4})n.spr.idle=f"sprites = { 185; 186; 187 }, fps = 4"return n end,update=function(n)if(n.ttl:adv())n.parent_mgr:del(n)
 end,draw=function(n)if(n.ttl.t<=0)return
-local e=A(0,n.max_radius,1-n.ttl.t/n.ttl.maxtime)circfill(n.x,n.y,e,10)end})v=n("c_element:c_obj",{__new=function(n,e,t)local i,o=h.x+(t==l and-2or 10),h.y local n=_.new(i,o,r.mgr.misc_mgr)n.spr.idle=nS[e]a(n,[[ttl = *5
+local e=C(0,n.max_radius,1-n.ttl.t/n.ttl.maxtime)circfill(n.x,n.y,e,10)end})v=n("c_element:c_obj",{__new=function(n,e,t)local i,o=h.x+(t==l and-2or 10),h.y local n=_.new(i,o,r.mgr.misc_mgr)n.spr.idle=nS[e]a(n,[[ttl = *5
 max_dist = 20
 destroy_req_prev_frame = false
 origx = *1
@@ -226,15 +227,15 @@ end n.on=not n.on i(n,n.on and 1or 2)end,link_switch=function(n,e)add(n.doors,e)
 hitbox = {x=0;y=0;x2=7;y2=7}
 cost = *2
 int=*1
-]],{e,o})add(s,n)if(t)U.open(n)
+]],{e,o})add(y,n)if(t)U.open(n)
 if(not t and e)n.hover_info="open door ("..tostr(n.cost).." shards)"
 return n end,update=function(n)d.update(n)if n.phase=="close"do for e in all(M)do if(n:collide(e))e:del()
-end end end,open=function(n)n.phase="open"n.hover_info=nil del(s,n)i(n,1)end,close=function(n)n.phase="close"add(s,n)i(n,2)end,action=function(n)n:open()end})nH=n("c_scroll:c_int",{__new=function(i,n,t,e)local n=d.new(n,t,r.mgr.misc_mgr)n=a(n,[[el = *1
+end end end,open=function(n)n.phase="open"n.hover_info=nil del(y,n)i(n,1)end,close=function(n)n.phase="close"add(y,n)i(n,2)end,action=function(n)n:open()end})nH=n("c_scroll:c_int",{__new=function(i,n,t,e)local n=d.new(n,t,r.mgr.misc_mgr)n=a(n,[[el = *1
 int_fn = *2
 cost = *3
 name = *4
 col = *5
-        ]],{ord(e)-ord"A"+1,eo[e],el[e],ef[e],ed[e]})n.hover_info="learn "..n.name.." ("..tostr(n.cost).." shards)*"..tostr(er[e])n.spr.idle={ss=12}return n end,update=function(n)d.update(n)n.y=n.spawn_y+sin(time())*2end,action=function(n)if(n.int_fn~=nil)n.int_fn(n)D("executed int_fn for scroll "..n.name)else h.cur_el=n.el h.avail_el[n.el]=true
+        ]],{ord(e)-ord"A"+1,eo[e],el[e],ef[e],ed[e]})n.hover_info="learn "..n.name.." ("..tostr(n.cost).." shards)*"..tostr(er[e])n.spr.idle={ss=12}return n end,update=function(n)d.update(n)n.y=n.spawn_y+sin(time())*2end,action=function(n)if(n.int_fn~=nil)n.int_fn(n)O("executed int_fn for scroll "..n.name)else h.cur_el=n.el h.avail_el[n.el]=true
 N.new(30,n.name.." acquired")i(n,"d")n:del()end,draw=function(n)if(n.el)pal(7,n.col)
 d.draw(n)pal()end})nl=n("c_shard:c_obj",{__new=function(o,n,e,t,i)local n=_.new(n,e,r.mgr.misc_mgr)a(n,[[            speed = 0.1
             speed_inc = 1.05
@@ -261,7 +262,7 @@ msgs = nil
         ]],{t})V.update_msg(n,e)return n end,update_msg=function(n,e)n.msg=e n.msgs=split((n.author~=nil and n.author..":*"or"")..e,"*")end,draw=function(n)local e=#n.msgs rectfill(n.x-10,n.y-10,n.x+124,n.y+e*7+10,1)rect(n.x-2,n.y-2,n.x+124,n.y+e*7,14)for e=1,#n.msgs do?n.msgs[e],n.x,n.y+(e-1)*7,8
 end if(n.cont)?"❎>>",n.x+100,n.y+e*7+2,8
 end})e2=n("c_hud_mgr:c_mgr",{__new=function(n)local n=G.new()n.update_in_pause=true return n end,restart=function(n)n.objs={es.new(94,1,25,function(n)circfill(n.x+4,n.y+3,2,7)?tostr(h.shards),n.x+10,n.y+1,8
-end),eh.new(10,0)}end})nK=true e_=true nP=.25l,u,C,Q=Z"0;1;2;3"j,nr,e1,et=Z"1;2;3;4"ei=f"8;10;12;13"nS=f[[{sprites={112;113;114;115};fps=10;loop=false};
+end),eh.new(10,0)}end})nK=true e_=true nP=.25l,u,Q,Y=Z"0;1;2;3"j,nr,e1,et=Z"1;2;3;4"ei=f"8;10;12;13"nS=f[[{sprites={112;113;114;115};fps=10;loop=false};
 {sprites={116;117;118;119};fps=30;loop=true};
 {sprites={120;121;122;123};fps=10;loop=false};
 {sprites={124};fps=1;loop=false};
@@ -281,7 +282,7 @@ L=max life to maximum
 lady=lady
 ]]ea=f[[lea = {192;193}
 lady = {208;209}
-]]I=f"a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3"L=f[[dog={idle={144;145};run={146;147}}
+]]I=f"a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3"R=f[[dog={idle={144;145};run={146;147}}
 spider={idle={160;161};run={162;163}}
 sk={idle={148;149};run={150;151}}
 bath={idle={128;129}}
@@ -291,7 +292,7 @@ witchv=_k_witchh
 boss1={idle={203;205}}
 boss2={idle={231;233}}
 boss3={idle={199;201}}
-]]nz=f[[bath=horizontal;batv=vertical;witchh=horizontal;witchv=vertical;]]n4=0r=nil h=nil nJ,e4,em,e3,ep,nG=Z"0;1;2;3;4;5"z,P,s,M,q=Z"{};{};{};{};{}"m,g=48,32nn,ne=m*8,g*8H=nil b=2B=true x=nil nE=false ni=f"false;false;false;false"no=nil nO=[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+]]nJ=f[[bath=horizontal;batv=vertical;witchh=horizontal;witchv=vertical;]]n4=0r=nil h=nil nz,e4,em,e3,ep,nG=Z"0;1;2;3;4;5"J,P,y,M,q=Z"{};{};{};{};{}"m,g=48,32nn,ne=m*8,g*8L=nil b=2H=true x=nil nE=false ni=f"false;false;false;false"no=nil nO=[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
@@ -329,15 +330,15 @@ grass={tile_maps={33;34;35;36;37};bg_col=0;bg_item_spr={{8};{24};{7};{39}};bg_it
 ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{170};{142};{158};{143}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 ]]K={e(f"name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0",f""),e(f"name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;",f[[p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 u = {cname=lady;msg=welcome to the forest*be careful out there!}
-]]),e(f"name=The green forest 3;music=13;theme=grass;wtx=48;wty=0",f""),e(f"name=The underground;music=13;theme=sand;wtx=-48;wty=32",f""),e(f"name=The intestines;music=13;theme=sand;wtx=0;wty=32;",f""),e(f"name=The intestines;music=13;theme=sand;wtx=48;wty=32",f""),e(f"name=The intestines;music=13;theme=sand;wtx=-48;wty=64",f""),e(f"name=The intestines;music=13;theme=sand;wtx=0;wty=64",f""),e(f"name=The forgotten;music=13;theme=metal;wtx=48;wty=64",f"p={cname=lea;msg=you have done well*my dear nephew*now die}")}F("t1",function(n)return k.new(n,false)end)F("t2",function(n)return k.new(n,true)end)F("rnd",function(n)return flr(rnd(n))end)function _init()D"\n\n\n\n----------- Game started -----------"r=eb.new()end function _update60()r:update()end function _draw()r:draw()end eb=n("c_game",{__new=function()local n={paused=false,menu=true,play=false,stage_title_phase=false,require_player_rebuild=true,minimap={},mgr={enemy_mgr=G.new(),misc_mgr=eu.new(),hud_mgr=e2.new()}}n.bgpos={0,0}menuitem(1,"new game",function()r:start_menu()end)return n end,start_play=function(n)n.win_stage=false n.menu=false n.play=true if(n.require_player_rebuild)h=nD.new(0,0)n.require_player_rebuild=false
+]]),e(f"name=The green forest 3;music=13;theme=grass;wtx=48;wty=0",f""),e(f"name=The underground;music=13;theme=sand;wtx=-48;wty=32",f""),e(f"name=The intestines;music=13;theme=sand;wtx=0;wty=32;",f""),e(f"name=The intestines;music=13;theme=sand;wtx=48;wty=32",f""),e(f"name=The intestines;music=13;theme=sand;wtx=-48;wty=64",f""),e(f"name=The intestines;music=13;theme=sand;wtx=0;wty=64",f""),e(f"name=The forgotten;music=13;theme=metal;wtx=48;wty=64",f"p={cname=lea;msg=you have done well*my dear nephew*now die}")}D("t1",function(n)return k.new(n,false)end)D("t2",function(n)return k.new(n,true)end)D("rnd",function(n)return flr(rnd(n))end)function _init()O"\n\n\n\n----------- Game started -----------"r=eb.new()end function _update60()r:update()end function _draw()r:draw()end eb=n("c_game",{__new=function()local n={paused=false,menu=true,play=false,stage_title_phase=false,require_player_rebuild=true,minimap={},mgr={enemy_mgr=G.new(),misc_mgr=eu.new(),hud_mgr=e2.new()}}n.bgpos={0,0}menuitem(1,"new game",function()r:start_menu()end)return n end,start_play=function(n)n.win_stage=false n.menu=false n.play=true if(n.require_player_rebuild)h=nD.new(0,0)n.require_player_rebuild=false
 n.game_over=false h:reset_stage_props()for e,n in pairs(n.mgr)do if(n.restart)n:restart()
-end J()o:place(h.x,h.y)if(e_)music(Y().music)
-end,start_menu=function(n)n.menu=true n.play=false n.game_over=false n.win_stage=false n.win_game=false b=1end,stage_check=function(n)local i,n=flr(h.x/8),flr(h.y/8)if i<0or i>=m-1and h.x>m*8-4or n<=0and h.y<3or n>=g-1do B=false local e=Y()local e,t=i+e.wtx or 0,n+e.wty or 0if n<=0do t-=2e=e+(h.spr.flip_x and-1or 1)elseif n>=g-1do t+=2end if(i>=m-1)e+=1
+end z()o:place(h.x,h.y)if(e_)music(B().music)
+end,start_menu=function(n)n.menu=true n.play=false n.game_over=false n.win_stage=false n.win_game=false b=1end,stage_check=function(n)local i,n=flr(h.x/8),flr(h.y/8)if i<0or i>=m-1and h.x>m*8-4or n<=0and h.y<3or n>=g-1do H=false local e=B()local e,t=i+e.wtx or 0,n+e.wty or 0if n<=0do t-=2e=e+(h.spr.flip_x and-1or 1)elseif n>=g-1do t+=2end if(i>=m-1)e+=1
 local n=nil for i=1,#K do n=K[i]if(e>=n.wtx and e<n.wtx+m and t>=n.wty and t<n.wty+g)b=i break
-end nf()local n,e=e-n.wtx,t-n.wty x=f(""..n..";"..e.."")D("stage changed to "..b.." with ovd_respawn "..x[1]..","..x[2].."")J()nF()o:place(h.x,h.y)end end,update=function(n)if n.menu do if(btnp(5,0))n.require_player_rebuild=true n:start_play()
+end nf()local n,e=e-n.wtx,t-n.wty x=f(""..n..";"..e.."")O("stage changed to "..b.." with ovd_respawn "..x[1]..","..x[2].."")z()nF()o:place(h.x,h.y)end end,update=function(n)if n.menu do if(btnp(5,0))n.require_player_rebuild=true n:start_play()
 return end n:stage_check()o:update()for e,n in pairs(n.mgr)do if(n.update)n:update()
-end h:update()n.bgpos[1]=(o.x-o.ox)*.5n.bgpos[2]=(o.y-o.oy)*.5end,draw=function(n)if(n.menu)cls()local n=t()spr(80+flr(n/.1%3),60,58)O("* the last spellcaster *",64,50,7)O("press ❎ to start",64,70,7)return
-cls(Y().theme.bg_col)for e=0,23do for t=0,15do spr(9,e*16+n.bgpos[1],t*16+n.bgpos[2],2,2)end end map(0,0,0,0,e5,e8,false)n.mgr.misc_mgr:draw()n.mgr.enemy_mgr:draw()h:draw()n.mgr.hud_mgr:draw()if(h.phase=="dead")local n,e=o:calc_center()O("you died!",64+n,55+e,8)O("respawning in "..h.t_respawn:t_left(),64+n,65+e,7)return
+end h:update()n.bgpos[1]=(o.x-o.ox)*.5n.bgpos[2]=(o.y-o.oy)*.5end,draw=function(n)if(n.menu)cls()local n=t()spr(80+flr(n/.1%3),60,58)A("* the last spellcaster *",64,50,7)A("press ❎ to start",64,70,7)return
+cls(B().theme.bg_col)for e=0,23do for t=0,15do spr(9,e*16+n.bgpos[1],t*16+n.bgpos[2],2,2)end end map(0,0,0,0,e5,e8,false)n.mgr.misc_mgr:draw()n.mgr.enemy_mgr:draw()h:draw()n.mgr.hud_mgr:draw()if(h.phase=="dead")local n,e=o:calc_center()A("you died!",64+n,55+e,8)A("respawning in "..h.t_respawn:t_left(),64+n,65+e,7)return
 ?""..tostr(flr(h.x/8))..","..tostr(flr(h.y/8)),o.x-50,o.y-60,7
 end})
 __gfx__

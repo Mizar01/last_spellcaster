@@ -41,9 +41,10 @@ etype = *2
         self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
     end,
     unfreeze = function(self)
+        if (self.fixed) return
         self.frozen_t.t = -1
         self.spr.effect = "none"
-        del(obj_solids, self)
+        flog("unfreeze enemy")
         self.hitbox = self.hitbox_orig
     end,
     blow = function(self, dir)
