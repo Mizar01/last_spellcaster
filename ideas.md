@@ -40,10 +40,10 @@ Static Shards:
 
 Scroll ideal path (sometime is forced)
 A=fire         OK
-B=thunder
-C=ice
-D=wind
-E=fire+1
+B=thunder      ok
+C=ice          OK
+D=wind         OK
+E=fire+1       ok
 F=fire+2
 G=lifereg
 H=lifereg+1
@@ -53,13 +53,13 @@ K=lifereg+2
 L=max life+2
 DEFINITIVE PATH =============================================================================
 A (fire) -> burn green vines to access area for thunder
-B (thunder) -> open door with thunder to access area for fire+2
-            -> open door to access ice
+B (thunder) -> open door with thunder to access area for fire+1
+            -> open door(thunder) + red vine(fire+1) to access ice
 C (ice)     -> use ice to access area for wind
 
-D (wind)    -> use wind + ice + thunder to access area for fire+3
-            -> use wind + ice + thunder (switch) + fire+3 (burn blue vines) to access area for max life+2
-            -> use ice + fire+3 (burn blue vines) and costly door to get lifereg+2
+D (wind)    -> use wind + ice + thunder to access area for fire+2
+            -> use wind + ice + thunder (switch) + fire+2 (burn blue vines) to access area for max life+2
+            -> use ice + fire+2(burn blue vines) and costly door to get lifereg+2
 
 other scrolls can be taken in any order. The maximum will be applied.
 -=============================================================================================

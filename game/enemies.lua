@@ -7,7 +7,7 @@ respawn_timer = _fn_t1_10
 dmg_time = _fn_t1_1
 frozen_t = _fn_t1_20
 time_last_death = 0
-life = 100
+life = 40
 max_life = _k_life
 dir = nil
 wspeed = 0
@@ -211,6 +211,8 @@ mvrngy = 88
     update = function(self)
 
         c_enemy.update(self)
+
+        if (self:distp2(player) > 1000) return
 
         if (self.frozen_t.t > 0) return
 
