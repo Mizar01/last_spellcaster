@@ -14,7 +14,7 @@ wspeed = 0
 dir_before_blow = nil
 fixed = false
 hitbox = { x=2;y=2;x2=5;y2=5} 
-hitbox_orig = {x=2;y=2;x2=5;y2=5}
+hitbox_orig = _k_hitbox
 speed = *1
 etype = *2
         ]], {speed or 1, etype})
@@ -44,7 +44,6 @@ etype = *2
         if (self.fixed) return
         self.frozen_t.t = -1
         self.spr.effect = "none"
-        flog("unfreeze enemy")
         self.hitbox = self.hitbox_orig
     end,
     blow = function(self, dir)
@@ -94,7 +93,7 @@ etype = *2
 
 c_fly_en = cstar("c_fly_en:c_enemy", {
     __new = function(n, x, y, name)
-        local l = c_enemy.new(name, x, y, 0.3, game.mgr.enemy_mgr)
+        local l = c_enemy.new(name, x, y, 0.3, emgr())
         l.spr.idle = {sprites = en_sprites[name].idle, fps = 4, loop = true}
         l.horizontal = en_mv[name] == "horizontal"
         dstar(l, [[
@@ -116,7 +115,7 @@ dir_before_blow = _k_dir
 
 c_walk_en = cstar("c_walk_en:c_enemy", {
     __new = function(n, x, y, name)
-        local l = c_enemy.new(name, x, y, 1.5, game.mgr.enemy_mgr)
+        local l = c_enemy.new(name, x, y, 1.5, emgr())
         l.spr.idle = { sprites = en_sprites[name].idle, fps = 2,  loop = true }
         l.spr.run = { sprites = en_sprites[name].run, fps = 4, loop = true }
         dstar(l, [[
@@ -165,7 +164,7 @@ basey = *2
 c_vine = cstar("c_vine:c_enemy", {
     types = dstarc("h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};"),
     __new = function(n, t, x, y)
-        local l = c_enemy.new("vine", x, y, 0, game.mgr.enemy_mgr)
+        local l = c_enemy.new("vine", x, y, 0, emgr())
         l.spr.idle = dstarc("ss = 6")
         dstar(l,[[
 fixed = true
@@ -186,10 +185,31 @@ hitbox = { x=0;y=0;x2=7;y2=7}
 
 })
 
+c_spike = cstar("c_spike:c_enemy", {
+    __new = function(n, t, x, y)
+        local l = c_enemy.new("spike", x, y, 0, emgr())
+        l.spr.idle = dstarc("ss=22")
+        dstar(l,"fixed=true;life=10;dir=-1;hitbox={x=0;y=0;x2=7;y2=7};spf=0.2")
+        l.y = y+8 - 3 * (ord(t) - ord('t'))
+        return l
+    end,
+    update = function(self)
+        -- c_enemy.update(self)
+        if (self:collide(player) and self.y < self.spawn_y + 3) player:dmg(2)
+        self.y += self.dir * self.spf
+        if (self.y < self.spawn_y or self.y > self.spawn_y + 8) then self.dir = -self.dir end
+    end,
+    draw = function(self)
+        c_enemy.draw(self)
+        spr(stage_config_get().theme.tile_maps[2], self.x, self.spawn_y + 8)
+    end,
+    is_inv = function(self) return true end,
+})
+
 c_boss = cstar("c_boss:c_enemy", {
     angles = dstarc("0;0.1;0.4;0.5;0.6;0.9"),
     __new = function(n, x, y, name)
-        local l = c_enemy.new("boss", x, y, 0.3, game.mgr.enemy_mgr)
+        local l = c_enemy.new("boss", x, y, 0.3, emgr())
         l.spr.idle.sprites = en_sprites[name].idle
         dstar(l, [[
 life = 5000

@@ -190,6 +190,8 @@ function setup_stage_from_string()
 				c_walk_en.new(px, py, en_map[t])
             elseif (instr("lmn", t)) then
                 c_boss.new(px, py, en_map[t])
+            elseif (instr("tuv", t)) then 
+                c_spike.new(t, px, py)
             elseif (instr("hjk", t)) then
                 if (c == "") c_vine.new(t, px, py)
             elseif (instr("XYZ", t)) then

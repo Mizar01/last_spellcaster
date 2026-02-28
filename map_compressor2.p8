@@ -38,7 +38,8 @@ end
 -- g = spider enemy
 -- hjk = green,red,blue vines
 -- i = skeleton
--- lm = bosses (not the final one) 
+-- lmn = bosses (n is the final one, but is hidden from another npc)
+-- tuv = moving spikes at different starting points
 -- ABCDEFGHIJKL = scroll
 -- MNOP = doors activated by switches
 -- QRST = switches for doors MNOP

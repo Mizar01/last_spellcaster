@@ -69,7 +69,7 @@ game = nil
 player = nil
 sfx_jump, sfx_coin, sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = dstaru("0;1;2;3;4;5")
 
-stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{}")
+stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{};{}")
 
 map_w, map_h = 48, 32
 map_wpx, map_hpx = map_w * 8, map_h * 8
@@ -82,11 +82,12 @@ spawn1 = true
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
 -- ovd_avail_els = dstarc("true;true;true;true")
 -- ovd_cur_el = el_fire
+
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1                                                                                             1
@@ -118,7 +119,7 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1     f                   A     E     J       h h h h     j j j j       k k k k               1
+1     f                           t u v     v u t                                             1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
@@ -184,4 +185,7 @@ dstar_add("t1", function(t) return c_timer.new(t,false) end)
 dstar_add("t2", function(t) return c_timer.new(t,true) end)
 dstar_add("rnd", function(max) return flr(rnd(max)) end)
 
+-- optimization functions 
+function emgr() return game.mgr.enemy_mgr end
+function mmgr() return game.mgr.misc_mgr end 
 

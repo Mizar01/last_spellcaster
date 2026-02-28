@@ -278,7 +278,7 @@ col = *5
     action = function(self)
         if (self.int_fn != nil) then
             self.int_fn(self)
-            flog("executed int_fn for scroll "..self.name)
+            -- flog("executed int_fn for scroll "..self.name)
         else
             -- default is to give element to player
             player.cur_el = self.el

@@ -55,7 +55,7 @@ OK investigate and improve boss shooting cpu performance -> the problem was that
 OK try to think a path where scrolls of the same kind must be taken in specific order, or it would be too easy or I have to check to not nerf the player, 
   for example: every level of fire can burn some specific colored vines
     -- DRAW a path of all the scrolls and their pick order.
-- For some vines the first and the last of a row are not subject to player collision
+OK For some vines the first and the last of a row are not subject to player collision
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.

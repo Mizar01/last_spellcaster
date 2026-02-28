@@ -125,7 +125,6 @@ c_game = cstar("c_game", {
         end
 
         self:stage_check()
-
         -- Update play
         cam:update()  -- always first, or the hud elements will have to follow the camera in the next frame with old center.
         for _, v in pairs(self.mgr) do
@@ -156,6 +155,7 @@ c_game = cstar("c_game", {
                 spr(9, x * 16 + self.bgpos[1], y * 16 + self.bgpos[2], 2, 2)
             end
         end
+
         map(0, 0, 0, 0, tw, th, false)
 
         self.mgr.misc_mgr:draw()
