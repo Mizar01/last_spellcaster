@@ -158,61 +158,55 @@ function setup_stage_from_string()
         for tx=0,map_w - 1 do
             local t = converted_type_map[tx][ty]
             local c = stage_changes_map[tx][ty]
-            -- if (c != "") flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
-            mset(tx, ty, 0) -- reset tile
-			local px = tx * 8
-			local py = ty * 8
-            if (t == "1") then -- solid tile
-                -- check neighbors to set variations
-                local tile_variant = neighbor_conf(converted_type_map, tx, ty)
-                local tile_to_set = theme.tile_maps[map_tiles_by_theme(tile_variant, theme)] or 1
-                mset(tx, ty, tile_to_set)
-            elseif (instr("2345", t)) then -- background items
-                local off = theme.bg_item_off[tonum(t) - 1]
-                local io = c_obj.new(px + off[1], py + off[2], mmgr)
-                io.spr.idle.sprites = theme.bg_item_spr[tonum(t) - 1]
-                io.tw = off[1] == 0 and 1 or 2
-                io.th = off[2] == 0 and 1 or 2
-                add(mmgr, io)
-            elseif (t == "f") then -- player start position
-                if ovd_respawn != nil then
-                    player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
-                else player:respawn(px, py) end
-                if (ovd_avail_els != nil and spawn1) player.avail_el = ovd_avail_els
-                if (ovd_cur_el != nil and spawn1) player.cur_el = ovd_cur_el
-                respw = true
-            elseif (instr("abcd", t)) then -- bats
-                c_fly_en.new(px, py, en_map[t])
-            elseif (t == "6") then
-                c_focuslith.new(px, py, mmgr)
-			elseif (t == "8") then
-            elseif (instr("egi", t)) then
-				c_walk_en.new(px, py, en_map[t])
-            elseif (instr("lmn", t)) then
-                c_boss.new(px, py, en_map[t])
-            elseif (instr("tuv", t)) then 
-                c_spike.new(t, px, py)
-            elseif (instr("wx", t)) then 
-                c_crater.new(t, px, py)
-            elseif (instr("hjk", t)) then
-                if (c == "") c_vine.new(t, px, py)
-            elseif (instr("XYZ", t)) then
-                if (c == "") c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
-            elseif (instr("pqrstuvwxyz", t)) then
-                local npcdata = stage_cfg.npcdata[t] or {cname="c_npc_stage"..stage, msg="undefined msg"}
-                c_npc.new(px, py, npcdata.cname, npcdata.msg)
-            elseif (instr("ABCDEFGHIJKL", t)) then
-                if (c=="") c_scroll.new(px, py, t)
-            elseif (instr("MNOP", t)) then
-                local d = c_door.new(px, py, false, 0, c == "1")
-                add(dswarr[t], d)
-            elseif (instr("UVW", t)) then
-                c_door.new(px, py, true, door_cost_map[t], c == "1")
-            elseif (instr("QRST", t)) then
-                local s = c_switchlith.new(px, py, mmgr)
-                if (c=="1") s.on = true
-                -- flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
-                swarr[t] = s
+            if (c != "d") then
+                -- if (c != "") flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
+                mset(tx, ty, 0) -- reset tile
+                local px = tx * 8
+                local py = ty * 8
+                if (t == "1") then -- solid tile
+                    -- check neighbors to set variations
+                    local tile_variant = neighbor_conf(converted_type_map, tx, ty)
+                    local tile_to_set = theme.tile_maps[map_tiles_by_theme(tile_variant, theme)] or 1
+                    mset(tx, ty, tile_to_set)
+                elseif (instr("2345", t)) then -- background items
+                    local off = theme.bg_item_off[tonum(t) - 1]
+                    local io = c_obj.new(px + off[1], py + off[2], mmgr)
+                    io.spr.idle.sprites = theme.bg_item_spr[tonum(t) - 1]
+                    io.tw = off[1] == 0 and 1 or 2
+                    io.th = off[2] == 0 and 1 or 2
+                    add(mmgr, io)
+                elseif (t == "f") then -- player start position
+                    if ovd_respawn != nil then
+                        player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
+                    else player:respawn(px, py) end
+                    if (ovd_avail_els != nil and spawn1) player.avail_el = ovd_avail_els
+                    if (ovd_cur_el != nil and spawn1) player.cur_el = ovd_cur_el
+                    respw = true
+                end
+
+                if (instr("abcd", t)) c_fly_en.new(px, py, en_map[t])
+                if (t == "6") c_focuslith.new(px, py, mmgr)
+                if (instr("egi", t)) c_walk_en.new(px, py, en_map[t])
+                if (instr("lmn", t)) c_boss.new(px, py, en_map[t])
+                if (instr("tuv", t)) c_spike.new(t, px, py)
+                if (instr("wx", t)) c_crater.new(t, px, py)
+                if (instr("hjk", t)) c_vine.new(t, px, py)
+                if (instr("XYZ", t)) c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
+                if (instr("ABCDEFGHIJKL", t)) c_scroll.new(px, py, t)
+                if (instr("UVW", t)) c_door.new(px, py, true, door_cost_map[t], c == "1")
+
+                if (instr("pqrs", t)) then
+                    local npcdata = stage_cfg.npcdata[t] or {cname="c_npc_stage"..stage, msg="undefined msg"}
+                    c_npc.new(px, py, npcdata.cname, npcdata.msg)
+                elseif (instr("MNOP", t)) then
+                    local d = c_door.new(px, py, false, 0, c == "1")
+                    add(dswarr[t], d)
+                elseif (instr("QRST", t)) then
+                    local s = c_switchlith.new(px, py, mmgr)
+                    if (c=="1") s.on = true
+                    -- flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
+                    swarr[t] = s
+                end
             end
         end
     end

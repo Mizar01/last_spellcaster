@@ -41,16 +41,17 @@ OK re-check the scroll cost decrease and shard doors cost decrease when interact
 OK test the shards moving towards the player (after the refactor of dist and moveTo)
 OK test the boss movements.
 OK Sometimes vines are not burnt when hit by fireball (see stage 4)
-- bosses health must restore when player dies.
+OK bosses health must restore when player dies.
 - improve design of health bar of bosses
+- bosses should restore life when player goes far from them
 - differentiate the 3 bosses with different attacks and patterns
 - make bosses open some specific doors after being defeated
 - make some enemies shoot at you
-- add some environmental hazards (spikes, traps, etc)
-- vines must not be subject to ice
+OK add some environmental hazards (spikes, traps, etc)
+OK vines must not be subject to ice
 OK investigate and improve boss shooting cpu performance -> the problem was that all those bullets for 3 parallel bosses where created in the same frame,
   it is enought to make them to have a delay from the first shot to avoid the cpu spike.
-- the bosses should not return to life when the player returns to the map.
+- (TO TEST) the bosses should not return to life when the player returns to the map.
 - improve thunder sprite
 OK try to think a path where scrolls of the same kind must be taken in specific order, or it would be too easy or I have to check to not nerf the player, 
   for example: every level of fire can burn some specific colored vines
@@ -61,13 +62,17 @@ OK For some vines the first and the last of a row are not subject to player coll
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
 - dogs/walking creatures will not fall when out of platform.
 
+- some shards, when reloading twice the same map, are respawning as solid tiles!!!
+- the ice scroll is floating in the air - move it to the ground, or the info popup is unreadable.
+- avoid freezing the vines.
+
 OK add skeleton walking
 OK add another flying enemy witch
 OK add 1 or 2 more bosses
 
 OK add a background parallax
 
-- improve map design
+OK improve map design
 
 - review the scroll descriptions
 - music

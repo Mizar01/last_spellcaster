@@ -44,13 +44,13 @@ B=thunder      ok
 C=ice          OK
 D=wind         OK
 E=fire+1       ok
-F=fire+2
-G=lifereg
-H=lifereg+1
-I=max life+1
-J=fire+3
-K=lifereg+2
-L=max life+2
+F=fire+2       ok
+G=lifereg      ok
+H=lifereg+1    ok
+I=max life+1   ok
+J=fire+3       ok
+K=lifereg+2    ok
+L=max life+2   ok
 DEFINITIVE PATH =============================================================================
 A (fire) -> burn green vines to access area for thunder
 B (thunder) -> open door with thunder to access area for fire+1
@@ -58,7 +58,7 @@ B (thunder) -> open door with thunder to access area for fire+1
 C (ice)     -> use ice to access area for wind
 
 D (wind)    -> use wind + ice + thunder to access area for fire+2
-            -> use wind + ice + thunder (switch) + fire+2 (burn blue vines) to access area for max life+2
+            -> use wind + ice + thunder (switch) + fire+2 (burn blue vines) to access area for max_life+2
             -> use ice + fire+2(burn blue vines) and costly door to get lifereg+2
 
 other scrolls can be taken in any order. The maximum will be applied.

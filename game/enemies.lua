@@ -17,6 +17,7 @@ hitbox = { x=2;y=2;x2=5;y2=5}
 hitbox_orig = _k_hitbox
 speed = *1
 etype = *2
+boss = false
         ]], {speed or 1, etype})
         l.frozen_t.t = 0
         return l
@@ -86,6 +87,7 @@ etype = *2
     del = function(self)
         self.time_last_death = time()
         del(obj_solids, self)
+        if (self.boss) obj_mem_ch(self, "d")
         c_obj.del(self)
     end,
     check_pl_coll = function(self, dmg)
@@ -227,6 +229,7 @@ fire = false
 tpos = {x=nil;y=nil}
 mvrngx = 104
 mvrngy = 88
+boss = true
 ]])
         cur_boss = l
         l.tcd.t -= flr(rnd(40)) -- randomly initial shooting, this avoid multiple bosses to shoot in sync and make a cpu spike.
