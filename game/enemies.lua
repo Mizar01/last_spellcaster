@@ -88,6 +88,9 @@ etype = *2
         del(obj_solids, self)
         c_obj.del(self)
     end,
+    check_pl_coll = function(self, dmg)
+        if (self:collide(player)) then player:dmg(dmg) return true else return false end
+    end,
     is_inv = function(self) return false end,
 })
 
@@ -107,7 +110,7 @@ dir_before_blow = _k_dir
     update = function(self)
         c_enemy.update(self)
         if (self.frozen_t.t > 0) return
-        if (self:collide(player)) player:dmg(1)
+        self:check_pl_coll(1)
         local m = obj_move(self, self.dir)
         if (m == 0) self.dir = (self.horizontal and 0 or 2) + ((self.dir + 1) % 2)
     end,
@@ -132,9 +135,8 @@ basey = *2
         self.phase = "idle"
         if (self.frozen_t.t > 0) return
         -- collide with player with a tolerance of 2 pixels
-        if (self:collide(player, 2, 2)) then
-            player:dmg(2)
-        else
+        local coll = self:check_pl_coll(2)
+        if (not coll) then
             -- move towards player
             if (abs(player.x - self.x) < 50 and abs(player.y - self.y) < 4) then
                 self.spr.flip_x = (player.x - self.x) > 0
@@ -170,9 +172,9 @@ c_vine = cstar("c_vine:c_enemy", {
 fixed = true
 life = 10
 hitbox = { x=0;y=0;x2=7;y2=7}
-        ]])
-        l.pal = c_vine.types[t].pal
-        l.flev = c_vine.types[t].flev
+pal = *1
+flev = *2
+        ]], {c_vine.types[t].pal, c_vine.types[t].flev})
         add(obj_solids, l)
         return l
     end,
@@ -189,15 +191,16 @@ c_spike = cstar("c_spike:c_enemy", {
     __new = function(n, t, x, y)
         local l = c_enemy.new("spike", x, y, 0, emgr())
         l.spr.idle = dstarc("ss=22")
-        dstar(l,"fixed=true;life=10;dir=-1;hitbox={x=0;y=0;x2=7;y2=7};spf=0.2")
-        l.y = y+8 - 3 * (ord(t) - ord('t'))
+        -- collide only with the lower part
+        dstar(l,"fixed=true;life=10;dir=-1;hitbox={x=1;y=7;x2=6;y2=7};spf=0.15;")
+        l.y = y+8 - 4 * (ord(t) - ord('t'))
         return l
     end,
     update = function(self)
         -- c_enemy.update(self)
-        if (self:collide(player) and self.y < self.spawn_y + 3) player:dmg(2)
+        self:check_pl_coll(2)
         self.y += self.dir * self.spf
-        if (self.y < self.spawn_y or self.y > self.spawn_y + 8) then self.dir = -self.dir end
+        if (self.y < self.spawn_y or self.y > self.spawn_y + 8) self.dir *= -1
     end,
     draw = function(self)
         c_enemy.draw(self)
@@ -234,10 +237,8 @@ mvrngy = 88
         c_enemy.update(self)
 
         if (self:distp2(player) > 1000) return
-
         if (self.frozen_t.t > 0) return
-
-        if (self:collide(player)) player:dmg(5)
+        self:check_pl_coll(5)
 
         -- moving
         if self.tpos.x == nil or self:distp2(self.tpos) < 9 then

@@ -24,7 +24,7 @@ max_radius = *1
 c_element = cstar("c_element:c_obj", {
     __new = function(n, el, dir)
         local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y
-        local l = c_obj.new(origx, origy, game.mgr.misc_mgr)
+        local l = c_obj.new(origx, origy, mmgr())
         l.spr.idle = el_idle_setup[el]
         dstar(l, [[
 ttl = *5
@@ -56,7 +56,7 @@ el = *4
     --     return (self.dir == dir_left) and -1 or 1
     -- end,
     hit = function(self, trg)
-        c_explosion.new(self.x, self.y, 4, game.mgr.misc_mgr)
+        c_explosion.new(self.x, self.y, 4, mmgr())
         self:effect(trg)
         self:del()
     end;
@@ -219,7 +219,7 @@ c_switchlith = cstar("c_switchlith:c_int", {
 
 c_door = cstar("c_door:c_int", {
     __new = function(n, x, y, int, cost, open)
-        local l = c_int.new(x, y, game.mgr.misc_mgr)
+        local l = c_int.new(x, y, mmgr())
         l.spr.open = int and dstarc("ss=60") or dstarc("sprites={43,44;45;46}; fps=5; loop=false")
         l.spr.close = int and dstarc("ss=59") or dstarc("sprites={46;45;44;43}; fps=5; loop=false")
         dstar(l, [[
@@ -259,7 +259,7 @@ int=*1
 
 c_scroll = cstar("c_scroll:c_int", {
     __new = function(n, x, y, t)
-        local l = c_int.new(x, y, game.mgr.misc_mgr)
+        local l = c_int.new(x, y, mmgr())
         l = dstar(l, [[
 el = *1
 int_fn = *2
@@ -298,7 +298,7 @@ col = *5
 
 c_shard = cstar("c_shard:c_obj", {
     __new = function(n, x, y, cnt, static)
-        local l = c_obj.new(x, y, game.mgr.misc_mgr)
+        local l = c_obj.new(x, y, mmgr())
         dstar(l, [[
             speed = 0.1
             speed_inc = 1.05
@@ -331,7 +331,7 @@ c_shard = cstar("c_shard:c_obj", {
 
 c_npc = cstar("c_npc:c_int", {
     __new = function(n, x, y, codename, dialogs)
-        local l = c_int.new(x, y, game.mgr.misc_mgr)
+        local l = c_int.new(x, y, mmgr())
         l.spr.idle.sprites = npc_sprites[codename] or { 154 }
         l.name = npc_names[codename]
         l.dialogs = split(dialogs, "/")
@@ -364,7 +364,7 @@ c_npc = cstar("c_npc:c_int", {
 
 c_bullet = cstar("c_bullet:c_obj", {
     __new = function(n, x, y, dir, speed)
-        local l = c_obj.new(x, y, game.mgr.misc_mgr)
+        local l = c_obj.new(x, y, mmgr())
         dstar(l, [[
 dir = *1
 speed = *2

@@ -233,7 +233,7 @@ bounce_map=false
 		if (self.cur_el == nil) return
 		if (self.el_cooldown.t <= 0) then
 			-- default attack does nothing
-			el_cls[self.cur_el].new(self.spr.flip_x and dir_left or dir_right, game.mgr.misc_mgr)
+			el_cls[self.cur_el].new(self.spr.flip_x and dir_left or dir_right, mmgr())
 			self.el_cooldown:restart()
 		end
 	end,

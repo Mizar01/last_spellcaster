@@ -39,13 +39,14 @@ end
 -- hjk = green,red,blue vines
 -- i = skeleton
 -- lmn = bosses (n is the final one, but is hidden from another npc)
+-- pqrs = npcs (the mapping is done in game_config.lua)
 -- tuv = moving spikes at different starting points
+-- w = crater launching bullets
 -- ABCDEFGHIJKL = scroll
 -- MNOP = doors activated by switches
 -- QRST = switches for doors MNOP
 -- UVW = interactive doors with shards cost to open
 -- XYZ = static shards x1,x3,x5
--- pqrs = npcs (the mapping is done in game_config.lua)
 
 -- empty_map_sammple
 
