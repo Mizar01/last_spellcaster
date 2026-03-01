@@ -62,9 +62,10 @@ OK For some vines the first and the last of a row are not subject to player coll
 - map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
 - dogs/walking creatures will not fall when out of platform.
 
-- some shards, when reloading twice the same map, are respawning as solid tiles!!!
+OK some shards, when reloading twice the same map, are respawning as solid tiles!!!
 - the ice scroll is floating in the air - move it to the ground, or the info popup is unreadable.
 - avoid freezing the vines.
+- it is possible to open 1+ doors with 1 switch, but it is not possible to open 1 door with 2+ switches. try to check the association method.
 
 OK add skeleton walking
 OK add another flying enemy witch

@@ -158,9 +158,9 @@ function setup_stage_from_string()
         for tx=0,map_w - 1 do
             local t = converted_type_map[tx][ty]
             local c = stage_changes_map[tx][ty]
+            mset(tx, ty, 0) -- reset tile
             if (c != "d") then
                 -- if (c != "") flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
-                mset(tx, ty, 0) -- reset tile
                 local px = tx * 8
                 local py = ty * 8
                 if (t == "1") then -- solid tile

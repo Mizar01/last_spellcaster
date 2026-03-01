@@ -105,13 +105,12 @@ offview = false
 	out_of_map = function(self)
 		return self.x < 0 or self.y < 0 or self.x > map_wpx or self.y > map_hpx
 	end,
-	-- fast calc distance -> it gets the distance power 2 to avoid the costly sqrt operation.
-	distp2 = function(self, other)
-		local dpx, dpy = other.x - self.x, other.y - self.y
-		return ((dpx/10)*(dpx/10)+(dpy/10)*(dpy/10))*50
+	-- calculate the manatthan distance
+	mdist = function(self, other)
+		return abs(self.x - other.x) + abs(self.y - other.y)
 	end,
 	moveTo = function(self, t, speed)
-		local dist = sqrt(self:distp2(t))
+		local dist = self:mdist(t)
 		local r = speed/dist
         self.x = lerp(self.x, t.x, r)
         self.y = lerp(self.y, t.y, r)

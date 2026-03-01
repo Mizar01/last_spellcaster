@@ -239,12 +239,12 @@ boss = true
 
         c_enemy.update(self)
 
-        if (self:distp2(player) > 1000) return
+        if (self:mdist(player) > 100) return
         if (self.frozen_t.t > 0) return
         self:check_pl_coll(5)
 
         -- moving
-        if self.tpos.x == nil or self:distp2(self.tpos) < 9 then
+        if self.tpos.x == nil or self:mdist(self.tpos) < 3 then
             self.tpos.x =self.spawn_x + rnd(self.mvrngx * 2) - self.mvrngx
             self.tpos.y = self.spawn_y - rnd(self.mvrngy)
         end
