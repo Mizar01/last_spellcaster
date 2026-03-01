@@ -192,8 +192,8 @@ function setup_stage_from_string()
                 c_boss.new(px, py, en_map[t])
             elseif (instr("tuv", t)) then 
                 c_spike.new(t, px, py)
-            -- elseif (t == "w") then
-            --     c_crater.new(px, py)
+            elseif (instr("wx", t)) then 
+                c_crater.new(t, px, py)
             elseif (instr("hjk", t)) then
                 if (c == "") c_vine.new(t, px, py)
             elseif (instr("XYZ", t)) then

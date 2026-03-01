@@ -98,17 +98,18 @@ c_fly_en = cstar("c_fly_en:c_enemy", {
     __new = function(n, x, y, name)
         local l = c_enemy.new(name, x, y, 0.3, emgr())
         l.spr.idle = {sprites = en_sprites[name].idle, fps = 4, loop = true}
-        l.horizontal = en_mv[name] == "horizontal"
+        l.horizontal = (en_vertical[name] == nil)
         dstar(l, [[
 hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
-horizontal = *1
-dir = *2
+horizontal = _k_horizontal
+dir = *1
 dir_before_blow = _k_dir
-        ]], {l.horizontal, l.horizontal and dir_right or dir_down})
+        ]], {l.horizontal and dir_right or dir_down})
         return l
     end,
     update = function(self)
         c_enemy.update(self)
+        self.spr.flip_x = self.dir == dir_right
         if (self.frozen_t.t > 0) return
         self:check_pl_coll(1)
         local m = obj_move(self, self.dir)
@@ -116,51 +117,19 @@ dir_before_blow = _k_dir
     end,
 })
 
-c_walk_en = cstar("c_walk_en:c_enemy", {
+c_walk_en = cstar("c_walk_en:c_fly_en", {
     __new = function(n, x, y, name)
-        local l = c_enemy.new(name, x, y, 1.5, emgr())
-        l.spr.idle = { sprites = en_sprites[name].idle, fps = 2,  loop = true }
-        l.spr.run = { sprites = en_sprites[name].run, fps = 4, loop = true }
-        dstar(l, [[
-speed = 0.2
-hitbox = {x=0;y=3;x2=7;y2=7}
-hitbox_orig = {x=0;y=3;x2=7;y2=7}
-basex = *1
-basey = *2
-        ]], {x, y})
+        local l = c_fly_en.new(x, y, name)
+        -- l.spr.idle = { sprites = en_sprites[name].idle, fps = 2,  loop = true }
         return l
     end,
     update = function(self)
-        c_enemy.update(self)
-        self.phase = "idle"
-        if (self.frozen_t.t > 0) return
-        -- collide with player with a tolerance of 2 pixels
-        local coll = self:check_pl_coll(2)
-        if (not coll) then
-            -- move towards player
-            if (abs(player.x - self.x) < 50 and abs(player.y - self.y) < 4) then
-                self.spr.flip_x = (player.x - self.x) > 0
-                local d = (player.x - self.x) > 0 and dir_right or dir_left
-                local xck = d == dir_right and self.x + self.speed + 7 or self.x - self.speed
-                local yck = self.y + 8
-                -- check the ground tile to the side
-                if (mget2_by_px_solid(xck, yck)) then
-                    -- check if there isn't a wall in front
-                    if (not mget2_by_px_solid(xck, self.y)) then
-                        obj_move(self, d)
-                        self.phase = "run"
-                    end
-                end 
-            else
-                -- return to base position
-                if (abs(self.basex - self.x) > 3) then
-                    self.spr.flip_x = (self.basex - self.x) > 0
-                    obj_move(self, (self.basex - self.x) > 0 and dir_right or dir_left)
-                    self.phase = "run"
-                end
-            end
-        end
-    end,
+        c_fly_en.update(self)
+        local xck = self.x + (self.dir == dir_right and 7 or 0)
+        if (not mget2_by_px_solid(xck, self.y + 8)) then
+            self.dir = (self.dir + 1) % 2
+        end 
+    end
 })
 
 c_vine = cstar("c_vine:c_enemy", {
@@ -209,6 +178,37 @@ c_spike = cstar("c_spike:c_enemy", {
     is_inv = function(self) return true end,
 })
 
+c_crater = cstar("c_crater:c_enemy", {
+    angles = dstarc("0.5;0;0.25;0.75"),
+    __new = function(n, t, x, y)
+        local l = c_enemy.new("crater", x, y, 0, emgr())
+        l.name = en_map[t]
+        l.spr.idle = {ss = en_sprites[l.name].idle[1]}
+        dstar(l,"fixed=true;life=10;dir=-1;spf=0.15;inited=false;tfire=_fn_t2_2;")
+        l.horizontal = (en_vertical[l.name] == nil)
+        l.dir = l.horizontal and dir_right or dir_down
+        l.tfire.t -= flr(rnd(40)) -- random start
+        return l
+    end,
+    update = function(self)
+        if (not self.inited) then
+            -- fix direction (only once)
+            if self.horizontal and mget2_by_px_solid(self.x+12, self.y) then self.dir = dir_left end
+            if not self.horizontal and mget2_by_px_solid(self.x, self.y+12) then self.dir = dir_up end
+            self.spr.flip_x = self.dir == dir_left
+            self.spr.flip_y = self.dir == dir_up
+            self.inited = true
+        end
+        if self.tfire:adv() then
+            c_bullet.new(self.x, self.y, c_crater.angles[self.dir + 1], 1)
+        end
+    end,
+    draw = function(self)
+        c_enemy.draw(self)
+    end,
+    is_inv = function(self) return true end,
+})
+
 c_boss = cstar("c_boss:c_enemy", {
     angles = dstarc("0;0.1;0.4;0.5;0.6;0.9"),
     __new = function(n, x, y, name)
@@ -251,7 +251,7 @@ mvrngy = 88
         if (self.tcd:adv()) self.fire = not self.fire
         if self.fire then
             if self.tfire:adv() then
-                c_bullet.new(self.x + 8, self.y + 8, rnd(c_boss.angles), 1)
+                c_bullet.new(self.x + 4, self.y + 4, rnd(c_boss.angles), 1)
             end
         end
     end,

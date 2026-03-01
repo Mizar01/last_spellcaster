@@ -50,11 +50,11 @@ npc_sprites = dstarc([[
 lea = {192;193}
 lady = {208;209}
 ]])
-en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3")
+en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;")
 en_sprites=dstarc([[
-dog={idle={144;145};run={146;147}}
-spider={idle={160;161};run={162;163}}
-sk={idle={148;149};run={150;151}}
+dog={idle={146;147}}
+spider={idle={162;163}}
+sk={idle={150;151}}
 bath={idle={128;129}}
 batv=_k_bath
 witchh={idle={130;131}}
@@ -62,8 +62,11 @@ witchv=_k_witchh
 boss1={idle={203;205}}
 boss2={idle={231;233}}
 boss3={idle={199;201}}
+craterh={idle={38}}
+craterv={idle={54}}
 ]])
-en_mv=dstarc([[bath=horizontal;batv=vertical;witchh=horizontal;witchv=vertical;]])
+-- this should be an array, but it's more convenient to use a map for lookup
+en_vertical=dstarc("batv=1;witchv=1;craterv=1;")
 fsolid_idx = 0 -- flag index used for solid
 game = nil
 player = nil
@@ -115,11 +118,11 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1                                                                                             1
-1                                                                                             1
-1                                                                                             1
-1                                                                                             1
-1     f                           t u v     v u t                                             1
+1                       1 1 1 1 1 1 1 1 1 1 1                                                 1
+1                     f 1   w 1   x   x     1                                                 1
+1                     1 1 w                 1 1                                               1
+1                   1 1 1 1                 1 1 1                                             1
+1                 1 1 1 1           x   x   1 1 1 1                                           1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
