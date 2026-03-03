@@ -151,7 +151,7 @@ function setup_stage_from_string()
 
      -- SECOND PASS: set tile variations according to theme
     local mmgr = game.mgr.misc_mgr
-    local swarr = {}
+    local swarr = dstarc("Q={};R={};S={};T={}")
     local dswarr = dstarc("M={};N={};O={};P={}")
     local respw = false
     for ty=0,map_h - 1 do
@@ -205,7 +205,7 @@ function setup_stage_from_string()
                     local s = c_switchlith.new(px, py, mmgr)
                     if (c=="1") s.on = true
                     -- flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
-                    swarr[t] = s
+                    add(swarr[t], s)
                 end
             end
         end
@@ -216,11 +216,14 @@ function setup_stage_from_string()
         player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
     end
 
-    for k,v in pairs(swarr) do
+    for k,switches in pairs(swarr) do
         local kt = sub(sub("MNOP",ord(k) - ord("Q") + 1), 1,1)
         -- flog("Linking switch "..k.." to door of type "..kt)
-        for dsw in all(dswarr[kt]) do
-            v:link_switch(dsw)
+        for s in all(switches) do
+            for dsw in all(dswarr[kt]) do
+                s:link(dsw)
+            end
+            s.siblings = switches -- store the list of other switches for same door
         end
     end
 

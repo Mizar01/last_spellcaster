@@ -18,6 +18,7 @@ hitbox_orig = _k_hitbox
 speed = *1
 etype = *2
 boss = false
+memdeath = false
         ]], {speed or 1, etype})
         l.frozen_t.t = 0
         return l
@@ -38,6 +39,7 @@ boss = false
     end,
     freeze = function(self)
         self.frozen_t:restart()
+        if (self.fixed) return
         add(obj_solids, self)
         self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
     end,
@@ -87,7 +89,7 @@ boss = false
     del = function(self)
         self.time_last_death = time()
         del(obj_solids, self)
-        if (self.boss) obj_mem_ch(self, "d")
+        if (self.memdeath) obj_mem_ch(self, "d")
         c_obj.del(self)
     end,
     check_pl_coll = function(self, dmg)
@@ -145,6 +147,7 @@ life = 10
 hitbox = { x=0;y=0;x2=7;y2=7}
 pal = *1
 flev = *2
+memdeath = true
         ]], {c_vine.types[t].pal, c_vine.types[t].flev})
         add(obj_solids, l)
         return l
@@ -230,6 +233,7 @@ tpos = {x=nil;y=nil}
 mvrngx = 104
 mvrngy = 88
 boss = true
+memdeath = true
 ]])
         cur_boss = l
         l.tcd.t -= flr(rnd(40)) -- randomly initial shooting, this avoid multiple bosses to shoot in sync and make a cpu spike.

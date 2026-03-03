@@ -191,7 +191,7 @@ c_focuslith = cstar("c_focuslith:c_int", {
 c_switchlith = cstar("c_switchlith:c_int", {
     __new = function(n, x, y, parent_mgr)
         local l = c_int.new(x, y, parent_mgr)
-        l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true")
+        l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true;siblings={}")
         l.on = false
         l.doors = {}
         return l
@@ -204,10 +204,10 @@ c_switchlith = cstar("c_switchlith:c_int", {
         for door in all(self.doors) do
             if self.on then door:close() else door:open() end
         end
-        self.on = not self.on
+        for s in all(self.siblings) do s.on = not s.on end
         obj_mem_ch(self, self.on and 1 or 2)
     end,
-    link_switch = function(self, door)
+    link = function(self, door)
         add(self.doors, door)
     end,
     draw = function(self)

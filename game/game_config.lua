@@ -89,7 +89,7 @@ use_sample_map = false
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
 -- ovd_avail_els = dstarc("true;true;true;true")
--- ovd_cur_el = el_fire
+-- ovd_cur_el = el_thunder
 
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -117,12 +117,12 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1                                                                                             1
+1                         R R S S T T Q   Q                                                   1
 1                       1 1 1 1 1 1 1 1 1 1 1                                                 1
-1                     f 1   w 1   x   x     1                                                 1
-1                     1 1 w                 1 1                                               1
-1                   1 1 1 1                 1 1 1                                             1
-1                 1 1 1 1           x   x   1 1 1 1                                           1
+1                     f 1                   1                                                 1
+1                     1 1                   1 1                                               1
+1                   1 1 1 N N O O P P M   M 1 1 1                                             1
+1                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                                           1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 

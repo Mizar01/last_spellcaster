@@ -65,7 +65,8 @@ OK For some vines the first and the last of a row are not subject to player coll
 OK some shards, when reloading twice the same map, are respawning as solid tiles!!!
 - the ice scroll is floating in the air - move it to the ground, or the info popup is unreadable.
 - avoid freezing the vines.
-- it is possible to open 1+ doors with 1 switch, but it is not possible to open 1 door with 2+ switches. try to check the association method.
+OK it is possible to open 1+ doors with 1 switch, but it is not possible to open 1 door with 2+ switches. try to check the association method.
+- we have again problems with map transition, try to do an hard check with a new map compressor with all kinds of transitions or find a new system.
 
 OK add skeleton walking
 OK add another flying enemy witch
