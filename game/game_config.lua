@@ -79,15 +79,16 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 2  -- intitial stage is 2
+stage = 7  -- intitial stage is 2
 spawn1 = true
 -- ovd_respawn = dstarc("16;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
 use_sample_map = false
-ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
-ovd_cur_el = nil
+player_enable_all = true
+-- ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
+-- ovd_cur_el = nil
 -- ovd_avail_els = dstarc("true;true;true;true")
 -- ovd_cur_el = el_thunder
 
@@ -165,16 +166,16 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=sand;wtx=48;wty=32"),
+        dstarc("name=The intestines;music=13;theme=ice;wtx=48;wty=32"),
         dstarc("")
     ),
 
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=sand;wtx=-48;wty=64"),
+        dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=64"),
+        dstarc("name=The intestines;music=13;theme=metal;wtx=0;wty=64"),
         dstarc("")
     ),
     build_stage_config_item(

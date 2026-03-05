@@ -179,8 +179,16 @@ function setup_stage_from_string()
                     if ovd_respawn != nil then
                         player:respawn(ovd_respawn[1] * 8, ovd_respawn[2] * 8)
                     else player:respawn(px, py) end
-                    if (ovd_avail_els != nil and spawn1) player.avail_el = ovd_avail_els
-                    if (ovd_cur_el != nil and spawn1) player.cur_el = ovd_cur_el
+                    -- if (ovd_avail_els != nil and spawn1) player.avail_el = ovd_avail_els
+                    -- if (ovd_cur_el != nil and spawn1) player.cur_el = el_fire
+                    if (player_enable_all) then
+                        dstar(player, [[
+avail_el={true;true;true;true}
+cur_el=1
+lev_el={3;1;1;1}
+lifereg_lev=2
+                        ]])
+                    end
                     respw = true
                 end
 

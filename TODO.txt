@@ -59,7 +59,7 @@ OK try to think a path where scrolls of the same kind must be taken in specific 
 OK For some vines the first and the last of a row are not subject to player collision
 
 -- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
-- map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
+OK map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
 - (RE CHECK) dogs/walking creatures will not fall when out of platform (they go out of platform if you push them, but I changed the logic, so it must be tested again)
 
 OK some shards, when reloading twice the same map, are respawning as solid tiles!!!
@@ -67,6 +67,8 @@ OK the ice scroll is floating in the air - move it to the ground, or the info po
 - (CHECK) avoid freezing the vines.
 OK it is possible to open 1+ doors with 1 switch, but it is not possible to open 1 door with 2+ switches. try to check the association method.
 - we have again problems with map transition, try to do an hard check with a new map compressor with all kinds of transitions or find a new system.
+- if you use fire too near a vine, this does not burn
+- the fire (or other elements) are too near the player when shot from the left.
 
 OK add skeleton walking
 OK add another flying enemy witch
