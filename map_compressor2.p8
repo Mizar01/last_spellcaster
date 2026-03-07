@@ -52,7 +52,7 @@ end
 
 big_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 1       4         4         4         b           b       4 4 4               4 1 1 1 1 Z Z 1 .   b                       4 4 4         1       X X         1               4   4   4 4         .     4 4   4   4                         X           4           Y       1 1 1 1 1 1 1 1 1 1 1 1
+1 1       4         4         4         b           b       4 4 4               4 1 1 1 1 Z Z 1 .                           4 4 4         1       X X         1               4   4   4 4         .     4 4   4   4                         X           4           Y       1 1 1 1 1 1 1 1 1 1 1 1
 1                     g           g           b                                 1 C     1 Z   1 .                                         1   1 1 1 1 1 1   b                                     .                                                             1 1 1 1     4 1 1 1 1 1 1 1 1 1 1 1
 1   1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                   1 1     1       .                                         1             1                                         .                     1 1   a     1 1 1 1   1 a   1 1 1   a                 4 1 1 1 1 1 1 1 1 1 1
 1     a   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1               1   1 1 b     .                                         1 1 1 1 1 1   1                                         .                                                                             1 1 1 1 1 1 1 1 1 1
@@ -215,10 +215,6 @@ for y=0,2 do
         -- flog("map: "..#extended_maps_config.." -> length: "..#map_chunk)
     end
 end
-
-local test_log_stage = 3
--- flog("Stage "..test_log_stage.." map before compression:")
--- flog(extended_maps_config[test_log_stage])
 
 cls()
 content = "stage_compressed_maps = {\n"

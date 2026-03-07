@@ -253,17 +253,16 @@ function neighbor_conf(ctm, tx, ty)
     local down = (ty < map_h) and (ctm[tx][ty + 1] == "1") or ty == map_h - 1
     local left = (tx > 0) and (ctm[tx - 1][ty] == "1") or tx == 0
     local right = (tx < map_w - 1) and (ctm[tx + 1][ty] == "1") or tx == map_w - 1
-    local conf = 0
-    if up then conf += 1 end
-    if down then conf += 2 end
-    if left then conf += 4 end
-    if right then conf += 8 end
-    return conf
+    return (up and 1 or (down and 2 or (left and 4 or (right and 8)))) or 0
+    
 end
 
 function fix_jump_transition()
     if mget2_by_px_solid(player.x, player.y) then
         player.y += 8
+        -- if mget2_by_px_solid(player.x, player.y) then
+        --     player.x += (player.spr.flip_x and 8 or -8)
+        -- end
     end
 end
 
