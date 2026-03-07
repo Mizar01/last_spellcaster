@@ -210,7 +210,7 @@ solid = false
 max_radius = *1
         ]],{t or 4})n.spr.idle=r"sprites = { 185; 186; 187 }, fps = 4"return n end,update=function(n)if(n.ttl:adv())n.parent_mgr:del(n)
 end,draw=function(n)if(n.ttl.t<=0)return
-local e=F(0,n.max_radius,1-n.ttl.t/n.ttl.maxtime)circfill(n.x,n.y,e,10)end})M=n("c_element:c_obj",{__new=function(n,e,t)local i,o=_.x+(t==l and-2or 10),_.y local n=b.new(i,o,u())n.spr.idle=nU[e]h(n,[[ttl = *5
+local e=F(0,n.max_radius,1-n.ttl.t/n.ttl.maxtime)circfill(n.x,n.y,e,10)end})M=n("c_element:c_obj",{__new=function(n,e,t)local i,o=_.x+(t==l and-4or 6),_.y local n=b.new(i,o,u())n.spr.idle=nU[e]h(n,[[ttl = *5
 max_dist = 20
 destroy_req_prev_frame = false
 origx = *1

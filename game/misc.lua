@@ -23,7 +23,7 @@ max_radius = *1
 
 c_element = cstar("c_element:c_obj", {
     __new = function(n, el, dir)
-        local origx, origy = player.x + (dir == dir_left and -2 or 10), player.y
+        local origx, origy = player.x + (dir == dir_left and -4 or 6), player.y
         local l = c_obj.new(origx, origy, mmgr())
         l.spr.idle = el_idle_setup[el]
         dstar(l, [[

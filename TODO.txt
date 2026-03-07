@@ -1,22 +1,22 @@
 last_spellcaster
-- change the name of the game and the project
+OK change the name of the game and the project
 OK create 4 types of elements: thunder, fire, ice, wind
 OK create a switchlith that permits you to change element among those available
 OK create a sliding text effect to show some messages on screen
-- find a way to consume a button press after executing a function (to avoid multiple activations at the same frame)
+OK find a way to consume a button press after executing a function (to avoid multiple activations at the same frame)
 OK the fireball comes out wrong when shooting to the left
 OK the hud position is messed up, again --> the problem is the order of updates, cam must be always first.
 OK begin to shorten all the variable names. I hit the chars limit!
-- Bug: sometimes obj_solids are not removed when unfreeze (or maybe they are constantly re-added by some code?)
+OK Bug: sometimes obj_solids are not removed when unfreeze (or maybe they are constantly re-added by some code?)
 OK logging: log does not work before the config.lua call. find a way to load config first of everything
 OK think about dropping the keys and doors system, is too heavy
-- do another round of token/chars optimization, here usual suggestions:
+OK do another round of token/chars optimization, here usual suggestions:
    - put dstar strings in the first column of the file (no indent)
    - shorten some variable names
    - delete unused code
    - there's so much I don't use in c_obj.draw()
 
-- when clicking on focus light, for a little moment a redline on top appears, investigate a remove it
+OK when clicking on focus light, for a little moment a redline on top appears, investigate a remove it
 OK performance issues when many enemies are on screen
   OK collisions with enemies must be done in the enemy update against c_element and player.
   OK split maps in smaller parts
@@ -32,51 +32,48 @@ OK implement a memory system that remember open doors/switches and burnt vines
 OK check or make that wandering enemies will bounce on the map limits (even if there are no solids)
 OK scroll should show what the cost is and the name of skill in a better way
 OK player and enemy bullet should not pass walls.
-- player fire should melt the ice instead of being vanished (and it's vanished because ice is a solid object).
 OK when the player switch maps it must mantain the current element 
 OK verify if scrolls do not respawn if already collected
 OK retest interactions (I refactored it a bit)
 OK re-check the scroll cost decrease and shard doors cost decrease when interacted with.
-- Avoid that the c_slider or texts can cover the player or the interacting object.
 OK test the shards moving towards the player (after the refactor of dist and moveTo)
 OK test the boss movements.
 OK Sometimes vines are not burnt when hit by fireball (see stage 4)
 OK bosses health must restore when player dies.
+OK add some environmental hazards (spikes, traps, etc)
+OK vines must not be subject to ice
+OK investigate and improve boss shooting cpu performance -> the problem was that all those bullets for 3 parallel bosses where created in the same frame,
+  it is enought to make them to have a delay from the first shot to avoid the cpu spike.
+OK try to think a path where scrolls of the same kind must be taken in specific order, or it would be too easy or I have to check to not nerf the player, 
+  for example: every level of fire can burn some specific colored vines
+    OK DRAW a path of all the scrolls and their pick order.
+OK For some vines the first and the last of a row are not subject to player collision
+OK map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
+OK some shards, when reloading twice the same map, are respawning as solid tiles!!!
+OK the ice scroll is floating in the air - move it to the ground, or the info popup is unreadable.
+OK it is possible to open 1+ doors with 1 switch, but it is not possible to open 1 door with 2+ switches. try to check the association method.
+OK we have again problems with map transition, try to do an hard check with a new map compressor with all kinds of transitions or find a new system.
+OK the fire (or other elements) are too near the player when shot from the left.
+OK add skeleton walking
+OK add another flying enemy witch
+OK add 1 or 2 more bosses
+OK add a background parallax
+OK improve map design
+
+
+- (TO TEST) the bosses should not return to life when the player returns to the map.
+- (RE CHECK) dogs/walking creatures will not fall when out of platform (they go out of platform if you push them, but I changed the logic, so it must be tested again)
+- improve thunder sprite
+- (CHECK) avoid freezing the vines.
+- if you use fire too near a vine, this does not burn
 - improve design of health bar of bosses
 - bosses should restore life when player goes far from them
 - differentiate the 3 bosses with different attacks and patterns
 - make bosses open some specific doors after being defeated
 - make some enemies shoot at you
-OK add some environmental hazards (spikes, traps, etc)
-OK vines must not be subject to ice
-OK investigate and improve boss shooting cpu performance -> the problem was that all those bullets for 3 parallel bosses where created in the same frame,
-  it is enought to make them to have a delay from the first shot to avoid the cpu spike.
-- (TO TEST) the bosses should not return to life when the player returns to the map.
-- improve thunder sprite
-OK try to think a path where scrolls of the same kind must be taken in specific order, or it would be too easy or I have to check to not nerf the player, 
-  for example: every level of fire can burn some specific colored vines
-    OK DRAW a path of all the scrolls and their pick order.
-OK For some vines the first and the last of a row are not subject to player collision
+- Avoid that the c_slider or texts can cover the player or the interacting object.
+- do performance improvement: find what is the most cpu intensive sprite/loop
 
--- TO AVOID THOSE TWO BUGS FOR NOW: act on the map design.
-OK map transition of player: sometimes it get stuck inside walls if some jumping is happening or there's strange combination of walls.
-- (RE CHECK) dogs/walking creatures will not fall when out of platform (they go out of platform if you push them, but I changed the logic, so it must be tested again)
-
-OK some shards, when reloading twice the same map, are respawning as solid tiles!!!
-OK the ice scroll is floating in the air - move it to the ground, or the info popup is unreadable.
-- (CHECK) avoid freezing the vines.
-OK it is possible to open 1+ doors with 1 switch, but it is not possible to open 1 door with 2+ switches. try to check the association method.
-- we have again problems with map transition, try to do an hard check with a new map compressor with all kinds of transitions or find a new system.
-- if you use fire too near a vine, this does not burn
-- the fire (or other elements) are too near the player when shot from the left.
-
-OK add skeleton walking
-OK add another flying enemy witch
-OK add 1 or 2 more bosses
-
-OK add a background parallax
-
-OK improve map design
 
 - review the scroll descriptions
 - music
