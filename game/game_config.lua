@@ -79,7 +79,7 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 7  -- intitial stage is 2
+stage = 1  -- intitial stage is 2
 spawn1 = true
 -- ovd_respawn = dstarc("16;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
@@ -140,12 +140,12 @@ ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{170};{142};{158};{143}}
 
 stage_config = {
     build_stage_config_item(
-        dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0"),
+        dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}"),
         dstarc("")
     ),
     -- initial stage (2)
     build_stage_config_item(
-        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;"),
+        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 u = {cname=lady;msg=welcome to the forest*be careful out there!}
@@ -153,33 +153,33 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
         )
     ),
     build_stage_config_item(
-        dstarc("name=The green forest 3;music=13;theme=grass;wtx=48;wty=0"),
+        dstarc("name=The green forest 3;music=13;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}"),
         dstarc("")
     ),
 
     build_stage_config_item(
-        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32"),
+        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{44;30}}"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32;"),
+        dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32;fix_jumps={{22;1};{20;30}}"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=ice;wtx=48;wty=32"),
+        dstarc("name=The intestines;music=13;theme=ice;wtx=48;wty=32;fix_jumps={{18;1};{4;30}}"),
         dstarc("")
     ),
 
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64"),
+        dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64;fix_jumps={{43;1}}"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=metal;wtx=0;wty=64"),
+        dstarc("name=The intestines;music=13;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}"),
         dstarc("")
     ),
     build_stage_config_item(
-        dstarc("name=The forgotten;music=13;theme=metal;wtx=48;wty=64"),
+        dstarc("name=The forgotten;music=13;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}"),
         dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
     ),
 }

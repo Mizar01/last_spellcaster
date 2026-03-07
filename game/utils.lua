@@ -258,12 +258,17 @@ function neighbor_conf(ctm, tx, ty)
 end
 
 function fix_jump_transition()
-    if mget2_by_px_solid(player.x, player.y) then
-        player.y += 8
-        -- if mget2_by_px_solid(player.x, player.y) then
-        --     player.x += (player.spr.flip_x and 8 or -8)
-        -- end
+    local fjs = stage_config_get().fix_jumps
+    local mintd, ftx, fty = 5, nil, nil
+    for i=1, #fjs do
+        local tx, ty = fjs[i][1], fjs[i][2]
+        local manhd = abs(tx - flr(player.x / 8)) + abs(ty - flr(player.y / 8))
+        if manhd < mintd then
+            mintd = manhd
+            ftx, fty = tx, ty
+        end
     end
+    if ftx != nil and fty != nil then player:respawn(ftx * 8, fty * 8) end
 end
 
 function clean_stage()

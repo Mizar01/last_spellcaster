@@ -54,14 +54,12 @@ c_game = cstar("c_game", {
     --     self.minimap = mm
     -- end,
     start_play = function(self)
-        self.win_stage = false
         self.menu = false
         self.play = true
         if self.require_player_rebuild then
             player = c_player.new(0, 0)
             self.require_player_rebuild = false
         end
-        self.game_over = false
         player:reset_stage_props()
         for _, v in pairs(self.mgr) do
             if (v.restart) v:restart()
@@ -74,22 +72,15 @@ c_game = cstar("c_game", {
     start_menu = function(self)
         self.menu = true
         self.play = false
-        self.game_over = false
-        self.win_stage = false
-        self.win_game = false
-        stage = 1
+        stage = 2
     end,
     stage_check = function(self)
         local ptx, pty = flr(player.x / 8), flr(player.y / 8)
-        if ptx < 0 or (ptx >= map_w - 1 and player.x > map_w * 8 - 4) or (pty <= 0 and player.y < 3) or pty >= map_h - 1 then
+        if ptx < 0 or (ptx >= map_w - 1 and player.x > map_w * 8 - 4) or pty < 0 or pty >= map_h then
             -- LOAD A NEW STAGE (MAP PORTION)
             spawn1 = false
             local prev_stage = stage_config_get()
             local pwtx, pwty = ptx + prev_stage.wtx or 0, pty + prev_stage.wty or 0
-            if pty <= 0 then 
-                pwty-=2
-                pwtx = pwtx + (player.spr.flip_x and -1 or 1)
-            elseif pty >= map_h - 1 then pwty+=2 end
             if (ptx >= map_w - 1) pwtx+=1
             local cs = nil
             for i = 1,#stage_config do
@@ -102,7 +93,7 @@ c_game = cstar("c_game", {
             clean_stage()
             local nptx, npty = pwtx - cs.wtx, pwty - cs.wty
             ovd_respawn = dstarc(""..nptx..";"..npty.."")
-            flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")
+            -- flog("stage changed to "..stage.." with ovd_respawn "..ovd_respawn[1]..","..ovd_respawn[2].."")
             setup_stage_from_string()
             fix_jump_transition()
             cam:place(player.x, player.y)
