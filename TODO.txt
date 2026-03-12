@@ -69,13 +69,14 @@ OK improve map design
 - improve design of health bar of bosses
 - bosses should restore life when player goes far from them
 - differentiate the 3 bosses with different attacks and patterns
+- better delimitation for bosses areas, sometimes they go out of the box
 - make bosses open some specific doors after being defeated
 - make some enemies shoot at you
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 - do performance improvement: find what is the most cpu intensive sprite/loop
 - open shard doors does not have to interact anymore.
 - finish to add decorations to other levels (4 to 9)
-
+- OPTIONAL: try to change the way you choose the element (for example with the UP key instead of using a focuslith, but this can be a problem with analog sticks)
 
 - review the scroll descriptions
 - music
