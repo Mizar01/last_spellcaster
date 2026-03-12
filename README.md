@@ -1,4 +1,22 @@
+[#last_spell_caster_0_9-2#]
+
+
+[img]/media/135332/last_spellcaster p8_2.gif[/img]
+[img]/media/135332/last_spellcaster min_0.gif[/img]
+[img]/media/135332/last_spellcaster min_1.gif[/img]
+[img]/media/135332/last_spellcaster min_2.gif[/img]
+
 # The Last Spellcaster (Work in progress)
+
+## Log updates
+ - 0.9.1 (2026-03-12)
+   - Fixed map tiles
+   - Improved map design
+ - 0.9 (2026-03-09)
+   - Improved map design
+   - Refined path to search for scrolls
+   - Improved map transitions
+   - Added more enemies and traps
 
 ##  Brief description:
 
@@ -30,7 +48,7 @@ To pass some special doors, or to learn spells, the player must collect **shards
 ## Controls
   - left/right: move
   - z: jump
-  - x: attack
+  - x: attack (once you acquire spells)
   - enter/menu: access to some special option (still in progress)
 
 ## Plot
@@ -47,3 +65,5 @@ Some bugs noticed during a transition from a map to another.
 
 ## Source Code:
 The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
+
+

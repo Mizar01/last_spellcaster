@@ -73,6 +73,8 @@ OK improve map design
 - make some enemies shoot at you
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 - do performance improvement: find what is the most cpu intensive sprite/loop
+- open shard doors does not have to interact anymore.
+- finish to add decorations to other levels (4 to 9)
 
 
 - review the scroll descriptions
