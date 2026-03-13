@@ -132,9 +132,16 @@ c_game = cstar("c_game", {
         if self.menu then
             cls()
             local t = t()
-            spr(80 + flr((t / 0.10) % 3), 60, 58)
-            cprint("* the last spellcaster *", 64, 50, 7)
-            cprint("press ❎ to start", 64, 70, 7)
+            spr(80 + flr((t / 0.10) % 3), 60, 30)
+
+            cprint("* the last spellcaster *", 64, 20, 7)
+            
+            cprint("⬅️➡️ to move", 64, 60, 6)
+            cprint("⬇️⬇️ (tap twice) change spell", 64, 70, 6)
+            cprint("🅾️ jump - ❎ spell attack", 64, 80, 6)
+            cprint("(once you have spells)", 64, 90, 6)
+
+            cprint("press ❎ to start", 64, 110, 7)
             return
         end
 
