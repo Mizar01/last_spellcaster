@@ -1,26 +1,3 @@
--- c_explosion = cstar("c_explosion:c_obj", {
---     __new = function(n, x, y, max_radius, parent_mgr)
---         local l = c_obj.new(x, y, parent_mgr)
---         dstar(l, [[
--- ttl = _fn_t1_0.2
--- solid = false
--- max_radius = *1
---         ]], {max_radius or 4})
---         l.spr.idle = dstarc("sprites = { 185; 186; 187 }, fps = 4")
---         return l
---     end,
---     update = function(self)
---         if self.ttl:adv() then
---             self.parent_mgr:del(self)
---         end
---     end,
---     draw = function(self)
---         if (self.ttl.t <= 0) return
---         local r = lerp(0, self.max_radius, 1 - (self.ttl.t / self.ttl.maxtime))
---         circfill(self.x, self.y, r, 10)
---     end
--- })
-
 c_element = cstar("c_element:c_obj", {
     __new = function(n, el, dir)
         local origx, origy = player.x + (dir == dir_left and -4 or 6), player.y
@@ -172,21 +149,21 @@ cost = 0
     end
 })
 
-c_focuslith = cstar("c_focuslith:c_int", {
-    __new = function(n, x, y, parent_mgr)
-        local l = c_int.new(x, y, parent_mgr)
-        l.spr.idle = { ss = 11 }
-        return l
-    end,
-    action = function(self)
-        player:switch_element()
-    end,
-    draw = function(self)
-        pal(7, (flr(time() / 0.5) % 2 == 0) and el_colors[player.cur_el] or 7)
-        c_int.draw(self)
-        pal()
-    end
-})
+-- c_focuslith = cstar("c_focuslith:c_int", {
+--     __new = function(n, x, y, parent_mgr)
+--         local l = c_int.new(x, y, parent_mgr)
+--         l.spr.idle = { ss = 11 }
+--         return l
+--     end,
+--     action = function(self)
+--         player:switch_element()
+--     end,
+--     draw = function(self)
+--         pal(7, (flr(time() / 0.5) % 2 == 0) and el_colors[player.cur_el] or 7)
+--         c_int.draw(self)
+--         pal()
+--     end
+-- })
 
 c_switchlith = cstar("c_switchlith:c_int", {
     __new = function(n, x, y, parent_mgr)

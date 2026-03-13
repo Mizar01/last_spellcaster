@@ -210,7 +210,7 @@ lifereg_lev=2
                 end
 
                 if (instr("abcd", t)) c_fly_en.new(px, py, en_map[t])
-                if (t == "6") c_focuslith.new(px, py, mmgr)
+                -- if (t == "6") c_focuslith.new(px, py, mmgr) -- i use another method for now.
                 if (instr("egi", t)) c_walk_en.new(px, py, en_map[t])
                 if (instr("lmn", t)) c_boss.new(px, py, en_map[t])
                 if (instr("tuv", t)) c_spike.new(t, px, py)

@@ -42,6 +42,7 @@ hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
 t_respawn=nil
 shards = 3000
 bounce_map=false
+last_btn_down_time=0
 		]])
 		return p
 	end,
@@ -53,7 +54,7 @@ bounce_map=false
 
 		local p = self
 
-		local btn = dstarc("left=*1;right=*2;jump=*3;jump_start=*4;action=*5", {btn(0),btn(1),btn(4),btnp(4),btnp(5)})
+		local btn = dstarc("left=*1;right=*2;jump=*3;jump_start=*4;action=*5;down=*6;", {btn(0),btn(1),btn(4),btnp(4),btnp(5),btnp(3)})
 
 		if (p.phase == "dead") then
 			if (p.prev_btn.left) obj_move(p, dir_left) 
@@ -118,6 +119,17 @@ bounce_map=false
 		if self.el_cooldown:adv() then
 			-- show a little shining start above the player head for some frames.
 			self.shine_star = 10
+		end
+
+		if btn.down then
+			local dt = time() - self.last_btn_down_time
+			flog("down"..tostr(dt))
+			if dt < 0.4 then
+				self:switch_element()
+				self.last_btn_down_time = 0
+			else
+				self.last_btn_down_time = time()
+			end
 		end
 
 		-- reset interaction function at every frame. NOTE: it's mandatory that the function must be assigned before updating the player

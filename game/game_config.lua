@@ -85,10 +85,10 @@ spawn1 = true
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = true
+use_sample_map = false
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
-player_enable_all = true
+player_enable_all = false
 -- ovd_avail_els = dstarc("true;true;true;true")
 -- ovd_cur_el = el_thunder
 
