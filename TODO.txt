@@ -73,10 +73,13 @@ OK improve map design
 - make bosses open some specific doors after being defeated
 - make some enemies shoot at you
 - Avoid that the c_slider or texts can cover the player or the interacting object.
-- do performance improvement: find what is the most cpu intensive sprite/loop
+OK do performance improvement: find what is the most cpu intensive sprite/loop
 - open shard doors does not have to interact anymore.
 - finish to add decorations to other levels (4 to 9)
 - OPTIONAL: try to change the way you choose the element (for example with the UP key instead of using a focuslith, but this can be a problem with analog sticks)
+  - maybe it could be to press twice the down arrow (stick)
+- switchlith could be made non interactive after being turned on.
+- now that obj_solids is by tile key position, i should update obj_solids when a solid is moved in the game (for example an ice cube moved with wind)
 
 - review the scroll descriptions
 - music

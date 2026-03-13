@@ -40,7 +40,7 @@ memdeath = false
     freeze = function(self)
         self.frozen_t:restart()
         if (self.fixed) return
-        add(obj_solids, self)
+        add_solid(self)
         self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
     end,
     unfreeze = function(self)
@@ -88,7 +88,7 @@ memdeath = false
     end,
     del = function(self)
         self.time_last_death = time()
-        del(obj_solids, self)
+        remove_solid(self)
         if (self.memdeath) obj_mem_ch(self, "d")
         c_obj.del(self)
     end,
@@ -149,7 +149,7 @@ pal = *1
 flev = *2
 memdeath = true
         ]], {c_vine.types[t].pal, c_vine.types[t].flev})
-        add(obj_solids, l)
+        add_solid(l)
         return l
     end,
     draw = function(self)

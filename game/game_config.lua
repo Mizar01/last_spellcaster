@@ -85,15 +85,16 @@ spawn1 = true
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
--- player_enable_all = true
+player_enable_all = true
 -- ovd_avail_els = dstarc("true;true;true;true")
 -- ovd_cur_el = el_thunder
 
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+1               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
@@ -118,12 +119,11 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1                         R R S S T T Q   Q                                                   1
-1                       1 1 1 1 1 1 1 1 1 1 1                                                 1
-1                     f 1                   1                                                 1
-1                     1 1                   1 1                                               1
-1                   1 1 1 N N O O P P M   M 1 1 1                                             1
-1                 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                                           1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1                                                                                             1
+1         f     M M M M M M M M M M   Q     6                                                 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 

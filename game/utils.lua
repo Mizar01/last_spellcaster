@@ -41,6 +41,21 @@ function obj_del(obj) if (obj != nil and not obj.destroyed) then obj:del() end e
 -- MAP UTILS
 ----------------------------------------------
 
+function build_obj_solid_key(x, y)
+    return flr(x / 8).."_"..flr(y / 8)
+end
+
+function add_solid(obj)
+    local oskey = build_obj_solid_key(obj.x, obj.y)
+    if (obj_solids[oskey] == nil) obj_solids[oskey] = {}
+    add(obj_solids[oskey], obj)
+end
+
+function remove_solid(obj)
+    local oskey = build_obj_solid_key(obj.x, obj.y)
+    del(obj_solids[oskey], obj)
+end
+
 -- Get if a tile is solid by pixel coordinates
 function mget2_by_px_solid(x, y, tw, th)
 	local mtile = mget2_by_px(x, y, tw, th)
@@ -49,7 +64,9 @@ end
 
 -- Get the object at pixel coordinates (x, y) among the temporarily solid objects
 function osget_by_px(x, y)
-    for o in all(obj_solids) do
+    local oskey = build_obj_solid_key(x, y)
+    -- I can have more than one object in the same tile, so I need to check all of them.
+    for o in all(obj_solids[oskey]) do
         local hbp = o:hitbox_pos(0,0)
         if (x >= hbp.x and x < hbp.x2 and y >= hbp.y and y < hbp.y2) then
             return o
@@ -281,9 +298,7 @@ function clean_stage()
     for _, v in pairs(game.mgr) do
         if (v.restart) v:restart()
     end
-    obj_solids = {}
-    player_bullets = {}
-    enemy_bullets = {}
+    obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{}")
 end
 
 cam = {

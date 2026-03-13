@@ -1,25 +1,25 @@
-c_explosion = cstar("c_explosion:c_obj", {
-    __new = function(n, x, y, max_radius, parent_mgr)
-        local l = c_obj.new(x, y, parent_mgr)
-        dstar(l, [[
-ttl = _fn_t1_0.2
-solid = false
-max_radius = *1
-        ]], {max_radius or 4})
-        l.spr.idle = dstarc("sprites = { 185; 186; 187 }, fps = 4")
-        return l
-    end,
-    update = function(self)
-        if self.ttl:adv() then
-            self.parent_mgr:del(self)
-        end
-    end,
-    draw = function(self)
-        if (self.ttl.t <= 0) return
-        local r = lerp(0, self.max_radius, 1 - (self.ttl.t / self.ttl.maxtime))
-        circfill(self.x, self.y, r, 10)
-    end
-})
+-- c_explosion = cstar("c_explosion:c_obj", {
+--     __new = function(n, x, y, max_radius, parent_mgr)
+--         local l = c_obj.new(x, y, parent_mgr)
+--         dstar(l, [[
+-- ttl = _fn_t1_0.2
+-- solid = false
+-- max_radius = *1
+--         ]], {max_radius or 4})
+--         l.spr.idle = dstarc("sprites = { 185; 186; 187 }, fps = 4")
+--         return l
+--     end,
+--     update = function(self)
+--         if self.ttl:adv() then
+--             self.parent_mgr:del(self)
+--         end
+--     end,
+--     draw = function(self)
+--         if (self.ttl.t <= 0) return
+--         local r = lerp(0, self.max_radius, 1 - (self.ttl.t / self.ttl.maxtime))
+--         circfill(self.x, self.y, r, 10)
+--     end
+-- })
 
 c_element = cstar("c_element:c_obj", {
     __new = function(n, el, dir)
@@ -56,7 +56,7 @@ el = *4
     --     return (self.dir == dir_left) and -1 or 1
     -- end,
     hit = function(self, trg)
-        c_explosion.new(self.x, self.y, 4, mmgr())
+        -- c_explosion.new(self.x, self.y, 4, mmgr())
         self:effect(trg)
         self:del()
     end;
@@ -228,9 +228,9 @@ hitbox = {x=0;y=0;x2=7;y2=7}
 cost = *2
 int=*1
 ]], {int, cost})
-        add(obj_solids, l)
-        if (open) then c_door.open(l) end
-        if (not open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
+        add_solid(l)
+        if (l.open) then c_door.open(l) end
+        if (not l.open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
         return l
     end,
     update = function(self)
@@ -244,17 +244,17 @@ int=*1
     open = function(self)
         self.phase = "open"
         self.hover_info = nil
-        del(obj_solids, self)
+        remove_solid(self)
         obj_mem_ch(self, 1)
     end,
     close = function(self)
         self.phase = "close"
-        add(obj_solids, self)
+        add_solid(self)
         obj_mem_ch(self, 2)
     end,
     action = function(self)
         self:open()
-    end
+    end,
 })
 
 c_scroll = cstar("c_scroll:c_int", {
