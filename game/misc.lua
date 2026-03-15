@@ -165,24 +165,31 @@ cost = 0
 --     end
 -- })
 
-c_switchlith = cstar("c_switchlith:c_int", {
-    __new = function(n, x, y, parent_mgr)
-        local l = c_int.new(x, y, parent_mgr)
+c_switch = cstar("c_switch:c_int", {
+    __new = function(n, x, y, on)
+        local l = c_int.new(x, y, mmgr())
         l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true;siblings={}")
-        l.on = false
+        l.on = on
+        l.int = not l.on
         l.doors = {}
         return l
     end,
     action = function(self)
+        if (not self.int) then return end
         if (player.cur_el != el_thunder) then
             c_slide_text.new(30, "You need thunder")
             return
         end
-        for door in all(self.doors) do
-            if self.on then door:close() else door:open() end
+        -- change sibling status (including itself)
+        for s in all(self.siblings) do 
+            s.on = not s.on 
+            s.int = not s.on
+            s.show_int_button = not s.on
+            obj_mem_ch(s, s.on and 1 or 2)
         end
-        for s in all(self.siblings) do s.on = not s.on end
-        obj_mem_ch(self, self.on and 1 or 2)
+        for door in all(self.doors) do
+            if not self.on then door:close() else door:open() end
+        end
     end,
     link = function(self, door)
         add(self.doors, door)
@@ -206,8 +213,8 @@ cost = *2
 int=*1
 ]], {int, cost})
         add_solid(l)
-        if (l.open) then c_door.open(l) end
-        if (not l.open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
+        if (open) then c_door.open(l) end
+        if (not open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
         return l
     end,
     update = function(self)
@@ -255,7 +262,6 @@ col = *5
     action = function(self)
         if (self.int_fn != nil) then
             self.int_fn(self)
-            -- flog("executed int_fn for scroll "..self.name)
         else
             -- default is to give element to player
             player.cur_el = self.el

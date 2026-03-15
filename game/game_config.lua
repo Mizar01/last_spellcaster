@@ -79,16 +79,16 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 2  -- intitial stage is 2
+stage = 6  -- intitial stage is 2
 spawn1 = true
--- ovd_respawn = dstarc("4;30")
+-- ovd_respawn = dstarc("20;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
 use_sample_map = false
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
-player_enable_all = false
+-- player_enable_all = true
 -- ovd_avail_els = dstarc("true;true;true;true")
 -- ovd_cur_el = el_thunder
 
@@ -135,7 +135,7 @@ themes = dstarc([[
 metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 sand={tile_maps={17;18;19;20;21};bg_col=0;bg_item_spr={{15};{31};{47};{41}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 grass={tile_maps={33;34;35;36;37};bg_col=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
-ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{170};{142};{158};{143}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
+ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{142};{158};{143};{170}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 ]])
 
 stage_config = {

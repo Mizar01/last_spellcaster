@@ -123,7 +123,6 @@ last_btn_down_time=0
 
 		if btn.down then
 			local dt = time() - self.last_btn_down_time
-			flog("down"..tostr(dt))
 			if dt < 0.4 then
 				self:switch_element()
 				self.last_btn_down_time = 0

@@ -65,7 +65,7 @@ OK improve map design
 - (RE CHECK) dogs/walking creatures will not fall when out of platform (they go out of platform if you push them, but I changed the logic, so it must be tested again)
 - improve thunder sprite
 - (CHECK) avoid freezing the vines.
-- if you use fire too near a vine, this does not burn
+OK if you use fire too near a vine, this does not burn
 - improve design of health bar of bosses
 - bosses should restore life when player goes far from them
 - differentiate the 3 bosses with different attacks and patterns
@@ -75,12 +75,16 @@ OK improve map design
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 OK do performance improvement: find what is the most cpu intensive sprite/loop
 - open shard doors does not have to interact anymore.
-- finish to add decorations to other levels (4 to 9)
+OK finish to add decorations to other levels (4 to 9)
 OK OPTIONAL: try to change the way you choose the element (for example with the UP key instead of using a focuslith, but this can be a problem with analog sticks)
   OK maybe it could be to press twice the down arrow (stick)
-- switchlith could be made non interactive after being turned on.
+OK switchlith could be made non interactive after being turned on.
 - now that obj_solids is by tile key position, i should update obj_solids when a solid is moved in the game (for example an ice cube moved with wind)
+ - maybe I can solve making the ice cube not movable (i have to push the object before freezing it) - but it feels tricky
 - when attack button and switch spell are pressed, show an hint if you don't have any spell.
+
+OK fix background sprite for ice
+OK stage 9: fix the ledge reaching near the scrools (you should be able to climp up after)
 
 - review the scroll descriptions
 - music

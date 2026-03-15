@@ -177,7 +177,6 @@ function setup_stage_from_string()
             local c = stage_changes_map[tx][ty]
             mset(tx, ty, 0) -- reset tile
             if (c != "d") then
-                -- if (c != "") flog("tile at "..tx..","..ty.." type "..tostr(t).." change "..tostr(c))
                 local px = tx * 8
                 local py = ty * 8
                 if (t == "1") then -- solid tile
@@ -227,9 +226,7 @@ lifereg_lev=2
                     local d = c_door.new(px, py, false, 0, c == "1")
                     add(dswarr[t], d)
                 elseif (instr("QRST", t)) then
-                    local s = c_switchlith.new(px, py, mmgr)
-                    if (c=="1") s.on = true
-                    -- flog("Door is initially "..tostr(s.on).." at "..tx..","..ty)
+                    local s = c_switch.new(px, py, c=="1")
                     add(swarr[t], s)
                 end
             end
@@ -248,7 +245,7 @@ lifereg_lev=2
             for dsw in all(dswarr[kt]) do
                 s:link(dsw)
             end
-            s.siblings = switches -- store the list of other switches for same door
+            s.siblings = switches -- store the list of other switches for same door (including itself)
         end
     end
 
