@@ -79,7 +79,7 @@ map_wpx, map_hpx = map_w * 8, map_h * 8
 
 cur_boss = nil
 
-stage = 6  -- intitial stage is 2
+stage = 2  -- intitial stage is 2
 spawn1 = true
 -- ovd_respawn = dstarc("20;30")
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.

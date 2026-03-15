@@ -307,7 +307,7 @@ boss2={idle={231;233}}
 boss3={idle={199;201}}
 craterh={idle={38}}
 craterv={idle={54}}
-]]ns=d"batv=1;witchv=1;craterv=1;"n8=0a=nil _=nil nz,e5,ex,ew,e8,nS=v"0;1;2;3;4;5"S,I,Z,L,n0=v"{};{};{};{};{};{}"p,w=48,32ni,no=p*8,w*8K=nil m=6nd=true X=nil nA=false eg=d"false;false;false;false"e6=nil nG=[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+]]ns=d"batv=1;witchv=1;craterv=1;"n8=0a=nil _=nil nz,e5,ex,ew,e8,nS=v"0;1;2;3;4;5"S,I,Z,L,n0=v"{};{};{};{};{};{}"p,w=48,32ni,no=p*8,w*8K=nil m=2nd=true X=nil nA=false eg=d"false;false;false;false"e6=nil nG=[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
 1                                                                                             1
 1                                                                                             1
