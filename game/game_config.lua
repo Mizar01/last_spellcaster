@@ -94,7 +94,6 @@ ovd_cur_el = nil
 
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b 1
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
@@ -123,7 +122,8 @@ sample_map = [[
 1                                                                                             1
 1                                                                                             1
 1                                                                                             1
-1         f     M M M M M M M M M M   Q     6                                                 1
+1                                                                                             1
+1         f           U                                                                       1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
 
@@ -158,7 +158,7 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
     ),
 
     build_stage_config_item(
-        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{44;30}}"),
+        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
         dstarc("")
     ),
     build_stage_config_item(
@@ -171,7 +171,7 @@ u = {cname=lady;msg=welcome to the forest*be careful out there!}
     ),
 
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64;fix_jumps={{43;1}}"),
+        dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}"),
         dstarc("")
     ),
     build_stage_config_item(

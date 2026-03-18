@@ -82,7 +82,6 @@ author = *1
 msgs = nil
         ]], {author})
         c_dialog.update_msg(l, msg)
-        
         return l
     end,
     update_msg = function(self, msg)
@@ -94,10 +93,10 @@ msgs = nil
         rectfill(self.x - 10, self.y - 10, self.x + 124, self.y + rows * 7 + 10, 1)
         rect( self.x - 2, self.y - 2, self.x + 124, self.y + rows * 7, 14)
         -- if (self.author != nil) print(self.author..":", self.x, self.y, 8)
-        for i = 1, #self.msgs do
+        for i = 1, rows do
             print(self.msgs[i], self.x, self.y + (i - 1) * 7, 8)
         end
-        if (self.cont) print("❎>>", self.x + 100, self.y + rows * 7 + 2, 8)
+        print("❎", self.x + 100, self.y + rows * 7 + 2, 8)
     end,
 })
 

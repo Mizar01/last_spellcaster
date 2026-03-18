@@ -228,6 +228,9 @@ int=*1
     open = function(self)
         self.phase = "open"
         self.hover_info = nil
+        self.int = false
+        self.show_int_button = false
+        obj_del(self.hover_info_obj)
         remove_solid(self)
         obj_mem_ch(self, 1)
     end,
@@ -337,11 +340,17 @@ c_npc = cstar("c_npc:c_int", {
         end
     end,
     action = function(self)
+        if (self.cur_diag > #self.dialogs) then
+            self.diagcls:del()
+            self.cur_diag = 1 -- reset dialog
+            self.diagcls = nil
+            return
+        end
         self.diagcls = self.diagcls or c_dialog.new(30, self.name, "")
         self.diagcls:update_msg(self.dialogs[self.cur_diag])
         self.diagcls.cont = self.cur_diag < #self.dialogs
         self.diagcls.ttl:restart()
-        self.cur_diag = min(self.cur_diag + 1, #self.dialogs) -- stay at last dialog during interaction
+        self.cur_diag = self.cur_diag + 1
     end
 })
 

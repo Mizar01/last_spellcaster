@@ -73,6 +73,9 @@ OK if you use fire too near a vine, this does not burn
 - make bosses open some specific doors after being defeated
 - make some enemies shoot at you
 - Avoid that the c_slider or texts can cover the player or the interacting object.
+- add more npcs
+OK npc dialogs do not close correctly at the end with 'X'. It will retrigger the start of dialog. 
+  OK analyse better the npc interaction (there must be a cooldown after the end, or use a btnp correctly)
 OK do performance improvement: find what is the most cpu intensive sprite/loop
 - open shard doors does not have to interact anymore.
 OK finish to add decorations to other levels (4 to 9)
