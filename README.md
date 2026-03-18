@@ -9,14 +9,13 @@
 # The Last Spellcaster (Work in progress)
 
 ## Log updates
+ - 0.9.2 (2026-03-18)
+   - Major fixes
+   - Improved maps
+   - Change spell tapping down arrow twice
  - 0.9.1 (2026-03-12)
    - Fixed map tiles
    - Improved map design
- - 0.9 (2026-03-09)
-   - Improved map design
-   - Refined path to search for scrolls
-   - Improved map transitions
-   - Added more enemies and traps
 
 ##  Brief description:
 
@@ -49,6 +48,7 @@ To pass some special doors, or to learn spells, the player must collect **shards
   - left/right: move
   - z: jump
   - x: attack (once you acquire spells)
+  - down + down (tap twice) to change spell.
   - enter/menu: access to some special option (still in progress)
 
 ## Plot
@@ -58,10 +58,11 @@ Not yet ready
 Not yet ready
 
 ## Things to improve:
-Bullet design, enemies ai, background, boss movements, fighting style.
+Bullet design, enemies ai, boss movements, fighting style.
 
 ## Known bugs:
-Some bugs noticed during a transition from a map to another.
+ - in rare occasions map transitions is buggy.
+ - Avoid that the c_slider or texts can cover the player or the interacting object.
 
 ## Source Code:
 The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
