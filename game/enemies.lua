@@ -220,7 +220,7 @@ c_boss = cstar("c_boss:c_enemy", {
         local l = c_enemy.new("boss", x, y, 0.3, emgr())
         l.spr.idle.sprites = en_sprites[name].idle
         dstar(l, [[
-life = 5000
+life = 500
 max_life = _k_life
 tw = 2
 th = 2
@@ -234,6 +234,7 @@ mvrngx = 104
 mvrngy = 88
 boss = true
 memdeath = true
+show_life_bar = true
 ]])
         cur_boss = l
         l.tcd.t -= flr(rnd(40)) -- randomly initial shooting, this avoid multiple bosses to shoot in sync and make a cpu spike.
@@ -242,9 +243,10 @@ memdeath = true
     update = function(self)
 
         c_enemy.update(self)
-
-        if (self:mdist(player) > 100) return
-        if (self.frozen_t.t > 0) return
+        local d = self:mdist(player)
+        self.show_life_bar = d <= 120
+        if (d > 200) self.life = min(self.max_life, self.life + 1) -- restore life when player is far away
+        if (d > 80 or self.frozen_t.t > 0) return
         self:check_pl_coll(5)
 
         -- moving
@@ -264,6 +266,10 @@ memdeath = true
     end,
     draw = function(self)
         c_enemy.draw(self)
-        rectfill(self.x, self.y - 4, self.x + flr(15 * (self.life / self.max_life)), self.y - 2, 8)
+        if (self.show_life_bar) then
+            local cx, cy = cam:calc_center()
+            rectfill(cx, cy+12, cx + 125, cy + 15, 1)
+            rectfill(cx, cy+13, cx + flr(125 * (self.life / self.max_life)), cy + 14, 8)
+        end
     end,
 })

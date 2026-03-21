@@ -70,6 +70,13 @@ function osget_by_px(x, y)
         local hbp = o:hitbox_pos(0,0)
         if (x >= hbp.x and x < hbp.x2 and y >= hbp.y and y < hbp.y2) then
             return o
+        else
+            -- check if maybe the object has moved and update.
+            local realkey = build_obj_solid_key(o.x, o.y)
+            if (realkey != oskey) then
+                del(obj_solids[oskey], o) -- do not use remove_solid
+                add_solid(o)
+            end
         end
     end
     return nil

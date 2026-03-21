@@ -1,4 +1,24 @@
 last_spellcaster
+
+
+- improve thunder sprite
+- (TO TEST) the bosses should not return to life when the player returns to the map.
+- when attack button and switch spell are pressed, show an hint if you don't have any spell.
+- bosses should restore life when player goes far from them
+- differentiate the 3 bosses with different attacks and patterns
+- better delimitation for bosses areas, sometimes they go out of the box
+- make bosses open some specific doors after being defeated
+- make some enemies shoot at you
+- Avoid that the c_slider or texts can cover the player or the interacting object.
+- add more npcs
+- review the scroll descriptions
+- music
+- sound effects
+- level design
+
+
+
+DONE:
 OK change the name of the game and the project
 OK create 4 types of elements: thunder, fire, ice, wind
 OK create a switchlith that permits you to change element among those available
@@ -59,39 +79,22 @@ OK add another flying enemy witch
 OK add 1 or 2 more bosses
 OK add a background parallax
 OK improve map design
-
-
-- (TO TEST) the bosses should not return to life when the player returns to the map.
-- (RE CHECK) dogs/walking creatures will not fall when out of platform (they go out of platform if you push them, but I changed the logic, so it must be tested again)
-- improve thunder sprite
-- (CHECK) avoid freezing the vines.
+OK dogs/walking creatures will not fall when out of platform (they go out of platform if you push them, but I changed the logic, so it must be tested again)
+OK (not a problem) avoid freezing the vines.
 OK if you use fire too near a vine, this does not burn
-- improve design of health bar of bosses
-- bosses should restore life when player goes far from them
-- differentiate the 3 bosses with different attacks and patterns
-- better delimitation for bosses areas, sometimes they go out of the box
-- make bosses open some specific doors after being defeated
-- make some enemies shoot at you
-- Avoid that the c_slider or texts can cover the player or the interacting object.
-- add more npcs
+OK improve design of health bar of bosses
 OK npc dialogs do not close correctly at the end with 'X'. It will retrigger the start of dialog. 
   OK analyse better the npc interaction (there must be a cooldown after the end, or use a btnp correctly)
 OK do performance improvement: find what is the most cpu intensive sprite/loop
-- open shard doors does not have to interact anymore.
 OK finish to add decorations to other levels (4 to 9)
 OK OPTIONAL: try to change the way you choose the element (for example with the UP key instead of using a focuslith, but this can be a problem with analog sticks)
   OK maybe it could be to press twice the down arrow (stick)
 OK switchlith could be made non interactive after being turned on.
-- now that obj_solids is by tile key position, i should update obj_solids when a solid is moved in the game (for example an ice cube moved with wind)
- - maybe I can solve making the ice cube not movable (i have to push the object before freezing it) - but it feels tricky
-- when attack button and switch spell are pressed, show an hint if you don't have any spell.
+OK now that obj_solids is by tile key position, i should update obj_solids when a solid is moved in the game (for example an ice cube moved with wind)
 OK switches are also reachable diagonally, that should be avoided
   OK one way is to avoid having switches that diagonally intersect the player from an illogic part of the map (simply editing the map)
-
+[I DECIDED TO LET BE] when pushing with wind and enemy is bouncing to a wall or edge, it change direction with more force. 
+  OK This should not happen, but it seems fun
 OK fix background sprite for ice
 OK stage 9: fix the ledge reaching near the scrools (you should be able to climp up after)
-
-- review the scroll descriptions
-- music
-- sound effects
-- level design
+OK open shard doors does not have to interact anymore.
