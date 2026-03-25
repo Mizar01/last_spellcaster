@@ -1,4 +1,4 @@
-[#last_spell_caster_0_9-2#]
+[#last_spell_caster_0_9-3#]
 
 
 [img]/media/135332/last_spellcaster p8_2.gif[/img]
@@ -9,6 +9,10 @@
 # The Last Spellcaster (Work in progress)
 
 ## Log updates
+ - 0.9.3 (2026-03-21)
+   - Major fixes
+   - Improved maps and bosses health bars
+   - Fixed ice+wind combo bug
  - 0.9.2 (2026-03-18)
    - Major fixes
    - Improved maps

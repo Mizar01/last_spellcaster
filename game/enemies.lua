@@ -230,8 +230,8 @@ tcd = _fn_t2_1
 tfire = _fn_t2_0.1
 fire = false
 tpos = {x=nil;y=nil}
-mvrngx = 104
-mvrngy = 88
+mvrngx = 60
+mvrngy = 30
 boss = true
 memdeath = true
 show_life_bar = true

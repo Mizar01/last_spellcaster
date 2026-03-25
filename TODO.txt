@@ -1,14 +1,10 @@
 last_spellcaster
 
 
-- improve thunder sprite
 - (TO TEST) the bosses should not return to life when the player returns to the map.
 - when attack button and switch spell are pressed, show an hint if you don't have any spell.
-- bosses should restore life when player goes far from them
 - differentiate the 3 bosses with different attacks and patterns
-- better delimitation for bosses areas, sometimes they go out of the box
 - make bosses open some specific doors after being defeated
-- make some enemies shoot at you
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 - add more npcs
 - review the scroll descriptions
@@ -19,6 +15,10 @@ last_spellcaster
 
 
 DONE:
+NO make some enemies shoot at you
+OK bosses should restore life when player goes far from them
+OK improve thunder sprite
+OK better delimitation for bosses areas, sometimes they go out of the box
 OK change the name of the game and the project
 OK create 4 types of elements: thunder, fire, ice, wind
 OK create a switchlith that permits you to change element among those available
