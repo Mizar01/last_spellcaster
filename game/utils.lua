@@ -210,6 +210,7 @@ avail_el={true;true;true;true}
 cur_el=1
 lev_el={3;1;1;1}
 lifereg_lev=2
+keys={red=true;blue=true}
                         ]])
                     end
                     respw = true

@@ -140,9 +140,8 @@ keys={red=false;blue=false}
 		local p = self
 		if (p.invisible) return
 		p:draw_sprite()
-		if (self.shine_star > 0) then
-			line(self.x + 3, self.y - 1, self.x + 5, self.y - 1, 10)
-			line(self.x + 4, self.y - 2, self.x + 4, self.y, 10)
+		if (self.shine_star > 0) then 
+			spr(104, self.x, self.y)
 			self.shine_star -= 1
 		end
 	end,
@@ -151,9 +150,7 @@ keys={red=false;blue=false}
 		if not p.invulnerable then
 			p.life -= dmg
 			if (p.life <= 0) then
-				p.phase = "dead"
-				p.invulnerable = true
-				p.t_respawn = c_timer.new(5) -- time before respawn
+				dstar(p, "phase=dead;invulnerable=true;t_respawn=_fn_t1_5")
 			else
 				p.nodmg_t = c_timer.new(1) -- invincibility frames
 				p.spr.effect = "blink_white"

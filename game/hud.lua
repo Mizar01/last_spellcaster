@@ -33,11 +33,10 @@ c_player_life_bar = cstar("c_player_life_bar:c_hud_element", {
         return l
     end,
     draw = function(self)
-        -- print("life:", self.x, self.y, 8)
         local w = 30 * player.max_life / self.life_ref
-        -- rectfill(self.x, self.y + 1, self.x + w + 10, self.y + 6, 1)
+        rectfill(self.x, self.y + 1, self.x + 8, self.y + 7, 1)
         self:draw_sprite()
-        progress_bar_draw(self.x + 10, self.y + 2, w, 3, player.life, player.max_life, 1, 8)
+        progress_bar_draw(self.x + 10, self.y + 2, w, 4, player.life, player.max_life, 1, 8)
     end,
 })
 
@@ -64,7 +63,7 @@ c_slide_text = cstar("c_slide_text:c_hud_element", {
     end,
     draw = function(self)
         rectfill(self.x - 2, self.y - 2, self.x + 126, self.y + 7, 1)
-        rect( self.x - 2, self.y - 2, self.x + 126, self.y + 7, 14)
+        -- rect( self.x - 2, self.y - 2, self.x + 126, self.y + 7, 14)
         print(self.msg, self.x, self.y, 8) -- x,y are already right for the camera position
 
     end,
@@ -80,7 +79,7 @@ ttl = _fn_t1_6
 cont = false
 author = *1
 msgs = nil
-        ]], {author})
+]], {author})
         c_dialog.update_msg(l, msg)
         return l
     end,
@@ -91,8 +90,7 @@ msgs = nil
     draw = function(self)
         local rows = #self.msgs
         rectfill(self.x - 10, self.y - 10, self.x + 124, self.y + rows * 7 + 10, 1)
-        rect( self.x - 2, self.y - 2, self.x + 124, self.y + rows * 7, 14)
-        -- if (self.author != nil) print(self.author..":", self.x, self.y, 8)
+        rect(self.x - 2, self.y - 2, self.x + 124, self.y + rows * 7, 14)
         for i = 1, rows do
             print(self.msgs[i], self.x, self.y + (i - 1) * 7, 8)
         end
@@ -108,11 +106,17 @@ c_hud_mgr = cstar("c_hud_mgr:c_mgr", {
     end,
     restart = function(self)
         self.objs = {
-            c_val_printer.new(94, 1, 25, function(self)
+            c_val_printer.new(54, 1, 25, function(self)
                 circfill(self.x + 4, self.y + 3, 2, 7)
                 print(tostr(player.shards), self.x + 10, self.y + 1, 8)
             end),
             c_player_life_bar.new(10, 0),
         }
+    end,
+    draw = function(self)
+        c_mgr.draw(self)
+        local cx, cy = cam:calc_center()
+        if player.keys.red then pal(7, 8) spr(59, 90 + cx, 1 + cy) pal() end
+        if player.keys.blue then pal(7, 12) spr(59, 100 + cx, 1 + cy) pal() end
     end,
 })

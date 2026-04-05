@@ -13,21 +13,20 @@ end
 
 c_game = cstar("c_game", {
     __new = function()
-        local g = {
-            paused = false,
-            menu = true,
-            play = false,
-            stage_title_phase = false,
-            require_player_rebuild = true,
-            minimap = {},
-            mgr = {
-                enemy_mgr = c_mgr.new(),
-                misc_mgr = c_misc_mgr.new(),
-                hud_mgr = c_hud_mgr.new(),
-            },
-        }
-        -- create parallax pixels in the background
-        g.bgpos = {0, 0}
+        local g = dstarc([[
+paused=false
+menu=true
+play=false
+stage_title_phase=false
+require_player_rebuild=true
+minimap={}  
+bgpos={0;0}          
+]])
+        g.mgr = {
+            enemy_mgr = c_mgr.new(),
+            misc_mgr = c_misc_mgr.new(),
+            hud_mgr = c_hud_mgr.new(),
+        },
         menuitem(1, "new game", function() game:start_menu() end)
         -- c_game.prepare_minimap(g)
         return g

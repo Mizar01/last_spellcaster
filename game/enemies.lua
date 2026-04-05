@@ -18,6 +18,7 @@ hitbox_orig = _k_hitbox
 speed = *1
 etype = *2
 boss = false
+value = 3
 memdeath = false
         ]], {speed or 1, etype})
         l.frozen_t.t = 0
@@ -29,11 +30,7 @@ memdeath = false
         self.dmg_time:restart()
         self.spr.effect = "blink_white"
         if (self.life <= 0) then
-            for i=1,3 do
-                local px = self.x + rnd(6)
-                local py = self.y + rnd(6)
-                c_shard.new(px, py)
-            end
+            c_shard.new(self.x + 4, self.y + 4, self.value)
             self:del()
         end
     end,
@@ -57,8 +54,7 @@ memdeath = false
         -- self.wind_t:restart()
     end,
     unblow = function(self)
-        self.wspeed = -1
-        self.dir = self.dir_before_blow
+        dstar(self, "wspeed=-1;dir=_k_dir_before_blow;")
     end,
     update = function(self)
         c_obj.update(self)
@@ -123,14 +119,12 @@ dir_before_blow = _k_dir
 
 c_walk_en = cstar("c_walk_en:c_fly_en", {
     __new = function(n, x, y, name)
-        local l = c_fly_en.new(x, y, name)
-        -- l.spr.idle = { sprites = en_sprites[name].idle, fps = 2,  loop = true }
-        return l
+        return c_fly_en.new(x, y, name)
     end,
     update = function(self)
         c_fly_en.update(self)
         local xck = self.x + (self.dir == dir_right and 7 or 0)
-        if (not mget2_by_px_solid(xck, self.y + 8)) then
+        if not mget2_by_px_solid(xck, self.y + 8) then
             self.dir = (self.dir + 1) % 2
         end 
     end
@@ -217,10 +211,10 @@ c_crater = cstar("c_crater:c_enemy", {
 c_boss = cstar("c_boss:c_enemy", {
     angles = dstarc("0;0.1;0.4;0.5;0.6;0.9"),
     __new = function(n, x, y, name)
-        local l = c_enemy.new("boss", x, y, 0.3, emgr())
+        local l = c_enemy.new(name, x, y, 0.3, emgr())
         l.spr.idle.sprites = en_sprites[name].idle
         dstar(l, [[
-life = 500
+life = 5
 max_life = _k_life
 tw = 2
 th = 2
@@ -233,6 +227,7 @@ tpos = {x=nil;y=nil}
 mvrngx = 60
 mvrngy = 30
 boss = true
+value = 50
 memdeath = true
 show_life_bar = true
 ]])
@@ -268,8 +263,14 @@ show_life_bar = true
         c_enemy.draw(self)
         if (self.show_life_bar) then
             local cx, cy = cam:calc_center()
-            rectfill(cx, cy+12, cx + 125, cy + 15, 1)
+            -- rectfill(cx, cy+12, cx + 125, cy + 15, 1)
             rectfill(cx, cy+13, cx + flr(125 * (self.life / self.max_life)), cy + 14, 8)
         end
+    end,
+    del = function(self)
+        cur_boss = nil
+        if (self.etype == "boss2") player.keys.red = true
+        if (self.etype == "boss1") player.keys.blue = true
+        c_enemy.del(self)
     end,
 })

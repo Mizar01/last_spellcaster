@@ -29,9 +29,6 @@ el = *4
             self:del()
         end
     end,
-    -- dirmult = function(self)
-    --     return (self.dir == dir_left) and -1 or 1
-    -- end,
     hit = function(self, trg)
         -- c_explosion.new(self.x, self.y, 4, mmgr())
         self:effect(trg)
@@ -134,7 +131,7 @@ cost = 0
     end,
     interact = function(self)
         if (player.shards < self.cost) then
-            c_slide_text.new(30, "You need "..tostr(self.cost).." shards")
+            c_slide_text.new(30, "you need "..tostr(self.cost).." shards")
             return
         end
         self:action()
@@ -153,22 +150,18 @@ c_switch = cstar("c_switch:c_int", {
     __new = function(n, x, y, on)
         local l = c_int.new(x, y, mmgr())
         l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true;siblings={}")
-        l.on = on
-        l.int = not l.on
-        l.doors = {}
+        dstar(l, "on=*1;int=*2;doors={}", on, not on)
         return l
     end,
     action = function(self)
         if (not self.int) then return end
         if (player.cur_el != el_thunder) then
-            c_slide_text.new(30, "You need thunder")
+            c_slide_text.new(30, "you need thunder")
             return
         end
         -- change sibling status (including itself)
-        for s in all(self.siblings) do 
-            s.on = not s.on 
-            s.int = not s.on
-            s.show_int_button = not s.on
+        for s in all(self.siblings) do
+            dstar(s, "on=*1;int=*1;show_int_button=*1", not s.on)
             obj_mem_ch(s, s.on and 1 or 2)
         end
         for door in all(self.doors) do
@@ -198,7 +191,6 @@ key=*2
 ]], {int, key})
         add_solid(l)
         if (open) then c_door.open(l) end
-        if (not open and int) l.hover_info = ""..key.." key door"
         return l
     end,
     update = function(self)
@@ -210,20 +202,15 @@ key=*2
         end
     end,
     interact = function(self)
-        if not player.keys(self.key) then
-            c_slide_text.new(30, "You need the "..self.key.." key")
+        if not player.keys[self.key] then
+            c_slide_text.new(30, "you need the "..self.key.." key")
             return
         end
         self:action()
         self.int_done = true
     end,
     open = function(self)
-        dstar(self, [[
-phase = open
-hover_info = nil
-int = false
-show_int_button = false
-]])
+        dstar(self, "phase=open;hover_info=nil;int=false;show_int_button=false")
         obj_del(self.hover_info_obj)
         remove_solid(self)
         obj_mem_ch(self, 1)
@@ -310,7 +297,7 @@ c_shard = cstar("c_shard:c_obj", {
         end     
     end,
     draw = function(self)
-        circfill(self.x + 4, self.y + 4, max(1, self.cnt/2), 7)
+        circfill(self.x + 4, self.y + 4, mid(1, self.cnt/2, 4), 7)
     end
 })
 
