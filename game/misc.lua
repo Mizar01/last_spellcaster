@@ -149,22 +149,6 @@ cost = 0
     end
 })
 
--- c_focuslith = cstar("c_focuslith:c_int", {
---     __new = function(n, x, y, parent_mgr)
---         local l = c_int.new(x, y, parent_mgr)
---         l.spr.idle = { ss = 11 }
---         return l
---     end,
---     action = function(self)
---         player:switch_element()
---     end,
---     draw = function(self)
---         pal(7, (flr(time() / 0.5) % 2 == 0) and el_colors[player.cur_el] or 7)
---         c_int.draw(self)
---         pal()
---     end
--- })
-
 c_switch = cstar("c_switch:c_int", {
     __new = function(n, x, y, on)
         local l = c_int.new(x, y, mmgr())
@@ -202,19 +186,19 @@ c_switch = cstar("c_switch:c_int", {
 })
 
 c_door = cstar("c_door:c_int", {
-    __new = function(n, x, y, int, cost, open)
+    __new = function(n, x, y, int, key, open)
         local l = c_int.new(x, y, mmgr())
         l.spr.open = int and dstarc("ss=60") or dstarc("sprites={43,44;45;46}; fps=5; loop=false")
         l.spr.close = int and dstarc("ss=59") or dstarc("sprites={46;45;44;43}; fps=5; loop=false")
         dstar(l, [[
 phase = close
 hitbox = {x=0;y=0;x2=7;y2=7}
-cost = *2
 int=*1
-]], {int, cost})
+key=*2
+]], {int, key})
         add_solid(l)
         if (open) then c_door.open(l) end
-        if (not open and int) l.hover_info = "open door ("..tostr(l.cost).." shards)"
+        if (not open and int) l.hover_info = ""..key.." key door"
         return l
     end,
     update = function(self)
@@ -225,11 +209,21 @@ int=*1
             end
         end
     end,
+    interact = function(self)
+        if not player.keys(self.key) then
+            c_slide_text.new(30, "You need the "..self.key.." key")
+            return
+        end
+        self:action()
+        self.int_done = true
+    end,
     open = function(self)
-        self.phase = "open"
-        self.hover_info = nil
-        self.int = false
-        self.show_int_button = false
+        dstar(self, [[
+phase = open
+hover_info = nil
+int = false
+show_int_button = false
+]])
         obj_del(self.hover_info_obj)
         remove_solid(self)
         obj_mem_ch(self, 1)
@@ -241,6 +235,11 @@ int=*1
     end,
     action = function(self)
         self:open()
+    end,
+    draw = function(self)
+        if (self.int) pal(7, self.key == "red" and 8 or 12)
+        c_int.draw(self)
+        pal()
     end,
 })
 

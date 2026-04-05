@@ -41,7 +41,7 @@ K=life regen greatly increased
 L=max life to maximum
 ]])
 scr_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
-door_cost_map=dstarc("U=100;V=200;W=400;")
+door_key_map=dstarc("U=red;V=blue;")
 npc_names = dstarc([[
 lea=aunt lea
 lady=lady
@@ -85,7 +85,7 @@ spawn1 = true
 ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
 
 -- TEST VARS
-use_sample_map = false
+use_sample_map = true
 ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
 ovd_cur_el = nil
 player_enable_all = false
@@ -121,8 +121,8 @@ sample_map = [[
 1                                                                                             1
 1 1 1       1                                                                                 1
 1                                                                                             1
-1       1 1                                                                                   1
-1                                   h                                                         1
+1       1 1                         1                                                         1
+1                                                                                             1
 1 1 1                 f   1 1 1 1 1 1 1 1 1 1                                                 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]

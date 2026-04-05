@@ -33,16 +33,17 @@ lifereg_ttl=_fn_t2_4
 coins=0
 stinky_socks=false
 cur_el=nil
-avail_el = {false;false;false;false}
-lev_el = {1;1;1;1}
-el_cooldown = _fn_t1_1
+avail_el={false;false;false;false}
+lev_el={1;1;1;1}
+el_cooldown=_fn_t1_1
 shine_star=0
 interaction_fn=nil
-hitbox = { x = 2; y = 3; x2 = 5; y2 = 7 }
+hitbox={x=2;y=3;x2=5;y2=7}
 t_respawn=nil
-shards = 3000
+shards=3000
 bounce_map=false
 last_btn_down_time=0
+keys={red=false;blue=false}
 		]])
 		return p
 	end,

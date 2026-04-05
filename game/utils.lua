@@ -224,7 +224,7 @@ lifereg_lev=2
                 if (instr("hjk", t)) c_vine.new(t, px, py)
                 if (instr("XYZ", t)) c_shard.new(px, py, t == "X" and 1 or t == "Y" and 3 or 5, true)
                 if (instr("ABCDEFGHIJKL", t)) c_scroll.new(px, py, t)
-                if (instr("UVW", t)) c_door.new(px, py, true, door_cost_map[t], c == "1")
+                if (instr("UV", t)) c_door.new(px, py, true, door_key_map[t], c == "1")
 
                 if (instr("pqrs", t)) then
                     local npcdata = stage_cfg.npcdata[t] or {cname="c_npc_stage"..stage, msg="undefined msg"}

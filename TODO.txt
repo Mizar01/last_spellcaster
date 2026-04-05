@@ -1,8 +1,8 @@
 last_spellcaster
 
 
-- (TO TEST) the bosses should not return to life when the player returns to the map.
 - when attack button and switch spell are pressed, show an hint if you don't have any spell.
+- convert shard doors in key doors and make bosses release keys (two are needed)
 - differentiate the 3 bosses with different attacks and patterns
 - make bosses open some specific doors after being defeated
 - Avoid that the c_slider or texts can cover the player or the interacting object.
@@ -15,6 +15,7 @@ last_spellcaster
 
 
 DONE:
+OK (TO TEST) the bosses should not return to life when the player returns to the map.
 NO make some enemies shoot at you
 OK bosses should restore life when player goes far from them
 OK improve thunder sprite
