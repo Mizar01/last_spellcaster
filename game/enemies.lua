@@ -214,7 +214,7 @@ c_boss = cstar("c_boss:c_enemy", {
         local l = c_enemy.new(name, x, y, 0.3, emgr())
         l.spr.idle.sprites = en_sprites[name].idle
         dstar(l, [[
-life = 5
+life = 400
 max_life = _k_life
 tw = 2
 th = 2
