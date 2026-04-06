@@ -6,6 +6,7 @@ last_spellcaster
 - differentiate the 3 bosses with different attacks and patterns
 - make bosses open some specific doors after being defeated
 - Avoid that the c_slider or texts can cover the player or the interacting object.
+- npc dialog x button does only forward dialogs when near the npc.
 - add more npcs
 - review the scroll descriptions
 - music

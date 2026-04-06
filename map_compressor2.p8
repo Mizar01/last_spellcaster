@@ -38,7 +38,7 @@ end
 -- hjk = green,red,blue vines
 -- i = skeleton
 -- lmn = bosses (n is the final one, but is hidden from another npc)
--- pqrs = npcs (the mapping is done in game_config.lua)
+-- pqrs = npc's (the mapping is done in game_config.lua)
 -- tuv = moving spikes at different starting points
 -- wx = h/v crater launching bullets
 -- ABCDEFGHIJKL = scroll
@@ -56,7 +56,7 @@ big_map = [[
 1   1 1   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                   1 1     1       .                                         1             1                                         .                     1 1   a     1 1 1 1   1 a   1 1 1   a                 4 1 1 1 1 1 1 1 1 1 1
 1     a   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1               1   1 1 b     .                                         1 1 1 1 1 1   1                           X             .                                                                             1 1 1 1 1 1 1 1 1 1
 1     1 1   1 1 1 1 1     1 1 1 1 1 1 1 1 1           4 4 4       1               1     1       .                                                       1                                         .                     X         2       2       2         3         3         1 1 1 1 1 1 1 1 1 1
-1      a      1 1 1             4 4 4                             1 1 1           1 1   1       .                                         1 1 1 1 1 1 1 1 1 1 1                           2   3   .     2   f       1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1
+1      a      1 1 1             4 4 4                             1 1 1           1 1   1       .                                         1 1 1 1 1 1 1 1 1 1 1                           2   3   .     2 q f       1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1
 1   1 1       X 1 X                                                   1 1 1 1 1   j j j j       .       2                               1 X     4 4 4         X 1                       1 1 1 1 1 . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1         1 1 1 1 1 1 1 1 1 1
 1 a                     5               5                   1 1 1 1 1 1 x Z Z 1   1 1 1 1 1 1 1 . 1 1 1 1 1   p     f     5           1 X                     1               2 2   1 1 1 1 1     .       A 1                             b             Z 1 1 1 1 1 1 1   1 1 1 1 1 1 1 1 1 1 1 1 1
 1     1 1             1 1 1 1 1   1   1 1 1 1                       b 1   1 1 1 1 1 1 1 1 1 1 1 . 1 1 1 1 1 1 1 1 1 1 1 1 1 1   1 1 1 X                     1       1 1 1 1 1 1 1 1 1 1 1 1     1 . 1 1 1 1                                                   1 1 1 1 1         1 1 1 1 1 1 1 1 1 1

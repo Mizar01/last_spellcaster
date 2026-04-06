@@ -45,10 +45,12 @@ door_key_map=dstarc("U=red;V=blue;")
 npc_names = dstarc([[
 lea=aunt lea
 lady=lady
+titus=old titus
 ]])
 npc_sprites = dstarc([[
 lea = {192;193}
 lady = {208;209}
+titus = {224;225}
 ]])
 en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;")
 en_sprites=dstarc([[
@@ -141,42 +143,54 @@ ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{142};{158};{143};{170}}
 stage_config = {
     build_stage_config_item(
         dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}"),
-        dstarc("")
+        dstarc([[
+
+]])
     ),
     -- initial stage (2)
     build_stage_config_item(
         dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
-u = {cname=lady;msg=welcome to the forest*be careful out there!}
-]]
-        )
+]])
     ),
     build_stage_config_item(
         dstarc("name=The green forest 3;music=13;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}"),
-        dstarc("")
+        dstarc([[
+q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years/i tried to find those*mysterious scrolls/but i'm too lazy*and old, of course/i know there some scroll near*but i can't guess where}
+]])
     ),
 
     build_stage_config_item(
         dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
-        dstarc("")
+        dstarc([[
+
+]])
     ),
     build_stage_config_item(
         dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32;fix_jumps={{22;1};{20;30}}"),
-        dstarc("")
+        dstarc([[
+            
+]])
     ),
     build_stage_config_item(
         dstarc("name=The intestines;music=13;theme=ice;wtx=48;wty=32;fix_jumps={{18;1};{4;30}}"),
-        dstarc("")
+        dstarc([[
+            
+]])
     ),
 
     build_stage_config_item(
         dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}"),
-        dstarc("")
+        dstarc([[
+
+]])
     ),
     build_stage_config_item(
         dstarc("name=The intestines;music=13;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}"),
-        dstarc("")
+        dstarc([[
+
+]])
     ),
     build_stage_config_item(
         dstarc("name=The forgotten;music=13;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}"),
