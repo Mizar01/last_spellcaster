@@ -124,7 +124,7 @@ sample_map = [[
 1 1 1       1                                                                                 1
 1                                                                                             1
 1       1 1                                                                                   1
-1                                 m                 l                                         1
+1                                 Q       M                                                   1
 1 1 1                 f   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                             1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
@@ -144,7 +144,7 @@ stage_config = {
     build_stage_config_item(
         dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}"),
         dstarc([[
-
+p={cname=titus;msg=i heard that you can*tap twice down arrow*to focus on another spell/tell me if it works*i'm happy to be useful}
 ]])
     ),
     -- initial stage (2)
@@ -194,7 +194,7 @@ q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years
     ),
     build_stage_config_item(
         dstarc("name=The forgotten;music=13;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}"),
-        dstarc("p={cname=lea;msg=you have done well*my dear nephew*now die}")
+        dstarc("p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death}")
     ),
 }
 

@@ -2,11 +2,14 @@ last_spellcaster
 
 
 - when attack button and switch spell are pressed, show an hint if you don't have any spell.
+- iced enemies are often not walkable anymore, i never had this problem before the improvements to obj solids. try to investigate also on hitbox updates.
+- in map 7 the bat to freeze in order to reach the scroll cannot be moved correctly with the wind. nerf the wind force or change env.
 - convert shard doors in key doors and make bosses release keys (two are needed)
 - differentiate the 3 bosses with different attacks and patterns
 - make bosses open some specific doors after being defeated
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 - npc dialog x button does only forward dialogs when near the npc.
+OK REGRESSION BUG: the thunder does not open door switches
 - add more npcs
 - review the scroll descriptions
 - music

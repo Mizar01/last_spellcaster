@@ -150,7 +150,7 @@ c_switch = cstar("c_switch:c_int", {
     __new = function(n, x, y, on)
         local l = c_int.new(x, y, mmgr())
         l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true;siblings={}")
-        dstar(l, "on=*1;int=*2;doors={}", on, not on)
+        dstar(l, "on=*1;int=*2;doors={}", {on, not on})
         return l
     end,
     action = function(self)
@@ -161,7 +161,7 @@ c_switch = cstar("c_switch:c_int", {
         end
         -- change sibling status (including itself)
         for s in all(self.siblings) do
-            dstar(s, "on=*1;int=*1;show_int_button=*1", not s.on)
+            dstar(s, "on=*1;int=*2;show_int_button=*2", {not s.on, s.on})
             obj_mem_ch(s, s.on and 1 or 2)
         end
         for door in all(self.doors) do
