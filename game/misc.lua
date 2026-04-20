@@ -286,6 +286,7 @@ c_shard = cstar("c_shard:c_obj", {
         local mdist = self:mdist(player)
         if (mdist < 4) then
             player.shards += self.cnt
+            sfx(1)
             if (self.static) then obj_mem_ch(self, "d") end
             self:del()
         elseif (not self.static) then

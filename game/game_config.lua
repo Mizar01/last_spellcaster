@@ -1,4 +1,3 @@
-sfx_on = true
 music_on = true
 
 gravity = 0.25
@@ -72,7 +71,7 @@ en_vertical=dstarc("batv=1;witchv=1;craterv=1;")
 fsolid_idx = 0 -- flag index used for solid
 game = nil
 player = nil
-sfx_jump, sfx_coin, sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = dstaru("0;1;2;3;4;5")
+sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = dstaru("2;3;4;5")
 
 stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{};{}")
 

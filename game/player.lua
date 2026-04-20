@@ -30,7 +30,6 @@ max_life=20
 init_max_life=20
 lifereg_lev=0
 lifereg_ttl=_fn_t2_4
-coins=0
 stinky_socks=false
 cur_el=nil
 avail_el={false;false;false;false}
@@ -222,7 +221,7 @@ keys={red=false;blue=false}
 			self.phase = "jump"
 			self.spr.time_start = nil
 			self.jstack = self.max_jstack
-			if (sfx_on) sfx(sfx_jump)
+			sfx(0)
 		end
 	end,
 	on_ground = function(self)
