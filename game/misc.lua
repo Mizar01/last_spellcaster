@@ -315,11 +315,11 @@ c_npc = cstar("c_npc:c_int", {
     end,
     update = function(self)
         c_int.update(self)
-        if (self.diagcls and ((abs(self.x - player.x) > 40 or abs(self.y - player.y) > 40) or self.diagcls.destroyed)) then
+        if (self.diagcls and (self:mdist(player) > 40 or self.diagcls.destroyed)) then
             self.diagcls:del()
             if (self.boss) then 
                 c_boss.new(self.x - 8, self.y - 8, "boss3")
-                obj_mem_ch(self, "d") -- the npc does not ever reapper after boss generation
+                -- obj_mem_ch(self, "d") -- the npc does not ever reapper after boss generation (or not?)
                 self:del()
             end
             self.cur_diag = 1 -- reset dialog

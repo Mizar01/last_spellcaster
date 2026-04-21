@@ -271,6 +271,10 @@ show_life_bar = true
         cur_boss = nil
         if (self.etype == "boss2") player.keys.red = true
         if (self.etype == "boss1") player.keys.blue = true
+        if (self.etype == "boss3") then 
+            local npcdata = stage_config_get().npcdata["q"]
+            c_npc.new(34 * 8, 30 * 8, npcdata.cname, npcdata.msg)
+        end
         c_enemy.del(self)
     end,
 })

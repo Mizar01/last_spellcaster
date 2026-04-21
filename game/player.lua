@@ -211,16 +211,14 @@ keys={red=false;blue=false}
 		end
 	end,
 	reset_jump_vars = function(self)
-		self.speedy = 0
-		self.jstack = 0
+		dstar(self, "speedy=0;jstack=0")
 	end,
 	set_start_jump = function(self)
 		if (self.phase == "dead") return
 		if self:on_ground() then
 			self:reset_jump_vars()
-			self.phase = "jump"
 			self.spr.time_start = nil
-			self.jstack = self.max_jstack
+			dstar(self, "phase=jump;jstack=_k_max_jstack")
 			sfx(0)
 		end
 	end,
@@ -230,12 +228,6 @@ keys={red=false;blue=false}
 		local solid_left = map_or_obj_solid_at_px(hbp.x, hbp.y2)
 		local solid_right = map_or_obj_solid_at_px(hbp.x2, hbp.y2)
 		return solid_left or solid_right
-	end,
-	apply_end_stage_upgrades = function(self)
-		-- local p = self
-		-- for _, upgrade in pairs(p.permanent_upgrades.after_stage) do
-		-- 	upgrade(p)
-		-- end
 	end,
 	attack = function(self)
 		if (self.cur_el == nil) return
