@@ -1,6 +1,5 @@
 [#last_spell_caster_0_9-3#]
 
-
 [img]/media/135332/last_spellcaster p8_2.gif[/img]
 [img]/media/135332/last_spellcaster min_0.gif[/img]
 [img]/media/135332/last_spellcaster min_1.gif[/img]
@@ -9,6 +8,11 @@
 # The Last Spellcaster (Work in progress)
 
 ## Log updates
+ - 0.9.5 (2026-04-21)
+   - Major fixes to all maps
+   - Improved map design
+   - Added keys mechanism instead of shard doors.
+   - Improved sounds
  - 0.9.3 (2026-03-21)
    - Major fixes
    - Improved maps and bosses health bars
@@ -33,9 +37,9 @@ The player has four main spell it can learn and cast:
  - **ice**: used to transform enemies in ice cubes you can walk on
  - **wind**: use to push enemies in specific places, mostly useful in combination with ice to make some platforms to jump on a get over some gaps.
 
-The player must use special **focus stones** to change the current spell to use.
+The player can switch to a different spell (if acquired) tapping twice the down stick/arrow
 
-To pass some special doors, or to learn spells, the player must collect **shards** 
+The player must collect **shards** in order to unlock scroll powers.
 
 ## Features (some in development):
  - 9 tile maps (48x32) to explore. All the maps are connected in many ways 
@@ -64,8 +68,7 @@ Not yet ready
 ## Things to improve:
 Bullet design, enemies ai, boss movements, fighting style.
 
-## Known bugs:
- - in rare occasions map transitions is buggy.
+## Known bugs/glitches:
  - Avoid that the c_slider or texts can cover the player or the interacting object.
 
 ## Source Code:
