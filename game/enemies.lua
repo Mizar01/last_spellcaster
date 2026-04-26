@@ -247,6 +247,10 @@ show_life_bar = true
         self.show_life_bar = d <= 120
         if (d > 200) self.life = min(self.max_life, self.life + 1) -- restore life when player is far away
         if (d > 80 or self.frozen_t.t > 0) return
+        if (boss_music_on == false) then
+            music(30)
+            boss_music_on = true
+        end
         self:check_pl_coll(5)
 
         -- moving

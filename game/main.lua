@@ -66,7 +66,7 @@ bgpos={0;0}
         setup_stage_from_string()
         cam:place(player.x, player.y)
 
-        if (music_on) music(stage_config_get().music)  -- play stage music
+        music(1)
     end,
     start_menu = function(self)
         self.menu = true
@@ -96,6 +96,7 @@ bgpos={0;0}
             setup_stage_from_string()
             fix_jump_transition()
             cam:place(player.x, player.y)
+            if (prev_stage.music != cs.music) music(cs.music)
         end
     end,
     -- draw_minimap = function(self)

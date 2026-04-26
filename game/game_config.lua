@@ -70,7 +70,7 @@ craterv={idle={54}}
 -- this should be an array, but it's more convenient to use a map for lookup
 en_vertical=dstarc("batv=1;witchv=1;craterv=1;eyev=1;")
 en_shoot=dstarc("eyeh=1;eyev=1;")
-game, player, cur_boss, map_w, map_h = dstaru("0;0;0;48;32")
+game, player, cur_boss, map_w, map_h, boss_music_on = dstaru("0;0;0;48;32;false")
 map_wpx, map_hpx = map_w * 8, map_h * 8
 stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{};{}")
 
@@ -128,27 +128,27 @@ ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{142};{158};{143};{170}}
 
 stage_config = {
     build_stage_config_item(
-        dstarc("name=The green forest 2;music=13;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}"),
+        dstarc("name=The green forest 2;music=1;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}"),
         dstarc([[
 p={cname=titus;msg=i heard that you can*tap twice down arrow*to focus on another spell/tell me if it works*i'm happy to be useful}
 ]])
     ),
     -- initial stage (2)
     build_stage_config_item(
-        dstarc("name=The green forest 1;music=13;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}"),
+        dstarc("name=The green forest 1;music=1;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}"),
         dstarc([[
 p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 ]])
     ),
     build_stage_config_item(
-        dstarc("name=The green forest 3;music=13;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}"),
+        dstarc("name=The green forest 3;music=1;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}"),
         dstarc([[
 q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years/i tried to find those*mysterious scrolls/but i'm too lazy*and old, of course/i know there some scroll near*but i can't guess where}
 ]])
     ),
 
     build_stage_config_item(
-        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
+        dstarc("name=The underground;music=1;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
         dstarc([[
 
 ]])

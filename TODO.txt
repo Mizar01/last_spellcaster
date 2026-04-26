@@ -4,18 +4,17 @@ last_spellcaster
 - when attack button and switch spell are pressed, show an hint if you don't have any spell.
 - iced enemies are often not walkable anymore, i never had this problem before the improvements to obj solids. try to investigate also on hitbox updates.
   - in map 8 there's the same problem almost always.
-- make bosses open some specific doors after being defeated
 - npc dialog x button does only forward dialogs when near the npc.
+- restore shard animation maybe with sprites instead of math movements (now commented to spare tokens)z
 - add more npcs
-- review the scroll descriptions
 - music
 - sound effects
 - level design
-- NOT IMPORTANT Avoid that the c_slider or texts can cover the player or the interacting object.
 
 MAYBE
 - differentiate the 3 bosses with different attacks and patterns
 - minimap
+- Avoid that the c_slider or texts can cover the player or the interacting object.
 
 DONE:
 OK the final boss does not spawn at the end of dialog, but only if the player goes too far. It should also spawn at the end of dialog
