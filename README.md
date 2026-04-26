@@ -7,23 +7,12 @@
 
 # The Last Spellcaster (Work in progress)
 
-## Log updates
- - 0.9.5 (2026-04-21)
-   - Major fixes to all maps
-   - Improved map design
-   - Added keys mechanism instead of shard doors.
-   - Improved sounds
- - 0.9.3 (2026-03-21)
-   - Major fixes
-   - Improved maps and bosses health bars
-   - Fixed ice+wind combo bug
- - 0.9.2 (2026-03-18)
-   - Major fixes
-   - Improved maps
-   - Change spell tapping down arrow twice
- - 0.9.1 (2026-03-12)
-   - Fixed map tiles
-   - Improved map design
+## Controls
+  - left/right: move
+  - z: jump
+  - x: attack (once you acquire spells)
+  - down + down (tap twice) to change spell.
+  - enter/menu: access to some special option (still in progress)
 
 ##  Brief description:
 
@@ -52,26 +41,50 @@ The player must collect **shards** in order to unlock scroll powers.
  - doors and their remote switches
  - (if code optiomization will let me) - a minimap with player position
 
-## Controls
-  - left/right: move
-  - z: jump
-  - x: attack (once you acquire spells)
-  - down + down (tap twice) to change spell.
-  - enter/menu: access to some special option (still in progress)
-
 ## Plot
-Not yet ready
+After a brutal invasion by mysterious monsters, the people retreated into subterranean forests and caves.
+The Mage Guild — the only guild to survive the massacre — was left in disarray, 
+yet a few brave mages managed to conceal powerful scrolls deep within those caverns,
+praying they would never be found by the monsters.
 
-## Music and sounds
-Not yet ready
+The only one fated to retrieve them was a promising boy named Sim, son of the wisest mages the Guild had ever known —
+souls who perished while scouting the ravaged surface.
+After his parents' deaths, Lea, a mysterious woman claiming to be Sim's aunt, revealed the truth about the scrolls
+and warned that they were of the utmost importance and that finding them could mean the salvation of what remained.
 
-## Things to improve:
-Bullet design, enemies ai, boss movements, fighting style.
-
-## Known bugs/glitches:
- - Avoid that the c_slider or texts can cover the player or the interacting object.
+Sim, raised by his enigmatic aunt in the shadows of the underground, stood now on the edge of adulthood
+and on the edge of destiny. The scrolls were waiting. The monsters were still out there.
+It was time to fight back.
+## Music
+The soundtrack features:
+ - 1 track from @Gruber
+ - 2 original tracks (also from my previous games)
 
 ## Source Code:
 The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
+
+## Log updates
+ - 0.9.6 (2026-04-26)
+   - Added cyber eye enemy
+   - Added boss event music
+   - Added 1 more song from 
+   - Improved maps
+ - 0.9.5 (2026-04-21)
+   - Major fixes to all maps
+   - Improved map design
+   - Added keys mechanism instead of shard doors.
+   - Improved sounds
+ - 0.9.3 (2026-03-21)
+   - Major fixes
+   - Improved maps and bosses health bars
+   - Fixed ice+wind combo bug
+ - 0.9.2 (2026-03-18)
+   - Major fixes
+   - Improved maps
+   - Change spell tapping down arrow twice
+ - 0.9.1 (2026-03-12)
+   - Fixed map tiles
+   - Improved map design
+
 
 
