@@ -64,7 +64,7 @@ The soundtrack features:
 The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
 
 ## Log updates
- - 1.0.0 (2026-04-26)
+ - 1.0.1 (2026-04-26)
    - Added cyber eye enemy
    - Added boss event music
    - Added 1 more song from 
