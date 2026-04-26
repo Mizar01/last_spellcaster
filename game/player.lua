@@ -153,7 +153,7 @@ keys={red=false;blue=false}
 			else
 				p.nodmg_t = c_timer.new(1) -- invincibility frames
 				p.spr.effect = "blink_white"
-				sfx(sfx_player_hit)
+				sfx(5)
 				p.invulnerable = true
 			end
 		end
@@ -202,7 +202,7 @@ keys={red=false;blue=false}
 		if self.speedy < 0 and not btn.jump then
 			self.speedy *= self.speed_y_decay
 		end
-		self.speedy += gravity
+		self.speedy += 0.25
 		self.speedy = min(self.speedy, self.max_speedy)
 		local m = obj_move(self, self.speedy < 0 and dir_up or dir_down, abs(self.speedy))
 		if m == 0 then

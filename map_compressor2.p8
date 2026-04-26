@@ -37,6 +37,7 @@ end
 -- g = spider enemy
 -- hjk = green,red,blue vines
 -- i = skeleton
+-- oy = cybereye
 -- lmn = bosses (n is the final one, but is hidden from another npc)
 -- pqrs = npc's (the mapping is done in game_config.lua)
 -- tuv = moving spikes at different starting points

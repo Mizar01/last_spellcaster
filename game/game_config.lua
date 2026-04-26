@@ -1,6 +1,5 @@
 music_on = true
 
-gravity = 0.25
 dir_left, dir_right, dir_up, dir_down = dstaru("0;1;2;3")
 el_fire, el_thunder, el_ice, el_wind = dstaru("1;2;3;4")
 el_colors = dstarc("8;10;12;13")
@@ -51,13 +50,15 @@ lea = {192;193}
 lady = {208;209}
 titus = {224;225}
 ]])
-en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;")
+en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;")
 en_sprites=dstarc([[
 dog={idle={146;147}}
 spider={idle={162;163}}
 sk={idle={150;151}}
 bath={idle={128;129}}
 batv=_k_bath
+eyeh={idle={132;133}}
+eyev=_k_eyeh
 witchh={idle={130;131}}
 witchv=_k_witchh
 boss1={idle={203;205}}
@@ -67,31 +68,19 @@ craterh={idle={38}}
 craterv={idle={54}}
 ]])
 -- this should be an array, but it's more convenient to use a map for lookup
-en_vertical=dstarc("batv=1;witchv=1;craterv=1;")
-fsolid_idx = 0 -- flag index used for solid
-game = nil
-player = nil
-sfx_heart, sfx_portal_send, sfx_portal_recv, sfx_player_hit = dstaru("2;3;4;5")
-
+en_vertical=dstarc("batv=1;witchv=1;craterv=1;eyev=1;")
+en_shoot=dstarc("eyeh=1;eyev=1;")
+game, player, cur_boss, map_w, map_h = dstaru("0;0;0;48;32")
+map_wpx, map_hpx = map_w * 8, map_h * 8
 stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{};{}")
 
-map_w, map_h = 48, 32
-map_wpx, map_hpx = map_w * 8, map_h * 8
 
-cur_boss = nil
 
-stage = 2  -- intitial stage is 2
-spawn1 = true
--- ovd_respawn = dstarc("20;30")
-ovd_respawn=nil -- intial player spawn override in tile coords. It must be used for every stage load.
+stage, spawn1, ovd_respawn = dstaru("2;true;nil") -- intitial stage is 2
 
--- TEST VARS
-use_sample_map = false
-ovd_avail_els = dstarc("false;false;false;false") -- Real production game setup
-ovd_cur_el = nil
-player_enable_all = false
--- ovd_avail_els = dstarc("true;true;true;true")
--- ovd_cur_el = el_thunder
+use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = 
+dstaru("true;{false;false;false;false};nil;true")
+
 
 sample_map = [[
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -117,13 +106,13 @@ sample_map = [[
 1 1 1                                                                                         1
 1           1                                                                                 1
 1                                                                                             1
-1       1 1 1                                                                                 1
+1       1 1 1                             1                                                   1
 1                                                                                             1
 1                                                                                             1
-1 1 1       1                                                                                 1
+1 1 1       1                             y                                                   1
 1                                                                                             1
-1       1 1                                                                                   1
-1                                 Q       M                                                   1
+1       1 1               1       o       1                                                   1
+1                         1               1                                                   1
 1 1 1                 f   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                             1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ]]
@@ -207,5 +196,4 @@ dstar_add("rnd", function(max) return flr(rnd(max)) end)
 
 -- optimization functions 
 function emgr() return game.mgr.enemy_mgr end
-function mmgr() return game.mgr.misc_mgr end 
-
+function mmgr() return game.mgr.misc_mgr end

@@ -13,7 +13,7 @@ dir = nil
 wspeed = 0
 dir_before_blow = nil
 fixed = false
-hitbox = { x=2;y=2;x2=5;y2=5} 
+hitbox = {x=2;y=2;x2=5;y2=5} 
 hitbox_orig = _k_hitbox
 speed = *1
 etype = *2
@@ -38,7 +38,7 @@ memdeath = false
         self.frozen_t:restart()
         if (self.fixed) return
         add_solid(self)
-        self.hitbox = {x = 0, y = 0, x2 = 7, y2 = 7}
+        self.hitbox = dstarc("x=0;y=0;x2=7;y2=7")
     end,
     unfreeze = function(self)
         if (self.fixed) return
@@ -100,11 +100,13 @@ c_fly_en = cstar("c_fly_en:c_enemy", {
         l.spr.idle = {sprites = en_sprites[name].idle, fps = 4, loop = true}
         l.horizontal = (en_vertical[name] == nil)
         dstar(l, [[
-hitbox_orig = {x = 2; y = 2; x2 = 5; y2 = 5}
+hitbox_orig = {x=2;y=2;x2=5;y2=5}
 horizontal = _k_horizontal
 dir = *1
 dir_before_blow = _k_dir
-        ]], {l.horizontal and dir_right or dir_down})
+]], {l.horizontal and dir_right or dir_down})
+        if (en_shoot[name] ~= nil) dstar(l, "tshoot=_fn_t2_4")
+        l.tshoot.t -= 10 * flr(rnd(20)) -- first random shoot start
         return l
     end,
     update = function(self)
@@ -114,6 +116,9 @@ dir_before_blow = _k_dir
         self:check_pl_coll(1)
         local m = obj_move(self, self.dir)
         if (m == 0) self.dir = (self.horizontal and 0 or 2) + ((self.dir + 1) % 2)
+        if (self.tshoot != nil and self.tshoot:adv() and self:mdist(player) < 100) then
+            c_bullet.new(self.x + 4, self.y + 4, atan2(player.x - self.x, player.y - self.y), 1)
+        end
     end,
 })
 
@@ -134,14 +139,14 @@ c_vine = cstar("c_vine:c_enemy", {
     types = dstarc("h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};"),
     __new = function(n, t, x, y)
         local l = c_enemy.new("vine", x, y, 0, emgr())
-        l.spr.idle = dstarc("ss = 6")
+        l.spr.idle = dstarc("ss=6")
         dstar(l,[[
-fixed = true
-life = 10
-hitbox = { x=0;y=0;x2=7;y2=7}
-pal = *1
-flev = *2
-memdeath = true
+fixed=true
+life=10
+hitbox={x=0;y=0;x2=7;y2=7}
+pal=*1
+flev=*2
+memdeath=true
         ]], {c_vine.types[t].pal, c_vine.types[t].flev})
         add_solid(l)
         return l

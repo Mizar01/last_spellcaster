@@ -26,8 +26,8 @@ bgpos={0;0}
             enemy_mgr = c_mgr.new(),
             misc_mgr = c_misc_mgr.new(),
             hud_mgr = c_hud_mgr.new(),
-        },
-        menuitem(1, "new game", function() game:start_menu() end)
+        }
+        -- menuitem(1, "new game", function() game:start_menu() end)
         -- c_game.prepare_minimap(g)
         return g
     end,

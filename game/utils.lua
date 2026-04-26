@@ -59,7 +59,7 @@ end
 -- Get if a tile is solid by pixel coordinates
 function mget2_by_px_solid(x, y, tw, th)
 	local mtile = mget2_by_px(x, y, tw, th)
-	return fget(mtile.tile, fsolid_idx)
+	return fget(mtile.tile, 0)
 end
 
 -- Get the object at pixel coordinates (x, y) among the temporarily solid objects
@@ -216,7 +216,7 @@ keys={red=true;blue=true}
                     respw = true
                 end
 
-                if (instr("abcd", t)) c_fly_en.new(px, py, en_map[t])
+                if (instr("abcdoy", t)) c_fly_en.new(px, py, en_map[t])
                 -- if (t == "6") c_focuslith.new(px, py, mmgr) -- i use another method for now.
                 if (instr("egi", t)) c_walk_en.new(px, py, en_map[t])
                 if (instr("lmn", t)) c_boss.new(px, py, en_map[t])

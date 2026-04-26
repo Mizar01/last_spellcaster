@@ -293,8 +293,8 @@ c_shard = cstar("c_shard:c_obj", {
             self:moveTo(player, self.speed)
             self.speed *= self.speed_inc
         else
-            self.x = self.spawn_x + sin(time()*(self.sbase + self.sx/10))
-            self.y = self.spawn_y + sin(time()*(self.sbase + self.sy/10))
+            -- self.x = self.spawn_x + sin(time()*(self.sbase + self.sx/10))
+            -- self.y = self.spawn_y + sin(time()*(self.sbase + self.sy/10))
         end     
     end,
     draw = function(self)
@@ -330,7 +330,6 @@ c_npc = cstar("c_npc:c_int", {
         if (self.cur_diag > #self.dialogs) then
             self.diagcls:del()
             self.cur_diag = 1 -- reset dialog
-            self.diagcls = nil
             return
         end
         self.diagcls = self.diagcls or c_dialog.new(30, self.name, "")

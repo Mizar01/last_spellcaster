@@ -28,7 +28,7 @@ c_val_printer = cstar("c_val_printer:c_hud_element", {
 c_player_life_bar = cstar("c_player_life_bar:c_hud_element", {
     __new = function(n, x, y)
         local l = c_hud_element.new(x, y)
-        l.spr.idle = { ss = 169 }
+        l.spr.idle = dstarc("ss=169")
         l.life_ref = player.init_max_life
         return l
     end,
