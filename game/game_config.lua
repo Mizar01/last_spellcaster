@@ -74,12 +74,10 @@ game, player, cur_boss, map_w, map_h = dstaru("0;0;0;48;32")
 map_wpx, map_hpx = map_w * 8, map_h * 8
 stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{};{}")
 
-
-
 stage, spawn1, ovd_respawn = dstaru("2;true;nil") -- intitial stage is 2
 
 use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = 
-dstaru("true;{false;false;false;false};nil;true")
+dstaru("false;{false;false;false;false};nil;false")
 
 
 sample_map = [[

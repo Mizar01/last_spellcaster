@@ -106,7 +106,7 @@ dir = *1
 dir_before_blow = _k_dir
 ]], {l.horizontal and dir_right or dir_down})
         if (en_shoot[name] ~= nil) dstar(l, "tshoot=_fn_t2_4")
-        l.tshoot.t -= 10 * flr(rnd(20)) -- first random shoot start
+        if (l.tshoot != nil) l.tshoot.t -= 10 * flr(rnd(20)) -- first random shoot start
         return l
     end,
     update = function(self)
