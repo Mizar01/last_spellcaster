@@ -78,40 +78,7 @@ stage, spawn1, ovd_respawn = dstaru("2;true;nil") -- intitial stage is 2
 
 use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = dstaru("false;{false;false;false;false};nil;false")
 
-sample_map = [[
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1                                                                                             1
-1                                                                                             1
-1       1 1 1                                                                                 1
-1           1                                                                                 1
-1 1 1                                                                                         1
-1           1                                                                                 1
-1         1 1                                                                                 1
-1           1                                                                                 1
-1 1 1       1                                                                                 1
-1           1                                                                                 1
-1           1                                                                                 1
-1       1 1 1                                                                                 1
-1                                                                                             1
-1           1                                                                                 1
-1 1 1       1                                                                                 1
-1                                                                                             1
-1                                                                                             1
-1       1 1 1                                                                                 1
-1           1                                                                                 1
-1 1 1                                                                                         1
-1           1                                                                                 1
-1                                                                                             1
-1       1 1 1                             1                                                   1
-1                                                                                             1
-1                                                                                             1
-1 1 1       1                             y                                                   1
-1                                                                                             1
-1       1 1               1       o       1                                                   1
-1                         1               1                                                   1
-1 1 1                 f   1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1                             1
-1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-]]
+sample_map = [[moved outside to spare compresion space]]
 
 -- neighbor config nodes
 ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = dstaru("0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15")

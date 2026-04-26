@@ -73,12 +73,12 @@ c_dialog = cstar("c_dialog:c_slide_text", {
     __new = function(n, y, author, msg)
         local l = c_slide_text.new(y, msg)
         dstar(l, [[
-final_pos = 10
-fixedx = 260
-ttl = _fn_t1_6
-cont = false
-author = *1
-msgs = nil
+final_pos=10
+fixedx=260
+ttl=_fn_t1_6
+cont=false
+author=*1
+msgs=nil
 ]], {author})
         c_dialog.update_msg(l, msg)
         return l

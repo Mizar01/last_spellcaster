@@ -4,25 +4,25 @@ c_element = cstar("c_element:c_obj", {
         local l = c_obj.new(origx, origy, mmgr())
         l.spr.idle = el_idle_setup[el]
         dstar(l, [[
-ttl = *5
-max_dist = 20
-destroy_req_prev_frame = false
-origx = *1
-origy = *2
-dir = *3
-el = *4
-        ]], {origx, origy, dir, el, c_timer.new(el_ttl[el],false)})
+ttl=*5
+max_dist=20
+destroy_req_prev_frm=false
+origx=*1
+origy=*2
+dir=*3
+el=*4
+]], {origx, origy, dir, el, c_timer.new(el_ttl[el],false)})
         if (dir == dir_left) l.spr.flip_x = true
         add(player_bullets, l)
         return l
     end,
     update = function(self)
-        if self.destroy_req_prev_frame then
+        if self.destroy_req_prev_frm then
             self:del()
             return
         end
         if self.ttl:adv() then
-            self.destroy_req_prev_frame = true -- mark for deletion next frame, because i need also to use the time at 0.
+            self.destroy_req_prev_frm = true -- mark for deletion next frame, because i need also to use the time at 0.
         end
         self.x = timer_lerp(self.origx, self.max_dist, self.ttl, true, self.dir)
         if (mget2_by_px_solid(self.x, self.y)) then --only tile collisions, obj solids are checked by solids themselves.
@@ -88,21 +88,21 @@ c_int = cstar("c_int:c_obj", {
     __new = function(n, x, y, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
-show_int_button = false
-ttl_disable_int = nil
-int_done = false
-solid = true
-hover_info = nil
-hover_info_obj = nil
-int = true
-cost = 0
-        ]])
+show_int_btn=false
+ttl_disable_int=nil
+int_done=false
+solid=true
+hover_info=nil
+hover_info_obj=nil
+int=true
+cost=0
+]])
         return l
     end,
     update = function(self)
         if not self.int then return end
         if self:collide(player, -2, -2) then
-            self.show_int_button = true
+            self.show_int_btn = true
             if (self.hover_info != nil and obj_destroyed(self.hover_info_obj)) then 
                 self.hover_info_obj = c_dialog.new(100, nil, self.hover_info)
                 self.hover_info_obj.ttl.t = fps * 20
@@ -119,13 +119,13 @@ cost = 0
                 self.ttl_disable_int = nil
             end
         else
-            self.show_int_button = false
+            self.show_int_btn = false
             obj_del(self.hover_info_obj)
         end
     end,
     draw = function(self)
         self:draw_sprite()
-        if self.show_int_button then
+        if self.show_int_btn then
             print("❎", self.x + 2, self.y - 6, 12)
         end
     end,
@@ -161,7 +161,7 @@ c_switch = cstar("c_switch:c_int", {
         end
         -- change sibling status (including itself)
         for s in all(self.siblings) do
-            dstar(s, "on=*1;int=*2;show_int_button=*2", {not s.on, s.on})
+            dstar(s, "on=*1;int=*2;show_int_btn=*2", {not s.on, s.on})
             obj_mem_ch(s, s.on and 1 or 2)
         end
         for door in all(self.doors) do
@@ -181,14 +181,14 @@ c_switch = cstar("c_switch:c_int", {
 c_door = cstar("c_door:c_int", {
     __new = function(n, x, y, int, key, open)
         local l = c_int.new(x, y, mmgr())
-        l.spr.open = int and dstarc("ss=60") or dstarc("sprites={43,44;45;46}; fps=5; loop=false")
-        l.spr.close = int and dstarc("ss=59") or dstarc("sprites={46;45;44;43}; fps=5; loop=false")
+        l.spr.open = int and dstarc("ss=60") or dstarc("sprites={43,44;45;46};fps=5;loop=false")
+        l.spr.close = int and dstarc("ss=59") or dstarc("sprites={46;45;44;43};fps=5;loop=false")
         dstar(l, [[
-phase = close
-hitbox = {x=0;y=0;x2=7;y2=7}
+phase=close
+hitbox={x=0;y=0;x2=7;y2=7}
 int=*1
 key=*2
-]], {int, key})
+]],{int,key})
         add_solid(l)
         if (open) then c_door.open(l) end
         return l
@@ -210,7 +210,7 @@ key=*2
         self.int_done = true
     end,
     open = function(self)
-        dstar(self, "phase=open;hover_info=nil;int=false;show_int_button=false")
+        dstar(self, "phase=open;hover_info=nil;int=false;show_int_btn=false")
         obj_del(self.hover_info_obj)
         remove_solid(self)
         obj_mem_ch(self, 1)
@@ -234,12 +234,12 @@ c_scroll = cstar("c_scroll:c_int", {
     __new = function(n, x, y, t)
         local l = c_int.new(x, y, mmgr())
         l = dstar(l, [[
-el = *1
-int_fn = *2
-cost = *3
-name = *4
-col = *5
-        ]], {ord(t) - ord("A") + 1, scr_fn[t], scr_cost[t], scr_name[t], scr_colors[t]})
+el=*1
+int_fn=*2
+cost=*3
+name=*4
+col=*5
+]], {ord(t) - ord("A") + 1, scr_fn[t], scr_cost[t], scr_name[t], scr_colors[t]})
         l.hover_info = "learn "..l.name.." ("..tostr(l.cost).." shards)*"..tostr(scr_desc[t])
         l.spr.idle = { ss = 12 }
         return l
@@ -272,14 +272,14 @@ c_shard = cstar("c_shard:c_obj", {
     __new = function(n, x, y, cnt, static)
         local l = c_obj.new(x, y, mmgr())
         dstar(l, [[
-            speed = 0.1
-            speed_inc = 1.05
-            cnt = *1
-            static = *2
-            sbase = 1.5
-            sx = _fn_rnd_15
-            sy = _fn_rnd_15
-        ]], {cnt or 1, static or false})
+            speed=0.1
+speed_inc=1.05
+cnt=*1
+static=*2
+sbase=1.5
+sx=_fn_rnd_15
+sy=_fn_rnd_15
+]], {cnt or 1, static or false})
         return l
     end,
     update = function(self)
@@ -319,7 +319,6 @@ c_npc = cstar("c_npc:c_int", {
             self.diagcls:del()
             if (self.boss) then 
                 c_boss.new(self.x - 8, self.y - 8, "boss3")
-                -- obj_mem_ch(self, "d") -- the npc does not ever reapper after boss generation (or not?)
                 self:del()
             end
             self.cur_diag = 1 -- reset dialog
@@ -344,10 +343,10 @@ c_bullet = cstar("c_bullet:c_obj", {
     __new = function(n, x, y, dir, speed)
         local l = c_obj.new(x, y, mmgr())
         dstar(l, [[
-dir = *1
-speed = *2
-ttl = _fn_t1_3
-        ]], {dir, speed})
+dir=*1
+speed=*2
+ttl=_fn_t1_3
+]], {dir, speed})
         l.spr.idle = dstarc("ss = 185")
         add(enemy_bullets, l)
         return l
