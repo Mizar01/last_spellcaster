@@ -1,4 +1,4 @@
-[#last_spell_caster_0_9-4#]
+[#last_spell_caster_1-1#]
 
 [img]/media/135332/last_spellcaster p8_2.gif[/img]
 [img]/media/135332/last_spellcaster min_0.gif[/img]
