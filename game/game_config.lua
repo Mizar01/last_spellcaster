@@ -112,7 +112,7 @@ q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years
     ),
 
     build_stage_config_item(
-        dstarc("name=The underground;music=1;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
+        dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
         dstarc([[
 
 ]])
@@ -131,19 +131,19 @@ q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years
     ),
 
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}"),
+        dstarc("name=The intestines;music=6;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}"),
         dstarc([[
 
 ]])
     ),
     build_stage_config_item(
-        dstarc("name=The intestines;music=13;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}"),
+        dstarc("name=The intestines;music=6;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}"),
         dstarc([[
 
 ]])
     ),
     build_stage_config_item(
-        dstarc("name=The forgotten;music=13;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}"),
+        dstarc("name=The forgotten;music=6;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}"),
         dstarc([[
 p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death};
 q={cname=titus;msg=congratulations son!*you have found all the scrolls/I see you also*defeated this evil monsters/sorry to hear you lost*your aunt in the process/though i think she*never was your aunt/anyway, you have done well/the world is safe again/you're free to explore*this world now*as you wish/thank you*thank you player!}

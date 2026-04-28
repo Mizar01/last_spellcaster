@@ -334,15 +334,15 @@ ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{142};{158};{143};{170}}
 ]]K={e(f"name=The green forest 2;music=1;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}",f[[p={cname=titus;msg=i heard that you can*tap twice down arrow*to focus on another spell/tell me if it works*i'm happy to be useful}
 ]]),e(f"name=The green forest 1;music=1;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}",f[[p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
 ]]),e(f"name=The green forest 3;music=1;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}",f[[q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years/i tried to find those*mysterious scrolls/but i'm too lazy*and old, of course/i know there some scroll near*but i can't guess where}
-]]),e(f"name=The underground;music=1;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}",f[[
+]]),e(f"name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}",f[[
 
 ]]),e(f"name=The intestines;music=13;theme=sand;wtx=0;wty=32;fix_jumps={{22;1};{20;30}}",f[[            
 ]]),e(f"name=The intestines;music=13;theme=ice;wtx=48;wty=32;fix_jumps={{18;1};{4;30}}",f[[            
-]]),e(f"name=The intestines;music=13;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}",f[[
+]]),e(f"name=The intestines;music=6;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}",f[[
 
-]]),e(f"name=The intestines;music=13;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}",f[[
+]]),e(f"name=The intestines;music=6;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}",f[[
 
-]]),e(f"name=The forgotten;music=13;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}",f[[p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death};
+]]),e(f"name=The forgotten;music=6;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}",f[[p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death};
 q={cname=titus;msg=congratulations son!*you have found all the scrolls/I see you also*defeated this evil monsters/sorry to hear you lost*your aunt in the process/though i think she*never was your aunt/anyway, you have done well/the world is safe again/you're free to explore*this world now*as you wish/thank you*thank you player!}
 ]])}E("t1",function(n)return T.new(n,false)end)E("t2",function(n)return T.new(n,true)end)E("rnd",function(n)return flr(rnd(n))end)function A()return c.mgr.enemy_mgr end function s()return c.mgr.misc_mgr end function _init()nw"\n\n\n\n----------- Game started -----------"c=e_.new()end function _update60()c:update()end function _draw()c:draw()end e_=n("c_game",{__new=function()local n=f[[paused=false
 menu=true

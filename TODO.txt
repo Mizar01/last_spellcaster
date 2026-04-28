@@ -1,12 +1,12 @@
 last_spellcaster
 
-- iced enemies are often not walkable anymore, i never had this problem before the improvements to obj solids. try to investigate also on hitbox updates.
-  - in map 8 there's the same problem almost always.
 - npc dialog x button does only forward dialogs when near the npc.
 - add more npcs
-- improve boos music
+- improve boss music
 
 MAYBE
+- (random bug) iced enemies are often not walkable anymore, i never had this problem before the improvements to obj solids. try to investigate also on hitbox updates.
+  - in map 8 there's the same problem almost always.
 - when attack button and switch spell are pressed, show an hint if you don't have any spell.
 - restore shard animation maybe with sprites instead of math movements (now commented to spare tokens)z
 - differentiate the 3 bosses with different attacks and patterns
@@ -14,6 +14,7 @@ MAYBE
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 
 DONE:
+- (NOT A BUG, happens only if player_enable_all = true) when changing stage the player will switch back to fire
 OK the final boss does not spawn at the end of dialog, but only if the player goes too far. It should also spawn at the end of dialog
 OK REGRESSION BUG: the thunder does not open door switches
 OK end of game congrats
