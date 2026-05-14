@@ -3,23 +3,23 @@ c_enemy = cstar("c_enemy:c_obj", {
     __new = function(n, etype, x, y, speed, parent_mgr)
         local l = c_obj.new(x, y, parent_mgr)
         dstar(l, [[
-respawn_timer = _fn_t1_10
-dmg_time = _fn_t1_1
-frozen_t = _fn_t1_20
-time_last_death = 0
-life = 40
-max_life = _k_life
-dir = nil
-wspeed = 0
-dir_before_blow = nil
-fixed = false
-hitbox = {x=2;y=2;x2=5;y2=5} 
-hitbox_orig = _k_hitbox
-speed = *1
-etype = *2
-boss = false
-value = 3
-memdeath = false
+respawn_timer=_fn_t1_10
+dmg_time=_fn_t1_1
+frozen_t=_fn_t1_20
+time_last_death=0
+life=40
+max_life=_k_life
+dir=nil
+wspeed=0
+dir_before_blow=nil
+fixed=false
+hitbox={x=2;y=2;x2=5;y2=5}
+hitbox_orig=_k_hitbox
+speed=*1
+etype=*2
+boss=false
+value=3
+memdeath=false
         ]], {speed or 1, etype})
         l.frozen_t.t = 0
         return l
@@ -100,10 +100,10 @@ c_fly_en = cstar("c_fly_en:c_enemy", {
         l.spr.idle = {sprites = en_sprites[name].idle, fps = 4, loop = true}
         l.horizontal = (en_vertical[name] == nil)
         dstar(l, [[
-hitbox_orig = {x=2;y=2;x2=5;y2=5}
-horizontal = _k_horizontal
-dir = *1
-dir_before_blow = _k_dir
+hitbox_orig={x=2;y=2;x2=5;y2=5}
+horizontal=_k_horizontal
+dir=*1
+dir_before_blow=_k_dir
 ]], {l.horizontal and dir_right or dir_down})
         if (en_shoot[name] ~= nil) dstar(l, "tshoot=_fn_t2_4")
         if (l.tshoot != nil) l.tshoot.t -= 10 * flr(rnd(20)) -- first random shoot start

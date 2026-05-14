@@ -102,22 +102,22 @@ end
 
 function map_tiles_by_theme(tile_variant, theme)
     local m = {
-        [ncn_none] = 2,
-        [ncn_up] = 1,
-        [ncn_down] = 2,
-        [ncn_left] = 5,
-        [ncn_right] = 4,
-        [ncn_up_down] = 1,
-        [ncn_left_right] = 3,
-        [ncn_up_left] = 1,
-        [ncn_up_right] = 1,
-        [ncn_down_left] = 5,
-        [ncn_down_right] = 4,
-        [ncn_up_down_left] = 1,
-        [ncn_up_down_right] = 1,
-        [ncn_up_left_right] = 1,
-        [ncn_down_left_right] = 3,
-        [ncn_all] = 1,
+        [0] = 2,
+        [1] = 1,
+        [2] = 2,
+        [4] = 5,
+        [8] = 4,
+        [3] = 1,
+        [12] = 3,
+        [5] = 1,
+        [9] = 1,
+        [6] = 5,
+        [10] = 4,
+        [7] = 1,
+        [11] = 1,
+        [13] = 1,
+        [14] = 3,
+        [15] = 1,
     }
     return m[tile_variant]
 end

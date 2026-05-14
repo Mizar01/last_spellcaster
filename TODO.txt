@@ -1,8 +1,7 @@
 last_spellcaster
 
 - npc dialog x button does only forward dialogs when near the npc.
-- add more npcs
-- improve boss music
+- info must comply with compressed property limit of 15616 - find ways to spare text in the code. Can also review npc dialogs.
 
 MAYBE
 - (random bug) iced enemies are often not walkable anymore, i never had this problem before the improvements to obj solids. try to investigate also on hitbox updates.
@@ -14,6 +13,8 @@ MAYBE
 - Avoid that the c_slider or texts can cover the player or the interacting object.
 
 DONE:
+- OK add more npcs
+- OK improve boss music
 - (NOT A BUG, happens only if player_enable_all = true) when changing stage the player will switch back to fire
 OK the final boss does not spawn at the end of dialog, but only if the player goes too far. It should also spawn at the end of dialog
 OK REGRESSION BUG: the thunder does not open door switches

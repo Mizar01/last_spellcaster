@@ -1,23 +1,23 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
-poke(24412,-1)n3=false nb=false nm="last_spellcaster/logs/log"F=60C={}function n(e,n)local e,t=unpack(split(e,":"))C[e]=n n.__index=n setmetatable(n,C[t])n.new=function(...)local t=n.__new(e,...)t.__name=e setmetatable(t,n)return t end n.super=C[t]return n end ni={}function _(t,i,l)t,l=t or{},l or{}local function f(t)local n=1while n<=#t and(sub(t,n,n)==" "or sub(t,n,n)=="\n"or sub(t,n,n)=="	")do n+=1end local e=#t while e>=n and(sub(t,e,e)==" "or sub(t,e,e)=="\n"or sub(t,e,e)=="	")do e-=1end if(n>e)return""
-return sub(t,n,e)end local e,n,r=1,#i,1while e<=n do while e<=n do local n=sub(i,e,e)if(n~=" "and n~="\n"and n~=";"and n~="	")break
-e+=1end if(e>n)break
-local a,d,o=e,0,nil while e<=n do local n=sub(i,e,e)if(n=="{")d+=1
-if(n=="}")d-=1
-if d==0do if(n=="="and not o)o=e
-if(n==";"or n=="\n")break
-end e+=1end local d,n if(o)d,n=f(sub(i,a,o-1)),f(sub(i,o+1,e-1))else n=f(sub(i,a,e-1))
-local e local i=sub(n,1,1)if i=="{"and sub(n,-1)=="}"do e=_({},sub(n,2,#n-1),l)elseif i=="*"do local n=tonum(sub(n,2))e=l[n]elseif sub(n,1,3)=="_k_"do local n=sub(n,4)e=t[n]elseif sub(n,1,4)=="_fn_"do local n=split(sub(n,5),"_")e=ni[n[1]](#n>=2and n[2]or nil)elseif n=="true"do e=true elseif n=="false"do e=false elseif n=="nil"do e=nil else e=tonum(n)if(e==nil)e=n
-end if d and d~=""do t[d]=e elseif n~=""do t[r]=e r+=1end end return t end function E(n,e)ni[n]=e end function f(e,t)local n={}_(n,e,t)return n end function i(n,e)return unpack(f(n,e))end T=n("c_timer",{__new=function(t,n,e)local n={maxtime=flr(F*n),t=flr(F*n),loop=e or false}return n end,adv=function(n)if(n.t<0)return false
-n.t-=1local e=false if(n.t==0)e=true if(n.loop)n.t=n.maxtime else n.t=-1
-return e end,restart=function(n)n.t=n.maxtime end,t_left=function(n)return flr(n.t/F)end,t_left_btw=function(n,e,t)local n=n:t_left()return n>=e and n<=t end})function np(t,i,n,e)n,e=n or 8,e or 8local t,i=flr(t/n),flr(i/e)return{tile=mget(t,i),tx=t,ty=i,ox=t*n,oy=i*e}end function n5(n,e,t,i,o,l,d,f)rectfill(n-1,e-1,n+t+1,e+i+1,d)local t=mid(0,flr(o/l*t),t)rectfill(n,e,n+t,e+i,f)end function nw(n)if(not nb)return
-printh(n,nm or"mainlog")end function u(n,e,t,i)?n,e-#n*2,t,i
-end function no(t,e,i)local n={}for e=0,e-1do n[e]={}for t=0,t-1do n[e][t]=i end end return n end function U(n,e,t)local n=n+t*(e-n)return n end function nx(e,t,n,i,o)local n=n.t/n.maxtime if(i)n=1-n
-return U(e,e+(o==d and-1or 1)*t,n)end function w(n,t)if(n==nil or n=="")return false
-for e=1,#n do if(sub(n,e,e)==t)return true
-end return false end ny={[[1R0#4!0$4!0$4!0$b!0%b!0#4#X"0%4!1$Z"1"0&X"0"g!0"X!0"g!0#X!0!b!001!C!0"1!Z!0!1"0!1"0!1:0)1"0"1!0#1!0"a!0!1=0'1!0!1"b!0"1!0"1"0!1%0"1)0%4#0#1!0'1!0"1!0#1!0" !0#1#0&4#0.1#0%1"0!1!0#1!0!1"0#X!1!X!091%0!j$0#1!a!0*5!0'5!p!0(1&x!Z"1!0!1(0"1"0&1%0!1!0!1$0+b!1!0!1,0! !0'1#0$1!0#1#0+1!0!t!v!0!1)0!1"0$X!1"0&1"0!1!0"1"0)a!1$0!1"0!a!0$1!0!2!3!0$1"0$Q!0#M!0!1!0#1"0"5!0!2!0%5!0#j"0&1$0!1$0#d!1(0$1'0!1)0&1!0%1#0-Y!0"1'0$b!0%g!0"1$0#1!0!1#0"1"0!1"0"1"0!1"0"1%0%b!0"1(0"1#0!1!0"4!1"0$b!0$b!0$1"0(b!0"1"0)1!0#1"0"4!1"0$b!1"b!0$1#0!1+0*1!0"1!0%4!1#0$x!0#1#0$1!0&1!0'1"0#1!0"1!0!5!0%Z!1$0"1$0$1!0!1!0"E!0#1!0,1!0!1.0"1#0'1!0"1"0"1!0,1!0(1(0!1#0'1"0"1!0"1!0'3!g"0"1"0)1$0$1"0#1#0"1!0"1"0!1!0%1(0+1$B!0!1#Z!0$1!R!0!N!0"1!2!0!N!2!0"R!1"0&1#0$c!0$1,0"1/0'1!0'c!0$1'0"h"0"h"0#1#0#b!0*1$0"1$0!1(0#1&0#1!0&b!0)1!0%h!0"y!0%1#05b!0(1'0)1"06b!0'1"0"Z!1"0)b!0/1%0)3!1#0"Z!0!U!0$5!0!X"0"g!0!e!0#X"0"5!0"1(0"5!0#f!0!1%0!1L]],[[1P0-4#0$1!0#X"0$1!0'4!0!4!0!4"081!0!1&0!b!0F1!0&1!0H1&0!1!0-X!0A1!0H1+0-2!0!3!0$2!0/1!X!0"4#0$X!1!0+1*0!p!0"f!0"5!0%1!X!0*1!0'2"0!1%0"1.0!1#X!0*1!0#1,0"1/0!h!0!1"X!0!g!0#g!0&1)Y!0$1"0&a!0%1$0"140!4"Y!0!1$0(e!0*1.0!4!0!4!0#1#0*1'0'b!0#b!0"X!b!001#0"1%0!y!0BX"4"1"0-1#0*X!0'X"0&1"071#0!1!0"1#0!1!0"1#0(1!0-y!00b!0&4!0+1#0D1#0$X!0#4!0$2!0"2!0#2!084"0%1#0%1*0?b!4!0%1!0(1!0;1!0!1"0$1$0"1!0!1!0!1!0!1"0;b!031!0"2!0!e!0!e!0!3!0-1#0,1!0!1!0!1!0#1!0!1(0!1#03b!0;1!0!3!0"e!X!0!3!0!3!0/1!0#a!0"1"0"1$0$1!0"1-0=1!0%4"b!0!b!0!b!0!b!0#1!0"g!0!3!0!3"0$2!011!001+0!1"0$1!0>4!0!4!0"4!0#1%0"1#0!g!0#5!0#5!0"g!2!0$2!b!0!b!0!b!0!b!0.170!18]],[[1P0"4"0!4!0!4!0,X!0%4!0%Y!0#1(0!1#01X"0+1$0"4!1(0!1"0*1"0!a!0"1$0!1!a!0!1#0!a!0(4!1&0!1#0HU!0!1$0!1!0*X!0$2!0#2!0#2!0$3!0$3!0$1#0!1&0"2!q!f!0#1=0!1#0!1"0"1D0$1#0!1"0"1"0#A!1!0.b!0&Z!1'0!1&0!1*091%0$1"0#1&0%1!0"X#0$X"0,1$0$1#0!1&0&1!0!1%0"1$0!1"0%a!0#1#0!1"0!1#0!1"0"1"0&1!0)4"0.1"0$1#0!1"0"1"0&1!001"0'1!4!0"1%0!1&0&1#0"a!Z!b!021!0%1"0"1#0"1!0(1"0.b!0!1"0!a!0#1"a!0"1!0#1#0"1!0#X"0$1!004!0&1!0$1#0"1,0"1!031%0#1$0#1$0"b!0"b!0#1!0-1"0!1"0"4!0!1!0%1#0!1&0)1"0*X!0"b!0'1#0!a!0!1#0!1&0#b!0&1!0)1"0*1!0%1#0!1&0&b!0#1"04Y!1!0"1%0!1$x!1!0+1!0&1"0-1!0$1#0!1!0$1!0"b!0(1#0#2!0$2!0#e!0!5!0#X!1!2!0#1#0!1!0"1!Z!1!0%b!0'1!0"13X"0!1#0!1!0!1"Z!1!0#b!0)1"0#4!0!4!0!1#4"1#4!0"1$0!1#0!1!0"1!Z!1!0.1"0'1#0!4!1!4!0$1"0"1#0!1"0!1!Z!1!0&b!014"0)1!0!1$0!1!0"1!Z!1!0"3!0"3!0"2!0"2!0#1&0.1!0"1#0#1"Z!1/0!1'0$1"0'1"0!1#0"1#Z!1!051"0!3!0%g!0!3!0'U!0"U!Z#130"1<]],[[1"0"1N0"j!b!0"b!0*d!0!d!0+S!1!S!0!3!0)1&0!b!0'v!0!t!0!u!0!b!0!b!0)1&0)1"0&b!0&1)0"2!0%b!0!O!0!O!0'3!0#1"0!3!0!2!0#130%1"0!1!0"1'0"1/0)1%3!0!2!0!1"0"1!0!1!0"a!0%1*021'0#1!0&2!0#1!051"0(1#0!1!0$1(02v!0,1"0"1$0'1"0)o!0(1"0&o!0$1"0"1!0&4!0#1#0?1"0"1!0#1(0/1"0/1#0"1!0"a!0%1"5!02u!0,1"0$1!0'1$001"0,1"R!0$1!0"1&0@1&0"1!0!c!0#1%021"0)N!0!j$0"1!0%1"0#1!0+t!0"1"0,1*0"4!0!1#0%m!0%4!0"1"0.1*0"1%0$1!0'1"021"Z"1%0%1"0>1#0%1#0!c!0#1"0!2!0!1!0!3!a!0#1"0+o!0&1"c!0&1#0$1)0!2!022!0"1"0"1!0$1$0#1/0%e!0(1%0!c!0%1#0$1"G!1!v!0!j!0#180$c!0!4!1"0%1"0!1!0"j!0%d!0"1)0#d!0#1#0"1!0#1"0"1&0!v!0"1!0'd!0.d!0#1!0$c!0!1"0#f!M!0"1!v!0"w!1!0#5!0$g!0$a!0"2!0"3!0"g!0%4!0"1$0!1!0!1*0!1B0!1!0#Q!1"Y!Z!1!0'1!0'a!0&1#0&1&0!1"0"1#0"1$041!0(1$0%1!0!1"0#h!0(e!0"t!u!v!0"e!0"v!u!t!0#e!0"5!0#t!0!v!0'1*0"1@0!1$]],[[170!19Y!0#1!0C1!0$Y!1"Z!0!3!0!1!01f!011!0"3!0!X!1%0!1!0/1%0/1!0!1&0N1(0B1"0$1!0$j"0!1!0*1"0'1"0-1"0#1'0"1!0(2!0%X"0$3!011"0&c!0(100&2!0"c!0#X"1.0$1.0$190&1-0%170"1"0#1,0#1"0"1,0+4!0*j"0#1"0&X"0)1"0"b!0&1$0)j"0#1"0$1$0&b!0"1"0#b!0)1!0(j"0"3!1"0/b!0!1"061"0"1#4!0&4!0)1#0'1#0#1!0%1"Z!1!0!1!Z!1$0$1#0'1%0$1!0-1!Z!0%Z!1!0.4!1'2!0(1$0$1"Z!0!D!0!Z!1"0"d!0*X!1)011'0.1,0%1!0*1%0-1(0&1!001#041"0,1!0A1"0!4!0%d!0%5!025!0%d!0%2!0!1&0"1#0#1#0#d"0+1#0"1#0#1%0$i!0"i!0H1*0$i!0"g!0)i!0"i!0"2!0$1#0!1(0%g!0#1*0!100!1!0#1!0!1!0!1"0#1'0&h"Q!1!0!M!S!N!0!1!R!h"0)1!0"1!0!1!0!1$0!1!0'1!0!1,0!1*0!1#0!1!0!1!0!1!0!1"0"2!0"1!X!1!0!g!0#1%0"j!P!O!h!0%i!0!i!0!T!1!0"3!0"Y!1!0!1!0!150"1;]],[[120"1=0!x!0#2!0!3!0!x!0!3!0!3!0!1"0"1#0'2!0"3!x!0"2!0!3"0!1'00N!0#N!0"R!031%0#1"0)1-0(1&0#1%0"1#X!0&110)1#0"3!1#0"b!1$0%1-0.1$0"1#0#1%0#1-0'a!0'2!0"1"0"1"0#1&0!1-0'1"0*1#0!1#0"1&0!1,3!0'o!0+1"2!0!1"2!0"1&b!1+2!041"0"1"0#1&b!1*3!0+1"0(1"0!1#0"1'0!1)Z!061"0!3!1"0"3!1&0!1)Z!0*1"0*1"0"1"0#1&0!1)Z!034!0"1#0!1#0"1&0"1(Z!0(4!0)1&2!0!1"2!0!1(0#1&Z!0(1"0#l!0(1"0"1"0#1"Z#1#0"X!1&0/1!0"d!1!0#1!0!1#0#1!Z!0#Z!1#0#1&0%1"0+1"0"1!0!3!1"0"1"w!0#1%0#1&0+1!0%1!0#1!0"1"0"3!1"0#w!1%0#1&0"1!0)1!0!1!0!1!0"1#0!1"0#1!2!0$1&0#1&0#5!0!v!0$t!0$1!0"1"2!0!1#0"1!0"1!0"3!1&X!0!X!140"1#0"1"2!0"1!0&1'0#1/K!V!k!t!0!1$0!1#0#1"4!0%1'X!0!X!160#1$0!1&0#1'0&3!0!3!0!d!2!0!2!0!3!0)1#0"f!0!M!0!Q!0"1#v!0"1&00v!0"u!0"t!0#1(0!1%t!0"1&X!0%d!0'1"0!1"0!1"0#1&0#1&t!0"1&04d!0#1%0#1(t!0"1&0%d!0#1"0,1$0$1)u!07d!0&1$0"1,0$4!0%d!0%4!0#5!0)1$0!1L]],[[1)0"1@0!1%0,x"0$1!x!0#x!0"1!0%1!4!0!1!0%1!0$1"w!0'1!0!1!0'1!4!0,1!w!0'1"0#1"2!0$3!0$1!x!0&1!0'1!0#X"1!4!0!1!0(1&0!1+0!1$4"0%1"0!1$0"1!0(f!0!1"0#1!0%x!0!x!X!1!0$1!0'1!2!0#4!1!0"1%0!1'0"1"0(X!1"0+1#0#1!0$1!0(1"0"2!0%3!0!x!0!X!1!0$1!0"x!0!3!0!x!1!0#3!0$3!0!1!0"2!0#3!0!1'0!1D0!1%0"x!0%1!0$d!0!1!0$1'0$1!0#d!0"Z"1!0%1"0%3!0"1!0%d!0%t!0!t!0!t!0!t!0$1!0$d!0#1!0%1"0$1#0!1!0&1!0#1)0#1!0%d!0"1!Y!0$1"0(1!0$5!0!1!0#1!0$M!0!F!1!0"u!0!v!0%d!0!1$0!1$4!0$1%0!1(0$110%1"o!0%2!0"1!06w!1!4!0"1!0"1!Y!0$1"0$1#0"1#0-b!0'1!0!4!0!1!0"1$0#1!0(w!1!0&1$0'1%0!1!0"4!1!0%1!x!0"1!0&1'0#1!0"1!Q!0&1!0!2!0,w!1"0"1!0$3!0%1!0$1"0"1#0$1(0#1!0!2!0'1"0#1#0#1!0#1#0&3!0!3!0'1!0#1&0$1!0)w!1!0!e!0#1!0"1,0"1!3!0"1!0$1!0"1!0!1!0&1(0"1!w!0/1#0!1!0$1&w!0*1!0#1"w!011!0!1!0(1#0#1#0$1!0$1!w!0#u!0#5!0!u!0#3!0#1!0$3!0%1"0'2!0!2!0!1#0"1(0!140!1"0&1'0#1!4!0(1!0)X!1!4!0'1"w!0$3!0&1!0"1"0"1!0&1!0$3!0!3!0"X!1!0$1&0$1'0!1!0#1!0)1#0!1%0!1"0#1(0*w!1"0"1"0(1!0%1!0.1!0,1!0#1!0)1!0"1$w!0#1#0'1!0"1#0!3!0#e!0#3!0!1!4"i!0"2!0!x!i!0!5!0$1!Z!0#1!0#2!0"2!0"1P]],[[130"1=0$x!0#x!0$4!0!1!0$1!x!0'g!0)1!0%1"4!0&x!0#x!0$1!0"f!0!1!0#5!0"1&0#3!0!Q!1!0$1#0"1,0"1!0$1!0"1$0&1'0!1!0#1"4!0"x!0!x!0!x!0%1"0!1!0$1!0"1#0"t!0!v!0+1!0"1"0$x!0!x!0!x!0#1!0#1!0$1!0!1#0"1%0"2!0'1!0!1-0!1!0$1!0$1!0%1!0%1+0"1"w!0*1!0#1!0&1!0#1!0"1!0(y!0%1!0!1"w!0!2!0"5!0"3!0"1!0"1!0(1!0"M!0!1!0!1!0#3!0$y!0&1"0!1+0"1!5!0!t!0#u!0"1#0!1!0!120!1,0!1%0!1"0"1!0#1!0#x!0!x!0+1"0+1!0!3!0#M!0"M"0"1!0!1$001$0)1+0"1!0%1"0$1!0!y!1!0"1"0"1%0"o!0/1!0#1$0!1!001*0-1!0!3!0!t!0"w!1!0#1%0#1!0%4!0(1!0"g!2!0)1'0"1"0%1!0+i!0"i!0#1&0!o!0#4"0!1!0&1!0$2!0#1#0%4!0"1%0'1%0#1"0$1"0"1%0"1!0,x!0!x!1!0,4!0!1!R!0!1!0"1!0"1!0'1!0#1!0%1"0%1!0#g!5!0$1&0#1!0"1!0(1!5!0(1!R!0%w!1(0"N!0!3!0'1!0&1)0!1)0"140&1!0(1#0"k!N!0"L!1!0"1#0*x!0%x!0%1!0$i!0%1"0"k!1%0!1#061!0#1$0$1"0!1"0!1!0"1!0"1!0%1!0!g!0&1#0$5!0!1"0&1!0"1#0'1"0!1!0"1*0"k!H!k!0"1*0"4!1!0"1"0%d!0!1!0"1!0,1'0-1!0"1"0&1!0#1"0!5!0"i!0)i!0*i!0"2!0!4!1"0!1!0"1!0#1!0#1,0!1*0!1*0#1!0#1!01w!1!w!0)1!w!0+1"0!3!0"3!0$2!0#t!0!3!0"u!0!2!0#3!0!t!0!u!0"2!0#3!0!t!0!u!0!v!0!2!0#1Q]],[[1#0!1O0$1#0!X"1#X"1#X!0%4!01x!0!1%0*1!0-4!0"1(0"2!0%1$0%1!0*1!o!0&4!0"1!0(1$0$1$2!0!3!0!1#0"v!0!t!0!2!0!1#0"3!0!i!0"4!1!0%5!0'1"0"1.0!100#1&0$1!0"1)Y"1$0!1+0"o!0*Z!1!0#1!0#1#Q!0&4!0"M!0!1)0/Z!1!0"2!1"0"1%0'1(0'1-0#1"0#1$0'1!0-1"0&X#0(1!0"1$0"1'w!0+1!031"0"1#Z!0*i!0#i!0%1!0&3!0!2!0#g!0!3!0"1"0$190"1/0&1#0!x!0"1'0"y!0&y!071"0&4!0"4!0/1!041"02t!v!091#021"0$1!0%2!1"0!i!0!X"0%1%0+5!0"3!0"1$0&g!0!1,0#1$0'1!0!1(0#150$1#0)1!0.1!0$1!0%1!0$1"0#w!1"0)1!014!0-1"w!0#1"0&1#0.4"0/1"w!0"1%0%4!1!0+ "0#1"0"1"0)1"0#w!1&0$1!0'1"0&4!0(2!0'1!0"1!0!1"0"4!0%1!0.4!0)1"0&1!w!0#1"0&1#0$1"0% !0"1"0,3!0"1#0"w!1"Z!0!4!0%1!0.4!0,1"0#1!w!0#1&0$1#0'1"051!0"1!0!1"0&1%0"1"0'4"0!1"0&1"0#1"0!1!0!k#1"4!0%1%0-4!001!2!k!I!k!1"Z!f!0"x!0#k!U!V!03p!0*1V]]}b=n("c_obj",{__new=function(i,n,e,t)local n=f([[parent_mgr=*3
+poke(24412,-1)e3=false eb=false em="last_spellcaster/logs/log"q=60C={}function e(n,e)local n,t=unpack(split(n,":"))C[n]=e e.__index=e setmetatable(e,C[t])e.new=function(...)local t=e.__new(n,...)t.__name=n setmetatable(t,e)return t end e.super=C[t]return e end ei={}function _(t,i,l)t,l=t or{},l or{}local function r(t)local e=1while e<=#t and(sub(t,e,e)==" "or sub(t,e,e)=="\n"or sub(t,e,e)=="	")do e+=1end local n=#t while n>=e and(sub(t,n,n)==" "or sub(t,n,n)=="\n"or sub(t,n,n)=="	")do n-=1end if(e>n)return""
+return sub(t,e,n)end local n,e,f=1,#i,1while n<=e do while n<=e do local e=sub(i,n,n)if(e~=" "and e~="\n"and e~=";"and e~="	")break
+n+=1end if(n>e)break
+local a,d,o=n,0,nil while n<=e do local e=sub(i,n,n)if(e=="{")d+=1
+if(e=="}")d-=1
+if d==0do if(e=="="and not o)o=n
+if(e==";"or e=="\n")break
+end n+=1end local d,e if(o)d,e=r(sub(i,a,o-1)),r(sub(i,o+1,n-1))else e=r(sub(i,a,n-1))
+local n local i=sub(e,1,1)if i=="{"and sub(e,-1)=="}"do n=_({},sub(e,2,#e-1),l)elseif i=="*"do local e=tonum(sub(e,2))n=l[e]elseif sub(e,1,3)=="_k_"do local e=sub(e,4)n=t[e]elseif sub(e,1,4)=="_fn_"do local e=split(sub(e,5),"_")n=ei[e[1]](#e>=2and e[2]or nil)elseif e=="true"do n=true elseif e=="false"do n=false elseif e=="nil"do n=nil else n=tonum(e)if(n==nil)n=e
+end if d and d~=""do t[d]=n elseif e~=""do t[f]=n f+=1end end return t end function E(e,n)ei[e]=n end function r(n,t)local e={}_(e,n,t)return e end function s(e,n)return unpack(r(e,n))end T=e("c_timer",{__new=function(t,e,n)local e={maxtime=flr(q*e),t=flr(q*e),loop=n or false}return e end,adv=function(e)if(e.t<0)return false
+e.t-=1local n=false if(e.t==0)n=true if(e.loop)e.t=e.maxtime else e.t=-1
+return n end,restart=function(e)e.t=e.maxtime end,t_left=function(e)return flr(e.t/q)end,t_left_btw=function(e,n,t)local e=e:t_left()return e>=n and e<=t end})function ep(t,i,e,n)e,n=e or 8,n or 8local t,i=flr(t/e),flr(i/n)return{tile=mget(t,i),tx=t,ty=i,ox=t*e,oy=i*n}end function ey(e,n,t,i,o,l,d,r)rectfill(e-1,n-1,e+t+1,n+i+1,d)local t=mid(0,flr(o/l*t),t)rectfill(e,n,e+t,n+i,r)end function ew(e)if(not eb)return
+printh(e,em or"mainlog")end function i(e,n,t,i)?e,n-#e*2,t,i
+end function eo(t,n,i)local e={}for n=0,n-1do e[n]={}for t=0,t-1do e[n][t]=i end end return e end function U(e,n,t)local e=e+t*(n-e)return e end function e5(n,t,e,i,o)local e=e.t/e.maxtime if(i)e=1-e
+return U(n,n+(o==d and-1or 1)*t,e)end function y(e,t)if(e==nil or e=="")return false
+for n=1,#e do if(sub(e,n,n)==t)return true
+end return false end ex={[[1R0#4!0$4!0$4!0$b!0%b!0#4#X"0%4!1$Z"1"0&X"0"g!0"X!0"g!0#X!0!b!001!C!0"1!Z!0!1"0!1"0!1:0)1"0"1!0#1!0"a!0!1=0'1!0!1"b!0"1!0"1"0!1%0"1)0%4#0#1!0'1!0"1!0#1!0" !0#1#0&4#0.1#0%1"0!1!0#1!0!1"0#X!1!X!091%0!j$0#1!a!0*5!0'5!p!0(1&x!Z"1!0!1(0"1"0&1%0!1!0!1$0+b!1!0!1,0! !0'1#0$1!0#1#0+1!0!t!v!0!1)0!1"0$X!1"0&1"0!1!0"1"0)a!1$0!1"0!a!0$1!0!2!3!0$1"0$Q!0#M!0!1!0#1"0"5!0!2!0%5!0#j"0&1$0!1$0#d!1(0$1'0!1)0&1!0%1#0-Y!0"1'0$b!0%g!0"1$0#1!0!1#0"1"0!1"0"1"0!1"0"1%0%b!0"1(0"1#0!1!0"4!1"0$b!0$b!0$1"0(b!0"1"0)1!0#1"0"4!1"0$b!1"b!0$1#0!1+0*1!0"1!0%4!1#0$x!0#1#0$1!0&1!0'1"0#1!0"1!0!5!0%Z!1$0"1$0$1!0!1!0"E!0#1!0,1!0!1.0"1#0'1!0"1"0"1!0,1!0(1(0!1#0'1"0"1!0"1!0'3!g"0"1"0)1$0$1"0#1#0"1!0"1"0!1!0%1(0+1$B!0!1#Z!0$1!R!0!N!0"1!2!0!N!2!0"R!1"0&1#0$c!0$1,0"1/0'1!0'c!0$1'0"h"0"h"0#1#0#b!0*1$0"1$0!1(0#1&0#1!0&b!0)1!0%h!0"y!0%1#05b!0(1'0)1"06b!0'1"0"Z!1"0)b!0/1%0)3!1#0"Z!0!U!0$5!0!X"0"g!0!e!0#X"0"5!0"1(0"5!0#f!0!1%0!1L]],[[1P0-4#0$1!0#X"0$1!0'4!0!4!0!4"081!0!1&0!b!0F1!0&1!0H1&0!1!0-X!0A1!0H1+0-2!0!3!0$2!0/1!X!0"4#0$X!1!0+1*0!p!0"f!0"5!0%1!X!0*1!0'2"0!1%0"1.0!1#X!0*1!0#1,0"1/0!h!0!1"X!0!g!0#g!0&1)Y!0$1"0&a!0%1$0"140!4"Y!0!1$0(e!0*1.0!4!0!4!0#1#0*1'0'b!0#b!0"X!b!001#0"1%0!y!0BX"4"1"0-1#0*X!0'X"0&1"071#0!1!0"1#0!1!0"1#0(1!0-y!00b!0&4!0+1#0D1#0$X!0#4!0$2!0"2!0#2!084"0%1#0%1*0?b!4!0%1!0(1!0;1!0!1"0$1$0"1!0!1!0!1!0!1"0;b!031!0"2!0!e!0!e!0!3!0-1#0,1!0!1!0!1!0#1!0!1(0!1#03b!0;1!0!3!0"e!X!0!3!0!3!0/1!0#a!0"1"0"1$0$1!0"1-0=1!0%4"b!0!b!0!b!0!b!0#1!0"g!0!3!0!3"0$2!011!001+0!1"0$1!0>4!0!4!0"4!0#1%0"1#0!g!0#5!0#5!0"g!2!0$2!b!0!b!0!b!0!b!0.170!18]],[[1P0"4"0!4!0!4!0,X!0%4!0%Y!0#1(0!1#01X"0+1$0"4!1(0!1"0*1"0!a!0"1$0!1!a!0!1#0!a!0(4!1&0!1#0HU!0!1$0!1!0*X!0$2!0#2!0#2!0$3!0$3!0$1#0!1&0"2!q!f!0#1=0!1#0!1"0"1D0$1#0!1"0"1"0#A!1!0.b!0&Z!1'0!1&0!1*091%0$1"0#1&0%1!0"X#0$X"0,1$0$1#0!1&0&1!0!1%0"1$0!1"0%a!0#1#0!1"0!1#0!1"0"1"0&1!0)4"0.1"0$1#0!1"0"1"0&1!001"0'1!4!0"1%0!1&0&1#0"a!Z!b!021!0%1"0"1#0"1!0(1"0.b!0!1"0!a!0#1"a!0"1!0#1#0"1!0#X"0$1!004!0&1!0$1#0"1,0"1!031%0#1$0#1$0"b!0"b!0#1!0-1"0!1"0"4!0!1!0%1#0!1&0)1"0*X!0"b!0'1#0!a!0!1#0!1&0#b!0&1!0)1"0*1!0%1#0!1&0&b!0#1"04Y!1!0"1%0!1$x!1!0+1!0&1"0-1!0$1#0!1!0$1!0"b!0(1#0#2!0$2!0#e!0!5!0#X!1!2!0#1#0!1!0"1!Z!1!0%b!0'1!0"13X"0!1#0!1!0!1"Z!1!0#b!0)1"0#4!0!4!0!1#4"1#4!0"1$0!1#0!1!0"1!Z!1!0.1"0'1#0!4!1!4!0$1"0"1#0!1"0!1!Z!1!0&b!014"0)1!0!1$0!1!0"1!Z!1!0"3!0"3!0"2!0"2!0#1&0.1!0"1#0#1"Z!1/0!1'0$1"0'1"0!1#0"1#Z!1!051"0!3!0%g!0!3!0'U!0"U!Z#130"1<]],[[1"0"1N0"j!b!0"b!0*d!0!d!0+S!1!S!0!3!0)1&0!b!0'v!0!t!0!u!0!b!0!b!0)1&0)1"0&b!0&1)0"2!0%b!0!O!0!O!0%r!0!3!0#1"0!3!0!2!0#130%1"0!1!0"1'0"1/0)1%3!0!2!0!1"0"1!0!1!0"a!0%1*021'0#1!0&2!0#1!051"0(1#0!1!0$1(02v!0,1"0"1$0'1"0)o!0(1"0&o!0$1"0"1!0&4!0#1#0?1"0"1!0#1(0/1"0/1#0"1!0"a!0%1"5!02u!0,1"0$1!0'1$001"0,1"R!0$1!0"1&0@1&0"1!0!c!0#1%021"0)N!0!j$0"1!0%1"0#1!0+t!0"1"0,1*0"4!0!1#0%m!0%4!0"1"0.1*0"1%0$1!0'1"021"Z"1%0%1"0>1#0%1#0!c!0#1"0!2!0!1!0!3!a!0#1"0+o!0&1"c!0&1#0$1)0!2!022!0"1"0"1!0$1$0#1/0%e!0(1%0!c!0%1#0$1"G!1!v!0!j!0#180$c!0!4!1"0%1"0!1!0"j!0%d!0"1)0#d!0#1#0"1!0#1"0"1&0!v!0"1!0'd!0.d!0#1!0$c!0!1"0#f!M!0"1!v!0"w!1!0#5!0$g!0$a!0"2!0"3!0"g!0%4!0"1$0!1!0!1*0!1B0!1!0#Q!1"Y!Z!1!0'1!0'a!0&1#0&1&0!1"0"1#0"1$041!0(1$0%1!0!1"0#h!0(e!0"t!u!v!0"e!0"v!u!t!0#e!0"5!0#t!0!v!0'1*0"1@0!1$]],[[170!19Y!0#1!0C1!0$Y!1"Z!0!3!0!1!01f!011!0"3!0!X!1%0!1!0/1%0/1!0!1&0N1(0B1"0$1!0$j"0!1!0*1"0'1"0-1"0#1'0"1!0(2!0%X"0$3!011"0&c!0(100&2!0"c!0#X"1.0$1.0$190&1-0%170"1"0#1,0#1"0"1,0+4!0*j"0#1"0&X"0)1"0"b!0&1$0)j"0#1"0$1$0&b!0"1"0#b!0)1!0(j"0"3!1"0/b!0!1"061"0"1#4!0&4!0)1#0'1#0#1!0%1"Z!1!0!1!Z!1$0$1#0'1%0$1!0-1!Z!0%Z!1!0.4!1'2!0(1$0$1"Z!0!D!0!Z!1"0"d!0*X!1)011'0.1,0%1!0*1%0-1(0&1!001#041"0,1!0A1"0!4!0%d!0%5!025!0%d!0%2!0!1&0"1#0#1#0#d"0+1#0"1#0#1%0$i!0"i!0H1*0$i!0"g!0)i!0"i!0"2!0$1#0!1(0%g!0#1*0!100!1!0#1!0!1!0!1"0#1'0&h"Q!1!0!M!S!N!0!1!R!h"0)1!0"1!0!1!0!1$0!1!0'1!0!1,0!1*0!1#0!1!0!1!0!1!0!1"0"2!0"1!X!1!0!g!0#1%0"j!P!O!h!0%i!0!i!0!T!1!0"3!0"Y!1!0!1!0!150"1;]],[[120"1=0!x!0#2!0!3!0!x!0!3!0!3!0!1"0"1#0'2!0"3!x!0"2!0!3"0!1'00N!0#N!0"R!0-r!0%1%0#1"0)1-0(1&0#1%0"1#X!0&110)1#0"3!1#0"b!1$0%1-0.1$0"1#0#1%0#1-0'a!0'2!0"1"0"1"0#1&0!1-0'1"0*1#0!1#0"1&0!1,3!0'o!0+1"2!0!1"2!0"1&b!1+2!041"0"1"0#1&b!1*3!0+1"0(1"0!1#0"1'0!1)Z!061"0!3!1"0"3!1&0!1)Z!0*1"0*1"0"1"0#1&0!1)Z!034!0"1#0!1#0"1&0"1(Z!0(4!0)1&2!0!1"2!0!1(0#1&Z!0(1"0#l!0(1"0"1"0#1"Z#1#0"X!1&0/1!0"d!1!0#1!0!1#0#1!Z!0#Z!1#0#1&0%1"0+1"0"1!0!3!1"0"1"w!0#1%0#1&0+1!0%1!0#1!0"1"0"3!1"0#w!1%0#1&0"1!0)1!0!1!0!1!0"1#0!1"0#1!2!0$1&0#1&0#5!0!v!0$t!0$1!0"1"2!0!1#0"1!0"1!0"3!1&X!0!X!140"1#0"1"2!0"1!0&1'0#1/K!V!k!t!0!1$0!1#0#1"4!0%1'X!0!X!160#1$0!1&0#1'0&3!0!3!0!d!2!0!2!0!3!0)1#0"f!0!M!0!Q!0"1#v!0"1&00v!0"u!0"t!0#1(0!1%t!0"1&X!0%d!0'1"0!1"0!1"0#1&0#1&t!0"1&04d!0#1%0#1(t!0"1&0%d!0#1"0,1$0$1)u!07d!0&1$0"1,0$4!0%d!0%4!0#5!0)1$0!1L]],[[1)0"1@0!1%0,x"0$1!x!0#x!0"1!0%1!4!0!1!0%1!0$1"w!0'1!0!1!0'1!4!0,1!w!0'1"0#1"2!0$3!0$1!x!0&1!0'1!0#X"1!4!0!1!0(1&0!1+0!1$4"0%1"0!1$0"1!0(f!0!1"0#1!0%x!0!x!X!1!0$1!0'1!2!0#4!1!0"1%0!1'0"1"0(X!1"0+1#0#1!0$1!0(1"0"2!0%3!0!x!0!X!1!0$1!0"x!0!3!0!x!1!0#3!0$3!0!1!0"2!0#3!0!1'0!1D0!1%0"x!0%1!0$d!0!1!0$1'0$1!0#d!0"Z"1!0%1"0%3!0"1!0%d!0%t!0!t!0!t!0!t!0$1!0$d!0#1!0%1"0$1#0!1!0&1!0#1)0#1!0%d!0"1!Y!0$1"0(1!0$5!0!1!0#1!0$M!0!F!1!0"u!0!v!0%d!0!1$0!1$4!0$1%0!1(0$110%1"o!0%2!0"1!06w!1!4!0"1!0"1!Y!0$1"0$1#0"1#0-b!0'1!0!4!0!1!0"1$0#1!0(w!1!0&1$0'1%0!1!0"4!1!0%1!x!0"1!0&1'0#1!0"1!Q!0&1!0!2!0,w!1"0"1!0$3!0%1!0$1"0"1#0$1(0#1!0!2!0'1"0#1#0#1!0#1#0&3!0!3!0'1!0#1&0$1!0)w!1!0!e!0#1!0"1,0"1!3!0"1!0$1!0"1!0!1!0&1(0"1!w!0/1#0!1!0$1&w!0*1!0#1"w!011!0!1!0(1#0#1#0$1!0$1!w!0#u!0#5!0!u!0#3!0#1!0$3!0%1"0'2!0!2!0!1#0"1(0!140!1"0&1'0#1!4!0(1!0)X!1!4!0'1"w!0$3!0&1!0"1"0"1!0&1!0$3!0!3!0"X!1!0$1&0$1'0!1!0#1!0)1#0!1%0!1"0#1(0*w!1"0"1"0(1!0%1!0.1!0,1!0#1!0)1!0"1$w!0#1#0'1!0"1#0!3!0#e!0#3!0!1!4"i!0"2!0!x!i!0!5!0$1!Z!0#1!0#2!0"2!0"1P]],[[130"1=0$x!0#x!0$4!0!1!0$1!x!0'g!0)1!0%1"4!0&x!0#x!0$1!0"f!0!1!0#5!0"1&0#3!0!Q!1!0$1#0"1,0"1!0$1!0"1$0&1'0!1!0#1"4!0"x!0!x!0!x!0%1"0!1!0$1!0"1#0"t!0!v!0+1!0"1"0$x!0!x!0!x!0#1!0#1!0$1!0!1#0"1%0"2!0'1!0!1-0!1!0$1!0$1!0%1!0%1+0"1"w!0*1!0#1!0&1!0#1!0"1!0(y!0%1!0!1"w!0!2!0"5!0"3!0"1!0"1!0(1!0"M!0!1!0!1!0#3!0$y!0&1"0!1+0"1!5!0!t!0#u!0"1#0!1!0!120!1,0!1%0!1"0"1!0#1!0#x!0!x!0+1"0+1!0!3!0#M!0"M"0"1!0!1$001$0)1+0"1!0%1"0$1!0!y!1!0"1"0"1%0"o!0/1!0#1$0!1!001*0-1!0!3!0!t!0"w!1!0#1%0#1!0%4!0(1!0"g!2!0)1'0"1"0%1!0+i!0"i!0#1&0!o!0#4"0!1!0&1!0$2!0#1#0%4!0"1%0'1%0#1"0$1"0"1%0"1!0,x!0!x!1!0,4!0!1!R!0!1!0"1!0"1!0'1!0#1!0%1"0%1!0#g!5!0$1&0#1!0"1!0(1!5!0(1!R!0%w!1(0"N!0!3!0'1!0&1)0!1)0"140&1!0(1#0"k!N!0"L!1!0"1#0*x!0%x!0%1!0$i!0%1"0"k!1%0!1#061!0#1$0$1"0!1"0!1!0"1!0"1!0%1!0!g!0&1#0$5!0!1"0&1!0"1#0'1"0!1!0"1*0"k!H!k!0"1*0"4!1!0"1"0%d!0!1!0"1!0,1'0-1!0"1"0&1!0#1"0!5!0"i!0)i!0*i!0"2!0!4!1"0!1!0"1!0#1!0#1,0!1*0!1*0#1!0#1!01w!1!w!0)1!w!0+1"0!3!0"3!0$2!0#t!0!3!0"u!0!2!0#3!0!t!0!u!0"2!0#3!0!t!0!u!0!v!0!2!0#1Q]],[[1#0!1O0$1#0!X"1#X"1#X!0%4!01x!0!1%0*1!0-4!0"1(0"2!0%1$0%1!0*1!o!0&4!0"1!0(1$0$1$2!0!3!0!1#0"v!0!t!0!2!0!1#0"3!0!i!0"4!1!0%5!0'1"0"1.0!100#1&0$1!0"1)Y"1$0!1+0"o!0*Z!1!0#1!0#1#Q!0&4!0"M!0!1)0/Z!1!0"2!1"0"1%0'1(0'1-0#1"0#1$0'1!0-1"0&X#0(1!0"1$0"1'w!0+1!031"0"1#Z!0*i!0#i!0%1!0&3!0!2!0#g!0!3!0"1"0$190"1/0&1#0!x!0"1'0"y!0&y!071"0&4!0"4!0/1!041"02t!v!091#021"0$1!0%2!1"0!i!0!X"0%1%0+5!0"3!0"1$0&g!0!1,0#1$0'1!0!1(0#150$1#0)1!0.1!0$1!0%1!0$1"0#w!1"0)1!014!0-1"w!0#1"0&1#0.4"0/1"w!0"1%0%4!1!0+ "0#1"0"1"0)1"0#w!1&0$1!0'1"0&4!0(2!0'1!0"1!0!1"0"4!0%1!0.4!0)1"0&1!w!0#1"0&1#0$1"0% !0"1"0,3!0"1#0"w!1"Z!0!4!0%1!0.4!0,1"0#1!w!0#1&0$1#0'1"051!0"1!0!1"0&1%0"1"0'4"0!1"0&1"0#1"0!1!0!k#1"4!0%1%0-4!001!2!k!I!k!1"Z!f!0"x!0#k!U!V!0!r!01p!0*1V]]}b=e("c_obj",{__new=function(i,e,n,t)local e=r([[parent_mgr=*3
 hitbox={x=0;y=0;x2=7;y2=7}
 speed=0.4
 destroyed=false
@@ -30,7 +30,7 @@ bounce_map=true
 tw = 1
 th = 1
 solid = false
-]],{n or 0,e or 0,t or nil})n.spr=f[[idle = { sprites = { 64; 65 }; fps = 2;  loop = true }
+]],{e or 0,n or 0,t or nil})e.spr=r[[idle = { sprites = { 64; 65 }; fps = 2;  loop = true }
 flip_x = false
 flip_y = false
 time_start = 0	
@@ -38,50 +38,50 @@ effect = none
 last_frame = 0
 rot_speed = 1
 offview = false
-]]if(n.parent_mgr)n.parent_mgr:add(n)
-return n end,update=function(n)end,draw=function(n)n:draw_sprite()end,respawn=function(n,e,t)n.x,n.y,n.spawn_x,n.spawn_y=e,t,e,t end,del=function(n)n.destroyed=true if(n.parent_mgr)n.parent_mgr:del(n)
+]]if(e.parent_mgr)e.parent_mgr:add(e)
+return e end,update=function(e)end,draw=function(e)e:draw_sprite()end,respawn=function(e,n,t)e.x,e.y,e.spawn_x,e.spawn_y=n,t,n,t end,del=function(e)e.destroyed=true if(e.parent_mgr)e.parent_mgr:del(e)
 end,draw_sprite=function(t)if(o:offview(t))return
-if(n3)local n=t:hitbox_pos(0,0)rect(n.x,n.y,n.x2,n.y2,8)
-local n=t.spr if(n.effect=="blink_white")if(time()%.2<.1)for n=0,15do pal(n,7)end
-local e,i=n[t.phase],nil if e.ss~=nil do i=e.ss else if e.loop~=nil and e.loop==false and e.sprites[#e.sprites]==n.last_frame do i=n.last_frame else if(n.time_start==nil or n.time_start==0)n.time_start=time()
-i=e.sprites[1+flr((time()-n.time_start)/(1/e.fps))%#e.sprites]end end spr(i,t.x,t.y,t.tw,t.th,n.flip_x or false,n.flip_y or false,7)pal()n.last_frame=i end,collide=function(n,e,t,i)local n,e=n:hitbox_pos(0,0),e:hitbox_pos(0,0)if(t~=nil)n.x+=t n.x2-=t n.y+=i n.y2-=i
-return not(n.x2<e.x or n.x>e.x2 or n.y2<e.y or n.y>e.y2)end,hitbox_pos=function(n,e,t)e,t=e or 0,t or 0return{x=n.x+e+n.hitbox.x,y=n.y+t+n.hitbox.y,x2=n.x+e+n.hitbox.x2,y2=n.y+t+n.hitbox.y2}end,out_of_map=function(n)return n.x<0or n.y<0or n.x>nl or n.y>nd end,mdist=function(n,e)return abs(n.x-e.x)+abs(n.y-e.y)end,moveTo=function(n,e,t)local i=n:mdist(e)local t=t/i n.x,n.y=U(n.x,e.x,t),U(n.y,e.y,t)end})q=n("c_mgr",{__new=function(n)local n=f"objs={}"return n end,restart=function(n)n.objs={}end,add=function(n,e)add(n.objs,e)end,del=function(n,e)del(n.objs,e)end,update=function(n)for n in all(n.objs)do n:update()end end,draw=function(n)for n in all(n.objs)do n:draw()end end})function y(t,e,n)local i,n=n or t.speed,n or t.speed local i,o=e==d and-i or(e==a and i or 0),e==X and-n or(e==Q and n or 0)local n=t:hitbox_pos(i,o)if(t.bounce_map and(n.x<0or n.y<0or n.x2>nl or n.y2>nd))return 0
-if e==a or e==d do local e=e==d and n.x or n.x2 local o,n=g(e,n.y),g(e,n.y2)if(not o and not n)t.x=t.x+i return 1else return 0
-elseif e==X or e==Q do local e=e==X and n.y or n.y2 local i,n=g(n.x,e),g(n.x2,e)if(not i and not n)t.y=t.y+o return 1else return 0
-end end function ng(n)return n==nil or n.destroyed end function P(n)if(n~=nil and not n.destroyed)n:del()
-end function G(n,e)return flr(n/8).."_"..flr(e/8)end function H(n)local e=G(n.x,n.y)if(v[e]==nil)v[e]={}
-add(v[e],n)end function nf(n)local e=G(n.x,n.y)del(v[e],n)end function R(n,e,t,i)local n=np(n,e,t,i)return fget(n.tile,0)end function n8(t,i)local o=G(t,i)for n in all(v[o])do local e=n:hitbox_pos(0,0)if(t>=e.x and t<e.x2 and i>=e.y and i<e.y2)return n else local e=G(n.x,n.y)if(e~=o)del(v[o],n)H(n)
-end return nil end function g(n,e,t,i)return R(n,e,t,i)or n8(n,e)~=nil end function j(n,e)O[m][flr(n.spawn_x/8)][flr(n.spawn_y/8)]=tostr(e)end function Z()return K[m]end function e(n,e)n.theme=nv[n.theme]n.npcdata=e return n end function n7(n,e)local e={[n6]=2,[nk]=1,[nX]=2,[nj]=5,[nZ]=4,[n9]=1,[nY]=3,[nN]=1,[nM]=1,[nT]=5,[nQ]=4,[nH]=1,[nR]=1,[nB]=1,[nL]=3,[nA]=1}return e[n]end function nD(t,l,o)local n,i=0,0for e=1,#t,2do local d,e=sub(t,e,e),sub(t,e+1,e+1)local e=ord(e)-32for e=1,e do o[n][i]=d n=n+1if(n>=l)n,i=0,i+1
-end end return o end function J()local n,r=ny[m],Z()local d,i,e=r.theme,nil,nil if S[m]==nil do i,e=no(x,p,""),no(x,p,"")if nF and nr do for e=1,x do for t=1,p do local n=(e-1)*p*2+(t-1)*2+1local n=sub(nq,n,n)if(n==" ")n="0"
-i[t-1][e-1]=n end end else nD(n,p,i)end else i,e=S[m],O[m]end local a,c,u,s=c.mgr.misc_mgr,f"Q={};R={};S={};T={}",f"M={};N={};O={};P={}",false for o=0,x-1do for l=0,p-1do local n,f=i[l][o],e[l][o]mset(l,o,0)if f~="d"do local e,t=l*8,o*8if n=="1"do local n=nG(i,l,o)local n=d.tile_maps[n7(n,d)]or 1mset(l,o,n)elseif w("2345",n)do local i=d.bg_item_off[tonum(n)-1]local e=b.new(e+i[1],t+i[2],a)e.spr.idle.sprites=d.bg_item_spr[tonum(n)-1]e.tw=i[1]==0and 1or 2e.th=i[2]==0and 1or 2add(a,e)elseif n=="f"do if(k~=nil)h:respawn(k[1]*8,k[2]*8)else h:respawn(e,t)
-if(nI)_(h,[[avail_el={true;true;true;true}
+if(e3)local e=t:hitbox_pos(0,0)rect(e.x,e.y,e.x2,e.y2,8)
+local e=t.spr if(e.effect=="blink_white")if(time()%.2<.1)for e=0,15do pal(e,7)end
+local n,i=e[t.phase],nil if n.ss~=nil do i=n.ss else if n.loop~=nil and n.loop==false and n.sprites[#n.sprites]==e.last_frame do i=e.last_frame else if(e.time_start==nil or e.time_start==0)e.time_start=time()
+i=n.sprites[1+flr((time()-e.time_start)/(1/n.fps))%#n.sprites]end end spr(i,t.x,t.y,t.tw,t.th,e.flip_x or false,e.flip_y or false,7)pal()e.last_frame=i end,collide=function(e,n,t,i)local e,n=e:hitbox_pos(0,0),n:hitbox_pos(0,0)if(t~=nil)e.x+=t e.x2-=t e.y+=i e.y2-=i
+return not(e.x2<n.x or e.x>n.x2 or e.y2<n.y or e.y>n.y2)end,hitbox_pos=function(e,n,t)n,t=n or 0,t or 0return{x=e.x+n+e.hitbox.x,y=e.y+t+e.hitbox.y,x2=e.x+n+e.hitbox.x2,y2=e.y+t+e.hitbox.y2}end,out_of_map=function(e)return e.x<0or e.y<0or e.x>el or e.y>ed end,mdist=function(e,n)return abs(e.x-n.x)+abs(e.y-n.y)end,moveTo=function(e,n,t)local i=e:mdist(n)local t=t/i e.x,e.y=U(e.x,n.x,t),U(e.y,n.y,t)end})F=e("c_mgr",{__new=function(e)local e=r"objs={}"return e end,restart=function(e)e.objs={}end,add=function(e,n)add(e.objs,n)end,del=function(e,n)del(e.objs,n)end,update=function(e)for e in all(e.objs)do e:update()end end,draw=function(e)for e in all(e.objs)do e:draw()end end})function x(t,n,e)local i,e=e or t.speed,e or t.speed local i,o=n==d and-i or(n==a and i or 0),n==X and-e or(n==Q and e or 0)local e=t:hitbox_pos(i,o)if(t.bounce_map and(e.x<0or e.y<0or e.x2>el or e.y2>ed))return 0
+if n==a or n==d do local n=n==d and e.x or e.x2 local o,e=g(n,e.y),g(n,e.y2)if(not o and not e)t.x=t.x+i return 1else return 0
+elseif n==X or n==Q do local n=n==X and e.y or e.y2 local i,e=g(e.x,n),g(e.x2,n)if(not i and not e)t.y=t.y+o return 1else return 0
+end end function eg(e)return e==nil or e.destroyed end function P(e)if(e~=nil and not e.destroyed)e:del()
+end function G(e,n)return flr(e/8).."_"..flr(n/8)end function H(e)local n=G(e.x,e.y)if(v[n]==nil)v[n]={}
+add(v[n],e)end function er(e)local n=G(e.x,e.y)del(v[n],e)end function R(e,n,t,i)local e=ep(e,n,t,i)return fget(e.tile,0)end function e8(t,i)local o=G(t,i)for e in all(v[o])do local n=e:hitbox_pos(0,0)if(t>=n.x and t<n.x2 and i>=n.y and i<n.y2)return e else local n=G(e.x,e.y)if(n~=o)del(v[o],e)H(e)
+end return nil end function g(e,n,t,i)return R(e,n,t,i)or e8(e,n)~=nil end function j(e,n)O[m][flr(e.spawn_x/8)][flr(e.spawn_y/8)]=tostr(n)end function Z()return K[m]end function n(e,n)e.theme=ev[e.theme]e.npcdata=n return e end function e7(e,n)local n={[0]=2,[1]=1,[2]=2,[4]=5,[8]=4,[3]=1,[12]=3,[5]=1,[9]=1,[6]=5,[10]=4,[7]=1,[11]=1,[13]=1,[14]=3,[15]=1}return n[e]end function e6(t,l,o)local e,i=0,0for n=1,#t,2do local d,n=sub(t,n,n),sub(t,n+1,n+1)local n=ord(n)-32for n=1,n do o[e][i]=d e=e+1if(e>=l)e,i=0,i+1
+end end return o end function J()local e,f=ex[m],Z()local d,i,n=f.theme,nil,nil if S[m]==nil do i,n=eo(w,p,""),eo(w,p,"")if ek and ef do for n=1,w do for t=1,p do local e=(n-1)*p*2+(t-1)*2+1local e=sub(eX,e,e)if(e==" ")e="0"
+i[t-1][n-1]=e end end else e6(e,p,i)end else i,n=S[m],O[m]end local a,c,u,s=c.mgr.misc_mgr,r"Q={};R={};S={};T={}",r"M={};N={};O={};P={}",false for o=0,w-1do for l=0,p-1do local e,r=i[l][o],n[l][o]mset(l,o,0)if r~="d"do local n,t=l*8,o*8if e=="1"do local e=ej(i,l,o)local e=d.tile_maps[e7(e,d)]or 1mset(l,o,e)elseif y("2345",e)do local i=d.bg_item_off[tonum(e)-1]local n=b.new(n+i[1],t+i[2],a)n.spr.idle.sprites=d.bg_item_spr[tonum(e)-1]n.tw=i[1]==0and 1or 2n.th=i[2]==0and 1or 2add(a,n)elseif e=="f"do if(k~=nil)h:respawn(k[1]*8,k[2]*8)else h:respawn(n,t)
+if(eZ)_(h,[[avail_el={true;true;true;true}
 cur_el=1
 lev_el={3;1;1;1}
 lifereg_lev=2
 keys={red=true;blue=true}
                         ]])
-s=true end if(w("abcdoy",n))V.new(e,t,I[n])
-if(w("egi",n))nC.new(e,t,I[n])
-if(w("lmn",n))z.new(e,t,I[n])
-if(w("tuv",n))nE.new(n,e,t)
-if(w("wx",n))na.new(n,e,t)
-if(w("hjk",n))W.new(n,e,t)
-if(w("XYZ",n))nc.new(e,t,n=="X"and 1or n=="Y"and 3or 5,true)
-if(w("ABCDEFGHIJKL",n))nU.new(e,t,n)
-if(w("UV",n))n0.new(e,t,true,nP[n],f=="1")
-if w("pqrs",n)do local n=r.npcdata[n]or{cname="c_npc_stage"..m,msg="undefined msg"}nu.new(e,t,n.cname,n.msg)elseif w("MNOP",n)do local e=n0.new(e,t,false,0,f=="1")add(u[n],e)elseif w("QRST",n)do local e=nO.new(e,t,f=="1")add(c[n],e)end end end end if(m>1and not s)h:respawn(k[1]*8,k[2]*8)
-for e,n in pairs(c)do local t=sub(sub("MNOP",ord(e)-ord"Q"+1),1,1)for e in all(n)do for n in all(u[t])do e:link(n)end e.siblings=n end end S[m]=i O[m]=e end function nG(t,n,e)local i,o,l,e,n=e>0and t[n][e-1]=="1"or e==0,e<x and t[n][e+1]=="1"or e==x-1,n>0and t[n-1][e]=="1"or n==0,n<p-1and t[n+1][e]=="1"or n==p-1,0if(i)n+=1
-if(o)n+=2
-if(l)n+=4
-if(e)n+=8
-return n end function nK()local n,i,e,t=Z().fix_jumps,5,nil,nil for o=1,#n do local n,o=n[o][1],n[o][2]local l=abs(n-flr(h.x/8))+abs(o-flr(h.y/8))if(l<i)i,e,t=l,n,o
-end if(e~=nil and t~=nil)h:respawn(e*8,t*8)
-end function ns()h:reset_stage_props()for e,n in pairs(c.mgr)do if(n.restart)n:restart()
-end v,B,n1=i"{};{};{}"end o={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,offvtol=90,update=function(n)n.x+=(h.x-n.x)*n.csfx n.y+=(h.y-n.y)*n.csfy n.x=mid(n.ox,n.x,p*8-n.ox-16)n.y=mid(n.oy,n.y,x*8-42)local n,e=n:calc_center()camera(n,e)end,place=function(n,e,t)n.x=e n.y=t end,calc_center=function(n)return flr(n.x)-n.ox,flr(n.y)-n.oy end,offview=function(n,e)return abs(flr(n.x-e.x))>n.offvtol or abs(flr(n.y-e.y))>n.offvtol end}nJ=n("c_player:c_obj",{__new=function(t,n,e)local n=b.new(n,e)_(n.spr,[[idle = { sprites = { 64; 65 }; fps = 2 }
+s=true end if(y("abcdoy",e))V.new(n,t,I[e])
+if(y("egi",e))e9.new(n,t,I[e])
+if(y("lmn",e))z.new(n,t,I[e])
+if(y("tuv",e))eY.new(e,n,t)
+if(y("wx",e))ea.new(e,n,t)
+if(y("hjk",e))W.new(e,n,t)
+if(y("XYZ",e))ec.new(n,t,e=="X"and 1or e=="Y"and 3or 5,true)
+if(y("ABCDEFGHIJKL",e))eN.new(n,t,e)
+if(y("UV",e))e0.new(n,t,true,eM[e],r=="1")
+if y("pqrs",e)do local e=f.npcdata[e]or{cname="c_npc_stage"..m,msg="undefined msg"}eu.new(n,t,e.cname,e.msg)elseif y("MNOP",e)do local n=e0.new(n,t,false,0,r=="1")add(u[e],n)elseif y("QRST",e)do local n=eT.new(n,t,r=="1")add(c[e],n)end end end end if(m>1and not s)h:respawn(k[1]*8,k[2]*8)
+for n,e in pairs(c)do local t=sub(sub("MNOP",ord(n)-ord"Q"+1),1,1)for n in all(e)do for e in all(u[t])do n:link(e)end n.siblings=e end end S[m]=i O[m]=n end function ej(t,e,n)local i,o,l,n,e=n>0and t[e][n-1]=="1"or n==0,n<w and t[e][n+1]=="1"or n==w-1,e>0and t[e-1][n]=="1"or e==0,e<p-1and t[e+1][n]=="1"or e==p-1,0if(i)e+=1
+if(o)e+=2
+if(l)e+=4
+if(n)e+=8
+return e end function eQ()local e,i,n,t=Z().fix_jumps,5,nil,nil for o=1,#e do local e,o=e[o][1],e[o][2]local l=abs(e-flr(h.x/8))+abs(o-flr(h.y/8))if(l<i)i,n,t=l,e,o
+end if(n~=nil and t~=nil)h:respawn(n*8,t*8)
+end function es()h:reset_stage_props()for n,e in pairs(c.mgr)do if(e.restart)e:restart()
+end v,B,e1=s"{};{};{}"end o={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,offvtol=90,update=function(e)e.x+=(h.x-e.x)*e.csfx e.y+=(h.y-e.y)*e.csfy e.x=mid(e.ox,e.x,p*8-e.ox-16)e.y=mid(e.oy,e.y,w*8-42)local e,n=e:calc_center()camera(e,n)end,place=function(e,n,t)e.x=n e.y=t end,calc_center=function(e)return flr(e.x)-e.ox,flr(e.y)-e.oy end,offview=function(e,n)return abs(flr(e.x-n.x))>e.offvtol or abs(flr(e.y-n.y))>e.offvtol end}eH=e("c_player:c_obj",{__new=function(t,e,n)local e=b.new(e,n)_(e.spr,[[idle = { sprites = { 64; 65 }; fps = 2 }
 walk = { sprites = { 80; 81; 82 }; fps = 6 }
 jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
 dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
-		]])_(n,[[name=player
+		]])_(e,[[name=player
 p.prev_btn = {}
 invisible=false
 blocked=false
@@ -116,87 +116,87 @@ shards=3000
 bounce_map=false
 last_btn_down_time=0
 keys={red=false;blue=false}
-		]])return n end,reset_stage_props=function(n)n:reset_jump_vars()end,update=function(e)if(c.paused)return
-local n,t=e,f("left=*1;right=*2;jump=*3;jump_start=*4;action=*5;down=*6;",{btn(0),btn(1),btn(4),btnp(4),btnp(5),btnp(3)})if n.phase=="dead"do if(n.prev_btn.left)y(n,d)
-if(n.prev_btn.right)y(n,a)
-n.speed*=.9n:apply_forces(t)if n.t_respawn:adv()do if(L~=nil)L.life=L.max_life
-k=nil ns()m=2J()o:place(h.x,h.y)n.life=n.max_life n.phase="idle"n.invulnerable=false end return end if(e.lifereg_ttl:adv())e:increase_life(e.lifereg_lev/5)
-if not n.blocked do if(t.left)n:move_left()
-if(t.right)n:move_right()
-if(not t.left and not t.right)n.speed=n.speed*.7if(n.speed<.1)n.speed=0
-n:apply_forces(t)end n.prev_btn=t if(t.left==false and t.right==false and n:on_ground())n.phase="idle"
-if(n.nodmg_t~=nil)if(n.nodmg_t:adv())n.spr.effect="none"n.invulnerable=false
-if(t.action)if(e.interaction_fn~=nil)e.interaction_fn=nil else e:attack()
-if(e.el_cooldown:adv())e.shine_star=10
-if(t.down)local n=time()-e.last_btn_down_time if(n<.4)e:switch_element()e.last_btn_down_time=0else e.last_btn_down_time=time()
-e.interaction_fn=nil end,draw=function(n)local e=n if(e.invisible)return
-e:draw_sprite()if(n.shine_star>0)spr(104,n.x,n.y)n.shine_star-=1
-end,dmg=function(n,e)local n=n if(not n.invulnerable)n.life-=e if(n.life<=0)_(n,"phase=dead;invulnerable=true;t_respawn=_fn_t1_5")else n.nodmg_t=T.new(1)n.spr.effect="blink_white"sfx(5)n.invulnerable=true
-end,increase_life=function(n,e)local n=n n.life=min(n.life+e,n.max_life)end,inc_speed=function(n,e)local n=n if(e)n.speed=n.init_speed else n.speed=min(n.speed+n.inc_speed_factor,n.max_speed)
-end,move_left=function(e)local n=e e:inc_speed(not(n.prev_btn.left or false))y(n,d)if(n.phase=="idle")n.phase="walk"
-n.spr.flip_x=true end,move_right=function(e)local n=e e:inc_speed(not(n.prev_btn.right or false))y(n,a)if(n.phase=="idle")n.phase="walk"
-n.spr.flip_x=false end,apply_forces=function(n,e)if(not n.blocked and e.jump_start)n:set_start_jump()
-if(not e.jump and n.jstack>0)n.jstack=0
-if(n.jstack>0)n.speedy=-n.jforce n.jstack-=1
-if(n.speedy<0and not e.jump)n.speedy*=n.speed_y_decay
-n.speedy+=.25n.speedy=min(n.speedy,n.max_speedy)local e=y(n,n.speedy<0and X or Q,abs(n.speedy))if(e==0)n:reset_jump_vars()if(n.phase=="jump")n.phase="idle"
-end,reset_jump_vars=function(n)_(n,"speedy=0;jstack=0")end,set_start_jump=function(n)if(n.phase=="dead")return
-if(n:on_ground())n:reset_jump_vars()n.spr.time_start=nil _(n,"phase=jump;jstack=_k_max_jstack")sfx(0)
-end,on_ground=function(n)local n=n local n=n:hitbox_pos(0,1)local e,n=g(n.x,n.y2),g(n.x2,n.y2)return e or n end,attack=function(n)if(n.cur_el==nil)return
-if(n.el_cooldown.t<=0)n2[n.cur_el].new(n.spr.flip_x and d or a,s())n.el_cooldown:restart()
-end,switch_element=function(e)if(e.cur_el==nil)return
-local n=e.cur_el%4+1while true do if(e.avail_el[n])e.cur_el=n Y.new(30,n2[n].name)break
-n=n%4+1end end})l=n("c_enemy:c_obj",{__new=function(l,e,n,t,i,o)local n=b.new(n,t,o)_(n,[[respawn_timer = _fn_t1_10
-dmg_time = _fn_t1_1
-frozen_t = _fn_t1_20
-time_last_death = 0
-life = 40
-max_life = _k_life
-dir = nil
-wspeed = 0
-dir_before_blow = nil
-fixed = false
-hitbox = {x=2;y=2;x2=5;y2=5} 
-hitbox_orig = _k_hitbox
-speed = *1
-etype = *2
-boss = false
-value = 3
-memdeath = false
-        ]],{i or 1,e})n.frozen_t.t=0return n end,dmg=function(n,e)if(n:is_inv())return
-n.life-=e n.dmg_time:restart()n.spr.effect="blink_white"if(n.life<=0)nc.new(n.x+4,n.y+4,n.value)n:del()
-end,freeze=function(n)n.frozen_t:restart()if(n.fixed)return
-H(n)n.hitbox=f"x=0;y=0;x2=7;y2=7"end,unfreeze=function(n)if(n.fixed)return
-n.frozen_t.t=-1n.spr.effect="none"n.hitbox=n.hitbox_orig end,blow=function(n,e)if(n.fixed)return
-if(n.wspeed<=0)n.dir_before_blow=n.dir
-n.wspeed=2n.dir=e end,unblow=function(n)_(n,"wspeed=-1;dir=_k_dir_before_blow;")end,update=function(n)b.update(n)for e in all(B)do if(n:collide(e))e:hit(n)
-end if(n.dmg_time:adv())n.spr.effect="none"
-if(n.frozen_t:adv())n:unfreeze()else if(n.frozen_t:t_left_btw(.1,2))n.spr.effect="blink_white"
-if(n.wspeed>0)local e=y(n,n.dir,n.wspeed)n.wspeed=e==0and 0or max(0,n.wspeed-.05)else if(n.wspeed~=-1)n:unblow()
-end,draw=function(n)if(n.frozen_t.t>0)spr(139,n.x,n.y)
-b.draw(n)end,del=function(n)n.time_last_death=time()nf(n)if(n.memdeath)j(n,"d")
-b.del(n)end,check_pl_coll=function(n,e)if(n:collide(h))h:dmg(e)return true else return false
-end,is_inv=function(n)return false end})V=n("c_fly_en:c_enemy",{__new=function(i,n,t,e)local n=l.new(e,n,t,.3,A())n.spr.idle={sprites=nn[e].idle,fps=4,loop=true}n.horizontal=nh[e]==nil _(n,[[hitbox_orig = {x=2;y=2;x2=5;y2=5}
-horizontal = _k_horizontal
-dir = *1
-dir_before_blow = _k_dir
-]],{n.horizontal and a or Q})if(nS[e]~=nil)_(n,"tshoot=_fn_t2_4")
-if(n.tshoot~=nil)n.tshoot.t-=10*flr(rnd(20))
-return n end,update=function(n)l.update(n)n.spr.flip_x=n.dir==a if(n.frozen_t.t>0)return
-n:check_pl_coll(1)local e=y(n,n.dir)if(e==0)n.dir=(n.horizontal and 0or 2)+(n.dir+1)%2
-if(n.tshoot~=nil and n.tshoot:adv()and n:mdist(h)<100)ne.new(n.x+4,n.y+4,atan2(h.x-n.x,h.y-n.y),1)
-end})nC=n("c_walk_en:c_fly_en",{__new=function(i,n,e,t)return V.new(n,e,t)end,update=function(n)V.update(n)local e=n.x+(n.dir==a and 7or 0)if(not R(e,n.y+8))n.dir=(n.dir+1)%2
-end})W=n("c_vine:c_enemy",{types=f"h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};",__new=function(i,e,n,t)local n=l.new("vine",n,t,0,A())n.spr.idle=f"ss=6"_(n,[[fixed=true
+		]])return e end,reset_stage_props=function(e)e:reset_jump_vars()end,update=function(n)if(c.paused)return
+local e,t=n,r("left=*1;right=*2;jump=*3;jump_start=*4;action=*5;down=*6;",{btn(0),btn(1),btn(4),btnp(4),btnp(5),btnp(3)})if e.phase=="dead"do if(e.prev_btn.left)x(e,d)
+if(e.prev_btn.right)x(e,a)
+e.speed*=.9e:apply_forces(t)if e.t_respawn:adv()do if(L~=nil)L.life=L.max_life
+k=nil es()m=2J()o:place(h.x,h.y)e.life=e.max_life e.phase="idle"e.invulnerable=false end return end if(n.lifereg_ttl:adv())n:increase_life(n.lifereg_lev/5)
+if not e.blocked do if(t.left)e:move_left()
+if(t.right)e:move_right()
+if(not t.left and not t.right)e.speed=e.speed*.7if(e.speed<.1)e.speed=0
+e:apply_forces(t)end e.prev_btn=t if(t.left==false and t.right==false and e:on_ground())e.phase="idle"
+if(e.nodmg_t~=nil)if(e.nodmg_t:adv())e.spr.effect="none"e.invulnerable=false
+if(t.action)if(n.interaction_fn~=nil)n.interaction_fn=nil else n:attack()
+if(n.el_cooldown:adv())n.shine_star=10
+if(t.down)local e=time()-n.last_btn_down_time if(e<.4)n:switch_element()n.last_btn_down_time=0else n.last_btn_down_time=time()
+n.interaction_fn=nil end,draw=function(e)local n=e if(n.invisible)return
+n:draw_sprite()if(e.shine_star>0)spr(104,e.x,e.y)e.shine_star-=1
+end,dmg=function(e,n)local e=e if(not e.invulnerable)e.life-=n if(e.life<=0)_(e,"phase=dead;invulnerable=true;t_respawn=_fn_t1_5")else e.nodmg_t=T.new(1)e.spr.effect="blink_white"sfx(5)e.invulnerable=true
+end,increase_life=function(e,n)local e=e e.life=min(e.life+n,e.max_life)end,inc_speed=function(e,n)local e=e if(n)e.speed=e.init_speed else e.speed=min(e.speed+e.inc_speed_factor,e.max_speed)
+end,move_left=function(n)local e=n n:inc_speed(not(e.prev_btn.left or false))x(e,d)if(e.phase=="idle")e.phase="walk"
+e.spr.flip_x=true end,move_right=function(n)local e=n n:inc_speed(not(e.prev_btn.right or false))x(e,a)if(e.phase=="idle")e.phase="walk"
+e.spr.flip_x=false end,apply_forces=function(e,n)if(not e.blocked and n.jump_start)e:set_start_jump()
+if(not n.jump and e.jstack>0)e.jstack=0
+if(e.jstack>0)e.speedy=-e.jforce e.jstack-=1
+if(e.speedy<0and not n.jump)e.speedy*=e.speed_y_decay
+e.speedy+=.25e.speedy=min(e.speedy,e.max_speedy)local n=x(e,e.speedy<0and X or Q,abs(e.speedy))if(n==0)e:reset_jump_vars()if(e.phase=="jump")e.phase="idle"
+end,reset_jump_vars=function(e)_(e,"speedy=0;jstack=0")end,set_start_jump=function(e)if(e.phase=="dead")return
+if(e:on_ground())e:reset_jump_vars()e.spr.time_start=nil _(e,"phase=jump;jstack=_k_max_jstack")sfx(0)
+end,on_ground=function(e)local e=e local e=e:hitbox_pos(0,1)local n,e=g(e.x,e.y2),g(e.x2,e.y2)return n or e end,attack=function(e)if(e.cur_el==nil)return
+if(e.el_cooldown.t<=0)eh[e.cur_el].new(e.spr.flip_x and d or a,u())e.el_cooldown:restart()
+end,switch_element=function(n)if(n.cur_el==nil)return
+local e=n.cur_el%4+1while true do if(n.avail_el[e])n.cur_el=e Y.new(30,eh[e].name)break
+e=e%4+1end end})l=e("c_enemy:c_obj",{__new=function(l,n,e,t,i,o)local e=b.new(e,t,o)_(e,[[respawn_timer=_fn_t1_10
+dmg_time=_fn_t1_1
+frozen_t=_fn_t1_20
+time_last_death=0
+life=40
+max_life=_k_life
+dir=nil
+wspeed=0
+dir_before_blow=nil
+fixed=false
+hitbox={x=2;y=2;x2=5;y2=5}
+hitbox_orig=_k_hitbox
+speed=*1
+etype=*2
+boss=false
+value=3
+memdeath=false
+        ]],{i or 1,n})e.frozen_t.t=0return e end,dmg=function(e,n)if(e:is_inv())return
+e.life-=n e.dmg_time:restart()e.spr.effect="blink_white"if(e.life<=0)ec.new(e.x+4,e.y+4,e.value)e:del()
+end,freeze=function(e)e.frozen_t:restart()if(e.fixed)return
+H(e)e.hitbox=r"x=0;y=0;x2=7;y2=7"end,unfreeze=function(e)if(e.fixed)return
+e.frozen_t.t=-1e.spr.effect="none"e.hitbox=e.hitbox_orig end,blow=function(e,n)if(e.fixed)return
+if(e.wspeed<=0)e.dir_before_blow=e.dir
+e.wspeed=2e.dir=n end,unblow=function(e)_(e,"wspeed=-1;dir=_k_dir_before_blow;")end,update=function(e)b.update(e)for n in all(B)do if(e:collide(n))n:hit(e)
+end if(e.dmg_time:adv())e.spr.effect="none"
+if(e.frozen_t:adv())e:unfreeze()else if(e.frozen_t:t_left_btw(.1,2))e.spr.effect="blink_white"
+if(e.wspeed>0)local n=x(e,e.dir,e.wspeed)e.wspeed=n==0and 0or max(0,e.wspeed-.05)else if(e.wspeed~=-1)e:unblow()
+end,draw=function(e)if(e.frozen_t.t>0)spr(139,e.x,e.y)
+b.draw(e)end,del=function(e)e.time_last_death=time()er(e)if(e.memdeath)j(e,"d")
+b.del(e)end,check_pl_coll=function(e,n)if(e:collide(h))h:dmg(n)return true else return false
+end,is_inv=function(e)return false end})V=e("c_fly_en:c_enemy",{__new=function(i,e,t,n)local e=l.new(n,e,t,.3,A())e.spr.idle={sprites=ee[n].idle,fps=4,loop=true}e.horizontal=e2[n]==nil _(e,[[hitbox_orig={x=2;y=2;x2=5;y2=5}
+horizontal=_k_horizontal
+dir=*1
+dir_before_blow=_k_dir
+]],{e.horizontal and a or Q})if(eR[n]~=nil)_(e,"tshoot=_fn_t2_4")
+if(e.tshoot~=nil)e.tshoot.t-=10*flr(rnd(20))
+return e end,update=function(e)l.update(e)e.spr.flip_x=e.dir==a if(e.frozen_t.t>0)return
+e:check_pl_coll(1)local n=x(e,e.dir)if(n==0)e.dir=(e.horizontal and 0or 2)+(e.dir+1)%2
+if(e.tshoot~=nil and e.tshoot:adv()and e:mdist(h)<100)en.new(e.x+4,e.y+4,atan2(h.x-e.x,h.y-e.y),1)
+end})e9=e("c_walk_en:c_fly_en",{__new=function(i,e,n,t)return V.new(e,n,t)end,update=function(e)V.update(e)local n=e.x+(e.dir==a and 7or 0)if(not R(n,e.y+8))e.dir=(e.dir+1)%2
+end})W=e("c_vine:c_enemy",{types=r"h={pal=3;flev=0};j={pal=8;flev=1};k={pal=12;flev=2};",__new=function(i,n,e,t)local e=l.new("vine",e,t,0,A())e.spr.idle=r"ss=6"_(e,[[fixed=true
 life=10
 hitbox={x=0;y=0;x2=7;y2=7}
 pal=*1
 flev=*2
 memdeath=true
-        ]],{W.types[e].pal,W.types[e].flev})H(n)return n end,draw=function(n)pal(7,n.pal)l.draw(n)pal()end,is_inv=function(n)return not(h.cur_el==N and h.lev_el[N]>n.flev)end})nE=n("c_spike:c_enemy",{__new=function(i,t,n,e)local n=l.new("spike",n,e,0,A())n.spr.idle=f"ss=22"_(n,"fixed=true;life=10;dir=-1;hitbox={x=1;y=7;x2=6;y2=7};spf=0.15;")n.y=e+8-4*(ord(t)-ord"t")return n end,update=function(n)n:check_pl_coll(2)n.y+=n.dir*n.spf if(n.y<n.spawn_y or n.y>n.spawn_y+8)n.dir*=-1
-end,draw=function(n)l.draw(n)spr(Z().theme.tile_maps[2],n.x,n.spawn_y+8)end,is_inv=function(n)return true end})na=n("c_crater:c_enemy",{angles=f"0.5;0;0.25;0.75",__new=function(i,e,n,t)local n=l.new("crater",n,t,0,A())n.name=I[e]n.spr.idle={ss=nn[n.name].idle[1]}_(n,"fixed=true;life=10;dir=-1;spf=0.15;inited=false;tfire=_fn_t2_2;")n.horizontal=nh[n.name]==nil n.dir=n.horizontal and a or Q n.tfire.t-=flr(rnd(40))return n end,update=function(n)if not n.inited do if(n.horizontal and R(n.x+12,n.y))n.dir=d
-if(not n.horizontal and R(n.x,n.y+12))n.dir=X
-n.spr.flip_x=n.dir==d n.spr.flip_y=n.dir==X n.inited=true end if(n.tfire:adv())ne.new(n.x,n.y,na.angles[n.dir+1],1)
-end,draw=function(n)l.draw(n)end,is_inv=function(n)return true end})z=n("c_boss:c_enemy",{angles=f"0;0.1;0.4;0.5;0.6;0.9",__new=function(i,n,t,e)local n=l.new(e,n,t,.3,A())n.spr.idle.sprites=nn[e].idle _(n,[[life = 400
+        ]],{W.types[n].pal,W.types[n].flev})H(e)return e end,draw=function(e)pal(7,e.pal)l.draw(e)pal()end,is_inv=function(e)return not(h.cur_el==N and h.lev_el[N]>e.flev)end})eY=e("c_spike:c_enemy",{__new=function(i,t,e,n)local e=l.new("spike",e,n,0,A())e.spr.idle=r"ss=22"_(e,"fixed=true;life=10;dir=-1;hitbox={x=1;y=7;x2=6;y2=7};spf=0.15;")e.y=n+8-4*(ord(t)-ord"t")return e end,update=function(e)e:check_pl_coll(2)e.y+=e.dir*e.spf if(e.y<e.spawn_y or e.y>e.spawn_y+8)e.dir*=-1
+end,draw=function(e)l.draw(e)spr(Z().theme.tile_maps[2],e.x,e.spawn_y+8)end,is_inv=function(e)return true end})ea=e("c_crater:c_enemy",{angles=r"0.5;0;0.25;0.75",__new=function(i,n,e,t)local e=l.new("crater",e,t,0,A())e.name=I[n]e.spr.idle={ss=ee[e.name].idle[1]}_(e,"fixed=true;life=10;dir=-1;spf=0.15;inited=false;tfire=_fn_t2_2;")e.horizontal=e2[e.name]==nil e.dir=e.horizontal and a or Q e.tfire.t-=flr(rnd(40))return e end,update=function(e)if not e.inited do if(e.horizontal and R(e.x+12,e.y))e.dir=d
+if(not e.horizontal and R(e.x,e.y+12))e.dir=X
+e.spr.flip_x=e.dir==d e.spr.flip_y=e.dir==X e.inited=true end if(e.tfire:adv())en.new(e.x,e.y,ea.angles[e.dir+1],1)
+end,draw=function(e)l.draw(e)end,is_inv=function(e)return true end})z=e("c_boss:c_enemy",{angles=r"0;0.1;0.4;0.5;0.6;0.9",__new=function(i,e,t,n)local e=l.new(n,e,t,.3,A())e.spr.idle.sprites=ee[n].idle _(e,[[life = 400
 max_life = _k_life
 tw = 2
 th = 2
@@ -212,28 +212,28 @@ boss = true
 value = 50
 memdeath = true
 show_life_bar = true
-]])L=n n.tcd.t-=flr(rnd(40))return n end,update=function(n)l.update(n)local e=n:mdist(h)n.show_life_bar=e<=120if(e>200)n.life=min(n.max_life,n.life+1)
-if(e>80or n.frozen_t.t>0)return
-if(n_==false)music(30)n_=true
-n:check_pl_coll(5)if(n.tpos.x==nil or n:mdist(n.tpos)<3)n.tpos.x=n.spawn_x+rnd(n.mvrngx*2)-n.mvrngx n.tpos.y=n.spawn_y-rnd(n.mvrngy)
-n:moveTo(n.tpos,n.speed)if(n.tcd:adv())n.fire=not n.fire
-if(n.fire)if(n.tfire:adv())ne.new(n.x+4,n.y+4,rnd(z.angles),1)
-end,draw=function(n)l.draw(n)if(n.show_life_bar)local e,t=o:calc_center()rectfill(e,t+13,e+flr(125*(n.life/n.max_life)),t+14,8)
-end,del=function(n)L=nil if(n.etype=="boss2")h.keys.red=true
-if(n.etype=="boss1")h.keys.blue=true
-if(n.etype=="boss3")local n=Z().npcdata["q"]nu.new(272,240,n.cname,n.msg)
-l.del(n)end})M=n("c_element:c_obj",{__new=function(n,e,t)local i,o=h.x+(t==d and-4or 6),h.y local n=b.new(i,o,s())n.spr.idle=nV[e]_(n,[[ttl=*5
+]])L=e e.tcd.t-=flr(rnd(40))return e end,update=function(e)l.update(e)local n=e:mdist(h)e.show_life_bar=n<=120if(n>200)e.life=min(e.max_life,e.life+1)
+if(n>80or e.frozen_t.t>0)return
+if(e_==false)music(30)e_=true
+e:check_pl_coll(5)if(e.tpos.x==nil or e:mdist(e.tpos)<3)e.tpos.x=e.spawn_x+rnd(e.mvrngx*2)-e.mvrngx e.tpos.y=e.spawn_y-rnd(e.mvrngy)
+e:moveTo(e.tpos,e.speed)if(e.tcd:adv())e.fire=not e.fire
+if(e.fire)if(e.tfire:adv())en.new(e.x+4,e.y+4,rnd(z.angles),1)
+end,draw=function(e)l.draw(e)if(e.show_life_bar)local n,t=o:calc_center()rectfill(n,t+13,n+flr(125*(e.life/e.max_life)),t+14,8)
+end,del=function(e)L=nil if(e.etype=="boss2")h.keys.red=true
+if(e.etype=="boss1")h.keys.blue=true
+if(e.etype=="boss3")local e=Z().npcdata["q"]eu.new(272,240,e.cname,e.msg)
+l.del(e)end})M=e("c_element:c_obj",{__new=function(e,n,t)local i,o=h.x+(t==d and-4or 6),h.y local e=b.new(i,o,u())e.spr.idle=eB[n]_(e,[[ttl=*5
 max_dist=20
 destroy_req_prev_frm=false
 origx=*1
 origy=*2
 dir=*3
 el=*4
-]],{i,o,t,e,T.new(nz[e],false)})if(t==d)n.spr.flip_x=true
-add(B,n)return n end,update=function(n)if(n.destroy_req_prev_frm)n:del()return
-if(n.ttl:adv())n.destroy_req_prev_frm=true
-n.x=nx(n.origx,n.max_dist,n.ttl,true,n.dir)if(R(n.x,n.y))n:del()
-end,hit=function(n,e)n:effect(e)n:del()end,effect=function(n,e)e:dmg(nW[n.el][h.lev_el[n.el]])end,del=function(n)del(B,n)b.del(n)end})e0=n("c_fire:c_element",{name="fire",__new=function(e,n,t)return M.new(N,n)end,effect=function(e,n)n:unfreeze()M.effect(e,n)end})e1=n("c_ice:c_element",{name="ice",__new=function(e,n,t)return M.new(en,n)end,update=function(n)M.update(n)end,effect=function(e,n)n:freeze()end})ee=n("c_thunder:c_element",{name="thunder",__new=function(e,n,t)return M.new(n4,n)end})et=n("c_wind:c_element",{name="wind",__new=function(e,n,t)return M.new(ei,n)end,effect=function(n,e)e:blow(n.dir)end})r=n("c_int:c_obj",{__new=function(i,n,e,t)local n=b.new(n,e,t)_(n,[[show_int_btn=false
+]],{i,o,t,n,T.new(eL[n],false)})if(t==d)e.spr.flip_x=true
+add(B,e)return e end,update=function(e)if(e.destroy_req_prev_frm)e:del()return
+if(e.ttl:adv())e.destroy_req_prev_frm=true
+e.x=e5(e.origx,e.max_dist,e.ttl,true,e.dir)if(R(e.x,e.y))e:del()
+end,hit=function(e,n)e:effect(n)e:del()end,effect=function(e,n)n:dmg(eA[e.el][h.lev_el[e.el]])end,del=function(e)del(B,e)b.del(e)end})eD=e("c_fire:c_element",{name="fire",__new=function(n,e,t)return M.new(N,e)end,effect=function(n,e)e:unfreeze()M.effect(n,e)end})eq=e("c_ice:c_element",{name="ice",__new=function(n,e,t)return M.new(eF,e)end,update=function(e)M.update(e)end,effect=function(n,e)e:freeze()end})eG=e("c_thunder:c_element",{name="thunder",__new=function(n,e,t)return M.new(e4,e)end})eI=e("c_wind:c_element",{name="wind",__new=function(n,e,t)return M.new(eC,e)end,effect=function(e,n)n:blow(e.dir)end})f=e("c_int:c_obj",{__new=function(i,e,n,t)local e=b.new(e,n,t)_(e,[[show_int_btn=false
 ttl_disable_int=nil
 int_done=false
 solid=true
@@ -241,79 +241,67 @@ hover_info=nil
 hover_info_obj=nil
 int=true
 cost=0
-]])return n end,update=function(n)if(not n.int)return
-if n:collide(h,-2,-2)do n.show_int_btn=true if(n.hover_info~=nil and ng(n.hover_info_obj))n.hover_info_obj=nt.new(100,nil,n.hover_info)n.hover_info_obj.ttl.t=F*20
-h.interaction_fn=n.interact local e=n.ttl_disable_int if btnp(5,0)and not n.int_done do n:interact()elseif n.int_done and e==nil do n.ttl_disable_int=T.new(.5,false)elseif e and e:adv()do n.int_done=false n.ttl_disable_int=nil end else n.show_int_btn=false P(n.hover_info_obj)end end,draw=function(n)n:draw_sprite()if(n.show_int_btn)?"❎",n.x+2,n.y-6,12
-end,interact=function(n)if(h.shards<n.cost)Y.new(30,"you need "..tostr(n.cost).." shards")return
-n:action()n.int_done=true h.shards-=n.cost end,action=function(n)end,del=function(n)P(n.hover_info_obj)b.del(n)end})nO=n("c_switch:c_int",{__new=function(i,n,t,e)local n=r.new(n,t,s())n.spr.idle=f"sprites={27;28;29}; fps=10; loop=true;siblings={}"_(n,"on=*1;int=*2;doors={}",{e,not e})return n end,action=function(n)if(not n.int)return
-if(h.cur_el~=n4)Y.new(30,"you need thunder")return
-for n in all(n.siblings)do _(n,"on=*1;int=*2;show_int_btn=*2",{not n.on,n.on})j(n,n.on and 1or 2)end for e in all(n.doors)do if(not n.on)e:close()else e:open()
-end end,link=function(n,e)add(n.doors,e)end,draw=function(n)pal(7,n.on and 11or 8)pal(10,n.on and 3or 9)r.draw(n)pal()end})n0=n("c_door:c_int",{__new=function(l,n,t,e,i,o)local n=r.new(n,t,s())n.spr.open=e and f"ss=60"or f"sprites={43,44;45;46};fps=5;loop=false"n.spr.close=e and f"ss=59"or f"sprites={46;45;44;43};fps=5;loop=false"_(n,[[phase=close
+]])return e end,update=function(e)if(not e.int)return
+if e:collide(h,-2,-2)do e.show_int_btn=true if(e.hover_info~=nil and eg(e.hover_info_obj))e.hover_info_obj=et.new(100,nil,e.hover_info)e.hover_info_obj.ttl.t=q*20
+h.interaction_fn=e.interact local n=e.ttl_disable_int if btnp(5,0)and not e.int_done do e:interact()elseif e.int_done and n==nil do e.ttl_disable_int=T.new(.5,false)elseif n and n:adv()do e.int_done=false e.ttl_disable_int=nil end else e.show_int_btn=false P(e.hover_info_obj)end end,draw=function(e)e:draw_sprite()if(e.show_int_btn)?"❎",e.x+2,e.y-6,12
+end,interact=function(e)if(h.shards<e.cost)Y.new(30,"you need "..tostr(e.cost).." shards")return
+e:action()e.int_done=true h.shards-=e.cost end,action=function(e)end,del=function(e)P(e.hover_info_obj)b.del(e)end})eT=e("c_switch:c_int",{__new=function(i,e,t,n)local e=f.new(e,t,u())e.spr.idle=r"sprites={27;28;29}; fps=10; loop=true;siblings={}"_(e,"on=*1;int=*2;doors={}",{n,not n})return e end,action=function(e)if(not e.int)return
+if(h.cur_el~=e4)Y.new(30,"you need thunder")return
+for e in all(e.siblings)do _(e,"on=*1;int=*2;show_int_btn=*2",{not e.on,e.on})j(e,e.on and 1or 2)end for n in all(e.doors)do if(not e.on)n:close()else n:open()
+end end,link=function(e,n)add(e.doors,n)end,draw=function(e)pal(7,e.on and 11or 8)pal(10,e.on and 3or 9)f.draw(e)pal()end})e0=e("c_door:c_int",{__new=function(l,e,t,n,i,o)local e=f.new(e,t,u())e.spr.open=n and r"ss=60"or r"sprites={43,44;45;46};fps=5;loop=false"e.spr.close=n and r"ss=59"or r"sprites={46;45;44;43};fps=5;loop=false"_(e,[[phase=close
 hitbox={x=0;y=0;x2=7;y2=7}
 int=*1
 key=*2
-]],{e,i})H(n)if(o)n0.open(n)
-return n end,update=function(n)r.update(n)if n.phase=="close"do for e in all(B)do if(n:collide(e))e:del()
-end end end,interact=function(n)if(not h.keys[n.key])Y.new(30,"you need the "..n.key.." key")return
-n:action()n.int_done=true end,open=function(n)_(n,"phase=open;hover_info=nil;int=false;show_int_btn=false")P(n.hover_info_obj)nf(n)j(n,1)end,close=function(n)n.phase="close"H(n)j(n,2)end,action=function(n)n:open()end,draw=function(n)if(n.int)pal(7,n.key=="red"and 8or 12)
-r.draw(n)pal()end})nU=n("c_scroll:c_int",{__new=function(i,n,t,e)local n=r.new(n,t,s())n=_(n,[[el=*1
+]],{n,i})H(e)if(o)e0.open(e)
+return e end,update=function(e)f.update(e)if e.phase=="close"do for n in all(B)do if(e:collide(n))n:del()
+end end end,interact=function(e)if(not h.keys[e.key])Y.new(30,"you need the "..e.key.." key")return
+e:action()e.int_done=true end,open=function(e)_(e,"phase=open;hover_info=nil;int=false;show_int_btn=false")P(e.hover_info_obj)er(e)j(e,1)end,close=function(e)e.phase="close"H(e)j(e,2)end,action=function(e)e:open()end,draw=function(e)if(e.int)pal(7,e.key=="red"and 8or 12)
+f.draw(e)pal()end})eN=e("c_scroll:c_int",{__new=function(i,e,t,n)local e=f.new(e,t,u())e=_(e,[[el=*1
 int_fn=*2
 cost=*3
 name=*4
 col=*5
-]],{ord(e)-ord"A"+1,eo[e],el[e],ed[e],ef[e]})n.hover_info="learn "..n.name.." ("..tostr(n.cost).." shards)*"..tostr(er[e])n.spr.idle={ss=12}return n end,update=function(n)r.update(n)n.y=n.spawn_y+sin(time())*2end,action=function(n)if(n.int_fn~=nil)n.int_fn(n)else h.cur_el=n.el h.avail_el[n.el]=true
-Y.new(30,n.name.." acquired")j(n,"d")n:del()end,draw=function(n)if(n.el)pal(7,n.col)
-r.draw(n)pal()end})nc=n("c_shard:c_obj",{__new=function(o,n,e,t,i)local n=b.new(n,e,s())_(n,[[            speed=0.1
+]],{ord(n)-ord"A"+1,eE[n],eU[n],eP[n],eO[n]})e.hover_info="learn "..e.name.." ("..tostr(e.cost).." shards)*"..tostr(eK[n])e.spr.idle={ss=12}return e end,update=function(e)f.update(e)e.y=e.spawn_y+sin(time())*2end,action=function(e)if(e.int_fn~=nil)e.int_fn(e)else h.cur_el=e.el h.avail_el[e.el]=true
+Y.new(30,e.name.." acquired")j(e,"d")e:del()end,draw=function(e)if(e.el)pal(7,e.col)
+f.draw(e)pal()end})ec=e("c_shard:c_obj",{__new=function(o,e,n,t,i)local e=b.new(e,n,u())_(e,[[            speed=0.1
 speed_inc=1.05
 cnt=*1
 static=*2
 sbase=1.5
 sx=_fn_rnd_15
 sy=_fn_rnd_15
-]],{t or 1,i or false})return n end,update=function(n)local e=n:mdist(h)if e<4do h.shards+=n.cnt sfx(1)if(n.static)j(n,"d")
-n:del()elseif not n.static do n:moveTo(h,n.speed)n.speed*=n.speed_inc else end end,draw=function(n)circfill(n.x+4,n.y+4,mid(1,n.cnt/2,4),7)end})nu=n("c_npc:c_int",{__new=function(o,n,t,e,i)local n=r.new(n,t,s())n.spr.idle.sprites=ea[e]or{154}n.name=ec[e]n.dialogs=split(i,"/")n.cur_diag=1n.diagcls=nil n.boss=e=="lea"and m==9return n end,update=function(n)r.update(n)if n.diagcls and(n:mdist(h)>40or n.diagcls.destroyed)do n.diagcls:del()if(n.boss)z.new(n.x-8,n.y-8,"boss3")n:del()
-n.cur_diag=1n.diagcls=nil end end,action=function(n)if(n.cur_diag>#n.dialogs)n.diagcls:del()n.cur_diag=1return
-n.diagcls=n.diagcls or nt.new(30,n.name,"")n.diagcls:update_msg(n.dialogs[n.cur_diag])n.diagcls.cont=n.cur_diag<#n.dialogs n.diagcls.ttl:restart()n.cur_diag=n.cur_diag+1end})ne=n("c_bullet:c_obj",{__new=function(o,n,e,t,i)local n=b.new(n,e,s())_(n,[[dir=*1
+]],{t or 1,i or false})return e end,update=function(e)local n=e:mdist(h)if n<4do h.shards+=e.cnt sfx(1)if(e.static)j(e,"d")
+e:del()elseif not e.static do e:moveTo(h,e.speed)e.speed*=e.speed_inc else end end,draw=function(e)circfill(e.x+4,e.y+4,mid(1,e.cnt/2,4),7)end})eu=e("c_npc:c_int",{__new=function(o,e,t,n,i)local e=f.new(e,t,u())e.spr.idle.sprites=eJ[n]or{154}e.name=eS[n]e.dialogs=split(i,"/")e.cur_diag=1e.diagcls=nil e.boss=n=="lea"and m==9return e end,update=function(e)f.update(e)if e.diagcls and(e:mdist(h)>40or e.diagcls.destroyed)do e.diagcls:del()if(e.boss)z.new(e.x-8,e.y-8,"boss3")e:del()
+e.cur_diag=1e.diagcls=nil end end,action=function(e)if(e.cur_diag>#e.dialogs)e.diagcls:del()e.cur_diag=1return
+e.diagcls=e.diagcls or et.new(30,e.name,"")e.diagcls:update_msg(e.dialogs[e.cur_diag])e.diagcls.cont=e.cur_diag<#e.dialogs e.diagcls.ttl:restart()e.cur_diag=e.cur_diag+1end})en=e("c_bullet:c_obj",{__new=function(o,e,n,t,i)local e=b.new(e,n,u())_(e,[[dir=*1
 speed=*2
 ttl=_fn_t1_3
-]],{t,i})n.spr.idle=f"ss = 185"add(n1,n)return n end,update=function(n)n.x+=cos(n.dir)*n.speed n.y+=sin(n.dir)*n.speed if(n:collide(h))h:dmg(1)n:del()else if(g(n.x,n.y)or n.ttl:adv())n:del()
-end,del=function(n)del(n1,n)b.del(n)end})eu=n("c_misc_mgr:c_mgr",{__new=function(n)local n=q.new()return n end})D=n("c_hud_element:c_obj",{__new=function(i,n,e,t)local t=b.new(n,e,t)_(t,"fixedx=*1;fixedy=*2",{n,e})return t end,update=function(n)local e,t=o:calc_center()n.x=n.fixedx+e n.y=n.fixedy+t end})es=n("c_val_printer:c_hud_element",{__new=function(o,n,e,t,i)local n=D.new(n,e)_(n,"draw_fn=*1;bgl=*2",{i,t})n.spr.idle=f"ss=137"return n end,draw=function(n)rectfill(n.x,n.y,n.x+n.bgl,n.y+6,1)n:draw_fn()end})e2=n("c_player_life_bar:c_hud_element",{__new=function(t,n,e)local n=D.new(n,e)n.spr.idle=f"ss=169"n.life_ref=h.init_max_life return n end,draw=function(n)local e=30*h.max_life/n.life_ref rectfill(n.x,n.y+1,n.x+8,n.y+7,1)n:draw_sprite()n5(n.x+10,n.y+2,e,4,h.life,h.max_life,1,8)end})Y=n("c_slide_text:c_hud_element",{__new=function(t,n,e)local n=D.new(0,n,c.mgr.hud_mgr)n.msg=e n.final_pos=122-#e*4n.fixedx=n.final_pos+250_(n,[[            ttl = _fn_t1_2
-        ]])D.update(n)return n end,update=function(n)if(n.ttl:adv())n:del()return
-local e=abs(n.fixedx-n.final_pos)n.fixedx=e<2and n.final_pos or n.fixedx-e*.1D.update(n)end,draw=function(n)rectfill(n.x-2,n.y-2,n.x+126,n.y+7,1)?n.msg,n.x,n.y,8
-end})nt=n("c_dialog:c_slide_text",{__new=function(i,n,t,e)local n=Y.new(n,e)_(n,[[final_pos=10
+]],{t,i})e.spr.idle=r"ss = 185"add(e1,e)return e end,update=function(e)e.x+=cos(e.dir)*e.speed e.y+=sin(e.dir)*e.speed if(e:collide(h))h:dmg(1)e:del()else if(g(e.x,e.y)or e.ttl:adv())e:del()
+end,del=function(e)del(e1,e)b.del(e)end})eV=e("c_misc_mgr:c_mgr",{__new=function(e)local e=F.new()return e end})D=e("c_hud_element:c_obj",{__new=function(i,e,n,t)local t=b.new(e,n,t)_(t,"fixedx=*1;fixedy=*2",{e,n})return t end,update=function(e)local n,t=o:calc_center()e.x=e.fixedx+n e.y=e.fixedy+t end})ez=e("c_val_printer:c_hud_element",{__new=function(o,e,n,t,i)local e=D.new(e,n)_(e,"draw_fn=*1;bgl=*2",{i,t})e.spr.idle=r"ss=137"return e end,draw=function(e)rectfill(e.x,e.y,e.x+e.bgl,e.y+6,1)e:draw_fn()end})eW=e("c_player_life_bar:c_hud_element",{__new=function(t,e,n)local e=D.new(e,n)e.spr.idle=r"ss=169"e.life_ref=h.init_max_life return e end,draw=function(e)local n=30*h.max_life/e.life_ref rectfill(e.x,e.y+1,e.x+8,e.y+7,1)e:draw_sprite()ey(e.x+10,e.y+2,n,4,h.life,h.max_life,1,8)end})Y=e("c_slide_text:c_hud_element",{__new=function(t,e,n)local e=D.new(0,e,c.mgr.hud_mgr)e.msg=n e.final_pos=122-#n*4e.fixedx=e.final_pos+250_(e,[[            ttl = _fn_t1_2
+        ]])D.update(e)return e end,update=function(e)if(e.ttl:adv())e:del()return
+local n=abs(e.fixedx-e.final_pos)e.fixedx=n<2and e.final_pos or e.fixedx-n*.1D.update(e)end,draw=function(e)rectfill(e.x-2,e.y-2,e.x+126,e.y+7,1)?e.msg,e.x,e.y,8
+end})et=e("c_dialog:c_slide_text",{__new=function(i,e,t,n)local e=Y.new(e,n)_(e,[[final_pos=10
 fixedx=260
 ttl=_fn_t1_6
 cont=false
 author=*1
 msgs=nil
-]],{t})nt.update_msg(n,e)return n end,update_msg=function(n,e)n.msg=e n.msgs=split((n.author~=nil and n.author..":*"or"")..e,"*")end,draw=function(n)local e=#n.msgs rectfill(n.x-10,n.y-10,n.x+124,n.y+e*7+10,1)rect(n.x-2,n.y-2,n.x+124,n.y+e*7,14)for e=1,e do?n.msgs[e],n.x,n.y+(e-1)*7,8
-end?"❎",n.x+100,n.y+e*7+2,8
-end})eh=n("c_hud_mgr:c_mgr",{__new=function(n)local n=q.new()n.update_in_pause=true return n end,restart=function(n)n.objs={es.new(54,1,25,function(n)circfill(n.x+4,n.y+3,2,7)?tostr(h.shards),n.x+10,n.y+1,8
-end),e2.new(10,0)}end,draw=function(n)q.draw(n)local n,e=o:calc_center()if(h.keys.red)pal(7,8)spr(59,90+n,1+e)pal()
-if(h.keys.blue)pal(7,12)spr(59,100+n,1+e)pal()
-end})e4=true d,a,X,Q=i"0;1;2;3"N,n4,en,ei=i"1;2;3;4"e3=f"8;10;12;13"nV=f[[{sprites={112;113;114;115};fps=10;loop=false};
+]],{t})et.update_msg(e,n)return e end,update_msg=function(e,n)e.msg=n e.msgs=split((e.author~=nil and e.author..":*"or"")..n,"*")end,draw=function(e)local n=#e.msgs rectfill(e.x-10,e.y-10,e.x+124,e.y+n*7+10,1)rect(e.x-2,e.y-2,e.x+124,e.y+n*7,14)for n=1,n do?e.msgs[n],e.x,e.y+(n-1)*7,8
+end?"❎",e.x+100,e.y+n*7+2,8
+end})n0=e("c_hud_mgr:c_mgr",{__new=function(e)local e=F.new()e.update_in_pause=true return e end,restart=function(e)e.objs={ez.new(54,1,25,function(e)circfill(e.x+4,e.y+3,2,7)?tostr(h.shards),e.x+10,e.y+1,8
+end),eW.new(10,0)}end,draw=function(e)F.draw(e)local e,n=o:calc_center()if(h.keys.red)pal(7,8)spr(59,90+e,1+n)pal()
+if(h.keys.blue)pal(7,12)spr(59,100+e,1+n)pal()
+end})ne=true d,a,X,Q=s"0;1;2;3"N,e4,eF,eC=s"1;2;3;4"nn=r"8;10;12;13"eB=r[[{sprites={112;113;114;115};fps=10;loop=false};
 {sprites={116;117;118;119};fps=30;loop=true};
 {sprites={120;121;122;123};fps=10;loop=false};
 {sprites={124};fps=1;loop=false};
-]]nz=f"0.3;1;0.4;0.5"n2={e0,ee,e1,et}nW=f[[{10;20;30;40};{10;15;25};{0;0;0};{0;0;0}]]ed=f"A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=max life+1;J=fire+3;K=lifereg+2;L=max life+2;"eo=f("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;",{function()h.lev_el[N]=2end,function()h.lev_el[N]=3end,function()h.lifereg_lev=max(1,h.lifereg_lev)end,function()h.lifereg_lev=max(2,h.lifereg_lev)end,function()h.max_life+=5h.life=h.max_life end,function()h.lev_el[N]=4end,function()h.lifereg_lev=3end,function()h.max_life+=10h.life=h.max_life end})ef=f"A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;"er=f[[A=can also burn green vines
-B=strike/power switches
-C=icy things are useful!
-D=all they need is a little push
-E=can also burn red vines
-F=more fire power
-G=life regenerates
-H=life regen increased
-I=tired of losing?
-J=can also burn blue vines
-K=life regen greatly increased
-L=max life to maximum
-]]el=f"A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;"nP=f"U=red;V=blue;"ec=f[[lea=aunt lea
+]]eL=r"0.3;1;0.4;0.5"eh={eD,eG,eq,eI}eA=r[[{10;20;30;40};{10;15;25};{0;0;0};{0;0;0}]]eP=r"A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=max life+1;J=fire+3;K=lifereg+2;L=max life+2;"eE=r("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;",{function()h.lev_el[N]=2end,function()h.lev_el[N]=3end,function()h.lifereg_lev=max(1,h.lifereg_lev)end,function()h.lifereg_lev=max(2,h.lifereg_lev)end,function()h.max_life+=5h.life=h.max_life end,function()h.lev_el[N]=4end,function()h.lifereg_lev=3end,function()h.max_life+=10h.life=h.max_life end})eO=r"A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;"eK=r"A=can also burn green vines;B=strike/power switches;C=icy things are useful!;D=all they need is a little push;E=can also burn red vines;F=more fire power;G=life regenerates;H=life regen increased;I=tired of losing?;J=can also burn blue vines;K=life regen greatly increased;L=max life to maximum;"eU=r"A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;"eM=r"U=red;V=blue;"eS=r[[lea=aunt lea
 lady=lady
 titus=old titus
-]]ea=f[[lea = {192;193}
+]]eJ=r[[lea = {192;193}
 lady = {208;209}
 titus = {224;225}
-]]I=f"a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;"nn=f[[dog={idle={146;147}}
+]]I=r"a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;"ee=r[[dog={idle={146;147}}
 spider={idle={162;163}}
 sk={idle={150;151}}
 bath={idle={128;129}}
@@ -327,39 +315,34 @@ boss2={idle={231;233}}
 boss3={idle={199;201}}
 craterh={idle={38}}
 craterv={idle={54}}
-]]nh=f"batv=1;witchv=1;craterv=1;eyev=1;"nS=f"eyeh=1;eyev=1;"c,h,L,p,x,n_=i"0;0;0;48;32;false"nl,nd=p*8,x*8S,O,v,B,n1=i"{};{};{};{};{};{}"m,nr,k=i"2;true;nil"nF,eb,em,nI=i"false;{false;false;false;false};nil;false"nq=[[moved outside to spare compresion space]]n6,nk,nX,nj,nZ,n9,nN,nM,nT,nQ,nY,nH,nR,nB,nL,nA=i"0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15"nv=f[[metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
+]]e2=r"batv=1;witchv=1;craterv=1;eyev=1;"eR=r"eyeh=1;eyev=1;"c,h,L,p,w,e_=s"0;0;0;48;32;false"el,ed=p*8,w*8S,O,v,B,e1=s"{};{};{};{};{};{}"m,ef,k=s"2;true;nil"ek,nt,ni,eZ=s"false;{false;false;false;false};nil;fakse"eX=[[moved outside to spare compresion space]]ev=r[[metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 sand={tile_maps={17;18;19;20;21};bg_col=0;bg_item_spr={{15};{31};{47};{41}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 grass={tile_maps={33;34;35;36;37};bg_col=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{142};{158};{143};{170}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
-]]K={e(f"name=The green forest 2;music=1;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}",f[[p={cname=titus;msg=i heard that you can*tap twice down arrow*to focus on another spell/tell me if it works*i'm happy to be useful}
-]]),e(f"name=The green forest 1;music=1;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}",f[[p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
-]]),e(f"name=The green forest 3;music=1;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}",f[[q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years/i tried to find those*mysterious scrolls/but i'm too lazy*and old, of course/i know there some scroll near*but i can't guess where}
-]]),e(f"name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}",f[[
-
-]]),e(f"name=The intestines;music=13;theme=sand;wtx=0;wty=32;fix_jumps={{22;1};{20;30}}",f[[            
-]]),e(f"name=The intestines;music=13;theme=ice;wtx=48;wty=32;fix_jumps={{18;1};{4;30}}",f[[            
-]]),e(f"name=The intestines;music=6;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}",f[[
-
-]]),e(f"name=The intestines;music=6;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}",f[[
-
-]]),e(f"name=The forgotten;music=6;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}",f[[p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death};
+]]K={n(r"name=The green forest 2;music=1;theme=grass;wtx=-48;wty=0;fix_jumps={{2;30}}",r[[p={cname=titus;msg=i heard that you can*tap twice down arrow*to focus on another spell/tell me if it works*i'm happy to be useful}
+]]),n(r"name=The green forest 1;music=1;theme=grass;wtx=0;wty=0;fix_jumps={{22;30}}",r[[p = {cname=lea;msg=my dear nephew*you are the only hope*your parents would be proud*of you/please help me find the*four elemental scrolls.}
+]]),n(r"name=The green forest 3;music=1;theme=grass;wtx=48;wty=0;fix_jumps={{17;30}}",r[[q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years/i tried to find those*mysterious scrolls/but i'm too lazy*and old, of course/i know there some scroll near*but i can't guess where}
+]]),n(r"name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}",r[[r = {cname=lady;msg=hi there. i'm lady*nice to meet you/don't go down there*there's a big creature*and dangerous too/but if you insist*maybe this is the 'key'*to your quest*i shouldn't interfere/i thought it could be*orrible to see you*slaughtered by that monster/anyway*good luck}
+]]),n(r"name=The intestines;music=13;theme=sand;wtx=0;wty=32;fix_jumps={{22;1};{20;30}}",r[[]]),n(r"name=The intestines;music=13;theme=ice;wtx=48;wty=32;fix_jumps={{18;1};{4;30}}",r[[r = {cname=lady;msg=hi again*you found the way here/but i guess...*why?/why risk your life*again and again/needless to say*there's an even bigger*and more evil monster*down there/i promise this time*i won't say anything/but it is very dangerous*please be careful}            
+]]),n(r"name=The intestines;music=6;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}",r[[]]),n(r"name=The intestines;music=6;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}",r[[]]),n(r"name=The forgotten;music=6;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}",r[[p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death};
+r={cname=lady;msg=well well well*go on then/i sense something*very dangerous here/but i can't stop you*you never listen to me/see you in the afterlife};
 q={cname=titus;msg=congratulations son!*you have found all the scrolls/I see you also*defeated this evil monsters/sorry to hear you lost*your aunt in the process/though i think she*never was your aunt/anyway, you have done well/the world is safe again/you're free to explore*this world now*as you wish/thank you*thank you player!}
-]])}E("t1",function(n)return T.new(n,false)end)E("t2",function(n)return T.new(n,true)end)E("rnd",function(n)return flr(rnd(n))end)function A()return c.mgr.enemy_mgr end function s()return c.mgr.misc_mgr end function _init()nw"\n\n\n\n----------- Game started -----------"c=e_.new()end function _update60()c:update()end function _draw()c:draw()end e_=n("c_game",{__new=function()local n=f[[paused=false
+]])}E("t1",function(e)return T.new(e,false)end)E("t2",function(e)return T.new(e,true)end)E("rnd",function(e)return flr(rnd(e))end)function A()return c.mgr.enemy_mgr end function u()return c.mgr.misc_mgr end function _init()ew"\n\n\n\n----------- Game started -----------"c=n1.new()end function _update60()c:update()end function _draw()c:draw()end n1=e("c_game",{__new=function()local e=r[[paused=false
 menu=true
 play=false
 stage_title_phase=false
 require_player_rebuild=true
 minimap={}  
 bgpos={0;0}          
-]]n.mgr={enemy_mgr=q.new(),misc_mgr=eu.new(),hud_mgr=eh.new()}return n end,start_play=function(n)n.menu=false n.play=true if(n.require_player_rebuild)h=nJ.new(0,0)n.require_player_rebuild=false
-h:reset_stage_props()for e,n in pairs(n.mgr)do if(n.restart)n:restart()
-end J()o:place(h.x,h.y)music(1)end,start_menu=function(n)n.menu=true n.play=false m=2end,stage_check=function(n)local n,e=flr(h.x/8),flr(h.y/8)if n<0or n>=p-1and h.x>p*8-4or e<0or e>=x do nr=false local t=Z()local e,i=n+t.wtx or 0,e+t.wty or 0if(n>=p-1)e+=1
-local n=nil for t=1,#K do n=K[t]if(e>=n.wtx and e<n.wtx+p and i>=n.wty and i<n.wty+x)m=t break
-end ns()local e,i=e-n.wtx,i-n.wty k=f(""..e..";"..i.."")J()nK()o:place(h.x,h.y)if(t.music~=n.music)music(n.music)
-end end,update=function(n)if n.menu do if(btnp(5,0))n.require_player_rebuild=true n:start_play()
-return end n:stage_check()o:update()for e,n in pairs(n.mgr)do if(n.update)n:update()
-end h:update()n.bgpos[1]=(o.x-o.ox)*.5n.bgpos[2]=(o.y-o.oy)*.5end,draw=function(n)if(n.menu)cls()local n=t()spr(80+flr(n/.1%3),60,30)u("* the last spellcaster *",64,20,7)u("⬅️➡️ to move",64,60,6)u("⬇️⬇️ (tap twice) change spell",64,70,6)u("🅾️ jump - ❎ spell attack",64,80,6)u("(once you have spells)",64,90,6)u("press ❎ to start",64,110,7)return
-cls(Z().theme.bg_col)for e=0,23do for t=0,15do spr(9,e*16+n.bgpos[1],t*16+n.bgpos[2],2,2)end end map(0,0,0,0,ep,e5,false)n.mgr.misc_mgr:draw()n.mgr.enemy_mgr:draw()h:draw()n.mgr.hud_mgr:draw()if(h.phase=="dead")local n,e=o:calc_center()u("you died!",64+n,55+e,8)u("respawning in "..h.t_respawn:t_left(),64+n,65+e,7)return
+]]e.mgr={enemy_mgr=F.new(),misc_mgr=eV.new(),hud_mgr=n0.new()}return e end,start_play=function(e)e.menu=false e.play=true if(e.require_player_rebuild)h=eH.new(0,0)e.require_player_rebuild=false
+h:reset_stage_props()for n,e in pairs(e.mgr)do if(e.restart)e:restart()
+end J()o:place(h.x,h.y)music(1)end,start_menu=function(e)e.menu=true e.play=false m=2end,stage_check=function(e)local e,n=flr(h.x/8),flr(h.y/8)if e<0or e>=p-1and h.x>p*8-4or n<0or n>=w do ef=false local t=Z()local n,i=e+t.wtx or 0,n+t.wty or 0if(e>=p-1)n+=1
+local e=nil for t=1,#K do e=K[t]if(n>=e.wtx and n<e.wtx+p and i>=e.wty and i<e.wty+w)m=t break
+end es()local n,i=n-e.wtx,i-e.wty k=r(""..n..";"..i.."")J()eQ()o:place(h.x,h.y)if(t.music~=e.music)music(e.music)
+end end,update=function(e)if e.menu do if(btnp(5,0))e.require_player_rebuild=true e:start_play()
+return end e:stage_check()o:update()for n,e in pairs(e.mgr)do if(e.update)e:update()
+end h:update()e.bgpos[1]=(o.x-o.ox)*.5e.bgpos[2]=(o.y-o.oy)*.5end,draw=function(e)if(e.menu)cls()local e=t()spr(80+flr(e/.1%3),60,30)i("* the last spellcaster *",64,20,7)i("⬅️➡️ to move",64,60,6)i("⬇️⬇️ (tap twice) change spell",64,70,6)i("🅾️ jump - ❎ spell attack",64,80,6)i("(once you have spells)",64,90,6)i("press ❎ to start",64,110,7)return
+cls(Z().theme.bg_col)for n=0,23do for t=0,15do spr(9,n*16+e.bgpos[1],t*16+e.bgpos[2],2,2)end end map(0,0,0,0,no,nl,false)e.mgr.misc_mgr:draw()e.mgr.enemy_mgr:draw()h:draw()e.mgr.hud_mgr:draw()if(h.phase=="dead")local e,n=o:calc_center()i("you died!",64+e,55+n,8)i("respawning in "..h.t_respawn:t_left(),64+e,65+n,7)return
 end})
 __gfx__
 00000000dddddddd6666666666666666666666666666666670070007000000000000000000000000000000000006d00007777770000000000000000000000000
@@ -535,7 +518,8 @@ __sfx__
 330300001f70021720237202a720357203f7200070000700007000070000700007000070000700007000070000700007000070000700007000070000700007000070000700007000070000700007000070000700
 011100000c052000020000200002000020000200002000020f052000020000200002000020000200002000020e052000020000200002000020000200002000020d05200002000020000200002000020000200002
 01100000001320c132001320c132001320c132001320c132031320f132031320f132031320f132031320f132021320e132021320e132021320e132021320e132011320d132011320d132011320d132011320d132
-011000001f5320050218532005021c532005021d5320050220532005022053220532005020050200502005021f532005021f53200502005020050200502005021c53200502005021c53200502185320050200502
+311000001f5320050218532005021c532005021d5320050220532005022053220532005020050200502005021f532005021f53200502005020050200502005021c53200502005021c53200502185320050200502
+31100000185501855000550005500055000550185501f55003550035500355003550035500355003550035501d550025501d5500255002550025501d5501c550015501b550015500155001550015500155001550
 __music__
 00 10424344
 01 100f4344
@@ -569,7 +553,8 @@ __music__
 02 1f222324
 01 28424344
 01 28294344
-02 28292a44
+00 28292a44
+02 28292b44
 __label__
 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 d7ddd66d0000000000000000000000000000000dd7ddd66dd00000000000000000000000000000000000066dd7ddd600000000000000000000000000d7ddd66d

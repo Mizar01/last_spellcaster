@@ -24,20 +24,7 @@ scr_fn=dstarc("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;", {
     function() player.max_life += 10 player.life = player.max_life end, -- L = max_life+2
 })
 scr_colors = dstarc("A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;")
-scr_desc = dstarc([[
-A=can also burn green vines
-B=strike/power switches
-C=icy things are useful!
-D=all they need is a little push
-E=can also burn red vines
-F=more fire power
-G=life regenerates
-H=life regen increased
-I=tired of losing?
-J=can also burn blue vines
-K=life regen greatly increased
-L=max life to maximum
-]])
+scr_desc = dstarc("A=can also burn green vines;B=strike/power switches;C=icy things are useful!;D=all they need is a little push;E=can also burn red vines;F=more fire power;G=life regenerates;H=life regen increased;I=tired of losing?;J=can also burn blue vines;K=life regen greatly increased;L=max life to maximum;")
 scr_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
 door_key_map=dstarc("U=red;V=blue;")
 npc_names = dstarc([[
@@ -76,12 +63,9 @@ stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru
 
 stage, spawn1, ovd_respawn = dstaru("2;true;nil") -- intitial stage is 2
 
-use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = dstaru("false;{false;false;false;false};nil;false")
+use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = dstaru("false;{false;false;false;false};nil;fakse")
 
 sample_map = [[moved outside to spare compresion space]]
-
--- neighbor config nodes
-ncn_none, ncn_up, ncn_down, ncn_left, ncn_right, ncn_up_down, ncn_up_left, ncn_up_right, ncn_down_left, ncn_down_right, ncn_left_right, ncn_up_down_left, ncn_up_down_right, ncn_up_left_right, ncn_down_left_right, ncn_all = dstaru("0;1;2;4;8;3;5;9;6;10;12;7;11;13;14;15")
 
 themes = dstarc([[
 metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
@@ -114,38 +98,33 @@ q = {cname=titus;msg=hi son. i'm old titus*i lived in these lands*for many years
     build_stage_config_item(
         dstarc("name=The underground;music=13;theme=sand;wtx=-48;wty=32;fix_jumps={{2;1};{11;30};{44;30}}"),
         dstarc([[
-
+r = {cname=lady;msg=hi there. i'm lady*nice to meet you/don't go down there*there's a big creature*and dangerous too/but if you insist*maybe this is the 'key'*to your quest*i shouldn't interfere/i thought it could be*orrible to see you*slaughtered by that monster/anyway*good luck}
 ]])
     ),
     build_stage_config_item(
         dstarc("name=The intestines;music=13;theme=sand;wtx=0;wty=32;fix_jumps={{22;1};{20;30}}"),
-        dstarc([[
-            
-]])
+        dstarc([[]])
     ),
     build_stage_config_item(
         dstarc("name=The intestines;music=13;theme=ice;wtx=48;wty=32;fix_jumps={{18;1};{4;30}}"),
         dstarc([[
-            
+r = {cname=lady;msg=hi again*you found the way here/but i guess...*why?/why risk your life*again and again/needless to say*there's an even bigger*and more evil monster*down there/i promise this time*i won't say anything/but it is very dangerous*please be careful}            
 ]])
     ),
 
     build_stage_config_item(
         dstarc("name=The intestines;music=6;theme=metal;wtx=-48;wty=64;fix_jumps={{10;1};{43;1}}"),
-        dstarc([[
-
-]])
+        dstarc([[]])
     ),
     build_stage_config_item(
         dstarc("name=The intestines;music=6;theme=metal;wtx=0;wty=64;fix_jumps={{19;2}}"),
-        dstarc([[
-
-]])
+        dstarc([[]])
     ),
     build_stage_config_item(
         dstarc("name=The forgotten;music=6;theme=metal;wtx=48;wty=64;fix_jumps={{3;1}}"),
         dstarc([[
 p={cname=lea;msg=oh my beloved nephew*i'm so proud/you have done well*the scrool are again reunited/finally the search*is over/ah ah ah*ah ah ah ah/i can tell you now*i'm not your aunt*i never was/now please die*and all the scroll's power*will vanish with your death};
+r={cname=lady;msg=well well well*go on then/i sense something*very dangerous here/but i can't stop you*you never listen to me/see you in the afterlife};
 q={cname=titus;msg=congratulations son!*you have found all the scrolls/I see you also*defeated this evil monsters/sorry to hear you lost*your aunt in the process/though i think she*never was your aunt/anyway, you have done well/the world is safe again/you're free to explore*this world now*as you wish/thank you*thank you player!}
 ]])
     ),
