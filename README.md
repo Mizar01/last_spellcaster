@@ -5,7 +5,7 @@
 [img]/media/135332/last_spellcaster min_1.gif[/img]
 [img]/media/135332/last_spellcaster min_2.gif[/img]
 
-# The Last Spellcaster (Work in progress)
+# The Last Spellcaster
 
 ## Controls
   - left/right: move
@@ -55,6 +55,7 @@ and warned that they were of the utmost importance and that finding them could m
 Sim, raised by his enigmatic aunt in the shadows of the underground, stood now on the edge of adulthood
 and on the edge of destiny. The scrolls were waiting. The monsters were still out there.
 It was time to fight back.
+
 ## Music
 The soundtrack features:
  - 1 track from @Gruber
@@ -64,6 +65,9 @@ The soundtrack features:
 The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
 
 ## Log updates
+ - 1.0.2 (2026-05-30)
+   - Minor fixes
+   - Added all npc
  - 1.0.1 (2026-04-26)
    - Added cyber eye enemy
    - Added boss event music
