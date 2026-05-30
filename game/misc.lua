@@ -149,7 +149,7 @@ cost=0
 c_switch = cstar("c_switch:c_int", {
     __new = function(n, x, y, on)
         local l = c_int.new(x, y, mmgr())
-        l.spr.idle = dstarc("sprites={27;28;29}; fps=10; loop=true;siblings={}")
+        l.spr.idle = dstarc("sprites={27;28;29};fps=10;loop=true;siblings={}")
         dstar(l, "on=*1;int=*2;doors={}", {on, not on})
         return l
     end,
@@ -272,7 +272,7 @@ c_shard = cstar("c_shard:c_obj", {
     __new = function(n, x, y, cnt, static)
         local l = c_obj.new(x, y, mmgr())
         dstar(l, [[
-            speed=0.1
+speed=0.1
 speed_inc=1.05
 cnt=*1
 static=*2
@@ -318,7 +318,7 @@ c_npc = cstar("c_npc:c_int", {
         if (self.diagcls and (self:mdist(player) > 40 or self.diagcls.destroyed)) then
             self.diagcls:del()
             if (self.boss) then 
-                c_boss.new(self.x - 8, self.y - 8, "boss3")
+                c_boss.new(self.x - 8, self.y - 8, "b3")
                 self:del()
             end
             self.cur_diag = 1 -- reset dialog

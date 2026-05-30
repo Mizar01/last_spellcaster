@@ -27,17 +27,17 @@ y=*2
 spawn_x=*1
 spawn_y=*2
 bounce_map=true
-tw = 1
-th = 1
-solid = false
-]],{e or 0,n or 0,t or nil})e.spr=r[[idle = { sprites = { 64; 65 }; fps = 2;  loop = true }
-flip_x = false
-flip_y = false
-time_start = 0	
-effect = none
-last_frame = 0
-rot_speed = 1
-offview = false
+tw=1
+th=1
+solid=false
+]],{e or 0,n or 0,t or nil})e.spr=r[[idle={sprites={64;65};fps=2;loop=true}
+flip_x=false
+flip_y=false
+time_start=0	
+effect=none
+last_frame=0
+rot_speed=1
+offview=false
 ]]if(e.parent_mgr)e.parent_mgr:add(e)
 return e end,update=function(e)end,draw=function(e)e:draw_sprite()end,respawn=function(e,n,t)e.x,e.y,e.spawn_x,e.spawn_y=n,t,n,t end,del=function(e)e.destroyed=true if(e.parent_mgr)e.parent_mgr:del(e)
 end,draw_sprite=function(t)if(o:offview(t))return
@@ -77,12 +77,12 @@ if(n)e+=8
 return e end function eQ()local e,i,n,t=Z().fix_jumps,5,nil,nil for o=1,#e do local e,o=e[o][1],e[o][2]local l=abs(e-flr(h.x/8))+abs(o-flr(h.y/8))if(l<i)i,n,t=l,e,o
 end if(n~=nil and t~=nil)h:respawn(n*8,t*8)
 end function es()h:reset_stage_props()for n,e in pairs(c.mgr)do if(e.restart)e:restart()
-end v,B,e1=s"{};{};{}"end o={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,offvtol=90,update=function(e)e.x+=(h.x-e.x)*e.csfx e.y+=(h.y-e.y)*e.csfy e.x=mid(e.ox,e.x,p*8-e.ox-16)e.y=mid(e.oy,e.y,w*8-42)local e,n=e:calc_center()camera(e,n)end,place=function(e,n,t)e.x=n e.y=t end,calc_center=function(e)return flr(e.x)-e.ox,flr(e.y)-e.oy end,offview=function(e,n)return abs(flr(e.x-n.x))>e.offvtol or abs(flr(e.y-n.y))>e.offvtol end}eH=e("c_player:c_obj",{__new=function(t,e,n)local e=b.new(e,n)_(e.spr,[[idle = { sprites = { 64; 65 }; fps = 2 }
-walk = { sprites = { 80; 81; 82 }; fps = 6 }
-jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
-dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
+end v,B,e1=s"{};{};{}"end o={x=0,y=0,ox=56,oy=86,csfx=.05,csfy=.07,offvtol=90,update=function(e)e.x+=(h.x-e.x)*e.csfx e.y+=(h.y-e.y)*e.csfy e.x=mid(e.ox,e.x,p*8-e.ox-16)e.y=mid(e.oy,e.y,w*8-42)local e,n=e:calc_center()camera(e,n)end,place=function(e,n,t)e.x=n e.y=t end,calc_center=function(e)return flr(e.x)-e.ox,flr(e.y)-e.oy end,offview=function(e,n)return abs(flr(e.x-n.x))>e.offvtol or abs(flr(e.y-n.y))>e.offvtol end}eH=e("c_player:c_obj",{__new=function(t,e,n)local e=b.new(e,n)_(e.spr,[[idle={sprites={64;65};fps=2}
+walk={sprites={80;81;82};fps=6}
+jump={sprites={97;98;99;100;101;102};fps=8}
+dead={sprites={68;69;70;71;72};fps=4;loop=false}
 		]])_(e,[[name=player
-p.prev_btn = {}
+p.prev_btn={}
 invisible=false
 blocked=false
 invulnerable=false
@@ -154,7 +154,7 @@ life=40
 max_life=_k_life
 dir=nil
 wspeed=0
-dir_before_blow=nil
+dir_bfr_blow=nil
 fixed=false
 hitbox={x=2;y=2;x2=5;y2=5}
 hitbox_orig=_k_hitbox
@@ -168,8 +168,8 @@ e.life-=n e.dmg_time:restart()e.spr.effect="blink_white"if(e.life<=0)ec.new(e.x+
 end,freeze=function(e)e.frozen_t:restart()if(e.fixed)return
 H(e)e.hitbox=r"x=0;y=0;x2=7;y2=7"end,unfreeze=function(e)if(e.fixed)return
 e.frozen_t.t=-1e.spr.effect="none"e.hitbox=e.hitbox_orig end,blow=function(e,n)if(e.fixed)return
-if(e.wspeed<=0)e.dir_before_blow=e.dir
-e.wspeed=2e.dir=n end,unblow=function(e)_(e,"wspeed=-1;dir=_k_dir_before_blow;")end,update=function(e)b.update(e)for n in all(B)do if(e:collide(n))n:hit(e)
+if(e.wspeed<=0)e.dir_bfr_blow=e.dir
+e.wspeed=2e.dir=n end,unblow=function(e)_(e,"wspeed=-1;dir=_k_dir_bfr_blow;")end,update=function(e)b.update(e)for n in all(B)do if(e:collide(n))n:hit(e)
 end if(e.dmg_time:adv())e.spr.effect="none"
 if(e.frozen_t:adv())e:unfreeze()else if(e.frozen_t:t_left_btw(.1,2))e.spr.effect="blink_white"
 if(e.wspeed>0)local n=x(e,e.dir,e.wspeed)e.wspeed=n==0and 0or max(0,e.wspeed-.05)else if(e.wspeed~=-1)e:unblow()
@@ -179,7 +179,7 @@ b.del(e)end,check_pl_coll=function(e,n)if(e:collide(h))h:dmg(n)return true else 
 end,is_inv=function(e)return false end})V=e("c_fly_en:c_enemy",{__new=function(i,e,t,n)local e=l.new(n,e,t,.3,A())e.spr.idle={sprites=ee[n].idle,fps=4,loop=true}e.horizontal=e2[n]==nil _(e,[[hitbox_orig={x=2;y=2;x2=5;y2=5}
 horizontal=_k_horizontal
 dir=*1
-dir_before_blow=_k_dir
+dir_bfr_blow=_k_dir
 ]],{e.horizontal and a or Q})if(eR[n]~=nil)_(e,"tshoot=_fn_t2_4")
 if(e.tshoot~=nil)e.tshoot.t-=10*flr(rnd(20))
 return e end,update=function(e)l.update(e)e.spr.flip_x=e.dir==a if(e.frozen_t.t>0)return
@@ -196,22 +196,22 @@ memdeath=true
 end,draw=function(e)l.draw(e)spr(Z().theme.tile_maps[2],e.x,e.spawn_y+8)end,is_inv=function(e)return true end})ea=e("c_crater:c_enemy",{angles=r"0.5;0;0.25;0.75",__new=function(i,n,e,t)local e=l.new("crater",e,t,0,A())e.name=I[n]e.spr.idle={ss=ee[e.name].idle[1]}_(e,"fixed=true;life=10;dir=-1;spf=0.15;inited=false;tfire=_fn_t2_2;")e.horizontal=e2[e.name]==nil e.dir=e.horizontal and a or Q e.tfire.t-=flr(rnd(40))return e end,update=function(e)if not e.inited do if(e.horizontal and R(e.x+12,e.y))e.dir=d
 if(not e.horizontal and R(e.x,e.y+12))e.dir=X
 e.spr.flip_x=e.dir==d e.spr.flip_y=e.dir==X e.inited=true end if(e.tfire:adv())en.new(e.x,e.y,ea.angles[e.dir+1],1)
-end,draw=function(e)l.draw(e)end,is_inv=function(e)return true end})z=e("c_boss:c_enemy",{angles=r"0;0.1;0.4;0.5;0.6;0.9",__new=function(i,e,t,n)local e=l.new(n,e,t,.3,A())e.spr.idle.sprites=ee[n].idle _(e,[[life = 400
-max_life = _k_life
-tw = 2
-th = 2
+end,draw=function(e)l.draw(e)end,is_inv=function(e)return true end})z=e("c_boss:c_enemy",{angles=r"0;0.1;0.4;0.5;0.6;0.9",__new=function(i,e,t,n)local e=l.new(n,e,t,.3,A())e.spr.idle.sprites=ee[n].idle _(e,[[life=400
+max_life=_k_life
+tw=2
+th=2
 hitbox={x=0;y=0;x2=15;y2=15}
 hitbox_orig=_k_hitbox
-tcd = _fn_t2_1
-tfire = _fn_t2_0.1
-fire = false
-tpos = {x=nil;y=nil}
-mvrngx = 60
-mvrngy = 30
-boss = true
-value = 50
-memdeath = true
-show_life_bar = true
+tcd=_fn_t2_1
+tfire=_fn_t2_0.1
+fire=false
+tpos={x=nil;y=nil}
+mvrngx=60
+mvrngy=30
+boss=true
+value=50
+memdeath=true
+show_life_bar=true
 ]])L=e e.tcd.t-=flr(rnd(40))return e end,update=function(e)l.update(e)local n=e:mdist(h)e.show_life_bar=n<=120if(n>200)e.life=min(e.max_life,e.life+1)
 if(n>80or e.frozen_t.t>0)return
 if(e_==false)music(30)e_=true
@@ -219,9 +219,9 @@ e:check_pl_coll(5)if(e.tpos.x==nil or e:mdist(e.tpos)<3)e.tpos.x=e.spawn_x+rnd(e
 e:moveTo(e.tpos,e.speed)if(e.tcd:adv())e.fire=not e.fire
 if(e.fire)if(e.tfire:adv())en.new(e.x+4,e.y+4,rnd(z.angles),1)
 end,draw=function(e)l.draw(e)if(e.show_life_bar)local n,t=o:calc_center()rectfill(n,t+13,n+flr(125*(e.life/e.max_life)),t+14,8)
-end,del=function(e)L=nil if(e.etype=="boss2")h.keys.red=true
-if(e.etype=="boss1")h.keys.blue=true
-if(e.etype=="boss3")local e=Z().npcdata["q"]eu.new(272,240,e.cname,e.msg)
+end,del=function(e)L=nil if(e.etype=="b2")h.keys.red=true
+if(e.etype=="b1")h.keys.blue=true
+if(e.etype=="b3")local e=Z().npcdata["q"]eu.new(272,240,e.cname,e.msg)
 l.del(e)end})M=e("c_element:c_obj",{__new=function(e,n,t)local i,o=h.x+(t==d and-4or 6),h.y local e=b.new(i,o,u())e.spr.idle=eB[n]_(e,[[ttl=*5
 max_dist=20
 destroy_req_prev_frm=false
@@ -245,7 +245,7 @@ cost=0
 if e:collide(h,-2,-2)do e.show_int_btn=true if(e.hover_info~=nil and eg(e.hover_info_obj))e.hover_info_obj=et.new(100,nil,e.hover_info)e.hover_info_obj.ttl.t=q*20
 h.interaction_fn=e.interact local n=e.ttl_disable_int if btnp(5,0)and not e.int_done do e:interact()elseif e.int_done and n==nil do e.ttl_disable_int=T.new(.5,false)elseif n and n:adv()do e.int_done=false e.ttl_disable_int=nil end else e.show_int_btn=false P(e.hover_info_obj)end end,draw=function(e)e:draw_sprite()if(e.show_int_btn)?"❎",e.x+2,e.y-6,12
 end,interact=function(e)if(h.shards<e.cost)Y.new(30,"you need "..tostr(e.cost).." shards")return
-e:action()e.int_done=true h.shards-=e.cost end,action=function(e)end,del=function(e)P(e.hover_info_obj)b.del(e)end})eT=e("c_switch:c_int",{__new=function(i,e,t,n)local e=f.new(e,t,u())e.spr.idle=r"sprites={27;28;29}; fps=10; loop=true;siblings={}"_(e,"on=*1;int=*2;doors={}",{n,not n})return e end,action=function(e)if(not e.int)return
+e:action()e.int_done=true h.shards-=e.cost end,action=function(e)end,del=function(e)P(e.hover_info_obj)b.del(e)end})eT=e("c_switch:c_int",{__new=function(i,e,t,n)local e=f.new(e,t,u())e.spr.idle=r"sprites={27;28;29};fps=10;loop=true;siblings={}"_(e,"on=*1;int=*2;doors={}",{n,not n})return e end,action=function(e)if(not e.int)return
 if(h.cur_el~=e4)Y.new(30,"you need thunder")return
 for e in all(e.siblings)do _(e,"on=*1;int=*2;show_int_btn=*2",{not e.on,e.on})j(e,e.on and 1or 2)end for n in all(e.doors)do if(not e.on)n:close()else n:open()
 end end,link=function(e,n)add(e.doors,n)end,draw=function(e)pal(7,e.on and 11or 8)pal(10,e.on and 3or 9)f.draw(e)pal()end})e0=e("c_door:c_int",{__new=function(l,e,t,n,i,o)local e=f.new(e,t,u())e.spr.open=n and r"ss=60"or r"sprites={43,44;45;46};fps=5;loop=false"e.spr.close=n and r"ss=59"or r"sprites={46;45;44;43};fps=5;loop=false"_(e,[[phase=close
@@ -263,7 +263,7 @@ name=*4
 col=*5
 ]],{ord(n)-ord"A"+1,eE[n],eU[n],eP[n],eO[n]})e.hover_info="learn "..e.name.." ("..tostr(e.cost).." shards)*"..tostr(eK[n])e.spr.idle={ss=12}return e end,update=function(e)f.update(e)e.y=e.spawn_y+sin(time())*2end,action=function(e)if(e.int_fn~=nil)e.int_fn(e)else h.cur_el=e.el h.avail_el[e.el]=true
 Y.new(30,e.name.." acquired")j(e,"d")e:del()end,draw=function(e)if(e.el)pal(7,e.col)
-f.draw(e)pal()end})ec=e("c_shard:c_obj",{__new=function(o,e,n,t,i)local e=b.new(e,n,u())_(e,[[            speed=0.1
+f.draw(e)pal()end})ec=e("c_shard:c_obj",{__new=function(o,e,n,t,i)local e=b.new(e,n,u())_(e,[[speed=0.1
 speed_inc=1.05
 cnt=*1
 static=*2
@@ -271,7 +271,7 @@ sbase=1.5
 sx=_fn_rnd_15
 sy=_fn_rnd_15
 ]],{t or 1,i or false})return e end,update=function(e)local n=e:mdist(h)if n<4do h.shards+=e.cnt sfx(1)if(e.static)j(e,"d")
-e:del()elseif not e.static do e:moveTo(h,e.speed)e.speed*=e.speed_inc else end end,draw=function(e)circfill(e.x+4,e.y+4,mid(1,e.cnt/2,4),7)end})eu=e("c_npc:c_int",{__new=function(o,e,t,n,i)local e=f.new(e,t,u())e.spr.idle.sprites=eJ[n]or{154}e.name=eS[n]e.dialogs=split(i,"/")e.cur_diag=1e.diagcls=nil e.boss=n=="lea"and m==9return e end,update=function(e)f.update(e)if e.diagcls and(e:mdist(h)>40or e.diagcls.destroyed)do e.diagcls:del()if(e.boss)z.new(e.x-8,e.y-8,"boss3")e:del()
+e:del()elseif not e.static do e:moveTo(h,e.speed)e.speed*=e.speed_inc else end end,draw=function(e)circfill(e.x+4,e.y+4,mid(1,e.cnt/2,4),7)end})eu=e("c_npc:c_int",{__new=function(o,e,t,n,i)local e=f.new(e,t,u())e.spr.idle.sprites=eJ[n]or{154}e.name=eS[n]e.dialogs=split(i,"/")e.cur_diag=1e.diagcls=nil e.boss=n=="lea"and m==9return e end,update=function(e)f.update(e)if e.diagcls and(e:mdist(h)>40or e.diagcls.destroyed)do e.diagcls:del()if(e.boss)z.new(e.x-8,e.y-8,"b3")e:del()
 e.cur_diag=1e.diagcls=nil end end,action=function(e)if(e.cur_diag>#e.dialogs)e.diagcls:del()e.cur_diag=1return
 e.diagcls=e.diagcls or et.new(30,e.name,"")e.diagcls:update_msg(e.dialogs[e.cur_diag])e.diagcls.cont=e.cur_diag<#e.dialogs e.diagcls.ttl:restart()e.cur_diag=e.cur_diag+1end})en=e("c_bullet:c_obj",{__new=function(o,e,n,t,i)local e=b.new(e,n,u())_(e,[[dir=*1
 speed=*2
@@ -295,13 +295,7 @@ end})ne=true d,a,X,Q=s"0;1;2;3"N,e4,eF,eC=s"1;2;3;4"nn=r"8;10;12;13"eB=r[[{sprit
 {sprites={116;117;118;119};fps=30;loop=true};
 {sprites={120;121;122;123};fps=10;loop=false};
 {sprites={124};fps=1;loop=false};
-]]eL=r"0.3;1;0.4;0.5"eh={eD,eG,eq,eI}eA=r[[{10;20;30;40};{10;15;25};{0;0;0};{0;0;0}]]eP=r"A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=max life+1;J=fire+3;K=lifereg+2;L=max life+2;"eE=r("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;",{function()h.lev_el[N]=2end,function()h.lev_el[N]=3end,function()h.lifereg_lev=max(1,h.lifereg_lev)end,function()h.lifereg_lev=max(2,h.lifereg_lev)end,function()h.max_life+=5h.life=h.max_life end,function()h.lev_el[N]=4end,function()h.lifereg_lev=3end,function()h.max_life+=10h.life=h.max_life end})eO=r"A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;"eK=r"A=can also burn green vines;B=strike/power switches;C=icy things are useful!;D=all they need is a little push;E=can also burn red vines;F=more fire power;G=life regenerates;H=life regen increased;I=tired of losing?;J=can also burn blue vines;K=life regen greatly increased;L=max life to maximum;"eU=r"A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;"eM=r"U=red;V=blue;"eS=r[[lea=aunt lea
-lady=lady
-titus=old titus
-]]eJ=r[[lea = {192;193}
-lady = {208;209}
-titus = {224;225}
-]]I=r"a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;"ee=r[[dog={idle={146;147}}
+]]eL=r"0.3;1;0.4;0.5"eh={eD,eG,eq,eI}eA=r[[{10;20;30;40};{10;15;25};{0;0;0};{0;0;0}]]eP=r"A=fire;B=thunder;C=ice;D=wind;E=fire+1;F=fire+2;G=lifereg;H=lifereg+1;I=max life+1;J=fire+3;K=lifereg+2;L=max life+2;"eE=r("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;",{function()h.lev_el[N]=2end,function()h.lev_el[N]=3end,function()h.lifereg_lev=max(1,h.lifereg_lev)end,function()h.lifereg_lev=max(2,h.lifereg_lev)end,function()h.max_life+=5h.life=h.max_life end,function()h.lev_el[N]=4end,function()h.lifereg_lev=3end,function()h.max_life+=10h.life=h.max_life end})eO=r"A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;"eK=r"A=burn green vines;B=strike/power switches;C=icy things are useful!;D=all they need is a little push;E=burn red vines;F=more fire power;G=life regen;H=life regen increased;I=tired of losing?;J=burn blue vines;K=life regen greatly increased;L=max life to maximum;"eU=r"A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;"eM=r"U=red;V=blue;"eS=r"lea=aunt lea;lady=lady;titus=old titus;"eJ=r"lea={192;193};lady={208;209};titus={224;225};"I=r"a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=b1;m=b2;n=b3;w=craterh;x=craterv;"ee=r[[dog={idle={146;147}}
 spider={idle={162;163}}
 sk={idle={150;151}}
 bath={idle={128;129}}
@@ -310,12 +304,12 @@ eyeh={idle={132;133}}
 eyev=_k_eyeh
 witchh={idle={130;131}}
 witchv=_k_witchh
-boss1={idle={203;205}}
-boss2={idle={231;233}}
-boss3={idle={199;201}}
+b1={idle={203;205}}
+b2={idle={231;233}}
+b3={idle={199;201}}
 craterh={idle={38}}
 craterv={idle={54}}
-]]e2=r"batv=1;witchv=1;craterv=1;eyev=1;"eR=r"eyeh=1;eyev=1;"c,h,L,p,w,e_=s"0;0;0;48;32;false"el,ed=p*8,w*8S,O,v,B,e1=s"{};{};{};{};{};{}"m,ef,k=s"2;true;nil"ek,nt,ni,eZ=s"false;{false;false;false;false};nil;fakse"eX=[[moved outside to spare compresion space]]ev=r[[metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
+]]e2=r"batv=1;witchv=1;craterv=1;eyev=1"eR=r"eyeh=1;eyev=1;"c,h,L,p,w,e_=s"0;0;0;48;32;false"el,ed=p*8,w*8S,O,v,B,e1=s"{};{};{};{};{};{}"m,ef,k=s"2;true;nil"ek,nt,ni,eZ=s"false;{false;false;false;false};nil;false"eX=[[moved outside to spare compresion space]]ev=r[[metal={tile_maps={1;2;3;4;5};bg_col=-15;bg_item_spr={{174};{190};{175};{172}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 sand={tile_maps={17;18;19;20;21};bg_col=0;bg_item_spr={{15};{31};{47};{41}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 grass={tile_maps={33;34;35;36;37};bg_col=0;bg_item_spr={{8};{24};{7};{39}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};
 ice={tile_maps={49;50;51;52;53};bg_col=-15;bg_item_spr={{142};{158};{143};{170}};bg_item_off={{0;0};{0;0};{0;-8};{-8;-8}}};

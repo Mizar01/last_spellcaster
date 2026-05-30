@@ -13,20 +13,20 @@ y=*2
 spawn_x=*1
 spawn_y=*2
 bounce_map=true
-tw = 1
-th = 1
-solid = false
+tw=1
+th=1
+solid=false
 ]], {x or 0, y or 0, parent_mgr or nil})
 
 		o.spr = dstarc([[
-idle = { sprites = { 64; 65 }; fps = 2;  loop = true }
-flip_x = false
-flip_y = false
-time_start = 0	
-effect = none
-last_frame = 0
-rot_speed = 1
-offview = false
+idle={sprites={64;65};fps=2;loop=true}
+flip_x=false
+flip_y=false
+time_start=0	
+effect=none
+last_frame=0
+rot_speed=1
+offview=false
 ]])
 		if (o.parent_mgr) o.parent_mgr:add(o)
 		return o

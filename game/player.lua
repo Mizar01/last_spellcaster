@@ -2,14 +2,14 @@ c_player = cstar("c_player:c_obj", {
 	__new = function(n, x, y)
 		local p = c_obj.new(x, y)
 		dstar(p.spr, [[
-idle = { sprites = { 64; 65 }; fps = 2 }
-walk = { sprites = { 80; 81; 82 }; fps = 6 }
-jump = { sprites = { 97; 98; 99; 100; 101; 102 }; fps = 8 }
-dead = { sprites = { 68; 69; 70; 71; 72 }; fps = 4; loop = false }
+idle={sprites={64;65};fps=2}
+walk={sprites={80;81;82};fps=6}
+jump={sprites={97;98;99;100;101;102};fps=8}
+dead={sprites={68;69;70;71;72};fps=4;loop=false}
 		]])
 		dstar(p, [[
 name=player
-p.prev_btn = {}
+p.prev_btn={}
 invisible=false
 blocked=false
 invulnerable=false

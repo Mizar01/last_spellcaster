@@ -1,7 +1,7 @@
 music_on = true
 
-dir_left, dir_right, dir_up, dir_down = dstaru("0;1;2;3")
-el_fire, el_thunder, el_ice, el_wind = dstaru("1;2;3;4")
+dir_left,dir_right,dir_up,dir_down = dstaru("0;1;2;3")
+el_fire,el_thunder,el_ice,el_wind = dstaru("1;2;3;4")
 el_colors = dstarc("8;10;12;13")
 el_idle_setup = dstarc([[
 {sprites={112;113;114;115};fps=10;loop=false};
@@ -24,20 +24,12 @@ scr_fn=dstarc("E=*1;F=*2;G=*3;H=*4;I=*5;J=*6;K=*7;L=*8;", {
     function() player.max_life += 10 player.life = player.max_life end, -- L = max_life+2
 })
 scr_colors = dstarc("A=8;B=10;C=12;D=13;E=8;F=8;G=8;H=8;I=7;J=18;K=8;L=7;")
-scr_desc = dstarc("A=can also burn green vines;B=strike/power switches;C=icy things are useful!;D=all they need is a little push;E=can also burn red vines;F=more fire power;G=life regenerates;H=life regen increased;I=tired of losing?;J=can also burn blue vines;K=life regen greatly increased;L=max life to maximum;")
+scr_desc = dstarc("A=burn green vines;B=strike/power switches;C=icy things are useful!;D=all they need is a little push;E=burn red vines;F=more fire power;G=life regen;H=life regen increased;I=tired of losing?;J=burn blue vines;K=life regen greatly increased;L=max life to maximum;")
 scr_cost = dstarc("A=20;B=25;C=40;D=35;E=50;F=60;G=70;H=80;I=90;J=100;K=110;L=120;")
 door_key_map=dstarc("U=red;V=blue;")
-npc_names = dstarc([[
-lea=aunt lea
-lady=lady
-titus=old titus
-]])
-npc_sprites = dstarc([[
-lea = {192;193}
-lady = {208;209}
-titus = {224;225}
-]])
-en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=boss1;m=boss2;n=boss3;w=craterh;x=craterv;")
+npc_names = dstarc("lea=aunt lea;lady=lady;titus=old titus;")
+npc_sprites = dstarc("lea={192;193};lady={208;209};titus={224;225};") 
+en_map=dstarc("a=bath;b=batv;c=witchh;d=witchv;e=dog;g=spider;i=sk;o=eyeh;y=eyev;l=b1;m=b2;n=b3;w=craterh;x=craterv;")
 en_sprites=dstarc([[
 dog={idle={146;147}}
 spider={idle={162;163}}
@@ -48,14 +40,14 @@ eyeh={idle={132;133}}
 eyev=_k_eyeh
 witchh={idle={130;131}}
 witchv=_k_witchh
-boss1={idle={203;205}}
-boss2={idle={231;233}}
-boss3={idle={199;201}}
+b1={idle={203;205}}
+b2={idle={231;233}}
+b3={idle={199;201}}
 craterh={idle={38}}
 craterv={idle={54}}
 ]])
 -- this should be an array, but it's more convenient to use a map for lookup
-en_vertical=dstarc("batv=1;witchv=1;craterv=1;eyev=1;")
+en_vertical=dstarc("batv=1;witchv=1;craterv=1;eyev=1")
 en_shoot=dstarc("eyeh=1;eyev=1;")
 game, player, cur_boss, map_w, map_h, boss_music_on = dstaru("0;0;0;48;32;false")
 map_wpx, map_hpx = map_w * 8, map_h * 8
@@ -63,7 +55,7 @@ stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru
 
 stage, spawn1, ovd_respawn = dstaru("2;true;nil") -- intitial stage is 2
 
-use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = dstaru("false;{false;false;false;false};nil;fakse")
+use_sample_map, ovd_avail_els, ovd_cur_el, player_enable_all = dstaru("false;{false;false;false;false};nil;false")
 
 sample_map = [[moved outside to spare compresion space]]
 

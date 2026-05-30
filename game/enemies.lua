@@ -11,7 +11,7 @@ life=40
 max_life=_k_life
 dir=nil
 wspeed=0
-dir_before_blow=nil
+dir_bfr_blow=nil
 fixed=false
 hitbox={x=2;y=2;x2=5;y2=5}
 hitbox_orig=_k_hitbox
@@ -48,13 +48,13 @@ memdeath=false
     end,
     blow = function(self, dir)
         if (self.fixed) return
-        if (self.wspeed <= 0) self.dir_before_blow = self.dir
+        if (self.wspeed <= 0) self.dir_bfr_blow = self.dir
         self.wspeed = 2
         self.dir = dir
         -- self.wind_t:restart()
     end,
     unblow = function(self)
-        dstar(self, "wspeed=-1;dir=_k_dir_before_blow;")
+        dstar(self, "wspeed=-1;dir=_k_dir_bfr_blow;")
     end,
     update = function(self)
         c_obj.update(self)
@@ -103,7 +103,7 @@ c_fly_en = cstar("c_fly_en:c_enemy", {
 hitbox_orig={x=2;y=2;x2=5;y2=5}
 horizontal=_k_horizontal
 dir=*1
-dir_before_blow=_k_dir
+dir_bfr_blow=_k_dir
 ]], {l.horizontal and dir_right or dir_down})
         if (en_shoot[name] ~= nil) dstar(l, "tshoot=_fn_t2_4")
         if (l.tshoot != nil) l.tshoot.t -= 10 * flr(rnd(20)) -- first random shoot start
@@ -219,22 +219,22 @@ c_boss = cstar("c_boss:c_enemy", {
         local l = c_enemy.new(name, x, y, 0.3, emgr())
         l.spr.idle.sprites = en_sprites[name].idle
         dstar(l, [[
-life = 400
-max_life = _k_life
-tw = 2
-th = 2
+life=400
+max_life=_k_life
+tw=2
+th=2
 hitbox={x=0;y=0;x2=15;y2=15}
 hitbox_orig=_k_hitbox
-tcd = _fn_t2_1
-tfire = _fn_t2_0.1
-fire = false
-tpos = {x=nil;y=nil}
-mvrngx = 60
-mvrngy = 30
-boss = true
-value = 50
-memdeath = true
-show_life_bar = true
+tcd=_fn_t2_1
+tfire=_fn_t2_0.1
+fire=false
+tpos={x=nil;y=nil}
+mvrngx=60
+mvrngy=30
+boss=true
+value=50
+memdeath=true
+show_life_bar=true
 ]])
         cur_boss = l
         l.tcd.t -= flr(rnd(40)) -- randomly initial shooting, this avoid multiple bosses to shoot in sync and make a cpu spike.
@@ -278,9 +278,9 @@ show_life_bar = true
     end,
     del = function(self)
         cur_boss = nil
-        if (self.etype == "boss2") player.keys.red = true
-        if (self.etype == "boss1") player.keys.blue = true
-        if (self.etype == "boss3") then 
+        if (self.etype == "b2") player.keys.red = true
+        if (self.etype == "b1") player.keys.blue = true
+        if (self.etype == "b3") then 
             local npcdata = stage_config_get().npcdata["q"]
             c_npc.new(34 * 8, 30 * 8, npcdata.cname, npcdata.msg)
         end
