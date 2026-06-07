@@ -106,17 +106,17 @@ c_hud_mgr = cstar("c_hud_mgr:c_mgr", {
     end,
     restart = function(self)
         self.objs = {
-            c_val_printer.new(54, 1, 25, function(self)
+            c_val_printer.new(70, 1, 25, function(self)
                 circfill(self.x + 4, self.y + 3, 2, 7)
                 print(tostr(player.shards), self.x + 10, self.y + 1, 8)
             end),
-            c_player_life_bar.new(10, 0),
+            c_player_life_bar.new(5, 0),
         }
     end,
     draw = function(self)
         c_mgr.draw(self)
         local cx, cy = cam:calc_center()
-        if player.keys.red then pal(7, 8) spr(59, 90 + cx, 1 + cy) pal() end
-        if player.keys.blue then pal(7, 12) spr(59, 100 + cx, 1 + cy) pal() end
+        if player.keys.red then pal(7, 8) spr(59, 100 + cx, 1 + cy) pal() end
+        if player.keys.blue then pal(7, 12) spr(59, 110 + cx, 1 + cy) pal() end
     end,
 })

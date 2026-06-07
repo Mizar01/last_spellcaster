@@ -6,7 +6,7 @@ idle={sprites={64;65};fps=2}
 walk={sprites={80;81;82};fps=6}
 jump={sprites={97;98;99;100;101;102};fps=8}
 dead={sprites={68;69;70;71;72};fps=4;loop=false}
-		]])
+]])
 		dstar(p, [[
 name=player
 p.prev_btn={}
@@ -30,7 +30,6 @@ max_life=20
 init_max_life=20
 lifereg_lev=0
 lifereg_ttl=_fn_t2_4
-stinky_socks=false
 cur_el=nil
 avail_el={false;false;false;false}
 lev_el={1;1;1;1}
@@ -39,11 +38,11 @@ shine_star=0
 interaction_fn=nil
 hitbox={x=2;y=3;x2=5;y2=7}
 t_respawn=nil
-shards=3000
+shards=0
 bounce_map=false
 last_btn_down_time=0
 keys={red=false;blue=false}
-		]])
+]])
 		return p
 	end,
 	reset_stage_props = function(self)
@@ -62,13 +61,12 @@ keys={red=false;blue=false}
 			p.speed *= 0.9
 			p:apply_forces(btn)
 			if (p.t_respawn:adv()) then
-				-- respawn the player
 				if (cur_boss != nil) cur_boss.life = cur_boss.max_life
-				-- p:respawn(p.spawn_x, p.spawn_y)
 				ovd_respawn = nil
 				clean_stage()
 				stage = 2
 				setup_stage_from_string()
+				music(stage_config[2].music)
             	cam:place(player.x, player.y)
 				p.life = p.max_life
 				p.phase = "idle"

@@ -97,6 +97,7 @@ bgpos={0;0}
             fix_jump_transition()
             cam:place(player.x, player.y)
             if (prev_stage.music != cs.music) music(cs.music)
+            -- flog(stat(0))
         end
     end,
     -- draw_minimap = function(self)

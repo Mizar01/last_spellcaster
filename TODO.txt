@@ -1,5 +1,13 @@
 last_spellcaster
 
+TODO:
+- OK solve the c_boss bug
+- OK solve the out of memory bug
+- OK solve the bgm music not returning to original after respawning
+- collision boxes do not really work well some times
+- OK max health bar + 2 will overlap shars counter
+
+
 - npc dialog x button does only forward dialogs when near the npc.
 - info must comply with compressed property limit of 15616 - find ways to spare text in the code. Can also review npc dialogs.
 

@@ -49,8 +49,8 @@ craterv={idle={54}}
 -- this should be an array, but it's more convenient to use a map for lookup
 en_vertical=dstarc("batv=1;witchv=1;craterv=1;eyev=1")
 en_shoot=dstarc("eyeh=1;eyev=1;")
-game, player, cur_boss, map_w, map_h, boss_music_on = dstaru("0;0;0;48;32;false")
-map_wpx, map_hpx = map_w * 8, map_h * 8
+game,player,cur_boss,map_w,map_h,boss_music_on=dstaru("0;0;nil;48;32;false")
+map_wpx,map_hpx=map_w*8,map_h*8
 stage_mem, stage_changes_mem, obj_solids, player_bullets, enemy_bullets = dstaru("{};{};{};{};{};{}")
 
 stage, spawn1, ovd_respawn = dstaru("2;true;nil") -- intitial stage is 2

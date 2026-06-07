@@ -65,6 +65,11 @@ The soundtrack features:
 The source code is available on [github] at https://github.com/Mizar01/last_spellcaster
 
 ## Log updates
+ - 1.0.3 (2026-06-07)
+   - Solved out of memory error due to bad assignment to some types of background tiles.
+   - solved the background music not restarting correctly when respawning
+   - Solved life bar overlapping with shards count
+   - Minor fixes
  - 1.0.2 (2026-05-30)
    - Minor fixes
    - Added all npc
